@@ -62,7 +62,8 @@
 
 ## 5. 기타 링크
 
-<img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white">
+[<img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white">](https://boss-tuk.atlassian.net/jira/software/projects/BC/boards/2)
+<img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
 
 ## 6. 팀원 
 | 이름 | 이승현 | 이정동 | 박준희 | 박다미 |
