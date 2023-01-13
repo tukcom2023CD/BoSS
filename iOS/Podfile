@@ -7,6 +7,8 @@ target 'iOS' do
 
   # Pods for iOS
   pod 'Alamofire', '~> 5.5'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 
   target 'iOSTests' do
     inherit! :search_paths
