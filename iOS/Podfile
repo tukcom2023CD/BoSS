@@ -9,6 +9,7 @@ target 'iOS' do
   pod 'Alamofire', '~> 5.5'
   pod 'GoogleMaps'
   pod 'GooglePlaces'
+  pod 'FirebaseAuth'
 
   target 'iOSTests' do
     inherit! :search_paths

@@ -8,17 +8,20 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        // Google API Key 설정
         GMSServices.provideAPIKey(Bundle.main.GOOGLE_API_KEY)
         GMSPlacesClient.provideAPIKey(Bundle.main.GOOGLE_API_KEY)
+        
+        // Firebase 연결을 위한 초기화 설정
+        FirebaseApp.configure()
         
         return true
     }
