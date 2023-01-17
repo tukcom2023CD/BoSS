@@ -121,6 +121,13 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		5775975E2976578F008CB199 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		5780873F296BEB5500D2BAF8 = {
 			isa = PBXGroup;
 			children = (
@@ -146,8 +153,9 @@
 		5780874A296BEB5500D2BAF8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				5775975B297653EB008CB199 /* Controllers */,
 				5794116729710FDD009192DD /* Extensions */,
+				5775975E2976578F008CB199 /* Models */,
+				5775975B297653EB008CB199 /* Controllers */,
 				5780874B296BEB5500D2BAF8 /* AppDelegate.swift */,
 				5780874D296BEB5500D2BAF8 /* SceneDelegate.swift */,
 				57808751296BEB5500D2BAF8 /* Main.storyboard */,
