@@ -10,6 +10,7 @@
 		36D32DEEF1C5607FA325D100 /* Pods_iOS_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */; };
 		4333AD1A674200E8AAE981B6 /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */; };
 		5775975D2976541F008CB199 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775975C2976541F008CB199 /* HomeViewController.swift */; };
+		577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 577B8F7A2979044600FBD1EB /* OCRNetManager.swift */; };
 		5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5780874B296BEB5500D2BAF8 /* AppDelegate.swift */; };
 		5780874E296BEB5500D2BAF8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5780874D296BEB5500D2BAF8 /* SceneDelegate.swift */; };
 		57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5780874F296BEB5500D2BAF8 /* LoginViewController.swift */; };
@@ -47,6 +48,7 @@
 		207460B44357D9F4D787BFC5 /* Pods-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.release.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		34A3E75F0EC9355F20B34FF4 /* Pods-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.debug.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5775975C2976541F008CB199 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		577B8F7A2979044600FBD1EB /* OCRNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRNetManager.swift; sourceTree = "<group>"; };
 		57808748296BEB5500D2BAF8 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5780874B296BEB5500D2BAF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5780874D296BEB5500D2BAF8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,7 +64,7 @@
 		5780876E296BEB5600D2BAF8 /* iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5794116529710F9A009192DD /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		5794116829710FEB009192DD /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
-		57A1205E297128A7008F5572 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		57A1205E297128A7008F5572 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		64D24A0EE6A955DADD4FDED7 /* Pods-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		577B8F792979034E00FBD1EB /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				577B8F7A2979044600FBD1EB /* OCRNetManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		5780873F296BEB5500D2BAF8 = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				5794116729710FDD009192DD /* Extensions */,
+				577B8F792979034E00FBD1EB /* Networking */,
 				5775975E2976578F008CB199 /* Models */,
 				5775975B297653EB008CB199 /* Controllers */,
 				5780874B296BEB5500D2BAF8 /* AppDelegate.swift */,
@@ -484,6 +495,7 @@
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
 				5794116929710FEB009192DD /* Bundle+Ext.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
+				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
 				5780874E296BEB5500D2BAF8 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
