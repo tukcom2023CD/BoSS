@@ -19,8 +19,8 @@ class FirstCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-       
+        tripDate.text = "2023.01.10 ~2023.01.15 "
+        tripState.text = "🔵여행중"
     }
     public func configure() { //이미지랑 여행지이름만 넣음
         tripImage.image = UIImage(named: "tripimg")

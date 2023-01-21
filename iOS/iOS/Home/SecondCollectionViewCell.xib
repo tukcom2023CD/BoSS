@@ -17,28 +17,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="190" height="300"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0v6-zU-OAW">
-                        <rect key="frame" x="0.0" y="9" width="240" height="128"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="tripimg2" translatesAutoresizingMaskIntoConstraints="NO" id="0v6-zU-OAW">
+                        <rect key="frame" x="0.0" y="0.0" width="190" height="229"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="190" id="pBb-9c-mCR"/>
+                        </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Egt-uo-2rD">
-                        <rect key="frame" x="66" y="173" width="42" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="부산여행" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nA8-Fm-bLf">
+                        <rect key="frame" x="0.0" y="230.66666666666669" width="190" height="21.666666666666657"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UlM-pj-z96">
-                        <rect key="frame" x="74" y="203" width="42" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="경비: 32000원" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5zd-OI-awF">
+                        <rect key="frame" x="0.0" y="277.66666666666674" width="190" height="19.333333333333314"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEF-ud-a5J">
-                        <rect key="frame" x="74" y="232" width="42" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="2022.08.06~ 2022.08.12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1F-Wk-WHJ">
+                        <rect key="frame" x="0.0" y="255.33333333333331" width="190" height="19.333333333333314"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -46,8 +45,33 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="5zd-OI-awF" secondAttribute="bottom" constant="3" id="DB7-25-ChE"/>
+                <constraint firstItem="0v6-zU-OAW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="IdU-WY-1MM"/>
+                <constraint firstAttribute="trailing" secondItem="5zd-OI-awF" secondAttribute="trailing" id="Kmx-J1-YBn"/>
+                <constraint firstAttribute="trailing" secondItem="G1F-Wk-WHJ" secondAttribute="trailing" id="Och-yt-C1b"/>
+                <constraint firstAttribute="bottom" secondItem="G1F-Wk-WHJ" secondAttribute="bottom" constant="3" id="TJB-Mc-9QK"/>
+                <constraint firstItem="5zd-OI-awF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="UY1-gv-Fh8"/>
+                <constraint firstItem="5zd-OI-awF" firstAttribute="top" secondItem="nA8-Fm-bLf" secondAttribute="bottom" constant="3" id="bQ7-YZ-K82"/>
+                <constraint firstItem="5zd-OI-awF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="dCX-vz-J0q"/>
+                <constraint firstItem="5zd-OI-awF" firstAttribute="top" secondItem="G1F-Wk-WHJ" secondAttribute="bottom" constant="3" id="hbA-Ir-6Qr"/>
+                <constraint firstItem="nA8-Fm-bLf" firstAttribute="top" secondItem="0v6-zU-OAW" secondAttribute="bottom" constant="2" id="jg9-Jz-E3d"/>
+                <constraint firstItem="nA8-Fm-bLf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kf0-9O-h5c"/>
+                <constraint firstAttribute="trailing" secondItem="nA8-Fm-bLf" secondAttribute="trailing" id="pTI-cj-ewb"/>
+                <constraint firstItem="G1F-Wk-WHJ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qFa-iw-o0B"/>
+                <constraint firstItem="G1F-Wk-WHJ" firstAttribute="top" secondItem="nA8-Fm-bLf" secondAttribute="bottom" constant="3" id="vDg-I2-tfe"/>
+            </constraints>
             <size key="customSize" width="190" height="300"/>
-            <point key="canvasLocation" x="236.64122137404578" y="75.352112676056336"/>
+            <connections>
+                <outlet property="tripCost" destination="5zd-OI-awF" id="Zu4-IH-rp9"/>
+                <outlet property="tripDate" destination="G1F-Wk-WHJ" id="T3C-uv-Bm5"/>
+                <outlet property="tripImage" destination="0v6-zU-OAW" id="MQK-gR-QjZ"/>
+                <outlet property="tripTitle" destination="nA8-Fm-bLf" id="wOO-Zz-0wC"/>
+            </connections>
+            <point key="canvasLocation" x="236.64122137404578" y="74.647887323943664"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="tripimg2" width="90" height="109"/>
+    </resources>
 </document>

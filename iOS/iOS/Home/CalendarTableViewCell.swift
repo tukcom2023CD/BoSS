@@ -13,7 +13,9 @@ class CalendarTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        calendarImg.layer.cornerRadius = 5//숫자 클수록 둥글게
+        calendarImg.layer.masksToBounds = true
+        calendarImg.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

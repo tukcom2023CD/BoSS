@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
         tableView.register(UINib(nibName:"FirstTableViewCell", bundle: nil), forCellReuseIdentifier:"FirstTableViewCell")
         tableView.register(UINib(nibName:"CalendarTableViewCell", bundle: nil), forCellReuseIdentifier:"CalendarTableViewCell")
         
-       // tableView.register(UINib(nibName: Collection2TableViewCell.className, bundle: nil), forCellReuseIdentifier: Collection2TableViewCell.cellId)
+        tableView.register(UINib(nibName:"SecondTableViewCell", bundle: nil), forCellReuseIdentifier:"SecondTableViewCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -32,7 +32,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,15 +41,16 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "FirstTableViewCell", for: indexPath) as! FirstTableViewCell
             cell.configure()
             return cell
+            
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CalendarTableViewCell", for: indexPath) as! CalendarTableViewCell
             return cell
             
-            
-//        case 2:
-//        let cell = tableView.dequeueReusableCell(withIdentifier: Collection2TableViewCell.cellId, for: indexPath) as! Collection2TableViewCell
-//            //            cell.configure()
-//            return cell
+          
+        case 2:
+         let cell = tableView.dequeueReusableCell(withIdentifier: "SecondTableViewCell", for: indexPath) as! SecondTableViewCell
+            return cell
+           
         default:
             return UITableViewCell()
         }
@@ -65,7 +66,9 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             return 150
         case 1:
             return 400
-//        case 2:
+        case 2:
+            return 300
+            
 //            return (width + 40 + 3) * 5 + 40
         default:
             return 0
