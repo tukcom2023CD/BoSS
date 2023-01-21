@@ -61,7 +61,13 @@
                             <constraint firstItem="BQc-4a-UYG" firstAttribute="leading" secondItem="OtS-8M-ahO" secondAttribute="leading" id="ydP-EW-8di"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="qIv-w1-agK"/>
+                    <navigationItem key="navigationItem" id="qIv-w1-agK">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="line.horizontal.3" catalog="system" id="YZo-6k-Sjr"/>
+                            <barButtonItem title="Item" image="bell" catalog="system" id="vwi-jR-EI3"/>
+                            <barButtonItem title="Item" image="plus" catalog="system" id="6c8-Dz-ZUi"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="BQc-4a-UYG" id="hmD-XN-XIc"/>
                     </connections>
@@ -177,10 +183,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bell" catalog="system" width="125" height="128"/>
         <image name="house" catalog="system" width="128" height="104"/>
+        <image name="line.horizontal.3" catalog="system" width="128" height="65"/>
         <image name="map" catalog="system" width="128" height="112"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="photo.stack" catalog="system" width="128" height="122"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

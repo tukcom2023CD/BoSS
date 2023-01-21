@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="eOi-xA-vMh">
-                        <rect key="frame" x="0.0" y="30" width="349" height="165"/>
+                        <rect key="frame" x="10" y="30" width="329" height="165"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6R4-cp-9Dt">
                             <size key="itemSize" width="128" height="128"/>
@@ -37,9 +37,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="3wO-wW-kSj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="6Id-Ab-iZ9"/>
-                    <constraint firstAttribute="trailing" secondItem="eOi-xA-vMh" secondAttribute="trailing" id="IM1-ya-VQr"/>
+                    <constraint firstAttribute="trailing" secondItem="eOi-xA-vMh" secondAttribute="trailing" constant="10" id="IM1-ya-VQr"/>
                     <constraint firstItem="eOi-xA-vMh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="JAh-aC-NNu"/>
-                    <constraint firstItem="eOi-xA-vMh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aac-LE-bKX"/>
+                    <constraint firstItem="eOi-xA-vMh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aac-LE-bKX"/>
                     <constraint firstItem="eOi-xA-vMh" firstAttribute="top" secondItem="3wO-wW-kSj" secondAttribute="bottom" constant="5" id="mmH-M7-MfD"/>
                     <constraint firstAttribute="bottom" secondItem="eOi-xA-vMh" secondAttribute="bottom" id="mzf-dy-oIW"/>
                     <constraint firstItem="3wO-wW-kSj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="vIt-2M-WBX"/>

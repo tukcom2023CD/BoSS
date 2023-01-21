@@ -40,7 +40,7 @@
                         </constraints>
                     </stackView>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oLh-FW-MRt">
-                        <rect key="frame" x="0.0" y="28.333333333333336" width="401" height="121.66666666666666"/>
+                        <rect key="frame" x="10" y="28.333333333333336" width="381" height="121.66666666666666"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="d5I-Xi-pwA">
                             <size key="itemSize" width="128" height="128"/>
@@ -53,12 +53,12 @@
                 <constraints>
                     <constraint firstItem="oLh-FW-MRt" firstAttribute="top" secondItem="oOJ-v9-AFU" secondAttribute="bottom" id="2Vg-kV-jKh"/>
                     <constraint firstItem="oOJ-v9-AFU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="BqK-x0-JM6"/>
-                    <constraint firstAttribute="trailing" secondItem="oLh-FW-MRt" secondAttribute="trailing" id="O9J-wh-I0c"/>
+                    <constraint firstAttribute="trailing" secondItem="oLh-FW-MRt" secondAttribute="trailing" constant="10" id="O9J-wh-I0c"/>
                     <constraint firstAttribute="trailing" secondItem="oOJ-v9-AFU" secondAttribute="trailing" constant="8" id="Pm5-a9-MHv"/>
                     <constraint firstAttribute="bottom" secondItem="oLh-FW-MRt" secondAttribute="bottom" id="ZUu-H8-KaI"/>
                     <constraint firstItem="oLh-FW-MRt" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="gYd-t5-dLM"/>
                     <constraint firstItem="oOJ-v9-AFU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="n9c-P4-Qe7"/>
-                    <constraint firstItem="oLh-FW-MRt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rqg-33-DL0"/>
+                    <constraint firstItem="oLh-FW-MRt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="rqg-33-DL0"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
