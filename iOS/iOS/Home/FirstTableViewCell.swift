@@ -41,6 +41,7 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"FirstCollectionViewCell", for: indexPath) as! FirstCollectionViewCell
         cell.configure()
+        
         //        cell.configure(with: model[indexPath.row])
         return cell
     }
@@ -48,4 +49,6 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width , height: 150)
     }
+    
+  
 }

@@ -40,15 +40,19 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "FirstTableViewCell", for: indexPath) as! FirstTableViewCell
             cell.configure()
+            cell.selectionStyle = .none
             return cell
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CalendarTableViewCell", for: indexPath) as! CalendarTableViewCell
+            cell.selectionStyle = .none
             return cell
             
           
         case 2:
          let cell = tableView.dequeueReusableCell(withIdentifier: "SecondTableViewCell", for: indexPath) as! SecondTableViewCell
+            cell.selectionStyle = .none
+        
             return cell
            
         default:

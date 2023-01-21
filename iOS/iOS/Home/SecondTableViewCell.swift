@@ -22,8 +22,6 @@ class SecondTableViewCell: UITableViewCell {
         
         collectionView.register(UINib(nibName:"SecondCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "SecondCollectionViewCell")
         
-        
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
