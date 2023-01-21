@@ -16,6 +16,7 @@ class HomeViewController: UIViewController {
         
         //register TableViewCell
         tableView.register(UINib(nibName:"FirstTableViewCell", bundle: nil), forCellReuseIdentifier:"FirstTableViewCell")
+        tableView.register(UINib(nibName:"CalendarTableViewCell", bundle: nil), forCellReuseIdentifier:"CalendarTableViewCell")
         
        // tableView.register(UINib(nibName: Collection2TableViewCell.className, bundle: nil), forCellReuseIdentifier: Collection2TableViewCell.cellId)
         self.tableView.delegate = self
@@ -40,11 +41,15 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "FirstTableViewCell", for: indexPath) as! FirstTableViewCell
             cell.configure()
             return cell
-//        case 1:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: Collection2TableViewCell.cellId, for: indexPath) as! Collection2TableViewCell
-////            cell.configure()
-//            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CalendarTableViewCell", for: indexPath) as! CalendarTableViewCell
+            return cell
             
+            
+//        case 2:
+//        let cell = tableView.dequeueReusableCell(withIdentifier: Collection2TableViewCell.cellId, for: indexPath) as! Collection2TableViewCell
+//            //            cell.configure()
+//            return cell
         default:
             return UITableViewCell()
         }
@@ -59,7 +64,9 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         case 0:
             return 150
         case 1:
-            return (width + 40 + 3) * 5 + 40
+            return 400
+//        case 2:
+//            return (width + 40 + 3) * 5 + 40
         default:
             return 0
         }

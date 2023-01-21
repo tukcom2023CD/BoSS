@@ -17,6 +17,8 @@
 		3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F662297B97FC00014FFE /* FirstTableViewCell.xib */; };
 		3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F665297B980800014FFE /* SecondTableViewCell.swift */; };
 		3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F666297B980800014FFE /* SecondTableViewCell.xib */; };
+		3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F669297BB04800014FFE /* CalendarTableViewCell.swift */; };
+		3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */; };
 		4333AD1A674200E8AAE981B6 /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */; };
 		5775975D2976541F008CB199 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775975C2976541F008CB199 /* HomeViewController.swift */; };
 		5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5780874B296BEB5500D2BAF8 /* AppDelegate.swift */; };
@@ -63,6 +65,8 @@
 		3764F662297B97FC00014FFE /* FirstTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstTableViewCell.xib; sourceTree = "<group>"; };
 		3764F665297B980800014FFE /* SecondTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondTableViewCell.swift; sourceTree = "<group>"; };
 		3764F666297B980800014FFE /* SecondTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondTableViewCell.xib; sourceTree = "<group>"; };
+		3764F669297BB04800014FFE /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
+		3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 		5775975C2976541F008CB199 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		57808748296BEB5500D2BAF8 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5780874B296BEB5500D2BAF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +143,8 @@
 				3764F662297B97FC00014FFE /* FirstTableViewCell.xib */,
 				3764F665297B980800014FFE /* SecondTableViewCell.swift */,
 				3764F666297B980800014FFE /* SecondTableViewCell.xib */,
+				3764F669297BB04800014FFE /* CalendarTableViewCell.swift */,
+				3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -353,6 +359,7 @@
 				3764F625297B8CE700014FFE /* SecretKey.plist in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
 				57808755296BEB5600D2BAF8 /* Assets.xcassets in Resources */,
+				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);
@@ -519,6 +526,7 @@
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
+				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
 				5794116929710FEB009192DD /* Bundle+Ext.swift in Sources */,
 				3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
