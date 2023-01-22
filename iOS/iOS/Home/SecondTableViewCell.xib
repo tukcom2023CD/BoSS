@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="eOi-xA-vMh">
-                        <rect key="frame" x="10" y="30" width="329" height="165"/>
+                        <rect key="frame" x="10" y="30" width="329" height="155"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6R4-cp-9Dt">
                             <size key="itemSize" width="128" height="128"/>
@@ -31,7 +31,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="다녀온 여행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wO-wW-kSj">
                         <rect key="frame" x="5" y="5" width="78" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" systemColor="systemIndigoColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -41,7 +41,7 @@
                     <constraint firstItem="eOi-xA-vMh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="JAh-aC-NNu"/>
                     <constraint firstItem="eOi-xA-vMh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aac-LE-bKX"/>
                     <constraint firstItem="eOi-xA-vMh" firstAttribute="top" secondItem="3wO-wW-kSj" secondAttribute="bottom" constant="5" id="mmH-M7-MfD"/>
-                    <constraint firstAttribute="bottom" secondItem="eOi-xA-vMh" secondAttribute="bottom" id="mzf-dy-oIW"/>
+                    <constraint firstAttribute="bottom" secondItem="eOi-xA-vMh" secondAttribute="bottom" constant="10" id="mzf-dy-oIW"/>
                     <constraint firstItem="3wO-wW-kSj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="vIt-2M-WBX"/>
                 </constraints>
             </tableViewCellContentView>
@@ -55,6 +55,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

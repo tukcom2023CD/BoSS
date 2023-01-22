@@ -68,7 +68,7 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         
         switch indexPath.row{
         case 0:
-            return 150
+            return 130
         case 1:
             return 400
         case 2:
