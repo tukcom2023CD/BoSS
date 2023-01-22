@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FirstCollectionViewCell" id="gTV-IL-0wX" customClass="FirstCollectionViewCell" customModule="iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="371" height="125"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="371" height="125"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripimg" translatesAutoresizingMaskIntoConstraints="NO" id="Ox9-PR-YeG">
+                        <rect key="frame" x="5" y="27.666666666666671" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="UZb-m5-n4s"/>
+                            <constraint firstAttribute="height" constant="70" id="WVm-Db-gbN"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uag-UC-RUN">
+                        <rect key="frame" x="85" y="28" width="226" height="69"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="경주여행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BEe-F0-lE9">
+                                <rect key="frame" x="0.0" y="0.0" width="226" height="21.666666666666668"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🔵 여행중" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYV-gM-yvM">
+                                <rect key="frame" x="0.0" y="29.666666666666661" width="226" height="13.333333333333332"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2023.01.10 ~2023.01.15 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fai-4n-np4">
+                                <rect key="frame" x="0.0" y="51" width="166" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="BEe-F0-lE9" firstAttribute="width" secondItem="uag-UC-RUN" secondAttribute="width" id="pvb-f9-7UQ"/>
+                            <constraint firstItem="eYV-gM-yvM" firstAttribute="width" secondItem="uag-UC-RUN" secondAttribute="width" id="sQ9-nR-xFw"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="uag-UC-RUN" secondAttribute="trailing" constant="60" id="EVs-dT-ogK"/>
+                <constraint firstItem="Ox9-PR-YeG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="Mfj-PM-7wG"/>
+                <constraint firstItem="uag-UC-RUN" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="VoV-DQ-8F2"/>
+                <constraint firstItem="Ox9-PR-YeG" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="bCd-t4-Hrw"/>
+                <constraint firstItem="uag-UC-RUN" firstAttribute="leading" secondItem="Ox9-PR-YeG" secondAttribute="trailing" constant="10" id="hyU-X0-Mpx"/>
+            </constraints>
+            <size key="customSize" width="371" height="174"/>
+            <connections>
+                <outlet property="tripDate" destination="Fai-4n-np4" id="sae-4X-pjh"/>
+                <outlet property="tripImage" destination="Ox9-PR-YeG" id="dEO-41-SYB"/>
+                <outlet property="tripState" destination="eYV-gM-yvM" id="GLs-25-iRz"/>
+                <outlet property="tripTitle" destination="BEe-F0-lE9" id="EIv-9f-fiS"/>
+            </connections>
+            <point key="canvasLocation" x="-315.26717557251908" y="-56.690140845070424"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="tripimg" width="137.5" height="91.5"/>
+    </resources>
+</document>
