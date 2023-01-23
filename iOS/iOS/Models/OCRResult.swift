@@ -34,6 +34,23 @@ struct ReceiptData: Codable {
     let totalPrice: TotalPrice
 }
 
+// MARK: - StoreInfo
+struct StoreInfo: Codable {
+    let name, subName: Name
+    let address: [Name]
+}
+
+// MARK: - Name
+struct Name: Codable {
+    let text: String
+    let formatted: NameFormatted
+}
+
+// MARK: - NameFormatted
+struct NameFormatted: Codable {
+    let value: String
+}
+
 // MARK: - PaymentInfo
 struct PaymentInfo: Codable {
     let date: DateClass
@@ -60,23 +77,6 @@ struct Time: Codable {
 // MARK: - TimeFormatted
 struct TimeFormatted: Codable {
     let hour, minute, second: String
-}
-
-// MARK: - StoreInfo
-struct StoreInfo: Codable {
-    let name, subName: Name
-    let address: [Name]
-}
-
-// MARK: - Name
-struct Name: Codable {
-    let text: String
-    let formatted: NameFormatted
-}
-
-// MARK: - NameFormatted
-struct NameFormatted: Codable {
-    let value: String
 }
 
 // MARK: - SubResult
