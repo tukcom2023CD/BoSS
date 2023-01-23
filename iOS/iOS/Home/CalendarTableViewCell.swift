@@ -6,16 +6,18 @@
 //
 
 import UIKit
+import FSCalendar
 
-class CalendarTableViewCell: UITableViewCell {
+class CalendarTableViewCell: UITableViewCell,FSCalendarDelegate {
 
-    @IBOutlet weak var calendarImg: UIImageView!
+    @IBOutlet weak var calendar: FSCalendar!
+//    @IBOutlet weak var calendarImg: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        calendarImg.layer.cornerRadius = 5//숫자 클수록 둥글게
-        calendarImg.layer.masksToBounds = true
-        calendarImg.clipsToBounds = true
+//        calendarImg.layer.cornerRadius = 5//숫자 클수록 둥글게
+//        calendarImg.layer.masksToBounds = true
+//        calendarImg.clipsToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
