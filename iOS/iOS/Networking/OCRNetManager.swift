@@ -18,12 +18,15 @@ class OCRNetManager {
     /// - parameter completion: ReceiptData를 이용한 UI 작업하기
     func requestReceiptData(image: UIImage, completion: @escaping (ReceiptData)->()) {
         
-        let url = Bundle.main.OCR_API_URL
-        let secretKey = Bundle.main.OCR_API_KEY
+//        let url = Bundle.main.OCR_API_URL
+//        let key = Bundle.main.OCR_API_KEY
 
+        let url = OCRApi.url
+        let key = OCRApi.key
+        
         let headers: HTTPHeaders = [
             "Content-Type" : "multipart/form-data",
-            "X-OCR-SECRET" : secretKey
+            "X-OCR-SECRET" : key
         ]
 
         let file = image.pngData()!
