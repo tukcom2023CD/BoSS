@@ -15,7 +15,7 @@ class OCRNetManager {
     
     // API 호출 코드
     /// - parameter image: Receipt image
-    /// - parameter completion: ReceiptData를 이용한 작업
+    /// - parameter completion: ReceiptData를 이용한 UI 작업하기
     func requestReceiptData(image: UIImage, completion: @escaping (ReceiptData)->()) {
         
         let url = Bundle.main.OCR_API_URL
