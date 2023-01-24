@@ -163,6 +163,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		573941AA2980110500E69D8F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3764F654297B972400014FFE /* Home */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5775975B297653EB008CB199 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,13 +221,13 @@
 		5780874A296BEB5500D2BAF8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				3764F654297B972400014FFE /* Home */,
 				5780874B296BEB5500D2BAF8 /* AppDelegate.swift */,
 				5780874D296BEB5500D2BAF8 /* SceneDelegate.swift */,
 				5794116729710FDD009192DD /* Extensions */,
 				573941A7297ED0B600E69D8F /* Helpers */,
 				577B8F792979034E00FBD1EB /* Networking */,
 				5775975E2976578F008CB199 /* Models */,
+				573941AA2980110500E69D8F /* Views */,
 				5775975B297653EB008CB199 /* Controllers */,
 				57808751296BEB5500D2BAF8 /* Main.storyboard */,
 				57808754296BEB5600D2BAF8 /* Assets.xcassets */,
