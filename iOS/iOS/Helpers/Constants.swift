@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Naver Clova OCR API 관련 설정 값
 public enum OCRApi {
     static let url = Bundle.main.OCR_API_URL
     static let key = Bundle.main.OCR_API_KEY
