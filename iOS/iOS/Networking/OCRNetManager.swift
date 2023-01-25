@@ -34,6 +34,7 @@ class OCRNetManager {
         let timeStamp = Date().timeIntervalSinceReferenceDate / 10
         let message = "{\"version\": \"V2\",\"requestId\": \"\(requestId)\",\"timestamp\": \(timeStamp),\"images\": [{ \"format\": \"png\", \"name\": \"demo\" }]}"
         
+        // 멀티파트 통신
         AF.upload(multipartFormData: { (multipartFormData) in
 
             multipartFormData.append(file, withName: "file", fileName: "test.png", mimeType: "multipart/form-data")

@@ -79,14 +79,29 @@
         <!--지도-->
         <scene sceneID="iFJ-Xb-SWg">
             <objects>
-                <viewController id="LeW-hq-Af8" sceneMemberID="viewController">
+                <viewController id="LeW-hq-Af8" customClass="MapViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yv0-p0-1fC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b98-yr-o18">
+                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="sHW-VG-dPZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="b98-yr-o18" firstAttribute="leading" secondItem="sHW-VG-dPZ" secondAttribute="leading" id="3mk-Oy-Fh0"/>
+                            <constraint firstItem="b98-yr-o18" firstAttribute="top" secondItem="sHW-VG-dPZ" secondAttribute="top" id="Vyx-OD-lhv"/>
+                            <constraint firstItem="sHW-VG-dPZ" firstAttribute="bottom" secondItem="b98-yr-o18" secondAttribute="bottom" id="cdI-b8-X3j"/>
+                            <constraint firstItem="sHW-VG-dPZ" firstAttribute="trailing" secondItem="b98-yr-o18" secondAttribute="trailing" id="j3o-O9-reI"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="지도" image="map" catalog="system" id="BJH-DA-C4a"/>
+                    <connections>
+                        <outlet property="mapView" destination="b98-yr-o18" id="jaf-OU-iCZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WN4-kE-XQt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

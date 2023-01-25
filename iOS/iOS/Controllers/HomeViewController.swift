@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -26,18 +26,19 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-
-
+    
+    
+    
 }
-extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
+
+extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row{
+        switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "FirstTableViewCell", for: indexPath) as! FirstTableViewCell
             cell.configure()
@@ -49,13 +50,12 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
             cell.selectionStyle = .none
             return cell
             
-          
         case 2:
-         let cell = tableView.dequeueReusableCell(withIdentifier: "SecondTableViewCell", for: indexPath) as! SecondTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SecondTableViewCell", for: indexPath) as! SecondTableViewCell
             cell.selectionStyle = .none
-        
+            
             return cell
-           
+            
         default:
             return UITableViewCell()
         }
@@ -66,7 +66,7 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         let interval:CGFloat = 3
         let width: CGFloat = ( UIScreen.main.bounds.width - interval * 3 ) / 2
         
-        switch indexPath.row{
+        switch indexPath.row {
         case 0:
             return 130
         case 1:
@@ -74,11 +74,10 @@ extension HomeViewController:UITableViewDelegate,UITableViewDataSource{
         case 2:
             return 300
             
-//            return (width + 40 + 3) * 5 + 40
+            //            return (width + 40 + 3) * 5 + 40
         default:
             return 0
         }
-        
         
     }
 }

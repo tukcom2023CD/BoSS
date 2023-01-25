@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
         
     }
     
+    // 테스트용 로그인 버튼
     @IBAction func testLoginButtonTapped(_ sender: UIButton) {
         let tabBarVC = storyboard!.instantiateViewController(withIdentifier: "TabBarVC")
         
