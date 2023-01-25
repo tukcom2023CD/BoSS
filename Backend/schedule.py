@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restx import Api, Resource
 import pymysql
 import connect
@@ -36,8 +36,8 @@ class ReadSchedule(Resource):
         conn.execute() # sql문 수행합니다.
         data = conn.fetch() # json 형식의 데이터를 가져옵니다.
         del conn # DB와 연결을 해제합니다.
-        return data # josn 형식의 데이터를 반환합니다.
-      
+        return jsonify(data) # josn 형식의 데이터를 반환합니다.
+
 # 일정 업데이트 (U)
 @api.route('/api/update/schedule')
 class UpdateSchedule(Resource):
@@ -61,6 +61,6 @@ class DeleteSchedule(Resource):
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
-       
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True) 
