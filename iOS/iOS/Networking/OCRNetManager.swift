@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-// Naver Clova OCR API 호출을 위한 싱글톤 패턴 클래스
+// Naver Clova OCR API
 class OCRNetManager {
     static let shared = OCRNetManager()
     private init() {}

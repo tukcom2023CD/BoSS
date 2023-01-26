@@ -14,11 +14,13 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: UIView!
     
     var map: GMSMapView!
+    var places: [Place]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         loadMapView()
+        requestPlaceData()
     }
     
     // 맵 불러오기
@@ -30,4 +32,11 @@ class MapViewController: UIViewController {
         mapView.addSubview(map)
     }
 
+
+    func requestPlaceData() {
+        PlaceNetManager.shared.read { places in
+            self.places = places
+            dump(self.places)
+        }
+    }
 }
