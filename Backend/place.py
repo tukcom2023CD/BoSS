@@ -40,7 +40,7 @@ class ReadPlace(Resource):
         conn.execute()
         data = conn.fetch()
         del conn
-        return jsonify(data)
+        return jsonify({"places": data})
 
 
 # 여행지 수정 (U)
