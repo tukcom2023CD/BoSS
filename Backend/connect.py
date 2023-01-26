@@ -19,7 +19,7 @@ class ConnectDB:
     # 결과 반환    
     def fetch(self):
         self.data = ConnectDB.curs.fetchall() # sql결과를 반환합니다.
-        # self.data = json.dumps(self.data, ensure_ascii=False) # 딕셔너리형 데이터를 json 형식으로 변환합니다.
+        # self.data = json.dumps(self.data, ensure_ascii=False, indent=4) # 딕셔너리형 데이터를 json 형식으로 변환합니다.
         return self.data # 결과값을 저장합니다.
 
     # 인스턴스 삭제 

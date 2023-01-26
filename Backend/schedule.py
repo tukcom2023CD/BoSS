@@ -13,7 +13,7 @@ app= Flask(__name__)
 api= Api(app)
 
 # 일정 생성 (C)
-@api.route('/api/create/schedule')
+@api.route('/api/schedule/create')
 class CreateSchedule(Resource):
     def post(self):
         title= (request.json.get('title')) # json 데이터에서 title 값을 저장합니다.
@@ -28,7 +28,7 @@ class CreateSchedule(Resource):
         del conn # DB와 연결을 해제합니다.
         
 # 일정 가져오기 (R)
-@api.route('/api/read/schedules/<int:uid>')  
+@api.route('/api/schedules/read/<int:uid>')  
 class ReadSchedule(Resource):
     def get(self, uid):
         sql = f"select * from schedule where uid = {uid}" # sql문을 생성합니다.
@@ -37,9 +37,10 @@ class ReadSchedule(Resource):
         data = conn.fetch() # json 형식의 데이터를 가져옵니다.
         del conn # DB와 연결을 해제합니다.
         return jsonify(data) # josn 형식의 데이터를 반환합니다.
+        
 
 # 일정 업데이트 (U)
-@api.route('/api/update/schedule')
+@api.route('/api/schedule/update')
 class UpdateSchedule(Resource):
     def post(self):
         sid = (request.json.get('sid')) # json 데이터에서 sid 값을 저장합니다.
@@ -54,7 +55,7 @@ class UpdateSchedule(Resource):
         del conn # DB와 연결을 해제합니다.
 
 # 일정 삭제 (D)
-@api.route('/api/delete/schedule/<int:sid>')  
+@api.route('/api/schedule/delete/<int:sid>')  
 class DeleteSchedule(Resource):
     def get(self, sid):
         sql = f"delete from schedule where sid = {sid}" # sql문을 생성합니다.
