@@ -36,7 +36,14 @@ class MapViewController: UIViewController {
     func requestPlaceData() {
         PlaceNetManager.shared.read { places in
             self.places = places
-            dump(self.places)
+            
+            DispatchQueue.main.async {
+                for place in places {
+                    let position = CLLocationCoordinate2D(latitude: place.latitude!, longitude: place.longitude!)
+                    let marker = GMSMarker(position: position)
+                    marker.map = self.map
+                }
+            }
         }
     }
 }
