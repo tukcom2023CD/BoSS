@@ -32,7 +32,7 @@ class MapViewController: UIViewController {
         mapView.addSubview(map)
     }
 
-
+    // 여행지 데이터 호출 및 지도에 마커 표시
     func requestPlaceData() {
         PlaceNetManager.shared.read { places in
             self.places = places

@@ -13,6 +13,8 @@ class PlaceNetManager {
     static let shared = PlaceNetManager()
     private init() {}
     
+    // 여행지 데이터 불러오기
+    /// - parameter completion : Place 데이터를 이용한 화면 작업
     func read(completion: @escaping ([Place])->()) {
         guard let url = URL(string: "http://127.0.0.1:5001/api/place/read/2") else { return }
         
