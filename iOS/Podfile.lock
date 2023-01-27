@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.6.4)
+  - CalendarDateRangePicker (2.0)
   - FirebaseAuth (10.3.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
@@ -38,6 +39,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.5)
+  - CalendarDateRangePicker
   - FirebaseAuth
   - FSCalendar
   - GoogleMaps
@@ -46,6 +48,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CalendarDateRangePicker
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreInternal
@@ -58,6 +61,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  CalendarDateRangePicker: fa5f660023cf896180c04fe5c7687106734a54e4
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
   FirebaseCoreInternal: 29b76f784d607df8b2a1259d73c3f04f1210137b
@@ -68,6 +72,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: ffbb25ec00ebcb5201adab0a56d808f6f1902d9f
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
-PODFILE CHECKSUM: 8e49d024774ef64691bb3356c428558bffabb14e
+PODFILE CHECKSUM: a78b14f9a5081ba75d672c47ea78b65b3c7ddb31
 
 COCOAPODS: 1.11.3

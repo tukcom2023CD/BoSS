@@ -11,6 +11,9 @@ target 'iOS' do
   pod 'GooglePlaces'
   pod 'FirebaseAuth'
   pod 'FSCalendar'
+  pod 'CalendarDateRangePicker'
+
+
   target 'iOSTests' do
     inherit! :search_paths
     # Pods for testing
