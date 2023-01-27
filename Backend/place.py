@@ -31,7 +31,7 @@ class CreatePlace(Resource):
         del conn
         
 # 여행지 조회 (R)
-## 여행 날짜 순으로 정렬 후 리턴 필요
+## sid로 여행지 조회
 @api.route('/api/place/read/<int:sid>')
 class ReadPlace(Resource):
     def get(self, sid):
@@ -42,6 +42,17 @@ class ReadPlace(Resource):
         del conn
         return jsonify({"places": data})
 
+## uid로 여행지 조회
+@api.route('/api/places/read/<int:uid>')
+class ReadPlaces(Resource):
+    def get(self, uid):
+        sql = f"select * from place where uid = {uid}"
+        conn = connect.ConnectDB(sql)
+        conn.execute()
+        data = conn.fetch()
+        del conn
+
+        return jsonify({"places": data})
 
 # 여행지 수정 (U)
 # 일지, 총 지출, 방문여부 수정
