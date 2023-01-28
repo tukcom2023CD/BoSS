@@ -5,6 +5,16 @@ from flask_restx import Api, Resource
 import pymysql
 import connect
 
+
+# flask 객체를 생섭합니다.
+app= Flask(__name__)
+
+# Api 객체를 생성합니다. 
+api= Api(app)
+
+
+# 지출 내역 추가 (C)
+## JSON 배열로 전달됨
 @api.route('/api/spending/create')
 class CreateSpending(Resource):
     def post(self):
