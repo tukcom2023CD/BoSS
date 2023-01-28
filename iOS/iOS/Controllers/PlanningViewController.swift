@@ -20,10 +20,7 @@ struct SlideViewConstant {
 class PlanningViewController: UIViewController{
    
     @IBOutlet weak var tableView: UITableView!
-    
     var placeDataArray: [SearchPlace] = []
-    
-    
     @IBOutlet weak var slideUpView: UIView!
     
     
@@ -32,13 +29,8 @@ class PlanningViewController: UIViewController{
     
     
     @IBOutlet weak var placeNameCheck: UILabel!
-    
-    
     @IBOutlet weak var selectCheckButton: UIButton!//날짜 선택하기
-    
-    
     @IBOutlet weak var dateLabel: UILabel! //날짜 표시되는 라벨
-    
     @IBOutlet weak var nextButton: UIButton!
     
     
@@ -62,12 +54,13 @@ class PlanningViewController: UIViewController{
         tableView.register(UINib(nibName: "SearchPlaceTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchPlaceTableViewCell")
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = 80
+        tableView.rowHeight = 70
         slideUpView.isHidden = true
         
         setupView()
         setupDatas()
         nextButton.isHidden = true
+    
        
     }
     
@@ -265,6 +258,7 @@ extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate
         self.navigationController?.dismiss(animated: true, completion: nil)
         dateLabel.isHidden = false
         nextButton.isHidden = false
+        selectCheckButton.setTitle("날짜 재설정", for: .normal)
      
     }
     
