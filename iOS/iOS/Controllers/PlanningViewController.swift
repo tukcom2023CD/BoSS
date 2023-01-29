@@ -20,7 +20,7 @@ struct SlideViewConstant {
 class PlanningViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
-    var RegionDataArray: [Region] = []
+    var regionDataArray: [Region] = []
     @IBOutlet weak var slideUpView: UIView!
     
     
@@ -43,7 +43,7 @@ class PlanningViewController: UIViewController{
     
     
     
-    var RegionDataManager_ = RegionDataManager()
+    var regionDataManager = RegionDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,8 +152,8 @@ class PlanningViewController: UIViewController{
     
     //tableviewcell에 장소 데이터 넣기
     func setupDatas() {
-        RegionDataManager_.makeRegionData()
-        RegionDataArray = RegionDataManager_.getRegionData()
+        regionDataManager.makeRegionData()
+        regionDataArray = regionDataManager.getRegionData()
     }
     
 //slideupView 보이기
@@ -211,16 +211,16 @@ class PlanningViewController: UIViewController{
 extension PlanningViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(#function)
-        return RegionDataArray.count
+        return regionDataArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchPlaceTableViewCell", for: indexPath) as! SearchPlaceTableViewCell
         
-        cell.tripImg.image =  RegionDataArray[indexPath.row].placeImage
-        cell.title.text =  RegionDataArray[indexPath.row].placeName
-        cell.subtitle.text =  RegionDataArray[indexPath.row].placeSubtitle
+        cell.tripImg.image = regionDataArray[indexPath.row].placeImage
+        cell.title.text =  regionDataArray[indexPath.row].placeName
+        cell.subtitle.text =  regionDataArray[indexPath.row].placeSubtitle
         cell.selectionStyle = .none
        
         return cell
@@ -229,7 +229,7 @@ extension PlanningViewController: UITableViewDataSource {
 extension PlanningViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         setupSlideView()
-        placeNameCheck.text = RegionDataArray[indexPath.row].placeName
+        placeNameCheck.text = regionDataArray[indexPath.row].placeName
         // 세그웨이를 실행 -> 사용 예정
       //  performSegue(withIdentifier: "toPlanMain", sender: indexPath)
     }
