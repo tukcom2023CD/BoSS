@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -79,18 +80,43 @@
         <!--지도-->
         <scene sceneID="iFJ-Xb-SWg">
             <objects>
-                <viewController id="LeW-hq-Af8" sceneMemberID="viewController">
+                <viewController id="LeW-hq-Af8" customClass="MapViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yv0-p0-1fC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xub-z8-uhA">
+                                <rect key="frame" x="323" y="79" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="4gU-EE-HWH"/>
+                                    <constraint firstAttribute="width" constant="50" id="Zhg-n5-syb"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="calendar" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="bold"/>
+                                </state>
+                                <connections>
+                                    <action selector="calendarButtonTapped:" destination="LeW-hq-Af8" eventType="touchUpInside" id="PtH-Lb-7m6"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="sHW-VG-dPZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Xub-z8-uhA" firstAttribute="top" secondItem="sHW-VG-dPZ" secondAttribute="top" constant="20" id="GcY-zE-dA5"/>
+                            <constraint firstItem="sHW-VG-dPZ" firstAttribute="trailing" secondItem="Xub-z8-uhA" secondAttribute="trailing" constant="20" id="vJQ-ed-Ddk"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="지도" image="map" catalog="system" id="BJH-DA-C4a"/>
+                    <connections>
+                        <outlet property="calendarButton" destination="Xub-z8-uhA" id="ejx-zD-xb8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WN4-kE-XQt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2905" y="-718"/>
+            <point key="canvasLocation" x="2904.5801526717555" y="-718.30985915492965"/>
         </scene>
         <!--앨범-->
         <scene sceneID="AAx-jg-2lu">
@@ -184,6 +210,7 @@
     </scenes>
     <resources>
         <image name="bell" catalog="system" width="125" height="128"/>
+        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="65"/>
         <image name="map" catalog="system" width="128" height="112"/>
