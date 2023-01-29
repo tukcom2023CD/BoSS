@@ -18,14 +18,10 @@ struct SlideViewConstant {
 }
 
 class PlanningViewController: UIViewController{
-   
+    
     @IBOutlet weak var tableView: UITableView!
-    var placeDataArray: [SearchPlace] = []
+    var RegionDataArray: [Region] = []
     @IBOutlet weak var slideUpView: UIView!
-    
-    
-    
-    
     
     
     @IBOutlet weak var placeNameCheck: UILabel!
@@ -46,8 +42,8 @@ class PlanningViewController: UIViewController{
     var totalDistance = CGFloat()
     
     
-   
-    var placeDataManager = PlaceDataManager()
+    
+    var RegionDataManager_ = RegionDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,11 +56,47 @@ class PlanningViewController: UIViewController{
         setupView()
         setupDatas()
         nextButton.isHidden = true
-    
-       
+        nextButton.layer.cornerRadius = 10
+        
     }
     
-   
+    //alertviewController -> push segue형태로 넣으려고 PlanningVC와 MainPlanVC 간접 segue 만든후 코드 연결
+    @IBAction func nextButtonTapped(_ sender: UIButton) {
+        
+        
+        let alert = UIAlertController(title: "여행계획을 세우러 갈까요?", message:
+                                        "Travelog", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "네", style: .default, handler: {(action) -> Void in
+        
+        self.performSegue(withIdentifier: "MainPlanViewController", sender: self)
+     })
+        let cancel = UIAlertAction(title: "다시 정하기", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+        
+        
+
+//
+//
+//        let action = UIAlertAction(title: "네", style: .default, handler:  {(action) in
+//                                   let vc = self.storyboard!.instantiateViewController(
+//                                    withIdentifier: "MainPlanViewController") as! MainPlanViewController
+//                                   self.present(vc, animated: true, completion: nil)
+//
+//                                   })
+//        let cancel = UIAlertAction(title: "다시 정하기", style: .cancel, handler: nil)
+//        alert.addAction(cancel)
+//        alert.addAction(action)
+//        //alert.modalTransitionStyle = UIModalTransitionStyle.partialCurl
+//
+//
+//       // self.navigationController?.pushViewController(MainPlanViewController, animated: true)
+//        present(alert, animated: true, completion: nil)
+//
+        
+        
+    }
     
     private func setupView(){
         //slideUpView.isHidden = false
@@ -120,8 +152,8 @@ class PlanningViewController: UIViewController{
     
     //tableviewcell에 장소 데이터 넣기
     func setupDatas() {
-        placeDataManager.makePlaceData()
-        placeDataArray = placeDataManager.getPlaceData()
+        RegionDataManager_.makeRegionData()
+        RegionDataArray = RegionDataManager_.getRegionData()
     }
     
 //slideupView 보이기
@@ -179,16 +211,16 @@ class PlanningViewController: UIViewController{
 extension PlanningViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(#function)
-        return placeDataArray.count
+        return RegionDataArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchPlaceTableViewCell", for: indexPath) as! SearchPlaceTableViewCell
         
-        cell.tripImg.image =  placeDataArray[indexPath.row].placeImage
-        cell.title.text =  placeDataArray[indexPath.row].placeName
-        cell.subtitle.text =  placeDataArray[indexPath.row].placeSubtitle
+        cell.tripImg.image =  RegionDataArray[indexPath.row].placeImage
+        cell.title.text =  RegionDataArray[indexPath.row].placeName
+        cell.subtitle.text =  RegionDataArray[indexPath.row].placeSubtitle
         cell.selectionStyle = .none
        
         return cell
@@ -197,7 +229,7 @@ extension PlanningViewController: UITableViewDataSource {
 extension PlanningViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         setupSlideView()
-        placeNameCheck.text = placeDataArray[indexPath.row].placeName
+        placeNameCheck.text = RegionDataArray[indexPath.row].placeName
         // 세그웨이를 실행 -> 사용 예정
       //  performSegue(withIdentifier: "toPlanMain", sender: indexPath)
     }
@@ -205,42 +237,7 @@ extension PlanningViewController: UITableViewDelegate {
 
 
 
-//slideUpUIView 슬라이드 보이기, 내리기를 애니메이션으로 확장함
-extension UIView {
-    
-    func addDropShadow(scale: Bool = true, cornerRadius: CGFloat ) {
-        layer.cornerRadius = cornerRadius
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.5
-        layer.shadowOffset = .zero
-        layer.shadowRadius = 1.5
-        
-        //layer.shadowPath = UIBezierPath(rect: bounds).cgPath
-        layer.shouldRasterize = true
-        layer.rasterizationScale = scale ? UIScreen.main.scale : 1
-    }
-    
 
-    
-    func slideUpShow(_ duration: CGFloat){
-        UIView.animate(withDuration: TimeInterval(duration), delay: 0, options: [.curveEaseOut],
-                       animations: {
-                        self.center.y -= self.bounds.height
-                        self.layoutIfNeeded()}, completion: nil)
-        self.isHidden = false
-    }
-    
-    func slideDownHide(_ duration: CGFloat){
-        UIView.animate(withDuration: TimeInterval(duration), delay: 0, options: [.curveEaseOut],
-                       animations: {
-                        self.center.y += self.bounds.height
-                        self.layoutIfNeeded()},  completion: {(_ completed: Bool) -> Void in
-            self.isHidden = true
-        })
-    }
-
-}
 extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate {
     
     func didCancelPickingDateRange() {

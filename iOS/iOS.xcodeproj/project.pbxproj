@@ -18,9 +18,11 @@
 		3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F666297B980800014FFE /* SecondTableViewCell.xib */; };
 		3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F669297BB04800014FFE /* CalendarTableViewCell.swift */; };
 		3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */; };
-		37B7BE8429855EDB00786A1F /* PlaceDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B7BE8329855EDB00786A1F /* PlaceDataManager.swift */; };
-		37B7BE8629855F0C00786A1F /* SearchPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B7BE8529855F0C00786A1F /* SearchPlace.swift */; };
 		37B7BE88298564F900786A1F /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B7BE87298564F900786A1F /* SlideView.swift */; };
+		37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */; };
+		37ECD62229866358005E21D4 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD62129866358005E21D4 /* Region.swift */; };
+		37ECD6242986649D005E21D4 /* RegionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD6232986649D005E21D4 /* RegionDataManager.swift */; };
+		37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD625298676C8005E21D4 /* UIView+Ext.swift */; };
 		37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */; };
 		37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */; };
 		37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */; };
@@ -75,9 +77,11 @@
 		3764F666297B980800014FFE /* SecondTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondTableViewCell.xib; sourceTree = "<group>"; };
 		3764F669297BB04800014FFE /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
-		37B7BE8329855EDB00786A1F /* PlaceDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDataManager.swift; sourceTree = "<group>"; };
-		37B7BE8529855F0C00786A1F /* SearchPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlace.swift; sourceTree = "<group>"; };
 		37B7BE87298564F900786A1F /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanViewController.swift; sourceTree = "<group>"; };
+		37ECD62129866358005E21D4 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		37ECD6232986649D005E21D4 /* RegionDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDataManager.swift; sourceTree = "<group>"; };
+		37ECD625298676C8005E21D4 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningViewController.swift; sourceTree = "<group>"; };
 		37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceTableViewCell.swift; sourceTree = "<group>"; };
 		37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchPlaceTableViewCell.xib; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				5780874F296BEB5500D2BAF8 /* LoginViewController.swift */,
 				5775975C2976541F008CB199 /* HomeViewController.swift */,
 				37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */,
+				37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -207,8 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				577B8F7C297A7E6500FBD1EB /* OCRResult.swift */,
-				37B7BE8329855EDB00786A1F /* PlaceDataManager.swift */,
-				37B7BE8529855F0C00786A1F /* SearchPlace.swift */,
+				37ECD62129866358005E21D4 /* Region.swift */,
+				37ECD6232986649D005E21D4 /* RegionDataManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -286,6 +291,7 @@
 			isa = PBXGroup;
 			children = (
 				5794116829710FEB009192DD /* Bundle+Ext.swift */,
+				37ECD625298676C8005E21D4 /* UIView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -586,21 +592,23 @@
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
 				37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */,
+				37ECD62229866358005E21D4 /* Region.swift in Sources */,
+				37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
-				37B7BE8629855F0C00786A1F /* SearchPlace.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				577B8F7D297A7E6500FBD1EB /* OCRResult.swift in Sources */,
 				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
 				5794116929710FEB009192DD /* Bundle+Ext.swift in Sources */,
 				3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */,
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
+				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
-				37B7BE8429855EDB00786A1F /* PlaceDataManager.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
 				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
 				3764F663297B97FC00014FFE /* FirstTableViewCell.swift in Sources */,
 				5780874E296BEB5500D2BAF8 /* SceneDelegate.swift in Sources */,
+				37ECD6242986649D005E21D4 /* RegionDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

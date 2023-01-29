@@ -15,7 +15,7 @@ class SearchPlaceTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     
     @IBOutlet weak var subtitle: UILabel!
-    var placeData: SearchPlace!
+    var placeData: Region!
     
     override func awakeFromNib() {
         super.awakeFromNib()

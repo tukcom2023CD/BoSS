@@ -144,6 +144,9 @@
                                         <state key="normal" title="완료">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="nextButtonTapped:" destination="Wtm-Ur-Fvh" eventType="touchUpInside" id="wwG-RV-KDD"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYr-oc-eDl">
                                         <rect key="frame" x="93" y="109" width="41.333333333333329" height="20.333333333333329"/>
@@ -184,11 +187,28 @@
                         <outlet property="selectCheckButton" destination="NiE-Hy-ygr" id="I10-Rk-kUj"/>
                         <outlet property="slideUpView" destination="86j-a5-sI9" id="4DC-0d-lf9"/>
                         <outlet property="tableView" destination="Euu-5Y-wjl" id="bb4-ka-5OZ"/>
+                        <segue destination="cgf-qn-URD" kind="push" identifier="MainPlanViewController" id="ZXp-ya-DIF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HnS-ZM-DSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4851.1450381679388" y="-1502.1126760563382"/>
+        </scene>
+        <!--Main Plan View Controller-->
+        <scene sceneID="Cl7-AU-5un">
+            <objects>
+                <viewController storyboardIdentifier="MainPlanViewController" id="cgf-qn-URD" customClass="MainPlanViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mhg-gg-OIp">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hC1-nX-LRM"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="I3n-sd-Drd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E4n-EB-mii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5647" y="-1523"/>
         </scene>
         <!--지도-->
         <scene sceneID="iFJ-Xb-SWg">
