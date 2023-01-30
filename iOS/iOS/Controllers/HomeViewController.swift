@@ -14,7 +14,6 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var schedules: [Schedule] = []
-    var appendSchedule: Schedule?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +57,12 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             cell.configure()
             cell.selectionStyle = .none
             cell.schedules = self.schedules
+            
+            // 여행일정 셀 클릭 시 동작할 기능 정의
+            cell.didSelectItem = { schedule in
+                let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
+                self.navigationController?.pushViewController(mainPlanVC, animated: true)
+            }
             
             return cell
             

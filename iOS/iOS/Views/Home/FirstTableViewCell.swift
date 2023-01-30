@@ -11,7 +11,8 @@ class FirstTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var model = [String]()
+    // UITableViewCell에서 ViewController의 NavigationController를 사용하기 위한 클로저 변수
+    var didSelectItem: ((_ schedule: Schedule)->())? = nil
     
     var schedules: [Schedule]?
     
@@ -35,6 +36,8 @@ class FirstTableViewCell: UITableViewCell {
     }
     
 }
+
+
 extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return schedules?.count ?? 0
@@ -42,8 +45,6 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"FirstCollectionViewCell", for: indexPath) as! FirstCollectionViewCell
-        
-        let index = indexPath.item
         
         guard let schedule = schedules?[indexPath.item] else { return UICollectionViewCell() }
         
@@ -60,5 +61,11 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         return CGSize(width: collectionView.frame.width , height: 120)
     }
     
-  
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let schedule = schedules![indexPath.item]
+        
+        // 여행 일정 클릭 시 상세 일정 페이지로 이동
+        didSelectItem?(schedule)
+    }
 }

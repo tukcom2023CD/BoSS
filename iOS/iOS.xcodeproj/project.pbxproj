@@ -179,13 +179,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		37B7BE7E29855E5000786A1F /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		573941A7297ED0B600E69D8F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,7 +256,6 @@
 		5780874A296BEB5500D2BAF8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				37B7BE7E29855E5000786A1F /* New Group */,
 				5780874B296BEB5500D2BAF8 /* AppDelegate.swift */,
 				5780874D296BEB5500D2BAF8 /* SceneDelegate.swift */,
 				5794116729710FDD009192DD /* Extensions */,

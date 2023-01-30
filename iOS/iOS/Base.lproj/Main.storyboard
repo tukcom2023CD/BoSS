@@ -43,7 +43,7 @@
         <!--Home View Controller-->
         <scene sceneID="9g9-jD-56m">
             <objects>
-                <viewController id="3m2-jw-HGR" customClass="HomeViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="3m2-jw-HGR" customClass="HomeViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f0b-df-sfo">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -307,7 +307,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4fz-mR-pj5">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="hZg-gI-cwy" kind="relationship" relationship="viewControllers" id="RSI-kd-kVR"/>
@@ -324,7 +324,7 @@
         <!--홈-->
         <scene sceneID="KLh-qd-7xe">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hZg-gI-cwy" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNavVC" automaticallyAdjustsScrollViewInsets="NO" id="hZg-gI-cwy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="홈" image="house" catalog="system" id="P2h-Xh-YQ2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6U2-jC-cJS">
