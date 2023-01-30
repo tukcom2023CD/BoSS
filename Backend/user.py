@@ -14,7 +14,7 @@ api= Api(app)
 
 # 신규 유저 정보 생성 (C)
 @api.route('/api/user/create')
-class CreateUserRecord(Resource):
+class CreateUser(Resource):
     def post(self):
         email = (request.json.get('email')) # json 데이터에서 email 값 저장
         name = (request.json.get('name')) # json 데이터에서 name 값 저장
@@ -25,7 +25,7 @@ class CreateUserRecord(Resource):
        
 # 유저 정보 가져오기 (R)
 @api.route('/api/user/read/<string:email>')  
-class ReadUserRecord(Resource):
+class ReadUser(Resource):
     def get(self, email):
         sql = f"select * from user where email = '{email}'"
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
@@ -36,7 +36,7 @@ class ReadUserRecord(Resource):
 
 # 유저 정보 업데이트 (U)
 @api.route('/api/user/update')
-class UpdateUserRecord(Resource):
+class UpdateUser(Resource):
     def post(self):
         uid = int(request.json.get('uid')) # json 데이터에서 uid 값 저장
         email = (request.json.get('email')) # json 데이터에서 email 값 저장
@@ -48,7 +48,7 @@ class UpdateUserRecord(Resource):
 
 # 유저 정보 삭제 (D)
 @api.route('/api/user/delete/<int:uid>')  
-class DeleteUserRecord(Resource):
+class DeleteUser(Resource):
     def get(self, uid):
         sql = f"delete from user where uid = {uid}"
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
