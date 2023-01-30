@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-// Naver Clova OCR API 호출을 위한 싱글톤 패턴 클래스
+// Naver Clova OCR API
 class OCRNetManager {
     static let shared = OCRNetManager()
     private init() {}
@@ -34,6 +34,7 @@ class OCRNetManager {
         let timeStamp = Date().timeIntervalSinceReferenceDate / 10
         let message = "{\"version\": \"V2\",\"requestId\": \"\(requestId)\",\"timestamp\": \(timeStamp),\"images\": [{ \"format\": \"png\", \"name\": \"demo\" }]}"
         
+        // 멀티파트 통신
         AF.upload(multipartFormData: { (multipartFormData) in
 
             multipartFormData.append(file, withName: "file", fileName: "test.png", mimeType: "multipart/form-data")
