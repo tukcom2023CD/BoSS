@@ -26,6 +26,12 @@
 		37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */; };
 		37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */; };
 		37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */; };
+		37FAFA9E29878CB30034F1EE /* MainPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FAFA9C29878CB20034F1EE /* MainPlanTableViewCell.swift */; };
+		37FAFA9F29878CB30034F1EE /* MainPlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FAFA9D29878CB20034F1EE /* MainPlanTableViewCell.xib */; };
+		37FAFAA6298791E20034F1EE /* MainPlanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FAFAA5298791E20034F1EE /* MainPlanData.swift */; };
+		37FAFAA8298792080034F1EE /* MainPlanDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FAFAA7298792070034F1EE /* MainPlanDataManager.swift */; };
+		37FAFAB02987A0140034F1EE /* MainPlanDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FAFAAE2987A0140034F1EE /* MainPlanDetailTableViewCell.swift */; };
+		37FAFAB12987A0140034F1EE /* MainPlanDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FAFAAF2987A0140034F1EE /* MainPlanDetailTableViewCell.xib */; };
 		4333AD1A674200E8AAE981B6 /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */; };
 		573941A9297ED1E900E69D8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941A8297ED1E900E69D8F /* Constants.swift */; };
 		573941AC2980E57000E69D8F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941AB2980E57000E69D8F /* MapViewController.swift */; };
@@ -88,6 +94,12 @@
 		37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningViewController.swift; sourceTree = "<group>"; };
 		37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceTableViewCell.swift; sourceTree = "<group>"; };
 		37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchPlaceTableViewCell.xib; sourceTree = "<group>"; };
+		37FAFA9C29878CB20034F1EE /* MainPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanTableViewCell.swift; sourceTree = "<group>"; };
+		37FAFA9D29878CB20034F1EE /* MainPlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPlanTableViewCell.xib; sourceTree = "<group>"; };
+		37FAFAA5298791E20034F1EE /* MainPlanData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanData.swift; sourceTree = "<group>"; };
+		37FAFAA7298792070034F1EE /* MainPlanDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanDataManager.swift; sourceTree = "<group>"; };
+		37FAFAAE2987A0140034F1EE /* MainPlanDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanDetailTableViewCell.swift; sourceTree = "<group>"; };
+		37FAFAAF2987A0140034F1EE /* MainPlanDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPlanDetailTableViewCell.xib; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		573941AB2980E57000E69D8F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5775975C2976541F008CB199 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +196,35 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		37FAFAA0298791280034F1EE /* Region */ = {
+			isa = PBXGroup;
+			children = (
+				37ECD6232986649D005E21D4 /* RegionDataManager.swift */,
+				37ECD62129866358005E21D4 /* Region.swift */,
+			);
+			name = Region;
+			sourceTree = "<group>";
+		};
+		37FAFAA4298791BF0034F1EE /* MainPlan */ = {
+			isa = PBXGroup;
+			children = (
+				37FAFAA5298791E20034F1EE /* MainPlanData.swift */,
+				37FAFAA7298792070034F1EE /* MainPlanDataManager.swift */,
+			);
+			name = MainPlan;
+			sourceTree = "<group>";
+		};
+		37FAFAA929879D7E0034F1EE /* MainPlan */ = {
+			isa = PBXGroup;
+			children = (
+				37FAFA9C29878CB20034F1EE /* MainPlanTableViewCell.swift */,
+				37FAFA9D29878CB20034F1EE /* MainPlanTableViewCell.xib */,
+				37FAFAAE2987A0140034F1EE /* MainPlanDetailTableViewCell.swift */,
+				37FAFAAF2987A0140034F1EE /* MainPlanDetailTableViewCell.xib */,
+			);
+			path = MainPlan;
+			sourceTree = "<group>";
+		};
 		573941A7297ED0B600E69D8F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +236,7 @@
 		573941AA2980110500E69D8F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				37FAFAA929879D7E0034F1EE /* MainPlan */,
 				3764F654297B972400014FFE /* Home */,
 				37B7BE87298564F900786A1F /* SlideView.swift */,
 				37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */,
@@ -218,9 +260,9 @@
 		5775975E2976578F008CB199 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				37FAFAA4298791BF0034F1EE /* MainPlan */,
+				37FAFAA0298791280034F1EE /* Region */,
 				577B8F7C297A7E6500FBD1EB /* OCRResult.swift */,
-				37ECD62129866358005E21D4 /* Region.swift */,
-				37ECD6232986649D005E21D4 /* RegionDataManager.swift */,
 				57C399D32982385300F63900 /* Place.swift */,
 			);
 			name = Models;
@@ -435,7 +477,9 @@
 				37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */,
 				F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */,
 				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
+				37FAFA9F29878CB30034F1EE /* MainPlanTableViewCell.xib in Resources */,
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
+				37FAFAB12987A0140034F1EE /* MainPlanDetailTableViewCell.xib in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -599,7 +643,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
+				37FAFA9E29878CB30034F1EE /* MainPlanTableViewCell.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
+				37FAFAA8298792080034F1EE /* MainPlanDataManager.swift in Sources */,
 				37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */,
 				37ECD62229866358005E21D4 /* Region.swift in Sources */,
 				37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */,
@@ -610,8 +656,10 @@
 				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
 				5794116929710FEB009192DD /* Bundle+Ext.swift in Sources */,
 				3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */,
+				37FAFAB02987A0140034F1EE /* MainPlanDetailTableViewCell.swift in Sources */,
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
+				37FAFAA6298791E20034F1EE /* MainPlanData.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,

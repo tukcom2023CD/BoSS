@@ -188,7 +188,7 @@
                         <outlet property="selectCheckButton" destination="NiE-Hy-ygr" id="I10-Rk-kUj"/>
                         <outlet property="slideUpView" destination="86j-a5-sI9" id="4DC-0d-lf9"/>
                         <outlet property="tableView" destination="Euu-5Y-wjl" id="bb4-ka-5OZ"/>
-                        <segue destination="cgf-qn-URD" kind="push" identifier="MainPlanViewController" id="ZXp-ya-DIF"/>
+                        <segue destination="cgf-qn-URD" kind="push" identifier="MainPlanViewController" id="M7T-U4-Brd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HnS-ZM-DSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -202,14 +202,65 @@
                     <view key="view" contentMode="scaleToFill" id="mhg-gg-OIp">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clu-Sm-dlR">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmI-c7-dnm">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tripimg" translatesAutoresizingMaskIntoConstraints="NO" id="ZWs-d7-eJL">
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="256"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="250" id="hpB-FA-xCO"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="ZWs-d7-eJL" firstAttribute="top" secondItem="dmI-c7-dnm" secondAttribute="top" id="EN2-cZ-rhW"/>
+                                            <constraint firstAttribute="trailing" secondItem="ZWs-d7-eJL" secondAttribute="trailing" id="Md8-41-ipk"/>
+                                            <constraint firstAttribute="height" constant="1000" id="dvV-FY-djb"/>
+                                            <constraint firstItem="ZWs-d7-eJL" firstAttribute="leading" secondItem="dmI-c7-dnm" secondAttribute="leading" id="nDD-LC-bfP"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Vvr-oz-TEI">
+                                        <rect key="frame" x="0.0" y="250" width="393" height="750"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="dmI-c7-dnm" secondAttribute="bottom" id="1ke-Z2-0ba"/>
+                                    <constraint firstItem="dmI-c7-dnm" firstAttribute="leading" secondItem="clu-Sm-dlR" secondAttribute="leading" id="3Kr-Hh-tPn"/>
+                                    <constraint firstItem="dmI-c7-dnm" firstAttribute="top" secondItem="XgO-4p-z9y" secondAttribute="top" id="CH8-hF-bkH"/>
+                                    <constraint firstAttribute="trailing" secondItem="dmI-c7-dnm" secondAttribute="trailing" id="CzU-cN-59A"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vvr-oz-TEI" secondAttribute="trailing" id="SEe-AD-8nQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Vvr-oz-TEI" secondAttribute="bottom" id="ucl-ds-1Jm"/>
+                                    <constraint firstItem="Vvr-oz-TEI" firstAttribute="top" secondItem="XgO-4p-z9y" secondAttribute="top" constant="250" id="v1v-6O-tla"/>
+                                    <constraint firstItem="dmI-c7-dnm" firstAttribute="centerX" secondItem="clu-Sm-dlR" secondAttribute="centerX" id="wxx-he-jPf"/>
+                                    <constraint firstItem="Vvr-oz-TEI" firstAttribute="leading" secondItem="clu-Sm-dlR" secondAttribute="leading" id="xJW-gD-Luk"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="Zzf-C9-CAA"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="XgO-4p-z9y"/>
+                            </scrollView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="hC1-nX-LRM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hC1-nX-LRM" firstAttribute="bottom" secondItem="clu-Sm-dlR" secondAttribute="bottom" id="FW2-tH-Dkj"/>
+                            <constraint firstItem="hC1-nX-LRM" firstAttribute="trailing" secondItem="clu-Sm-dlR" secondAttribute="trailing" id="SdW-Fd-1Nk"/>
+                            <constraint firstItem="clu-Sm-dlR" firstAttribute="top" secondItem="hC1-nX-LRM" secondAttribute="top" id="fWH-hc-AAc"/>
+                            <constraint firstItem="clu-Sm-dlR" firstAttribute="leading" secondItem="hC1-nX-LRM" secondAttribute="leading" id="zeH-vL-WqQ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="I3n-sd-Drd"/>
+                    <connections>
+                        <outlet property="tableView" destination="Vvr-oz-TEI" id="dhl-7V-Uv6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E4n-EB-mii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5647" y="-1523"/>
+            <point key="canvasLocation" x="5913.740458015267" y="-1468.3098591549297"/>
         </scene>
         <!--지도-->
         <scene sceneID="iFJ-Xb-SWg">
@@ -352,6 +403,7 @@
         <image name="photo.stack" catalog="system" width="128" height="122"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="tripimg" width="137.5" height="91.5"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
