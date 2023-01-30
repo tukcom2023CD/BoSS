@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+
 extension UIView {
     
     func addDropShadow(scale: Bool = true, cornerRadius: CGFloat ) {
@@ -21,7 +22,6 @@ extension UIView {
         layer.shouldRasterize = true
         layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
-    
 
     
     func slideUpShow(_ duration: CGFloat){
@@ -39,6 +39,7 @@ extension UIView {
                         self.layoutIfNeeded()},  completion: {(_ completed: Bool) -> Void in
             self.isHidden = true
         })
+
     }
 
 }

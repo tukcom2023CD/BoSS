@@ -10,30 +10,20 @@ import UIKit
 import UIKit
 import CalendarDateRangePicker
 
-struct SlideViewConstant {
-    static let slideViewHeight: CGFloat = 350
-    static let cornerRadiusOfSlideView: CGFloat = 20
-    static let animationTime: CGFloat = 0.3
-    
-}
-
 class PlanningViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
-    var regionDataArray: [Region] = []
     @IBOutlet weak var slideUpView: UIView!
-    
     
     @IBOutlet weak var placeNameCheck: UILabel!
     @IBOutlet weak var selectCheckButton: UIButton!//날짜 선택하기
     @IBOutlet weak var dateLabel: UILabel! //날짜 표시되는 라벨
     @IBOutlet weak var nextButton: UIButton!
     
-    
+    var regionDataArray: [Region] = []
     
     var startDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
     var endDate = Calendar.current.date(byAdding: .day, value: 10, to: Date())
-    
     
     //Slide up view에 사용할 변수들
     let blackView = UIView()//슬라이드 뷰
@@ -64,7 +54,7 @@ class PlanningViewController: UIViewController{
     @IBAction func nextButtonTapped(_ sender: UIButton) {
         
         
-        let alert = UIAlertController(title: "여행 계획을 세우시겠습니까?", message:
+        let alert = UIAlertController(title: "생성하시겠습니까?", message:
                                         nil, preferredStyle: .alert)
 
         let ok = UIAlertAction(title: "확인", style: .default) { action in
@@ -76,7 +66,7 @@ class PlanningViewController: UIViewController{
             let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController
             
             rootVC.schedules.append(schedule)
-            
+            rootVC.tableView.reloadData()
             self.navigationController?.popToRootViewController(animated: true)
         }
         

@@ -29,9 +29,9 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        tableView.reloadData()
+//    }
     
     @IBAction func createScheduleBarButtonTapped(_ sender: UIBarButtonItem) {
         
