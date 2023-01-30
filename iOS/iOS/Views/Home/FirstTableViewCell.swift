@@ -12,6 +12,9 @@ class FirstTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var model = [String]()
+    
+    var schedules: [Schedule]?
+    
     func configure(){
         collectionView.reloadData()
     }
@@ -22,7 +25,6 @@ class FirstTableViewCell: UITableViewCell {
         self.collectionView.dataSource = self
         //collectionCell register
         collectionView.register(UINib(nibName:"FirstCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "FirstCollectionViewCell")
-        
         
     }
 
@@ -35,14 +37,22 @@ class FirstTableViewCell: UITableViewCell {
 }
 extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return schedules?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"FirstCollectionViewCell", for: indexPath) as! FirstCollectionViewCell
-        cell.configure()
         
-        //        cell.configure(with: model[indexPath.row])
+        let index = indexPath.item
+        
+        guard let schedule = schedules?[indexPath.item] else { return UICollectionViewCell() }
+        
+        //cell.configure()
+        cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
+        cell.tripState.text = "-"
+        cell.tripTitle.text = "\(schedule.region!) 여행"
+        cell.tripImage.image = UIImage(named: "tripimg")
+        
         return cell
     }
     

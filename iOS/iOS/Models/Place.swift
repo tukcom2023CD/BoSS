@@ -12,7 +12,7 @@ struct PlaceData: Codable {
 }
 
 struct Place: Codable {
-    var pid: Int
+    var pid: Int?
     var name: String?
     var address: String?
     var latitude: Double?
@@ -22,8 +22,8 @@ struct Place: Codable {
     var diary: String?
     var totalSpending: Int?
     var visitDate: String?
-    var sid: Int
-    var uid: Int
+    var sid: Int?
+    var uid: Int?
     
     enum CodingKeys: String, CodingKey {
         case pid, name, address, latitude, longitude, category, status, diary, sid, uid

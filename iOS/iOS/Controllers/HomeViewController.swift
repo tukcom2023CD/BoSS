@@ -13,6 +13,9 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var schedules: [Schedule] = []
+    var appendSchedule: Schedule?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
@@ -27,6 +30,9 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
     
     @IBAction func createScheduleBarButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -51,6 +57,8 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FirstTableViewCell", for: indexPath) as! FirstTableViewCell
             cell.configure()
             cell.selectionStyle = .none
+            cell.schedules = self.schedules
+            
             return cell
             
         case 1:

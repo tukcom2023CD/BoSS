@@ -64,11 +64,19 @@ class PlanningViewController: UIViewController{
     @IBAction func nextButtonTapped(_ sender: UIButton) {
         
         
-        let alert = UIAlertController(title: "여행계획을 세우러 갈까요?", message:
+        let alert = UIAlertController(title: "여행 계획을 세우시겠습니까?", message:
                                         nil, preferredStyle: .alert)
 
         let ok = UIAlertAction(title: "확인", style: .default) { action in
             self.tabBarController?.tabBar.isHidden = false
+            
+            let schedule = Schedule(region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)")
+            
+            let index = self.navigationController!.viewControllers.count - 2
+            let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController
+            
+            rootVC.schedules.append(schedule)
+            
             self.navigationController?.popToRootViewController(animated: true)
         }
         
