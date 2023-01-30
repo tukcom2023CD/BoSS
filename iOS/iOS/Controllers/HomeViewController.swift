@@ -28,6 +28,13 @@ class HomeViewController: UIViewController {
     }
     
     
+    @IBAction func createScheduleBarButtonTapped(_ sender: UIBarButtonItem) {
+        
+        let planningVC = storyboard?.instantiateViewController(withIdentifier: "PlanningVC") as! PlanningViewController
+        
+        navigationController?.pushViewController(planningVC, animated: true)
+        tabBarController?.tabBar.isHidden = true
+    }
     
     
 }

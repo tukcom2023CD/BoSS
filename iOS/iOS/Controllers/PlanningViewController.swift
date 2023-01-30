@@ -65,12 +65,14 @@ class PlanningViewController: UIViewController{
         
         
         let alert = UIAlertController(title: "여행계획을 세우러 갈까요?", message:
-                                        "Travelog", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "네", style: .default, handler: {(action) -> Void in
+                                        nil, preferredStyle: .alert)
+
+        let ok = UIAlertAction(title: "확인", style: .default) { action in
+            self.tabBarController?.tabBar.isHidden = false
+            self.navigationController?.popToRootViewController(animated: true)
+        }
         
-        self.performSegue(withIdentifier: "MainPlanViewController", sender: self)
-     })
-        let cancel = UIAlertAction(title: "다시 정하기", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alert.addAction(cancel)
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
@@ -170,7 +172,7 @@ class PlanningViewController: UIViewController{
           
         }, completion: nil)
         slideUpView.slideUpShow(animationTime)
-        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.tabBar.isHidden = true
         originalCenterOfslideUpView = slideUpView.center.y
     }
     
@@ -182,7 +184,7 @@ class PlanningViewController: UIViewController{
         }
         slideUpView.slideDownHide(animationTime)
         slideUpView.isHidden = false
-        self.tabBarController?.tabBar.isHidden = false
+        //self.tabBarController?.tabBar.isHidden = false
     }
     
     //선택완료 버튼클릭 -> datepicker 보이기
