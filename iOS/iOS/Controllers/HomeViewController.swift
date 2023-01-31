@@ -29,7 +29,9 @@ class HomeViewController: UIViewController {
     func readScheduleData(uid: Int) {
         ScheduleNetManager.shared.read(uid: uid) { schedules in
             self.schedules = schedules
-            self.tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
