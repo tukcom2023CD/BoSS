@@ -28,13 +28,13 @@ class CalendarTableViewCell: UITableViewCell {
        
         
         setCalendarUI()
-        calendar.reloadData()
+       
     }
     
    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+        calendar.reloadData()
         // Configure the view for the selected state
     }
 }
@@ -61,7 +61,7 @@ extension CalendarTableViewCell: FSCalendarDelegate,FSCalendarDataSource,FSCalen
     }
     
     func calendar(_ calendar: FSCalendar, shouldDeselect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        return monthPosition == .current
+        return false
     }
     //날짜 선택시
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -101,12 +101,12 @@ extension CalendarTableViewCell: FSCalendarDelegate,FSCalendarDataSource,FSCalen
         // 주말 텍스트 색
         calendar.appearance.titleWeekendColor = .red
 //        calendar.appearance.todayColor = .clear
-        
         calendar.appearance.titleTodayColor = .blue
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         // 선택 여러개 가능
         calendar.allowsMultipleSelection = true
-       
+        //
+        
     }
     // 요일 테두리 선 지정
 //    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, borderDefaultColorFor date: Date) -> UIColor? {
