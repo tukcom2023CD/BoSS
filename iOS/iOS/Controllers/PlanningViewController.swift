@@ -62,16 +62,20 @@ class PlanningViewController: UIViewController{
             let schedule = Schedule(region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)", uid: 10)
             
             ScheduleNetManager.shared.create(schedule: schedule) {
-                DispatchQueue.main.async {
-                    let index = self.navigationController!.viewControllers.count - 2
-                    let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController
-                    
-                    rootVC.schedules.append(schedule)
-                    rootVC.tableView.reloadData()
-                    self.tabBarController?.tabBar.isHidden = false
-                    self.navigationController?.popToRootViewController(animated: true)
-                }
                 
+                ScheduleNetManager.shared.read(uid: 10) { schedules in
+                    DispatchQueue.main.async {
+                        let index = self.navigationController!.viewControllers.count - 2
+                        let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController
+                        
+                        //rootVC.schedules.append(schedule)
+                        rootVC.schedules = schedules
+                        rootVC.tableView.reloadData()
+                        self.tabBarController?.tabBar.isHidden = false
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+       
             }
         }
         
