@@ -31,16 +31,11 @@ class PlanningViewController: UIViewController{
     var originalCenterOfslideUpView = CGFloat()
     var totalDistance = CGFloat()
     
-    
-    
     var regionDataManager = RegionDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "SearchPlaceTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchPlaceTableViewCell")
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.rowHeight = 70
+
         slideUpView.isHidden = true
         
         setupView()
@@ -48,6 +43,14 @@ class PlanningViewController: UIViewController{
         nextButton.isHidden = true
         nextButton.layer.cornerRadius = 10
         
+    }
+    
+    // 테이블 뷰 세팅
+    func setupTableView() {
+        tableView.register(UINib(nibName: "SearchPlaceTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchPlaceTableViewCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = 70
     }
     
     //alertviewController -> push segue형태로 넣으려고 PlanningVC와 MainPlanVC 간접 segue 만든후 코드 연결

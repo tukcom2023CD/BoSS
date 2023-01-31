@@ -19,6 +19,22 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         title = "Travelog"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        setupTableView()
+        readScheduleData(uid: 10)
+    }
+    
+    // 여행 일정 불러오기
+    /// - parameter uid : 로그인 유저 ID
+    func readScheduleData(uid: Int) {
+        ScheduleNetManager.shared.read(uid: uid) { schedules in
+            self.schedules = schedules
+            self.tableView.reloadData()
+        }
+    }
+    
+    // 테이블 뷰 세팅
+    func setupTableView() {
         //register TableViewCell
         tableView.register(UINib(nibName:"FirstTableViewCell", bundle: nil), forCellReuseIdentifier:"FirstTableViewCell")
         tableView.register(UINib(nibName:"CalendarTableViewCell", bundle: nil), forCellReuseIdentifier:"CalendarTableViewCell")
@@ -26,12 +42,7 @@ class HomeViewController: UIViewController {
         tableView.register(UINib(nibName:"SecondTableViewCell", bundle: nil), forCellReuseIdentifier:"SecondTableViewCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        // Do any additional setup after loading the view.
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        tableView.reloadData()
-//    }
     
     @IBAction func createScheduleBarButtonTapped(_ sender: UIBarButtonItem) {
         
