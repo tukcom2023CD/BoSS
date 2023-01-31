@@ -33,6 +33,7 @@
 		37FAFAB02987A0140034F1EE /* MainPlanDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FAFAAE2987A0140034F1EE /* MainPlanDetailTableViewCell.swift */; };
 		37FAFAB12987A0140034F1EE /* MainPlanDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37FAFAAF2987A0140034F1EE /* MainPlanDetailTableViewCell.xib */; };
 		4333AD1A674200E8AAE981B6 /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */; };
+		571BD16F29879136000A7F34 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571BD16E29879136000A7F34 /* Schedule.swift */; };
 		573941A9297ED1E900E69D8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941A8297ED1E900E69D8F /* Constants.swift */; };
 		573941AC2980E57000E69D8F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941AB2980E57000E69D8F /* MapViewController.swift */; };
 		5775975D2976541F008CB199 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775975C2976541F008CB199 /* HomeViewController.swift */; };
@@ -100,6 +101,7 @@
 		37FAFAA7298792070034F1EE /* MainPlanDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanDataManager.swift; sourceTree = "<group>"; };
 		37FAFAAE2987A0140034F1EE /* MainPlanDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanDetailTableViewCell.swift; sourceTree = "<group>"; };
 		37FAFAAF2987A0140034F1EE /* MainPlanDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPlanDetailTableViewCell.xib; sourceTree = "<group>"; };
+		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		573941AB2980E57000E69D8F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5775975C2976541F008CB199 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				37FAFAA0298791280034F1EE /* Region */,
 				577B8F7C297A7E6500FBD1EB /* OCRResult.swift */,
 				57C399D32982385300F63900 /* Place.swift */,
+				571BD16E29879136000A7F34 /* Schedule.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -302,7 +305,6 @@
 		5780874A296BEB5500D2BAF8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				37B7BE7E29855E5000786A1F /* New Group */,
 				5780874B296BEB5500D2BAF8 /* AppDelegate.swift */,
 				5780874D296BEB5500D2BAF8 /* SceneDelegate.swift */,
 				5794116729710FDD009192DD /* Extensions */,
@@ -650,6 +652,7 @@
 				37ECD62229866358005E21D4 /* Region.swift in Sources */,
 				37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
+				571BD16F29879136000A7F34 /* Schedule.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				577B8F7D297A7E6500FBD1EB /* OCRResult.swift in Sources */,
 				57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */,
