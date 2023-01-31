@@ -59,7 +59,7 @@ class ReadPhotosWithUid(Resource):
         conn.execute() # sql문 수행합니다.
         data = conn.fetch() # json 형식의 데이터를 가져옵니다.
         del conn # DB와 연결을 해제합니다.
-        return jsonify({"user": data}) # josn 형식의 데이터를 반환합니다.
+        return jsonify({"url": data}) # josn 형식의 데이터를 반환합니다.
 
 # 사진 url 가져오기 (R) -> 특정 유저의, 특정 장소의 사진
 @api.route('/api/photo/read/<int:uid>/<int:pid>')  
@@ -70,7 +70,7 @@ class ReadPhotoswithUidAndPid(Resource):
         conn.execute() # sql문 수행합니다.
         data = conn.fetch() # json 형식의 데이터를 가져옵니다.
         del conn # DB와 연결을 해제합니다.
-        return jsonify({"user": data}) # josn 형식의 데이터를 반환합니다.
+        return jsonify({"url": data}) # josn 형식의 데이터를 반환합니다.
     
 # 사진 url 가져오기 (R) -> 특정 유저의, 특정 카테고리 사진
 @api.route('/api/photo/read/<int:uid>/<string:category>')  
@@ -81,7 +81,7 @@ class ReadPhotosWithUidAndCategory(Resource):
         conn.execute() # sql문 수행합니다.
         data = conn.fetch() # json 형식의 데이터를 가져옵니다.
         del conn # DB와 연결을 해제합니다.
-        return jsonify({"user": data}) # josn 형식의 데이터를 반환합니다.
+        return jsonify({"url": data}) # josn 형식의 데이터를 반환합니다.
     
 # 사직 삭제 (D) -> 특정 사진만 삭제
 @api.route('/api/photo/delete/<int:uid>/<int:pid>/<int:phid>')  
