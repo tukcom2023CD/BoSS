@@ -58,16 +58,21 @@ class PlanningViewController: UIViewController{
                                         nil, preferredStyle: .alert)
 
         let ok = UIAlertAction(title: "확인", style: .default) { action in
-            self.tabBarController?.tabBar.isHidden = false
             
-            let schedule = Schedule(region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)")
+            let schedule = Schedule(region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)", uid: 10)
             
-            let index = self.navigationController!.viewControllers.count - 2
-            let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController
-            
-            rootVC.schedules.append(schedule)
-            rootVC.tableView.reloadData()
-            self.navigationController?.popToRootViewController(animated: true)
+            ScheduleNetManager.shared.create(schedule: schedule) {
+                DispatchQueue.main.async {
+                    let index = self.navigationController!.viewControllers.count - 2
+                    let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController
+                    
+                    rootVC.schedules.append(schedule)
+                    rootVC.tableView.reloadData()
+                    self.tabBarController?.tabBar.isHidden = false
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+                
+            }
         }
         
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
