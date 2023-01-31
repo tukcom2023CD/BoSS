@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="BYZ-38-t0r" customClass="LoginViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -43,7 +43,7 @@
         <!--Home View Controller-->
         <scene sceneID="9g9-jD-56m">
             <objects>
-                <viewController id="3m2-jw-HGR" customClass="HomeViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="3m2-jw-HGR" customClass="HomeViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f0b-df-sfo">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -68,7 +68,7 @@
                             <barButtonItem title="Item" image="bell" catalog="system" id="vwi-jR-EI3"/>
                             <barButtonItem title="Item" image="plus" catalog="system" id="6c8-Dz-ZUi">
                                 <connections>
-                                    <segue destination="Wtm-Ur-Fvh" kind="push" id="2ZB-20-p39"/>
+                                    <action selector="createScheduleBarButtonTapped:" destination="3m2-jw-HGR" id="oKz-he-ors"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -84,13 +84,13 @@
         <!--Planning View Controller-->
         <scene sceneID="a7D-n5-Hou">
             <objects>
-                <viewController id="Wtm-Ur-Fvh" customClass="PlanningViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlanningVC" id="Wtm-Ur-Fvh" customClass="PlanningViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qeP-9o-9CO">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="6Mt-w0-vDf">
-                                <rect key="frame" x="25" y="103" width="343" height="40"/>
+                                <rect key="frame" x="25" y="59" width="343" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="4dv-br-gkr"/>
                                 </constraints>
@@ -100,7 +100,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Euu-5Y-wjl">
-                                <rect key="frame" x="0.0" y="173" width="393" height="412"/>
+                                <rect key="frame" x="0.0" y="129" width="393" height="456"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <view contentMode="scaleToFill" id="86j-a5-sI9">
@@ -188,7 +188,6 @@
                         <outlet property="selectCheckButton" destination="NiE-Hy-ygr" id="I10-Rk-kUj"/>
                         <outlet property="slideUpView" destination="86j-a5-sI9" id="4DC-0d-lf9"/>
                         <outlet property="tableView" destination="Euu-5Y-wjl" id="bb4-ka-5OZ"/>
-                        <segue destination="cgf-qn-URD" kind="push" identifier="MainPlanViewController" id="ZXp-ya-DIF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HnS-ZM-DSo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -308,7 +307,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4fz-mR-pj5">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="hZg-gI-cwy" kind="relationship" relationship="viewControllers" id="RSI-kd-kVR"/>
@@ -325,7 +324,7 @@
         <!--홈-->
         <scene sceneID="KLh-qd-7xe">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hZg-gI-cwy" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNavVC" automaticallyAdjustsScrollViewInsets="NO" id="hZg-gI-cwy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="홈" image="house" catalog="system" id="P2h-Xh-YQ2"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6U2-jC-cJS">
