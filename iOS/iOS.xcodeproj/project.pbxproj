@@ -42,6 +42,7 @@
 		57808763296BEB5600D2BAF8 /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57808762296BEB5600D2BAF8 /* iOSTests.swift */; };
 		5780876D296BEB5600D2BAF8 /* iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5780876C296BEB5600D2BAF8 /* iOSUITests.swift */; };
 		5780876F296BEB5600D2BAF8 /* iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5780876E296BEB5600D2BAF8 /* iOSUITestsLaunchTests.swift */; };
+		5793B7722988CFAD00649F23 /* ScheduleNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5793B7712988CFAD00649F23 /* ScheduleNetManager.swift */; };
 		5794116929710FEB009192DD /* Bundle+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5794116829710FEB009192DD /* Bundle+Ext.swift */; };
 		57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57A1205E297128A7008F5572 /* GoogleService-Info.plist */; };
 		57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C399D12982383600F63900 /* PlaceNetManager.swift */; };
@@ -108,6 +109,7 @@
 		57808768296BEB5600D2BAF8 /* iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5780876C296BEB5600D2BAF8 /* iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSUITests.swift; sourceTree = "<group>"; };
 		5780876E296BEB5600D2BAF8 /* iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5793B7712988CFAD00649F23 /* ScheduleNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleNetManager.swift; sourceTree = "<group>"; };
 		5794116829710FEB009192DD /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
 		57A1205E297128A7008F5572 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57C399D12982383600F63900 /* PlaceNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceNetManager.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			children = (
 				577B8F7A2979044600FBD1EB /* OCRNetManager.swift */,
 				57C399D12982383600F63900 /* PlaceNetManager.swift */,
+				5793B7712988CFAD00649F23 /* ScheduleNetManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
+				5793B7722988CFAD00649F23 /* ScheduleNetManager.swift in Sources */,
 				57C399D42982385300F63900 /* Place.swift in Sources */,
 				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
 				3764F663297B97FC00014FFE /* FirstTableViewCell.swift in Sources */,
