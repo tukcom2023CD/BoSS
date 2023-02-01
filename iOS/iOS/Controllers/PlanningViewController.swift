@@ -40,6 +40,7 @@ class PlanningViewController: UIViewController{
         
         setupView()
         setupDatas()
+        setupTableView()
         nextButton.isHidden = true
         nextButton.layer.cornerRadius = 10
         
