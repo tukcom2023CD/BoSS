@@ -90,7 +90,7 @@ extension MainPlanViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadSections([indexPath.section], with: .none)
         } else {
             //세부셀 온터치
+            performSegue(withIdentifier: "toDetailPage", sender: indexPath)
         }
     }
-    
 }
