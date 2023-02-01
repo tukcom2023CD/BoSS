@@ -203,7 +203,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clu-Sm-dlR">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dmI-c7-dnm">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
@@ -255,11 +255,69 @@
                     <navigationItem key="navigationItem" id="I3n-sd-Drd"/>
                     <connections>
                         <outlet property="tableView" destination="Vvr-oz-TEI" id="dhl-7V-Uv6"/>
+                        <segue destination="HXW-iv-Jdc" kind="presentation" identifier="toDetailPage" id="6FZ-vq-mIC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E4n-EB-mii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5913.740458015267" y="-1468.3098591549297"/>
+        </scene>
+        <!--Writing Page View Controller-->
+        <scene sceneID="fes-HY-7bX">
+            <objects>
+                <viewController storyboardIdentifier="WritingPageViewController" id="HXW-iv-Jdc" customClass="WritingPageViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="G4O-2R-9FN">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="83x-mw-IgF">
+                                <rect key="frame" x="0.0" y="59" width="393" height="724"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3d-Nn-3Yd">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="724"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QjC-v0-qvG">
+                                                <rect key="frame" x="8" y="8" width="377" height="708"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="QjC-v0-qvG" firstAttribute="top" secondItem="E3d-Nn-3Yd" secondAttribute="top" constant="8" id="E6P-Mr-QLW"/>
+                                            <constraint firstAttribute="trailing" secondItem="QjC-v0-qvG" secondAttribute="trailing" constant="8" id="FQO-EV-Gmd"/>
+                                            <constraint firstItem="QjC-v0-qvG" firstAttribute="leading" secondItem="E3d-Nn-3Yd" secondAttribute="leading" constant="8" id="Gui-39-xhd"/>
+                                            <constraint firstAttribute="height" priority="250" constant="724" id="ix6-og-xT2"/>
+                                            <constraint firstAttribute="bottom" secondItem="QjC-v0-qvG" secondAttribute="bottom" constant="8" id="thc-zh-cY7"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="E3d-Nn-3Yd" firstAttribute="trailing" secondItem="tdw-pi-lW9" secondAttribute="trailing" id="2LE-UM-vOV"/>
+                                    <constraint firstItem="E3d-Nn-3Yd" firstAttribute="bottom" secondItem="tdw-pi-lW9" secondAttribute="bottom" id="ho4-la-sPg"/>
+                                    <constraint firstItem="E3d-Nn-3Yd" firstAttribute="top" secondItem="tdw-pi-lW9" secondAttribute="top" id="mvG-nj-zQ3"/>
+                                    <constraint firstItem="E3d-Nn-3Yd" firstAttribute="leading" secondItem="tdw-pi-lW9" secondAttribute="leading" id="rRI-ZB-mjQ"/>
+                                    <constraint firstItem="E3d-Nn-3Yd" firstAttribute="width" secondItem="IFN-ic-66o" secondAttribute="width" id="wDY-OW-wus"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="tdw-pi-lW9"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="IFN-ic-66o"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="uPi-78-fBo"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uPi-78-fBo" firstAttribute="bottom" secondItem="83x-mw-IgF" secondAttribute="bottom" id="Teb-6m-3nx"/>
+                            <constraint firstItem="83x-mw-IgF" firstAttribute="leading" secondItem="uPi-78-fBo" secondAttribute="leading" id="plP-m8-pqV"/>
+                            <constraint firstItem="83x-mw-IgF" firstAttribute="trailing" secondItem="uPi-78-fBo" secondAttribute="trailing" id="uH4-ab-ljo"/>
+                            <constraint firstItem="83x-mw-IgF" firstAttribute="top" secondItem="uPi-78-fBo" secondAttribute="top" id="zh4-w4-dDp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableview" destination="QjC-v0-qvG" id="wY0-EV-hPX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tAp-MI-axu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6841.9847328244268" y="-1468.3098591549297"/>
         </scene>
         <!--지도-->
         <scene sceneID="iFJ-Xb-SWg">
