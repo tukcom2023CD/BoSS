@@ -55,5 +55,28 @@ class DeleteUser(Resource):
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
 
+@api.route('/api/user/login')
+class LoginUser(Resource):
+    def post(self):
+        email = (request.json.get('email'))
+        name = (request.json.get('name'))
+        sql = f"select * from user where email='{email}'"
+        conn = connect.ConnectDB(sql)
+        conn.execute()
+        data = conn.fetch()
+        
+        if len(data) == 0:
+            insertSql = f"insert into user(email, name) values('{email}', '{name}')"
+            conn = connect.ConnectDB(insertSql)
+            conn.execute()
+            
+            conn = connect.ConnectDB(sql)
+            conn.execute()
+            data = conn.fetch()
+    
+        print(data)
+        del conn
+        return jsonify(data[0])
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True) 
