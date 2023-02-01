@@ -24,15 +24,18 @@ class Section {
     }
 }
 
+
+
 class MainPlanViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var scrollView: UIScrollView!
     
     private var sections = [Section]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        changeTitleMode()
         self.tableView.delegate = self
         self.tableView.dataSource = self
         tableView.frame = view.bounds
@@ -48,8 +51,18 @@ class MainPlanViewController: UIViewController {
         
        
     }
+ //타이틀 변환주기
     
-
+    func changeTitleMode(){
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        print(self.scrollView.contentOffset.y)
+        if self.scrollView.contentOffset.y > 0
+        {
+            navigationItem.largeTitleDisplayMode = .never
+        } else {
+            navigationItem.largeTitleDisplayMode = .always
+        }
+    }
    
 
 }
