@@ -1,10 +1,10 @@
 import json
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource
-import pymysql
 import connect
 import s3_access_key as ak
 import s3_connect as sc
+import webbrowser
 
 # @app.route("/")
 
@@ -13,15 +13,23 @@ app= Flask(__name__)
 
 # Api 객체를 생성합니다. 
 api= Api(app)
-                
+    
 # ios앱에서 사진 전송후 s3를 통해서 url 변환후 DB에 저장 (C)
-@api.route('/api/photo/create')
+@api.route('/api/photo/create/<int:uid>/<int:sid>/<int:pid>')
 class CreatePhoto(Resource):
-    def post(self):
-        # 원격 파일 생성을 위한 uid, pid 값 가져오기
-        uid = (request.json.get('uid')) # json 데이터에서 uid 값을 저장합니다.
-        sid = (request.json.get('sid')) # json 데이터에서 sid 값을 저장합니다.
-        pid = (request.json.get('pid')) # json 데이터에서 pid 값을 저장합니다.
+    def post(self, uid, sid, pid):
+       
+        # 바디에 포함된 파일을 가져옴
+        file_object = request.files['file']
+        
+        # 원본 파일이름 가져옴
+        file_name = file_object.filename
+        
+        # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
+        save_image_dir = f"/Users/jun/Desktop/무제 폴더/{file_name}"
+        
+        # 파일 저장
+        file_object.save(save_image_dir)
         
         # 빈 url 을 가진 photo 레코드 생성
         sql = f"insert into photo (uid, pid) values ({uid}, {pid})"
@@ -36,19 +44,26 @@ class CreatePhoto(Resource):
         data = conn.fetch() # 쿼리문 결과 데이터를 가져옵니다.
         phid = (data[0]['MAX(phid)']) # 리스트안의 딕셔너리의 키 MAX(phid)로 값을 가져옴
         del conn # DB와 연결을 해제합니다.
+        
+        # s3에 저장할 파일 이름 설정
+        s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpeg"
     
         # 해당 uid, pid, phid 값을 이름으로 갖는 이미지를 s3에 저장 
         s3 = sc.s3_connection() # s3 객체 생성
         # 파일 업로드 함수 호출
-        put = sc.s3_put_object(s3, ak.bucket_name(), '/Users/jun/Desktop/Swift/Swift_Icon.png', f"{uid}/{sid}/{pid}/{phid}.png")
+        put = sc.s3_put_object(s3, ak.bucket_name(), save_image_dir, s3_file_name)
         # 파일 url 얻는 함수 호출
-        get = sc.s3_get_image_url(s3, f"{uid}/{sid}/{pid}/{phid}.png")
+        get = sc.s3_get_image_url(s3, s3_file_name)
 
         # url 저장
         sql = f"update photo set url = '{get}' where phid = {phid}" # sql문 
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
+        
+        # 이미지 url 바로 열기
+        # url = get
+        # webbrowser.open(url)
         
 # 사진 url 가져오기 (R) -> 특정 유저의 전체 사진
 @api.route('/api/photo/read/<int:uid>')  

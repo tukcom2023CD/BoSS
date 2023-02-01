@@ -24,7 +24,7 @@ def s3_put_object(s3, bucket, local_file, remote_file):
             local_file,
             bucket,
             remote_file,
-            # ExtraArgs={"ContentType": "image/jpg"}
+            ExtraArgs={"ContentType": "image/jpeg"} # 컨텐트 타입 설정 -> url을 통해 이미지를 바로 열 수 있음
         )
     except Exception as e:
         print("fail! : " + f"{e}")
