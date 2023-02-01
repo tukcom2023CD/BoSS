@@ -74,7 +74,7 @@ class PlanningViewController: UIViewController{
                         //rootVC.schedules.append(schedule)
                         rootVC.schedules = schedules
                         rootVC.tableView.reloadData()
-                        self.tabBarController?.tabBar.isHidden = false
+                        //self.tabBarController?.tabBar.isHidden = false
                         self.navigationController?.popToRootViewController(animated: true)
                     }
                 }

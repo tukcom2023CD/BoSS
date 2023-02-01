@@ -24,6 +24,10 @@ class HomeViewController: UIViewController {
         readScheduleData(uid: 10)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     // 여행 일정 불러오기
     /// - parameter uid : 로그인 유저 ID
     func readScheduleData(uid: Int) {
