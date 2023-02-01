@@ -36,6 +36,7 @@ class ReadSchedule(Resource):
         conn.execute() # sql문 수행합니다.
         data = conn.fetch() # json 형식의 데이터를 가져옵니다.
         del conn # DB와 연결을 해제합니다.
+        data.sort(key=lambda x: x["start"]) # 여행 시작 날짜순으로 정렬
         return jsonify({"schedules": data}) # josn 형식의 데이터를 반환합니다.
         
 

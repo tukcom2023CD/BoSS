@@ -22,10 +22,11 @@ class CreatePlace(Resource):
         latitude = (request.json.get('latitude'))
         longitude = (request.json.get('longitude'))
         category = (request.json.get('category'))
+        visit_date = (request.json.get('visit_date'))
         sid = (request.json.get('sid'))
         uid = (request.json.get('uid'))
         
-        sql = f"insert into place(name, address, latitude, longitude, category, sid, uid) values('{name}', '{address}', {latitude}, {longitude}, '{category}', {sid}, {uid})"
+        sql = f"insert into place(name, address, latitude, longitude, visit_date, category, sid, uid) values('{name}', '{address}', {latitude}, {longitude}, '{visit_date}', '{category}', {sid}, {uid})"
         conn = connect.ConnectDB(sql)
         conn.execute()
         del conn
@@ -40,6 +41,8 @@ class ReadPlace(Resource):
         conn.execute()
         data = conn.fetch()
         del conn
+        data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
+
         return jsonify({"places": data})
 
 ## uid로 여행지 조회
@@ -51,6 +54,7 @@ class ReadPlaces(Resource):
         conn.execute()
         data = conn.fetch()
         del conn
+        data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
 
         return jsonify({"places": data})
 
