@@ -52,6 +52,7 @@
 		57C399D42982385300F63900 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C399D32982385300F63900 /* Place.swift */; };
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
 		F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = F27BB72A297E4B4300839669 /* SecretKey.plist */; };
+		F2E421752986FD62005BD304 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E421742986FD62005BD304 /* CalendarCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +127,7 @@
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D186E571686558A6A981FD3E /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27BB72A297E4B4300839669 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
+		F2E421742986FD62005BD304 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		F4FA390FF50812A0CA8EBB9F /* Pods-iOS-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-iOS-iOSUITests/Pods-iOS-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +185,7 @@
 				3764F666297B980800014FFE /* SecondTableViewCell.xib */,
 				3764F669297BB04800014FFE /* CalendarTableViewCell.swift */,
 				3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */,
+				F2E421742986FD62005BD304 /* CalendarCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
+				F2E421752986FD62005BD304 /* CalendarCell.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
 				37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */,
 				37ECD62229866358005E21D4 /* Region.swift in Sources */,

@@ -50,6 +50,7 @@ class HomeViewController: UIViewController {
         tableView.register(UINib(nibName:"SecondTableViewCell", bundle: nil), forCellReuseIdentifier:"SecondTableViewCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
+
     }
     
     @IBAction func createScheduleBarButtonTapped(_ sender: UIBarButtonItem) {
