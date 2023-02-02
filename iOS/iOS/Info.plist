@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>KAKAO_APP_KEY</key>
-	<string>73234108b898e2fb0102a2497b4d423f</string>
-	<key>OCR_API_KEY</key>
-	<string>cERiQXNMRGFqcFZrRmx2UmNqZXZuZXZHbFhzQ1FjbE0=</string>
-	<key>OCR_API_URL</key>
-	<string>https://3hkgiiv3c8.apigw.ntruss.com/custom/v1/20198/97486c794c69f6ebcd804fea84c5316ac15fb5d28b323f687d7ec8d8ef62973e/document/receipt</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
