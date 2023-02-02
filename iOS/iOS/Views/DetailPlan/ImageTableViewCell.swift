@@ -13,6 +13,7 @@ class ImageTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageview.image = UIImage(named: "tripimg")
+        imageview.contentMode = .scaleAspectFill
         // Initialization code
     }
 

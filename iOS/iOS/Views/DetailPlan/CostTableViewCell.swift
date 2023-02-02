@@ -60,6 +60,6 @@ extension CostTableViewCell: UITableViewDelegate, UITableViewDataSource {
             return cell!
         
     }
-    //셀 클릭시 디테일 셀들이 나온다.
+    
    
 }
