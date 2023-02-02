@@ -19,3 +19,7 @@ struct SlideViewConstant {
     static let cornerRadiusOfSlideView: CGFloat = 20
     static let animationTime: CGFloat = 0.3
 }
+
+public enum UserDefaultsKey {
+    static let key = "user"
+}

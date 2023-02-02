@@ -63,11 +63,12 @@ class PlanningViewController: UIViewController{
 
         let ok = UIAlertAction(title: "확인", style: .default) { action in
             
-            let schedule = Schedule(region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)", uid: 10)
+            let user = UserDefaults.standard.getLoginUser()!
+            let schedule = Schedule(region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)", uid: user.uid!)
             
             ScheduleNetManager.shared.create(schedule: schedule) {
                 
-                ScheduleNetManager.shared.read(uid: 10) { schedules in
+                ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
                     DispatchQueue.main.async {
                         let index = self.navigationController!.viewControllers.count - 2
                         let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController

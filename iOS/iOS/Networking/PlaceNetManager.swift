@@ -15,8 +15,8 @@ class PlaceNetManager {
     
     // 여행지 데이터 불러오기
     /// - parameter completion : Place 데이터를 이용한 화면 작업
-    func read(completion: @escaping ([Place])->()) {
-        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/place/read/2") else { return }
+    func read(uid: Int, completion: @escaping ([Place])->()) {
+        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/places/read/\(uid)") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

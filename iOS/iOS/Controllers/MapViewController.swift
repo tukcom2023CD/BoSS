@@ -40,7 +40,8 @@ class MapViewController: UIViewController {
     
     // 여행지 데이터 호출 및 지도에 마커 표시
     func requestPlaceData() {
-        PlaceNetManager.shared.read { places in
+        let user = UserDefaults.standard.getLoginUser()!
+        PlaceNetManager.shared.read(uid: user.uid!) { places in
             self.places = places
             
             DispatchQueue.main.async {
