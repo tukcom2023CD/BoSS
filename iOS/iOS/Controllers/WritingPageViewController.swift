@@ -75,21 +75,6 @@ extension WritingPageViewController: UITableViewDelegate, UITableViewDataSource 
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let interval:CGFloat = 3
-        let width: CGFloat = ( UIScreen.main.bounds.width - interval * 3 ) / 2
-        
-        switch indexPath.row {
-        case 0:
-            return 130
-        case 1:
-            return 400
-        case 2:
-            return 300
-            
-            //            return (width + 40 + 3) * 5 + 40
-        default:
-            return 0
-        }
-        
+        return UITableView.automaticDimension
     }
 }
