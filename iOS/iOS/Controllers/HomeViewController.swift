@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         setupTableView()
-        readScheduleData(uid: 10)
+        readScheduleData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,8 +30,10 @@ class HomeViewController: UIViewController {
     
     // 여행 일정 불러오기
     /// - parameter uid : 로그인 유저 ID
-    func readScheduleData(uid: Int) {
-        ScheduleNetManager.shared.read(uid: uid) { schedules in
+    func readScheduleData() {
+        let user = UserDefaults.standard.getLoginUser()!
+        
+        ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
             self.schedules = schedules
             DispatchQueue.main.async {
                 self.tableView.reloadData()
