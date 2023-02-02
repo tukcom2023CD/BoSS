@@ -13,10 +13,36 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    var schedules: [Schedule] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        setupTableView()
+        readScheduleData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    // 여행 일정 불러오기
+    /// - parameter uid : 로그인 유저 ID
+    func readScheduleData() {
+        let user = UserDefaults.standard.getLoginUser()!
+        
+        ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            self.schedules = schedules
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    // 테이블 뷰 세팅
+    func setupTableView() {
         //register TableViewCell
         tableView.register(UINib(nibName:"FirstTableViewCell", bundle: nil), forCellReuseIdentifier:"FirstTableViewCell")
         tableView.register(UINib(nibName:"CalendarTableViewCell", bundle: nil), forCellReuseIdentifier:"CalendarTableViewCell")
@@ -24,11 +50,16 @@ class HomeViewController: UIViewController {
         tableView.register(UINib(nibName:"SecondTableViewCell", bundle: nil), forCellReuseIdentifier:"SecondTableViewCell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
-        // Do any additional setup after loading the view.
+
     }
     
-    
+    @IBAction func createScheduleBarButtonTapped(_ sender: UIBarButtonItem) {
+        
+        let planningVC = storyboard?.instantiateViewController(withIdentifier: "PlanningVC") as! PlanningViewController
+        
+        navigationController?.pushViewController(planningVC, animated: true)
+        tabBarController?.tabBar.isHidden = true
+    }
     
     
 }
@@ -45,6 +76,14 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FirstTableViewCell", for: indexPath) as! FirstTableViewCell
             cell.configure()
             cell.selectionStyle = .none
+            cell.schedules = self.schedules
+            
+            // 여행일정 셀 클릭 시 동작할 기능 정의
+            cell.didSelectItem = { schedule in
+                let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
+                self.navigationController?.pushViewController(mainPlanVC, animated: true)
+            }
+            
             return cell
             
         case 1:

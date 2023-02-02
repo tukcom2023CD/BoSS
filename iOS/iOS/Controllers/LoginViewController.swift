@@ -16,10 +16,21 @@ class LoginViewController: UIViewController {
     
     // 테스트용 로그인 버튼
     @IBAction func testLoginButtonTapped(_ sender: UIButton) {
-        let tabBarVC = storyboard!.instantiateViewController(withIdentifier: "TabBarVC")
         
-        tabBarVC.modalPresentationStyle = .fullScreen
-        present(tabBarVC, animated: false)
+        let user = User(email: "lee@naver.com", name: "lee")
+        
+        UserNetManager.shared.loginUser(user: user) { user in
+            UserDefaults.standard.setLoginUser(user: user)
+            print(user)
+            
+            DispatchQueue.main.async {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let tabBarVC = storyboard.instantiateViewController(identifier: "TabBarVC")
+                
+                // Root View Controller 변경
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(tabBarVC)
+            }
+        }
     }
     
 }

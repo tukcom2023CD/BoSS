@@ -13,3 +13,13 @@ public enum OCRApi {
     static let key = Bundle.main.OCR_API_KEY
 }
 
+// SlideView 관련 설정 값
+struct SlideViewConstant {
+    static let slideViewHeight: CGFloat = 350
+    static let cornerRadiusOfSlideView: CGFloat = 20
+    static let animationTime: CGFloat = 0.3
+}
+
+public enum UserDefaultsKey {
+    static let key = "user"
+}

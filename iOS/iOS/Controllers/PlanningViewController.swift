@@ -10,30 +10,20 @@ import UIKit
 import UIKit
 import CalendarDateRangePicker
 
-struct SlideViewConstant {
-    static let slideViewHeight: CGFloat = 350
-    static let cornerRadiusOfSlideView: CGFloat = 20
-    static let animationTime: CGFloat = 0.3
-    
-}
-
 class PlanningViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
-    var regionDataArray: [Region] = []
     @IBOutlet weak var slideUpView: UIView!
-    
     
     @IBOutlet weak var placeNameCheck: UILabel!
     @IBOutlet weak var selectCheckButton: UIButton!//날짜 선택하기
     @IBOutlet weak var dateLabel: UILabel! //날짜 표시되는 라벨
     @IBOutlet weak var nextButton: UIButton!
     
-    
+    var regionDataArray: [Region] = []
     
     var startDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
     var endDate = Calendar.current.date(byAdding: .day, value: 10, to: Date())
-    
     
     //Slide up view에 사용할 변수들
     let blackView = UIView()//슬라이드 뷰
@@ -41,36 +31,60 @@ class PlanningViewController: UIViewController{
     var originalCenterOfslideUpView = CGFloat()
     var totalDistance = CGFloat()
     
-    
-    
     var regionDataManager = RegionDataManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: "SearchPlaceTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchPlaceTableViewCell")
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.rowHeight = 70
+
         slideUpView.isHidden = true
         
         setupView()
         setupDatas()
+        setupTableView()
         nextButton.isHidden = true
         nextButton.layer.cornerRadius = 10
         
+    }
+    
+    // 테이블 뷰 세팅
+    func setupTableView() {
+        tableView.register(UINib(nibName: "SearchPlaceTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchPlaceTableViewCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.rowHeight = 70
     }
     
     //alertviewController -> push segue형태로 넣으려고 PlanningVC와 MainPlanVC 간접 segue 만든후 코드 연결
     @IBAction func nextButtonTapped(_ sender: UIButton) {
         
         
-        let alert = UIAlertController(title: "여행계획을 세우러 갈까요?", message:
-                                        "Travelog", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "네", style: .default, handler: {(action) -> Void in
+        let alert = UIAlertController(title: "생성하시겠습니까?", message:
+                                        nil, preferredStyle: .alert)
+
+        let ok = UIAlertAction(title: "확인", style: .default) { action in
+            
+            let user = UserDefaults.standard.getLoginUser()!
+            let schedule = Schedule(region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)", uid: user.uid!)
+            
+            ScheduleNetManager.shared.create(schedule: schedule) {
+                
+                ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+                    DispatchQueue.main.async {
+                        let index = self.navigationController!.viewControllers.count - 2
+                        let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController
+                        
+                        //rootVC.schedules.append(schedule)
+                        rootVC.schedules = schedules
+                        rootVC.tableView.reloadData()
+                        //self.tabBarController?.tabBar.isHidden = false
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                }
+       
+            }
+        }
         
-        self.performSegue(withIdentifier: "MainPlanViewController", sender: self)
-     })
-        let cancel = UIAlertAction(title: "다시 정하기", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
         alert.addAction(cancel)
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
@@ -170,7 +184,7 @@ class PlanningViewController: UIViewController{
           
         }, completion: nil)
         slideUpView.slideUpShow(animationTime)
-        self.tabBarController?.tabBar.isHidden = true
+        //self.tabBarController?.tabBar.isHidden = true
         originalCenterOfslideUpView = slideUpView.center.y
     }
     
@@ -182,7 +196,7 @@ class PlanningViewController: UIViewController{
         }
         slideUpView.slideDownHide(animationTime)
         slideUpView.isHidden = false
-        self.tabBarController?.tabBar.isHidden = false
+        //self.tabBarController?.tabBar.isHidden = false
     }
     
     //선택완료 버튼클릭 -> datepicker 보이기
