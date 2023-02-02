@@ -60,6 +60,8 @@
 		F290A95D298ADFC500340324 /* ExplainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F290A95B298ADFC500340324 /* ExplainTableViewCell.xib */; };
 		F290A960298ADFDD00340324 /* CostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290A95E298ADFDD00340324 /* CostTableViewCell.swift */; };
 		F290A961298ADFDD00340324 /* CostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F290A95F298ADFDD00340324 /* CostTableViewCell.xib */; };
+		F290A964298B956000340324 /* CostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290A962298B956000340324 /* CostCell.swift */; };
+		F290A965298B956000340324 /* CostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F290A963298B956000340324 /* CostCell.xib */; };
 		F2E4219C298A3EAF005BD304 /* WritingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E4219B298A3EAF005BD304 /* WritingPageViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -143,6 +145,8 @@
 		F290A95B298ADFC500340324 /* ExplainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExplainTableViewCell.xib; sourceTree = "<group>"; };
 		F290A95E298ADFDD00340324 /* CostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostTableViewCell.swift; sourceTree = "<group>"; };
 		F290A95F298ADFDD00340324 /* CostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CostTableViewCell.xib; sourceTree = "<group>"; };
+		F290A962298B956000340324 /* CostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostCell.swift; sourceTree = "<group>"; };
+		F290A963298B956000340324 /* CostCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CostCell.xib; sourceTree = "<group>"; };
 		F2E4219B298A3EAF005BD304 /* WritingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPageViewController.swift; sourceTree = "<group>"; };
 		F4FA390FF50812A0CA8EBB9F /* Pods-iOS-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-iOS-iOSUITests/Pods-iOS-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -377,6 +381,8 @@
 				F290A95B298ADFC500340324 /* ExplainTableViewCell.xib */,
 				F290A95E298ADFDD00340324 /* CostTableViewCell.swift */,
 				F290A95F298ADFDD00340324 /* CostTableViewCell.xib */,
+				F290A962298B956000340324 /* CostCell.swift */,
+				F290A963298B956000340324 /* CostCell.xib */,
 			);
 			path = DetailPlan;
 			sourceTree = "<group>";
@@ -500,6 +506,7 @@
 				F290A95D298ADFC500340324 /* ExplainTableViewCell.xib in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
 				57808755296BEB5600D2BAF8 /* Assets.xcassets in Resources */,
+				F290A965298B956000340324 /* CostCell.xib in Resources */,
 				37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */,
 				F290A959298ADD2700340324 /* ImageTableViewCell.xib in Resources */,
 				F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */,
@@ -669,6 +676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F290A964298B956000340324 /* CostCell.swift in Sources */,
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
 				37FAFA9E29878CB30034F1EE /* MainPlanTableViewCell.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,

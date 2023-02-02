@@ -9,6 +9,11 @@ import UIKit
 
 class ExplainTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var topView: UIView!
+    
+    @IBOutlet weak var bottomView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

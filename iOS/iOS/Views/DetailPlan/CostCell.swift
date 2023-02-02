@@ -1,5 +1,5 @@
 //
-//  ImageTableViewCell.swift
+//  CostCell.swift
 //  iOS
 //
 //  Created by SeungHyun Lee on 2023/02/02.
@@ -7,12 +7,14 @@
 
 import UIKit
 
-class ImageTableViewCell: UITableViewCell {
+class CostCell: UITableViewCell {
 
-    @IBOutlet weak var imageview: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var eachLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        imageview.image = UIImage(named: "tripimg")
         // Initialization code
     }
 
