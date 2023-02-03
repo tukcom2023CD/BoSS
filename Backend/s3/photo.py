@@ -1,10 +1,8 @@
-import json
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource
 import connect
 import s3_access_key as ak
 import s3_connect as sc
-import webbrowser
 
 # @app.route("/")
 

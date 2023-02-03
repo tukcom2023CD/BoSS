@@ -1,17 +1,12 @@
-# 지출 내역 추가 (C)
-import json
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource
-import pymysql
 import connect
-
 
 # flask 객체를 생섭합니다.
 app= Flask(__name__)
 
 # Api 객체를 생성합니다. 
 api= Api(app)
-
 
 # 지출 내역 추가 (C)
 ## JSON 배열로 전달됨
@@ -54,3 +49,6 @@ class DeleteSpending(Resource):
         conn.execute()
         data = conn.fetch()
         del conn
+        
+if __name__ == '__main__':
+    app.run('0.0.0.0', port=5000, debug=True) 

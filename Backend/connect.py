@@ -1,4 +1,3 @@
-import json
 import pymysql
 
 # Mysql과 연결을 설정하거나 해제합니다.

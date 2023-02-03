@@ -1,7 +1,5 @@
-import json
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource
-import pymysql
 import connect
 
 # @app.route("/")

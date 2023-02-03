@@ -1,7 +1,5 @@
-import json
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource
-import pymysql
 import connect
 
 # @app.route("/")
@@ -11,7 +9,6 @@ app= Flask(__name__)
 
 # Api 객체를 생성합니다. 
 api= Api(app)
-
 
 # 여행지 추가 (C)
 @api.route('/api/place/create')
@@ -82,7 +79,6 @@ class DeletePlace(Resource):
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
-
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True) 
