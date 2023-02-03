@@ -14,8 +14,6 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var calendarButton: UIButton!
     
-    @IBOutlet weak var subView: UIView!
-    
     var viewBlurEffect: UIVisualEffectView!
     var map: GMSMapView!
     var places: [Place]!
@@ -53,6 +51,8 @@ class MapViewController: UIViewController {
                 for place in places {
                     let position = CLLocationCoordinate2D(latitude: place.latitude!, longitude: place.longitude!)
                     let marker = GMSMarker(position: position)
+                    marker.title =  place.name
+                    marker.snippet = place.visitDate
                     marker.map = self.map
                 }
             }
@@ -64,9 +64,12 @@ class MapViewController: UIViewController {
         print(#function)
         let dateRangePickerVC = CalendarDateRangePickerViewController(collectionViewLayout: UICollectionViewFlowLayout())
         dateRangePickerVC.delegate = self
+        dateRangePickerVC.minimumDate = Date()
+        dateRangePickerVC.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())
         
         dateRangePickerVC.selectedStartDate = nil
         dateRangePickerVC.selectedEndDate = nil
+        dateRangePickerVC.selectedColor = .systemBlue
         
         let navigationController = UINavigationController(rootViewController: dateRangePickerVC)
         
@@ -84,7 +87,7 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
         self.startDate = dateFormatter.string(from: startDate)
         self.endDate = dateFormatter.string(from: endDate)
         
