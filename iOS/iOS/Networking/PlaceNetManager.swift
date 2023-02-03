@@ -20,10 +20,13 @@ class PlaceNetManager {
         var queryString = ""
         if let start = startDate, let end = endDate {
             queryString = "?start=\(start)&end=\(end)"
+            queryString = queryString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! // 한글 인코딩
             print(start)
+            print(end)
         }
         
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/places/read/\(uid)\(queryString)") else { return }
+        print(url)
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
