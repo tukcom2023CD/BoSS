@@ -19,6 +19,8 @@ class MapViewController: UIViewController {
     var viewBlurEffect: UIVisualEffectView!
     var map: GMSMapView!
     var places: [Place]!
+    var startDate: String?
+    var endDate: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +43,12 @@ class MapViewController: UIViewController {
     // 여행지 데이터 호출 및 지도에 마커 표시
     func requestPlaceData() {
         let user = UserDefaults.standard.getLoginUser()!
-        PlaceNetManager.shared.read(uid: user.uid!) { places in
+        
+        // 여행지 데이터 호출
+        PlaceNetManager.shared.read(uid: user.uid!, startDate: startDate, endDate: endDate) { places in
             self.places = places
             
+            // 마커 표시
             DispatchQueue.main.async {
                 for place in places {
                     let position = CLLocationCoordinate2D(latitude: place.latitude!, longitude: place.longitude!)
@@ -54,6 +59,7 @@ class MapViewController: UIViewController {
         }
     }
     
+    // 기간 설정 버튼 클릭
     @IBAction func calendarButtonTapped(_ sender: UIButton) {
         print(#function)
         let dateRangePickerVC = CalendarDateRangePickerViewController(collectionViewLayout: UICollectionViewFlowLayout())
@@ -78,9 +84,14 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        print(dateFormatter.string(from: startDate) + " ~ " + dateFormatter.string(from: endDate))
-        dismiss(animated: true)
+        dateFormatter.dateFormat = "yyyyMMdd"
+        self.startDate = dateFormatter.string(from: startDate)
+        self.endDate = dateFormatter.string(from: endDate)
+        
+        dismiss(animated: true) {
+            self.map.clear()
+            self.requestPlaceData()
+        }
     }
     
     func didSelectStartDate(startDate: Date!) {
