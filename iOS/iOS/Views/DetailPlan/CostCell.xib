@@ -17,39 +17,35 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="품명" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhl-FU-1mz">
-                        <rect key="frame" x="16" y="11.666666666666664" width="30" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ZA-ZH-bFn">
+                        <rect key="frame" x="16" y="12" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수량" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRp-Xn-Ya8">
-                        <rect key="frame" x="178" y="11.666666666666664" width="30" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AVj-tb-ULi">
+                        <rect key="frame" x="188" y="11" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yz4-MU-DjS">
-                        <rect key="frame" x="274" y="11.666666666666664" width="30" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIi-hG-qgM">
+                        <rect key="frame" x="262" y="10" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <constraints>
-                    <constraint firstItem="pRp-Xn-Ya8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="3a0-vk-A94"/>
-                    <constraint firstItem="dhl-FU-1mz" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ic5-C2-gVx"/>
-                    <constraint firstItem="pRp-Xn-Ya8" firstAttribute="leading" secondItem="dhl-FU-1mz" secondAttribute="trailing" constant="132" id="P1s-g7-Asi"/>
-                    <constraint firstItem="yz4-MU-DjS" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="gAW-le-euA"/>
-                    <constraint firstItem="dhl-FU-1mz" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="sXk-KU-vxO"/>
-                    <constraint firstAttribute="trailing" secondItem="yz4-MU-DjS" secondAttribute="trailing" constant="16" id="u33-iy-AMG"/>
-                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="eachLabel" destination="H2p-sc-9uM" id="bBV-XW-gZj"/>
-                <outlet property="nameLabel" destination="H2p-sc-9uM" id="ePH-Ak-ola"/>
-                <outlet property="priceLabel" destination="H2p-sc-9uM" id="fWr-Cu-uCy"/>
+                <outlet property="nameLabel" destination="4ZA-ZH-bFn" id="cq8-ee-KzV"/>
+                <outlet property="priceLabel" destination="XIi-hG-qgM" id="eZU-02-hNo"/>
+                <outlet property="quantityLabel" destination="AVj-tb-ULi" id="uav-vB-MNB"/>
             </connections>
             <point key="canvasLocation" x="56" y="-12"/>
         </tableViewCell>

@@ -12,8 +12,8 @@ class ImageTableViewCell: UITableViewCell {
     @IBOutlet weak var imageview: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        imageview.image = UIImage(named: "tripimg")
-        imageview.contentMode = .scaleAspectFill
+        imageview.image = UIImage(named: "tripimg2")
+        imageview.contentMode = .scaleAspectFit
         // Initialization code
     }
 
