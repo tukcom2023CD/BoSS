@@ -1,7 +1,5 @@
-import json
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource
-import pymysql
 import connect
 
 # @app.route("/")
@@ -12,7 +10,6 @@ app= Flask(__name__)
 # Api 객체를 생성합니다. 
 api= Api(app)
 
-
 # 여행지 추가 (C)
 @api.route('/api/place/create')
 class CreatePlace(Resource):
@@ -22,16 +19,17 @@ class CreatePlace(Resource):
         latitude = (request.json.get('latitude'))
         longitude = (request.json.get('longitude'))
         category = (request.json.get('category'))
+        visit_date = (request.json.get('visit_date'))
         sid = (request.json.get('sid'))
         uid = (request.json.get('uid'))
         
-        sql = f"insert into place(name, address, latitude, longitude, category, sid, uid) values('{name}', '{address}', {latitude}, {longitude}, '{category}', {sid}, {uid})"
+        sql = f"insert into place(name, address, latitude, longitude, visit_date, category, sid, uid) values('{name}', '{address}', {latitude}, {longitude}, '{visit_date}', '{category}', {sid}, {uid})"
         conn = connect.ConnectDB(sql)
         conn.execute()
         del conn
         
 # 여행지 조회 (R)
-## 여행 날짜 순으로 정렬 후 리턴 필요
+## sid로 여행지 조회
 @api.route('/api/place/read/<int:sid>')
 class ReadPlace(Resource):
     def get(self, sid):
@@ -40,8 +38,22 @@ class ReadPlace(Resource):
         conn.execute()
         data = conn.fetch()
         del conn
+        data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
+
         return jsonify({"places": data})
 
+## uid로 여행지 조회
+@api.route('/api/places/read/<int:uid>')
+class ReadPlaces(Resource):
+    def get(self, uid):
+        sql = f"select * from place where uid = {uid}"
+        conn = connect.ConnectDB(sql)
+        conn.execute()
+        data = conn.fetch()
+        del conn
+        data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
+
+        return jsonify({"places": data})
 
 # 여행지 수정 (U)
 # 일지, 총 지출, 방문여부 수정
@@ -67,7 +79,6 @@ class DeletePlace(Resource):
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
-
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True) 
