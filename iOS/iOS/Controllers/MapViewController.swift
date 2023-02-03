@@ -55,11 +55,14 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func calendarButtonTapped(_ sender: UIButton) {
-
+        print(#function)
         let dateRangePickerVC = CalendarDateRangePickerViewController(collectionViewLayout: UICollectionViewFlowLayout())
         dateRangePickerVC.delegate = self
-        let navigationController = UINavigationController(rootViewController: dateRangePickerVC)
         
+        dateRangePickerVC.selectedStartDate = nil
+        dateRangePickerVC.selectedEndDate = nil
+        
+        let navigationController = UINavigationController(rootViewController: dateRangePickerVC)
         
         present(navigationController, animated: true)
         
@@ -68,12 +71,16 @@ class MapViewController: UIViewController {
 }
 
 extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
+    
     func didCancelPickingDateRange() {
-        
+        dismiss(animated: true)
     }
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
-        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        print(dateFormatter.string(from: startDate) + " ~ " + dateFormatter.string(from: endDate))
+        dismiss(animated: true)
     }
     
     func didSelectStartDate(startDate: Date!) {
