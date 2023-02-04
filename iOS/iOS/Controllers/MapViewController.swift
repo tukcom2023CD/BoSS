@@ -33,6 +33,8 @@ class MapViewController: UIViewController {
         // 카메라 위치
         let camera = GMSCameraPosition(latitude: 36, longitude: 127.5, zoom: 7)
         map = GMSMapView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height), camera: camera)
+        map.delegate = self
+        
         view.addSubview(map)
         
         view.bringSubviewToFront(calendarButton)
@@ -51,8 +53,9 @@ class MapViewController: UIViewController {
                 for place in places {
                     let position = CLLocationCoordinate2D(latitude: place.latitude!, longitude: place.longitude!)
                     let marker = GMSMarker(position: position)
-                    marker.title =  place.name
-                    marker.snippet = place.visitDate
+//                    marker.title =  place.name
+//                    marker.snippet = place.visitDate
+                    marker.userData = place
                     marker.map = self.map
                 }
             }
@@ -79,6 +82,31 @@ class MapViewController: UIViewController {
 
 }
 
+// MARK: - GMSMapViewDelegate
+extension MapViewController: GMSMapViewDelegate {
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        print("클릭")
+    }
+    
+    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
+
+        let infoWindow = Bundle.main.loadNibNamed("MarkerInfoWindowView", owner: self, options: nil)![0] as! MarkerInfoWindowView
+        //infoWindow.frame = CGRect(x: 0, y: 0, width: 175, height: 125)
+
+        infoWindow.infoView.layer.cornerRadius = 10
+        
+        let place = marker.userData as! Place
+        
+        infoWindow.name.text = place.name
+        infoWindow.date.text = place.visitDate
+        infoWindow.spending.text = "\(place.totalSpending!)"
+        
+        return infoWindow
+    }
+}
+
+// MARK: - CalendarDateRangePickerVCDelegate
 extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
     
     func didCancelPickingDateRange() {
@@ -97,13 +125,8 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
         }
     }
     
-    func didSelectStartDate(startDate: Date!) {
-        
-    }
+    func didSelectStartDate(startDate: Date!) { }
     
-    func didSelectEndDate(endDate: Date!) {
-        
-    }
-    
+    func didSelectEndDate(endDate: Date!) { }
     
 }
