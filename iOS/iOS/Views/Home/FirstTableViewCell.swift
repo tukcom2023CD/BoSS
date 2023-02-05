@@ -35,6 +35,19 @@ class FirstTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // 여행 진행 상태 계산 (진행 or 예정)
+    func calcTripState(startDate: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let now = formatter.string(from: Date())
+        
+        if now >= startDate {
+            return "🔴 여행 중"
+        } else {
+            return "🟢 예정"
+        }
+    }
+    
 }
 
 
@@ -50,7 +63,7 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         
         //cell.configure()
         cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
-        cell.tripState.text = "-"
+        cell.tripState.text = calcTripState(startDate: schedule.start!)
         cell.tripTitle.text = schedule.title
         cell.tripImage.image = UIImage(named: "tripimg")
         

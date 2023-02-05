@@ -45,6 +45,8 @@ class HomeViewController: UIViewController {
         }
     }
     
+    // 다녀온 여행, 다가올 여행 분리
+    /// - parameter schedules : 서버로부터 받은 여행 일정 데이터
     func divideScheduleData(schedules: [Schedule]) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
@@ -55,7 +57,6 @@ class HomeViewController: UIViewController {
                 break
             }
             self.previousSchedules.insert(schedule, at: 0)
-//            self.previousSchedules.append(schedule)
             self.upcomingSchedules.removeFirst()
         }
     }
