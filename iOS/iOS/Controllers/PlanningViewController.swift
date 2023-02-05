@@ -261,7 +261,7 @@ extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate
     func didPickDateRange(startDate: Date!, endDate: Date!) {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        dateFormatter.dateFormat = "yyyy.MM.dd"
         self.startDate = dateFormatter.string(from: startDate)
         self.endDate = dateFormatter.string(from: endDate)
         

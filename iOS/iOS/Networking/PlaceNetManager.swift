@@ -20,7 +20,7 @@ class PlaceNetManager {
         var queryString = ""
         if let start = startDate, let end = endDate {
             queryString = "?start=\(start)&end=\(end)"
-            queryString = queryString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! // 한글 인코딩
+            //queryString = queryString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! // 한글 인코딩
             print(start)
             print(end)
         }
