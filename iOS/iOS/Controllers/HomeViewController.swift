@@ -54,7 +54,8 @@ class HomeViewController: UIViewController {
             if currentDate <= schedule.stop! {
                 break
             }
-            self.previousSchedules.append(schedule)
+            self.previousSchedules.insert(schedule, at: 0)
+//            self.previousSchedules.append(schedule)
             self.upcomingSchedules.removeFirst()
         }
     }
@@ -112,6 +113,12 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SecondTableViewCell", for: indexPath) as! SecondTableViewCell
             cell.selectionStyle = .none
+            cell.schedules = self.previousSchedules
+            
+            cell.didSelectItem = { schedule in
+                let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
+                self.navigationController?.pushViewController(mainPlanVC, animated: true)
+            }
             
             return cell
             

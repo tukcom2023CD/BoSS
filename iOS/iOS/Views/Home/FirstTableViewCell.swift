@@ -51,7 +51,7 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         //cell.configure()
         cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
         cell.tripState.text = "-"
-        cell.tripTitle.text = "\(schedule.region!) 여행"
+        cell.tripTitle.text = schedule.title
         cell.tripImage.image = UIImage(named: "tripimg")
         
         return cell
