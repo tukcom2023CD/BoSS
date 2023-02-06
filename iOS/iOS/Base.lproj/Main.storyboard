@@ -26,35 +26,38 @@
                                     <action selector="testLoginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hDa-xB-xT4"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travelog_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="X4F-Wa-9LB">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travelog" translatesAutoresizingMaskIntoConstraints="NO" id="X4F-Wa-9LB">
                                 <rect key="frame" x="46.666666666666657" y="134" width="300" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="8Y0-Za-hln"/>
                                     <constraint firstAttribute="height" constant="150" id="o0P-6U-POI"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hbs-47-Q55">
-                                <rect key="frame" x="46.666666666666657" y="534" width="300" height="110"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="3Zs-bd-nPb">
+                                <rect key="frame" x="46.666666666666657" y="534" width="300" height="115"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wD-Sr-z8B">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I38-qC-X32">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="74k-CC-86Y"/>
-                                            <constraint firstAttribute="height" constant="50" id="IrL-rF-ccu"/>
-                                            <constraint firstAttribute="width" constant="300" id="wC8-9x-QtF"/>
+                                            <constraint firstAttribute="height" constant="50" id="Ri4-nv-BJf"/>
+                                            <constraint firstAttribute="width" constant="300" id="lZN-U1-gYU"/>
                                         </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="google_login"/>
+                                        <inset key="imageEdgeInsets" minX="-100" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Google로 로그인" image="google">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbP-p8-MgE">
-                                        <rect key="frame" x="0.0" y="60" width="300" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-2c-FLC">
+                                        <rect key="frame" x="0.0" y="65" width="300" height="50"/>
+                                        <color key="backgroundColor" systemColor="labelColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="300" id="J9M-vf-osf"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="QNk-4K-xSN"/>
-                                            <constraint firstAttribute="height" constant="50" id="R4b-D5-jhI"/>
+                                            <constraint firstAttribute="height" constant="50" id="Ase-ld-VB2"/>
+                                            <constraint firstAttribute="width" constant="300" id="l3i-vA-Y4W"/>
                                         </constraints>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="apple_login"/>
+                                        <inset key="imageEdgeInsets" minX="-110" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Apple로 로그인" image="apple">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -67,10 +70,14 @@
                             <constraint firstItem="X4F-Wa-9LB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="75" id="91r-xd-vQm"/>
                             <constraint firstItem="X4F-Wa-9LB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SSc-d7-0Y5"/>
                             <constraint firstItem="ku0-cd-dNK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="150" id="aGp-OO-tBI"/>
-                            <constraint firstItem="hbs-47-Q55" firstAttribute="top" secondItem="X4F-Wa-9LB" secondAttribute="bottom" constant="250" id="g9w-Ss-qnz"/>
-                            <constraint firstItem="hbs-47-Q55" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="j5s-sm-qs0"/>
+                            <constraint firstItem="3Zs-bd-nPb" firstAttribute="top" secondItem="X4F-Wa-9LB" secondAttribute="bottom" constant="250" id="hUJ-oJ-AfM"/>
+                            <constraint firstItem="3Zs-bd-nPb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ppE-Dq-rUr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="appleLoginButton" destination="HYt-2c-FLC" id="cZH-8R-jpb"/>
+                        <outlet property="googleLoginButton" destination="I38-qC-X32" id="I9C-eR-LSZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -379,11 +386,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Travelog_Logo" width="906" height="391"/>
-        <image name="apple_login" width="810" height="142"/>
+        <image name="Travelog" width="876" height="319"/>
+        <image name="apple" width="26" height="32"/>
         <image name="bell" catalog="system" width="125" height="128"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
-        <image name="google_login" width="811" height="141"/>
+        <image name="google" width="32" height="32"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="65"/>
         <image name="map" catalog="system" width="128" height="112"/>
