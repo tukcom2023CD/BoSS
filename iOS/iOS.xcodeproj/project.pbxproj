@@ -30,8 +30,10 @@
 		570AAB57298EA026006CB64C /* MarkerInfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB56298EA026006CB64C /* MarkerInfoWindowView.xib */; };
 		570AAB5B2990F2FB006CB64C /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */; };
 		570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */; };
-		570AAB6529915977006CB64C /* PlaceInfoTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB6329915977006CB64C /* PlaceInfoTableTableViewCell.swift */; };
-		570AAB6629915977006CB64C /* PlaceInfoTableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB6429915977006CB64C /* PlaceInfoTableTableViewCell.xib */; };
+		570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB6929916044006CB64C /* PlaceInfoTableViewCell.swift */; };
+		570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */; };
+		570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */; };
+		570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */; };
 		5719B57A298BA302008572CF /* UserNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5719B579298BA302008572CF /* UserNetManager.swift */; };
 		571BD16F29879136000A7F34 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571BD16E29879136000A7F34 /* Schedule.swift */; };
 		573941A9297ED1E900E69D8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941A8297ED1E900E69D8F /* Constants.swift */; };
@@ -103,8 +105,10 @@
 		570AAB56298EA026006CB64C /* MarkerInfoWindowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkerInfoWindowView.xib; sourceTree = "<group>"; };
 		570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
 		570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
-		570AAB6329915977006CB64C /* PlaceInfoTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTableTableViewCell.swift; sourceTree = "<group>"; };
-		570AAB6429915977006CB64C /* PlaceInfoTableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceInfoTableTableViewCell.xib; sourceTree = "<group>"; };
+		570AAB6929916044006CB64C /* PlaceInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTableViewCell.swift; sourceTree = "<group>"; };
+		570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceInfoTableViewCell.xib; sourceTree = "<group>"; };
+		570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceLocationMapTableViewCell.swift; sourceTree = "<group>"; };
+		570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceLocationMapTableViewCell.xib; sourceTree = "<group>"; };
 		5719B579298BA302008572CF /* UserNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetManager.swift; sourceTree = "<group>"; };
 		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Schedule.swift; path = Models/DBTables/Schedule.swift; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -205,8 +209,10 @@
 		570AAB6029911DE4006CB64C /* Place */ = {
 			isa = PBXGroup;
 			children = (
-				570AAB6329915977006CB64C /* PlaceInfoTableTableViewCell.swift */,
-				570AAB6429915977006CB64C /* PlaceInfoTableTableViewCell.xib */,
+				570AAB6929916044006CB64C /* PlaceInfoTableViewCell.swift */,
+				570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */,
+				570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */,
+				570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -479,13 +485,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				57808758296BEB5600D2BAF8 /* LaunchScreen.storyboard in Resources */,
+				570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */,
 				3764F65C297B97A900014FFE /* SecondCollectionViewCell.xib in Resources */,
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
 				3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
+				570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */,
 				57808755296BEB5600D2BAF8 /* Assets.xcassets in Resources */,
 				570AAB57298EA026006CB64C /* MarkerInfoWindowView.xib in Resources */,
-				570AAB6629915977006CB64C /* PlaceInfoTableTableViewCell.xib in Resources */,
 				37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */,
 				F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */,
 				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
@@ -659,9 +666,11 @@
 				37ECD62229866358005E21D4 /* Region.swift in Sources */,
 				37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */,
 				576C0DBC298A327100485AD5 /* User.swift in Sources */,
+				570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
 				571BD16F29879136000A7F34 /* Schedule.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
+				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
 				577B8F7D297A7E6500FBD1EB /* OCRResult.swift in Sources */,
 				57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */,
 				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
@@ -684,7 +693,6 @@
 				5780874E296BEB5500D2BAF8 /* SceneDelegate.swift in Sources */,
 				37ECD6242986649D005E21D4 /* RegionDataManager.swift in Sources */,
 				573941AC2980E57000E69D8F /* MapViewController.swift in Sources */,
-				570AAB6529915977006CB64C /* PlaceInfoTableTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

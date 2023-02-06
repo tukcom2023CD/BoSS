@@ -14,7 +14,6 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var calendarButton: UIButton!
     
-    var viewBlurEffect: UIVisualEffectView!
     var map: GMSMapView!
     var places: [Place]!
     var startDate: String?

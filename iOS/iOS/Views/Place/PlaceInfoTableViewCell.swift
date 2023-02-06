@@ -1,5 +1,5 @@
 //
-//  PlaceInfoTableTableViewCell.swift
+//  PlaceInfoTableViewCell.swift
 //  iOS
 //
 //  Created by 이정동 on 2023/02/07.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlaceInfoTableTableViewCell: UITableViewCell {
+class PlaceInfoTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

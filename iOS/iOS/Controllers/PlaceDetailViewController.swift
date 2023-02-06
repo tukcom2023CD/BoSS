@@ -23,6 +23,9 @@ class PlaceDetailViewController: UIViewController {
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.register(UINib(nibName:"PlaceInfoTableViewCell", bundle: nil), forCellReuseIdentifier:"PlaceInfoTableViewCell")
+        tableView.register(UINib(nibName:"PlaceLocationMapTableViewCell", bundle: nil), forCellReuseIdentifier:"PlaceLocationMapTableViewCell")
     }
     
     @objc func barButtonTapped() {
@@ -38,14 +41,29 @@ extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceInfoTableViewCell", for: indexPath) as! PlaceInfoTableViewCell
+            return cell
         case 1:
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceLocationMapTableViewCell", for: indexPath) as! PlaceLocationMapTableViewCell
+            return cell
         case 2:
-            return UITableViewCell()
-        case 3:
             return UITableViewCell()
         default:
             return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 150
+        case 1:
+            return 300
+        case 2:
+            return 300
+        default:
+            return 0
         }
     }
 

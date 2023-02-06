@@ -85,6 +85,81 @@
             </objects>
             <point key="canvasLocation" x="4982" y="-2194"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="b4G-Qe-LVh">
+            <objects>
+                <viewController id="I4A-db-lAz" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YbE-Au-eWE">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EtY-9Y-JGO">
+                                <rect key="frame" x="0.0" y="59" width="393" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="부산 광역시 ... ..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89n-LE-fxQ">
+                                        <rect key="frame" x="20" y="58" width="116" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Ob-v0-OXc">
+                                        <rect key="frame" x="20" y="25" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="U1r-HC-wEJ"/>
+                                            <constraint firstAttribute="width" constant="25" id="ewY-lm-2tx"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="더베이 101" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvK-d9-Qyk">
+                                        <rect key="frame" x="55" y="25.666666666666671" width="88" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="89n-LE-fxQ" firstAttribute="leading" secondItem="EtY-9Y-JGO" secondAttribute="leading" constant="20" id="PTd-iy-paN"/>
+                                    <constraint firstItem="4Ob-v0-OXc" firstAttribute="leading" secondItem="EtY-9Y-JGO" secondAttribute="leading" constant="20" id="Yye-Sx-6ot"/>
+                                    <constraint firstItem="rvK-d9-Qyk" firstAttribute="leading" secondItem="4Ob-v0-OXc" secondAttribute="trailing" constant="10" id="aIS-UX-agk"/>
+                                    <constraint firstItem="4Ob-v0-OXc" firstAttribute="top" secondItem="EtY-9Y-JGO" secondAttribute="top" constant="25" id="fDu-Jh-AQb"/>
+                                    <constraint firstItem="rvK-d9-Qyk" firstAttribute="centerY" secondItem="4Ob-v0-OXc" secondAttribute="centerY" id="kFI-4x-dJ8"/>
+                                    <constraint firstItem="89n-LE-fxQ" firstAttribute="top" secondItem="4Ob-v0-OXc" secondAttribute="bottom" constant="8" id="qm5-vO-xm1"/>
+                                    <constraint firstAttribute="height" constant="100" id="sBF-NK-vsa"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TcZ-l3-rfP">
+                                <rect key="frame" x="0.0" y="159" width="393" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="3l1-mY-Odl"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddt-3y-uLu">
+                                <rect key="frame" x="0.0" y="459" width="393" height="393"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4CP-5o-2Ox"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ddt-3y-uLu" firstAttribute="leading" secondItem="4CP-5o-2Ox" secondAttribute="leading" id="0xe-1G-Rav"/>
+                            <constraint firstItem="4CP-5o-2Ox" firstAttribute="trailing" secondItem="TcZ-l3-rfP" secondAttribute="trailing" id="58S-Ry-qgh"/>
+                            <constraint firstItem="4CP-5o-2Ox" firstAttribute="trailing" secondItem="EtY-9Y-JGO" secondAttribute="trailing" id="5SN-Vr-2vb"/>
+                            <constraint firstItem="TcZ-l3-rfP" firstAttribute="leading" secondItem="4CP-5o-2Ox" secondAttribute="leading" id="BrN-hd-7fe"/>
+                            <constraint firstItem="EtY-9Y-JGO" firstAttribute="top" secondItem="4CP-5o-2Ox" secondAttribute="top" id="HBu-2b-pG0"/>
+                            <constraint firstItem="ddt-3y-uLu" firstAttribute="top" secondItem="TcZ-l3-rfP" secondAttribute="bottom" id="UNj-ju-Ijr"/>
+                            <constraint firstItem="4CP-5o-2Ox" firstAttribute="trailing" secondItem="ddt-3y-uLu" secondAttribute="trailing" id="fEB-g7-mC2"/>
+                            <constraint firstItem="TcZ-l3-rfP" firstAttribute="top" secondItem="EtY-9Y-JGO" secondAttribute="bottom" id="nU8-ql-DVg"/>
+                            <constraint firstItem="EtY-9Y-JGO" firstAttribute="leading" secondItem="4CP-5o-2Ox" secondAttribute="leading" id="ocV-fo-a04"/>
+                            <constraint firstAttribute="bottom" secondItem="ddt-3y-uLu" secondAttribute="bottom" id="w6T-ya-kmf"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="852"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hLA-KY-pTa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5779" y="-3086"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="9g9-jD-56m">
             <objects>
