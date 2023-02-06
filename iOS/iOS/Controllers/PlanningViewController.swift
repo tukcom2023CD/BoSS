@@ -22,8 +22,8 @@ class PlanningViewController: UIViewController{
     
     var regionDataArray: [Region] = []
     
-    var startDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
-    var endDate = Calendar.current.date(byAdding: .day, value: 10, to: Date())
+    var startDate: String?
+    var endDate: String?
     
     //Slide up view에 사용할 변수들
     let blackView = UIView()//슬라이드 뷰
@@ -207,8 +207,8 @@ class PlanningViewController: UIViewController{
         dateRangePickerViewController.delegate = self
         dateRangePickerViewController.minimumDate = Date()
         dateRangePickerViewController.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())
-        dateRangePickerViewController.selectedStartDate = self.startDate
-        dateRangePickerViewController.selectedEndDate = self.endDate
+        dateRangePickerViewController.selectedStartDate = nil
+        dateRangePickerViewController.selectedEndDate = nil
         dateRangePickerViewController.selectedColor = UIColor.systemBlue
         dateRangePickerViewController.titleText = "날짜를 선택해주세요!"
          
@@ -259,13 +259,13 @@ extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate
     }
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
-        self.startDate = startDate
-        self.endDate = endDate
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 MMM d일 EEEE"
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        self.startDate = dateFormatter.string(from: startDate)
+        self.endDate = dateFormatter.string(from: endDate)
         
-        
-        dateLabel.text = "출발 : " + dateFormatter.string(from: startDate) + " \n" + "도착 : " + dateFormatter.string(from: endDate)
+        dateLabel.text = "출발 : " + self.startDate! + " \n" + "도착 : " + self.endDate!
         self.navigationController?.dismiss(animated: true, completion: nil)
         dateLabel.isHidden = false
         nextButton.isHidden = false

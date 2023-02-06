@@ -15,8 +15,18 @@ class PlaceNetManager {
     
     // 여행지 데이터 불러오기
     /// - parameter completion : Place 데이터를 이용한 화면 작업
-    func read(uid: Int, completion: @escaping ([Place])->()) {
-        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/places/read/\(uid)") else { return }
+    func read(uid: Int, startDate: String?, endDate: String?, completion: @escaping ([Place])->()) {
+
+        var queryString = ""
+        if let start = startDate, let end = endDate {
+            queryString = "?start=\(start)&end=\(end)"
+            queryString = queryString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! // 한글 인코딩
+            print(start)
+            print(end)
+        }
+        
+        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/places/read/\(uid)\(queryString)") else { return }
+        print(url)
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

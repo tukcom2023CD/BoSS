@@ -174,12 +174,17 @@ class ReadPlace(Resource):
 @api.route('/api/places/read/<int:uid>')
 class ReadPlaces(Resource):
     def get(self, uid):
-        sql = f"select * from place where uid = {uid}"
+        sql = ""
+        if request.args.get('start') == None:
+            sql = f"select * from place where uid = {uid}"
+        else:
+            startDate = request.args.get('start')
+            endDate = request.args.get('end')
+            sql = f"select * from place where (uid = {uid}) and (visit_date between '{startDate}' and '{endDate}')"
         conn = connect.ConnectDB(sql)
         conn.execute()
         data = conn.fetch()
         del conn
-        data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
 
         return jsonify({"places": data})
 
