@@ -13,8 +13,14 @@ class CostTableViewCell: UITableViewCell {
     var data = [(name: String, quantity: Int, price: Int)]()
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var costTableView: UITableView!
+    @IBOutlet weak var viewStateImage: UIImageView!
+    @IBOutlet weak var bottomView: UIStackView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(topViewTapped))
+        topView.addGestureRecognizer(tapGestureRecognizer)
+        bottomView.isHidden = true
+        
         costTableView.delegate = self
         costTableView.dataSource = self
         costTableView.register(UINib(nibName:"CostCell", bundle: nil), forCellReuseIdentifier:"CostCell")
@@ -37,6 +43,10 @@ class CostTableViewCell: UITableViewCell {
 }
 extension CostTableViewCell: UITableViewDelegate, UITableViewDataSource {
     
+    @objc func topViewTapped() {
+        bottomView.isHidden = !bottomView.isHidden
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
@@ -45,9 +55,9 @@ extension CostTableViewCell: UITableViewDelegate, UITableViewDataSource {
         costTableView.register(CostCell.self, forCellReuseIdentifier: "CostCell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "CostCell", for: indexPath) as? CostCell
         let item = data[indexPath.row]
-        cell?.textLabel?.text = item.name
-        cell?.quantityLabel?.text = "\(item.quantity)"
-        cell?.priceLabel?.text = "$\(item.price)"
+        cell?.nameLabel?.text = item.name
+        cell?.textLabel?.text = "\(item.quantity)"
+        cell?.textLabel?.text = "\(item.price) ￦"
 
         return cell!
     }

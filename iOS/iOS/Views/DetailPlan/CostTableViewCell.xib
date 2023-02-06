@@ -24,8 +24,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q63-he-KAk">
                                 <rect key="frame" x="8" y="8" width="304" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlM-Qs-35j">
-                                        <rect key="frame" x="7.9999999999999964" y="10" width="63.666666666666657" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlM-Qs-35j">
+                                        <rect key="frame" x="8" y="10" width="43.333333333333336" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -33,40 +33,47 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CvF-Ej-M19">
                                         <rect key="frame" x="277.33333333333331" y="20.333333333333336" width="18.666666666666686" height="10.333333333333336"/>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31F-k3-yr7">
-                                        <rect key="frame" x="83" y="8" width="47" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Button" image="plus" catalog="system"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
-                                        <connections>
-                                            <action selector="addBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VZ6-Rd-Ked"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4XZ-CO-XsE"/>
-                                    <constraint firstItem="YlM-Qs-35j" firstAttribute="centerY" secondItem="q63-he-KAk" secondAttribute="centerY" id="6Eb-nb-VaU"/>
                                     <constraint firstItem="YlM-Qs-35j" firstAttribute="leading" secondItem="q63-he-KAk" secondAttribute="leading" constant="8" id="9qz-2B-mgv"/>
                                     <constraint firstAttribute="trailing" secondItem="CvF-Ej-M19" secondAttribute="trailing" constant="8" id="BkY-O4-ycm"/>
-                                    <constraint firstItem="CvF-Ej-M19" firstAttribute="centerY" secondItem="q63-he-KAk" secondAttribute="centerY" id="poL-54-8Ti"/>
+                                    <constraint firstItem="YlM-Qs-35j" firstAttribute="top" secondItem="q63-he-KAk" secondAttribute="top" constant="10" id="dbJ-ZI-UAI"/>
+                                    <constraint firstItem="CvF-Ej-M19" firstAttribute="top" secondItem="q63-he-KAk" secondAttribute="top" constant="15" id="tyt-Li-mzq"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="e9R-5G-Zxf">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gol-AC-iAv">
                                 <rect key="frame" x="8" y="62" width="304" height="328"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="31F-k3-yr7">
+                                        <rect key="frame" x="0.0" y="0.0" width="304" height="30.333333333333332"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Button" image="plus" catalog="system"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="add cell"/>
+                                        <connections>
+                                            <action selector="addBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VZ6-Rd-Ked"/>
+                                        </connections>
+                                    </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="e9R-5G-Zxf">
+                                        <rect key="frame" x="0.0" y="34.333333333333343" width="304" height="289.66666666666663"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </tableView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="e9R-5G-Zxf" secondAttribute="bottom" constant="4" id="51y-9t-vbi"/>
+                                    <constraint firstItem="e9R-5G-Zxf" firstAttribute="top" secondItem="31F-k3-yr7" secondAttribute="bottom" constant="4" id="M7w-Tg-eWn"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="e9R-5G-Zxf" secondAttribute="bottom" constant="8" id="7xp-45-JcG"/>
                             <constraint firstItem="q63-he-KAk" firstAttribute="top" secondItem="Spw-W6-7cu" secondAttribute="top" constant="8" id="CfJ-mo-Kmo"/>
-                            <constraint firstItem="e9R-5G-Zxf" firstAttribute="top" secondItem="q63-he-KAk" secondAttribute="bottom" constant="4" id="JnI-KK-HOk"/>
-                            <constraint firstItem="e9R-5G-Zxf" firstAttribute="leading" secondItem="Spw-W6-7cu" secondAttribute="leading" constant="8" id="Kli-be-9rN"/>
+                            <constraint firstItem="Gol-AC-iAv" firstAttribute="top" secondItem="q63-he-KAk" secondAttribute="bottom" constant="4" id="FiP-ck-gUD"/>
+                            <constraint firstAttribute="bottom" secondItem="Gol-AC-iAv" secondAttribute="bottom" constant="8" id="Q8y-5g-4Aw"/>
                             <constraint firstAttribute="trailing" secondItem="q63-he-KAk" secondAttribute="trailing" constant="8" id="XFO-GX-E3R"/>
+                            <constraint firstAttribute="trailing" secondItem="Gol-AC-iAv" secondAttribute="trailing" constant="8" id="cES-dc-nG0"/>
                             <constraint firstItem="q63-he-KAk" firstAttribute="leading" secondItem="Spw-W6-7cu" secondAttribute="leading" constant="8" id="etR-72-cTk"/>
-                            <constraint firstItem="e9R-5G-Zxf" firstAttribute="top" secondItem="q63-he-KAk" secondAttribute="bottom" constant="4" id="jTD-FZ-xo5"/>
-                            <constraint firstAttribute="trailing" secondItem="e9R-5G-Zxf" secondAttribute="trailing" constant="8" id="zuA-Gz-6gs"/>
+                            <constraint firstItem="Gol-AC-iAv" firstAttribute="leading" secondItem="Spw-W6-7cu" secondAttribute="leading" constant="8" id="nOx-fz-dBL"/>
                         </constraints>
                     </stackView>
                 </subviews>
@@ -79,8 +86,10 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="bottomView" destination="Gol-AC-iAv" id="rCv-iX-4KL"/>
                 <outlet property="costTableView" destination="e9R-5G-Zxf" id="SlV-JF-cgs"/>
                 <outlet property="topView" destination="q63-he-KAk" id="70m-Dh-KdO"/>
+                <outlet property="viewStateImage" destination="CvF-Ej-M19" id="arS-4I-GXw"/>
             </connections>
             <point key="canvasLocation" x="7.6335877862595414" y="64.788732394366207"/>
         </tableViewCell>
