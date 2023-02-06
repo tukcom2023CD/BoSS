@@ -40,6 +40,51 @@
             </objects>
             <point key="canvasLocation" x="126" y="-9"/>
         </scene>
+        <!--Search Place View Controller-->
+        <scene sceneID="KkA-oG-oe3">
+            <objects>
+                <viewController storyboardIdentifier="SearchPlaceVC" id="xN2-Yo-X7n" customClass="SearchPlaceViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="iTX-9Q-S2x">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="sRB-9s-2h1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dTP-Cu-mx8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4251" y="-2193"/>
+        </scene>
+        <!--Place Detail View Controller-->
+        <scene sceneID="Wx2-3f-i0z">
+            <objects>
+                <viewController storyboardIdentifier="PlaceDetailVC" id="OBc-CM-WuA" customClass="PlaceDetailViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TZE-FH-vb7">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="v5O-HC-4Ur">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="w6Z-Hu-kTk"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="w6Z-Hu-kTk" firstAttribute="bottom" secondItem="v5O-HC-4Ur" secondAttribute="bottom" id="6ve-7T-QY2"/>
+                            <constraint firstItem="v5O-HC-4Ur" firstAttribute="top" secondItem="w6Z-Hu-kTk" secondAttribute="top" id="PuE-6F-rxX"/>
+                            <constraint firstItem="w6Z-Hu-kTk" firstAttribute="trailing" secondItem="v5O-HC-4Ur" secondAttribute="trailing" id="XzR-KA-eKO"/>
+                            <constraint firstItem="v5O-HC-4Ur" firstAttribute="leading" secondItem="w6Z-Hu-kTk" secondAttribute="leading" id="lOL-PA-8Zb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="v5O-HC-4Ur" id="3TW-22-qBW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IQt-oz-Ped" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4982" y="-2194"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="9g9-jD-56m">
             <objects>
@@ -65,7 +110,11 @@
                     <navigationItem key="navigationItem" id="qIv-w1-agK">
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="line.horizontal.3" catalog="system" id="YZo-6k-Sjr"/>
-                            <barButtonItem title="Item" image="bell" catalog="system" id="vwi-jR-EI3"/>
+                            <barButtonItem title="Item" image="bell" catalog="system" id="vwi-jR-EI3">
+                                <connections>
+                                    <action selector="testSearchPlaceButtonTapped:" destination="3m2-jw-HGR" id="DyR-6N-VYf"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Item" image="plus" catalog="system" id="6c8-Dz-ZUi">
                                 <connections>
                                     <action selector="createScheduleBarButtonTapped:" destination="3m2-jw-HGR" id="oKz-he-ors"/>
@@ -331,6 +380,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6U2-jC-cJS">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="-200" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -354,6 +407,9 @@
         <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

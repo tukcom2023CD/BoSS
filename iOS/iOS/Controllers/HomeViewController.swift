@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
         
         setupTableView()
         readScheduleData()
@@ -61,6 +61,11 @@ class HomeViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
+    @IBAction func testSearchPlaceButtonTapped(_ sender: UIBarButtonItem) {
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SearchPlaceVC") as! SearchPlaceViewController
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
 
@@ -104,8 +109,8 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let interval:CGFloat = 3
-        let width: CGFloat = ( UIScreen.main.bounds.width - interval * 3 ) / 2
+        //let interval:CGFloat = 3
+        //let width: CGFloat = ( UIScreen.main.bounds.width - interval * 3 ) / 2
         
         switch indexPath.row {
         case 0:
