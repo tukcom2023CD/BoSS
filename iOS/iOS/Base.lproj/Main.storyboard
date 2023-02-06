@@ -19,26 +19,62 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku0-cd-dNK">
-                                <rect key="frame" x="150" y="733" width="93" height="35"/>
+                                <rect key="frame" x="150" y="733.66666666666663" width="93" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
                                     <action selector="testLoginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hDa-xB-xT4"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travelog_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="X4F-Wa-9LB">
+                                <rect key="frame" x="46.666666666666657" y="134" width="300" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="8Y0-Za-hln"/>
+                                    <constraint firstAttribute="height" constant="150" id="o0P-6U-POI"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hbs-47-Q55">
+                                <rect key="frame" x="46.666666666666657" y="534" width="300" height="110"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8wD-Sr-z8B">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="74k-CC-86Y"/>
+                                            <constraint firstAttribute="height" constant="50" id="IrL-rF-ccu"/>
+                                            <constraint firstAttribute="width" constant="300" id="wC8-9x-QtF"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="google_login"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fbP-p8-MgE">
+                                        <rect key="frame" x="0.0" y="60" width="300" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="J9M-vf-osf"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="QNk-4K-xSN"/>
+                                            <constraint firstAttribute="height" constant="50" id="R4b-D5-jhI"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="apple_login"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ku0-cd-dNK" secondAttribute="bottom" constant="50" id="5Q7-Dr-Mw9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ku0-cd-dNK" secondAttribute="trailing" constant="150" id="6VQ-o7-d8m"/>
+                            <constraint firstItem="X4F-Wa-9LB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="75" id="91r-xd-vQm"/>
+                            <constraint firstItem="X4F-Wa-9LB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SSc-d7-0Y5"/>
                             <constraint firstItem="ku0-cd-dNK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="150" id="aGp-OO-tBI"/>
+                            <constraint firstItem="hbs-47-Q55" firstAttribute="top" secondItem="X4F-Wa-9LB" secondAttribute="bottom" constant="250" id="g9w-Ss-qnz"/>
+                            <constraint firstItem="hbs-47-Q55" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="j5s-sm-qs0"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="126" y="-9"/>
+            <point key="canvasLocation" x="125.95419847328243" y="-9.1549295774647899"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="9g9-jD-56m">
@@ -342,8 +378,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Travelog_Logo" width="906" height="391"/>
+        <image name="apple_login" width="810" height="142"/>
         <image name="bell" catalog="system" width="125" height="128"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="google_login" width="811" height="141"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="65"/>
         <image name="map" catalog="system" width="128" height="112"/>
