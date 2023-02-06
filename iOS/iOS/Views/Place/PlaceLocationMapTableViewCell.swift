@@ -13,13 +13,14 @@ class PlaceLocationMapTableViewCell: UITableViewCell {
     @IBOutlet weak var subView: UIView!
     
     var mapView: GMSMapView!
+    var coordinate: CLLocationCoordinate2D!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         let camera = GMSCameraPosition(latitude: 36, longitude: 127.5, zoom: 7)
-        mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: 393, height: self.frame.size.height), camera: camera)
+        mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: self.frame.size.height), camera: camera)
         
         addSubview(mapView)
     }

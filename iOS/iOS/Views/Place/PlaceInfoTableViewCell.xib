@@ -30,9 +30,12 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZx-EK-oHz">
-                        <rect key="frame" x="20.000000000000004" y="58.000000000000007" width="41.333333333333343" height="19.333333333333336"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZx-EK-oHz">
+                        <rect key="frame" x="20" y="58" width="300" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="300" id="Yx5-fy-78N"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -47,6 +50,11 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="address" destination="CZx-EK-oHz" id="k64-Ha-Gdg"/>
+                <outlet property="icon" destination="W8t-90-z6V" id="NKH-aE-scq"/>
+                <outlet property="name" destination="tI2-BB-1cY" id="Ow2-bZ-ORT"/>
+            </connections>
             <point key="canvasLocation" x="54.961832061068698" y="17.605633802816904"/>
         </tableViewCell>
     </objects>

@@ -34,6 +34,11 @@
 		570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */; };
 		570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */; };
 		570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */; };
+		570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB7129917850006CB64C /* PlacePhotosTableViewCell.swift */; };
+		570AAB7429917850006CB64C /* PlacePhotosTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB7229917850006CB64C /* PlacePhotosTableViewCell.xib */; };
+		570AAB79299180CC006CB64C /* PlacePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB77299180CC006CB64C /* PlacePhotoCollectionViewCell.swift */; };
+		570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB78299180CC006CB64C /* PlacePhotoCollectionViewCell.xib */; };
+		570AAB7E29919C6E006CB64C /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */; };
 		5719B57A298BA302008572CF /* UserNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5719B579298BA302008572CF /* UserNetManager.swift */; };
 		571BD16F29879136000A7F34 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571BD16E29879136000A7F34 /* Schedule.swift */; };
 		573941A9297ED1E900E69D8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941A8297ED1E900E69D8F /* Constants.swift */; };
@@ -109,6 +114,11 @@
 		570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceInfoTableViewCell.xib; sourceTree = "<group>"; };
 		570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceLocationMapTableViewCell.swift; sourceTree = "<group>"; };
 		570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceLocationMapTableViewCell.xib; sourceTree = "<group>"; };
+		570AAB7129917850006CB64C /* PlacePhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosTableViewCell.swift; sourceTree = "<group>"; };
+		570AAB7229917850006CB64C /* PlacePhotosTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlacePhotosTableViewCell.xib; sourceTree = "<group>"; };
+		570AAB77299180CC006CB64C /* PlacePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		570AAB78299180CC006CB64C /* PlacePhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlacePhotoCollectionViewCell.xib; sourceTree = "<group>"; };
+		570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		5719B579298BA302008572CF /* UserNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetManager.swift; sourceTree = "<group>"; };
 		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Schedule.swift; path = Models/DBTables/Schedule.swift; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -213,6 +223,10 @@
 				570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */,
 				570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */,
 				570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */,
+				570AAB7129917850006CB64C /* PlacePhotosTableViewCell.swift */,
+				570AAB7229917850006CB64C /* PlacePhotosTableViewCell.xib */,
+				570AAB77299180CC006CB64C /* PlacePhotoCollectionViewCell.swift */,
+				570AAB78299180CC006CB64C /* PlacePhotoCollectionViewCell.xib */,
 			);
 			path = Place;
 			sourceTree = "<group>";
@@ -350,6 +364,7 @@
 				5794116829710FEB009192DD /* Bundle+Ext.swift */,
 				37ECD625298676C8005E21D4 /* UIView+Ext.swift */,
 				576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */,
+				570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -485,6 +500,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				57808758296BEB5600D2BAF8 /* LaunchScreen.storyboard in Resources */,
+				570AAB7429917850006CB64C /* PlacePhotosTableViewCell.xib in Resources */,
 				570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */,
 				3764F65C297B97A900014FFE /* SecondCollectionViewCell.xib in Resources */,
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
@@ -497,6 +513,7 @@
 				F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */,
 				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
+				570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -661,6 +678,7 @@
 			files = (
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
 				F2E421752986FD62005BD304 /* CalendarCell.swift in Sources */,
+				570AAB7E29919C6E006CB64C /* UIImageView+Ext.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
 				37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */,
 				37ECD62229866358005E21D4 /* Region.swift in Sources */,
@@ -671,6 +689,7 @@
 				571BD16F29879136000A7F34 /* Schedule.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
+				570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */,
 				577B8F7D297A7E6500FBD1EB /* OCRResult.swift in Sources */,
 				57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */,
 				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
@@ -689,6 +708,7 @@
 				57C399D42982385300F63900 /* Place.swift in Sources */,
 				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
 				3764F663297B97FC00014FFE /* FirstTableViewCell.swift in Sources */,
+				570AAB79299180CC006CB64C /* PlacePhotoCollectionViewCell.swift in Sources */,
 				57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */,
 				5780874E296BEB5500D2BAF8 /* SceneDelegate.swift in Sources */,
 				37ECD6242986649D005E21D4 /* RegionDataManager.swift in Sources */,

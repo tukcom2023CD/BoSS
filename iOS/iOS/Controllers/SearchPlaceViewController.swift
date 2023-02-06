@@ -24,12 +24,6 @@ class SearchPlaceViewController: UIViewController {
         searchController = UISearchController(searchResultsController: resultsViewController)
         searchController?.searchResultsUpdater = resultsViewController
         
-        
-//        let subView = UIView(frame: CGRect(x: 0, y: 120.0, width: 350.0, height: 45.0))
-//
-//        subView.addSubview((searchController?.searchBar)!)
-//        view.addSubview(subView)
-        
         navigationItem.searchController = searchController
 
         searchController?.searchBar.sizeToFit()
@@ -51,6 +45,7 @@ extension SearchPlaceViewController: GMSAutocompleteResultsViewControllerDelegat
         // Do something with the selected place.
         print(place)
         let placeDetailVC = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailVC") as! PlaceDetailViewController
+        placeDetailVC.place = place
         navigationController?.pushViewController(placeDetailVC, animated: true)
         
     }

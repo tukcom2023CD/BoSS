@@ -9,6 +9,10 @@ import UIKit
 
 class PlaceInfoTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var icon: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var address: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
