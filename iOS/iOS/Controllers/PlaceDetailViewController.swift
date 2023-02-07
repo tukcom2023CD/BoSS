@@ -51,9 +51,11 @@ extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate 
             
             cell.name.text = place.name
             cell.address.text = place.formattedAddress
-            
+
             if let url = place.iconImageURL {
                 cell.icon.load(url: url)
+                cell.icon.backgroundColor = place.iconBackgroundColor
+                print(cell.icon.image)
             }
         
             return cell
