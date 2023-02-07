@@ -16,7 +16,10 @@ class ExplainTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(topViewTapped))
+        topView.addGestureRecognizer(tapGestureRecognizer)
+        bottomView.isHidden = true
+      
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,5 +27,7 @@ class ExplainTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+    @objc func topViewTapped() {
+        bottomView.isHidden = !bottomView.isHidden
+    }
 }

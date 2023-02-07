@@ -53,6 +53,8 @@
 		57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C399D12982383600F63900 /* PlaceNetManager.swift */; };
 		57C399D42982385300F63900 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C399D32982385300F63900 /* Place.swift */; };
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
+		F22FA19329920DFB0015633F /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22FA19129920DFB0015633F /* TitleTableViewCell.swift */; };
+		F22FA19429920DFB0015633F /* TitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F22FA19229920DFB0015633F /* TitleTableViewCell.xib */; };
 		F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = F27BB72A297E4B4300839669 /* SecretKey.plist */; };
 		F290A958298ADD2700340324 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F290A956298ADD2700340324 /* ImageTableViewCell.swift */; };
 		F290A959298ADD2700340324 /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F290A957298ADD2700340324 /* ImageTableViewCell.xib */; };
@@ -138,6 +140,8 @@
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D186E571686558A6A981FD3E /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F22FA19129920DFB0015633F /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
+		F22FA19229920DFB0015633F /* TitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTableViewCell.xib; sourceTree = "<group>"; };
 		F27BB72A297E4B4300839669 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		F290A956298ADD2700340324 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		F290A957298ADD2700340324 /* ImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 				F290A95F298ADFDD00340324 /* CostTableViewCell.xib */,
 				F290A962298B956000340324 /* CostCell.swift */,
 				F290A963298B956000340324 /* CostCell.xib */,
+				F22FA19129920DFB0015633F /* TitleTableViewCell.swift */,
+				F22FA19229920DFB0015633F /* TitleTableViewCell.xib */,
 			);
 			path = DetailPlan;
 			sourceTree = "<group>";
@@ -504,6 +510,7 @@
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
 				3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */,
 				F290A95D298ADFC500340324 /* ExplainTableViewCell.xib in Resources */,
+				F22FA19429920DFB0015633F /* TitleTableViewCell.xib in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
 				57808755296BEB5600D2BAF8 /* Assets.xcassets in Resources */,
 				F290A965298B956000340324 /* CostCell.xib in Resources */,
@@ -698,6 +705,7 @@
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
 				37FAFAA6298791E20034F1EE /* MainPlanData.swift in Sources */,
+				F22FA19329920DFB0015633F /* TitleTableViewCell.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,

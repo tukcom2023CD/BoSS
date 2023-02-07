@@ -24,8 +24,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQG-48-euN">
                                 <rect key="frame" x="8" y="8" width="304" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esh-wD-2hZ">
-                                        <rect key="frame" x="7.9999999999999964" y="10" width="63.666666666666657" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esh-wD-2hZ">
+                                        <rect key="frame" x="8" y="10" width="43.333333333333343" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -36,10 +36,10 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="k7t-Sx-82q" firstAttribute="centerY" secondItem="kQG-48-euN" secondAttribute="centerY" id="2uX-OJ-N6k"/>
+                                    <constraint firstItem="k7t-Sx-82q" firstAttribute="top" secondItem="kQG-48-euN" secondAttribute="top" constant="15" id="6Il-fC-0zg"/>
+                                    <constraint firstItem="esh-wD-2hZ" firstAttribute="top" secondItem="kQG-48-euN" secondAttribute="top" constant="10" id="AU9-XN-oxy"/>
                                     <constraint firstAttribute="trailing" secondItem="k7t-Sx-82q" secondAttribute="trailing" constant="8" id="YYa-RN-ogm"/>
                                     <constraint firstItem="esh-wD-2hZ" firstAttribute="leading" secondItem="kQG-48-euN" secondAttribute="leading" constant="8" id="cdc-J9-tlL"/>
-                                    <constraint firstItem="esh-wD-2hZ" firstAttribute="centerY" secondItem="kQG-48-euN" secondAttribute="centerY" id="mWV-1p-OWB"/>
                                     <constraint firstAttribute="height" constant="50" id="upv-aU-mIf"/>
                                 </constraints>
                             </view>
@@ -49,7 +49,7 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WLJ-b7-UnM">
                                         <rect key="frame" x="0.0" y="0.0" width="304" height="242"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud dsadasdasd ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud dsadasdasd ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" systemColor="labelColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -67,6 +67,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="kQG-48-euN" firstAttribute="top" secondItem="50j-kF-Mdj" secondAttribute="top" constant="8" id="1o0-5y-rKX"/>
+                            <constraint firstAttribute="height" constant="316" id="G7J-eb-f4u"/>
                             <constraint firstAttribute="bottom" secondItem="WsM-kA-1dr" secondAttribute="bottom" constant="8" id="NuI-Sb-mdx"/>
                             <constraint firstItem="WsM-kA-1dr" firstAttribute="leading" secondItem="50j-kF-Mdj" secondAttribute="leading" constant="8" id="Phz-hC-vBu"/>
                             <constraint firstAttribute="trailing" secondItem="WsM-kA-1dr" secondAttribute="trailing" constant="8" id="RQq-03-Hmo"/>
