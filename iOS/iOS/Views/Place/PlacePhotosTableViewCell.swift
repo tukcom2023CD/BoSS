@@ -20,7 +20,7 @@ class PlacePhotosTableViewCell: UITableViewCell {
     
     let flowLayout = UICollectionViewFlowLayout()
     
-    var photos: [UIImage?]?
+    var photos: [UIImage?] = []
     var photoMetadata: [GMSPlacePhotoMetadata]?
     
     private var placesClient: GMSPlacesClient!
@@ -67,18 +67,23 @@ class PlacePhotosTableViewCell: UITableViewCell {
         print(#function)
         guard let photoMetadata = photoMetadata else { return }
         
-        for metadata in photoMetadata {
-            placesClient.loadPlacePhoto(metadata) { photo, error in
-                if let error = error {
-                    print("Error loading photo metadata: \(error.localizedDescription)")
-                    return
-                } else {
-                    self.photos?.append(photo)
+        DispatchQueue.global().async {
+            let downloadGroup = DispatchGroup()
+            photoMetadata.forEach { photo in
+                downloadGroup.enter()
+                self.placesClient.loadPlacePhoto(photo) { image, error in
+                    if let image = image {
+                        self.photos.append(image)
+                    }
+                    downloadGroup.leave()
                 }
             }
+            
+            downloadGroup.notify(queue: DispatchQueue.main) {
+                self.collectionView.reloadData()
+            }
         }
-        print(photos)
-
+        
     }
     
 }
@@ -88,12 +93,14 @@ extension PlacePhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDa
     
     // DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos?.count ?? 0
+        return photos.count
 //        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlacePhotoCollectionViewCell", for: indexPath) as! PlacePhotoCollectionViewCell
+        
+        cell.photo.image = photos[indexPath.item]
         
         return cell
     }

@@ -25,7 +25,6 @@ class PlaceDetailViewController: UIViewController {
     }
     
     func setupTableView() {
-        print(#function)
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -60,9 +59,8 @@ extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate 
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceLocationMapTableViewCell", for: indexPath) as! PlaceLocationMapTableViewCell
-            print("좌표 : \(place.coordinate)")
+            
             cell.coordinate = place.coordinate
-            print("좌표1: \(cell.coordinate)")
             
             return cell
         case 2:
