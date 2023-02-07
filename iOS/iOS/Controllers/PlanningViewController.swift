@@ -64,7 +64,7 @@ class PlanningViewController: UIViewController{
         let ok = UIAlertAction(title: "확인", style: .default) { action in
             
             let user = UserDefaults.standard.getLoginUser()!
-            let schedule = Schedule(region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)", uid: user.uid!)
+            let schedule = Schedule(title: self.placeNameCheck.text! + " 여행", region: self.placeNameCheck.text, start: "\(self.startDate!)", stop: "\(self.endDate!)", uid: user.uid!)
             
             ScheduleNetManager.shared.create(schedule: schedule) {
                 
@@ -74,7 +74,7 @@ class PlanningViewController: UIViewController{
                         let rootVC = self.navigationController?.viewControllers[index] as! HomeViewController
                         
                         //rootVC.schedules.append(schedule)
-                        rootVC.schedules = schedules
+                        rootVC.upcomingSchedules = schedules
                         rootVC.tableView.reloadData()
                         //self.tabBarController?.tabBar.isHidden = false
                         self.navigationController?.popToRootViewController(animated: true)
@@ -261,7 +261,7 @@ extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate
     func didPickDateRange(startDate: Date!, endDate: Date!) {
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        dateFormatter.dateFormat = "yyyy.MM.dd"
         self.startDate = dateFormatter.string(from: startDate)
         self.endDate = dateFormatter.string(from: endDate)
         
