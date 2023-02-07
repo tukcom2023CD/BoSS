@@ -8,12 +8,6 @@
 import UIKit
 import GooglePlaces
 
-struct CVCell {
-    static let spacingWitdh: CGFloat = 3
-    static let cellColumns: CGFloat = 2
-    private init() {}
-}
-
 class PlacePhotosTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -49,13 +43,13 @@ class PlacePhotosTableViewCell: UITableViewCell {
         
         flowLayout.scrollDirection = .horizontal
         
-        let collectionCellWidth = (collectionView.frame.height - CVCell.spacingWitdh * (CVCell.cellColumns - 1)) / CVCell.cellColumns
+        let collectionCellWidth = (collectionView.frame.height - PlacePhotoCVCell.spacingWitdh * (PlacePhotoCVCell.cellRows - 1)) / PlacePhotoCVCell.cellRows
         flowLayout.itemSize = CGSize(width: collectionCellWidth, height: collectionCellWidth)
         
         // 아이템 사이 간격 설정
-        flowLayout.minimumInteritemSpacing = CVCell.spacingWitdh
+        flowLayout.minimumInteritemSpacing = PlacePhotoCVCell.spacingWitdh
         // 아이템 위아래 사이 간격 설정
-        flowLayout.minimumLineSpacing = CVCell.spacingWitdh
+        flowLayout.minimumLineSpacing = PlacePhotoCVCell.spacingWitdh
         
         // 컬렉션뷰 속성에 flowLayout 할당
         collectionView.collectionViewLayout = flowLayout
@@ -63,8 +57,8 @@ class PlacePhotosTableViewCell: UITableViewCell {
         collectionView.register(UINib(nibName:"PlacePhotoCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "PlacePhotoCollectionViewCell")
     }
     
+    // Google Places 장소 사진 가져오기
     func setupPhotoData() {
-        print(#function)
         guard let photoMetadata = photoMetadata else { return }
         
         DispatchQueue.global().async {
@@ -94,7 +88,6 @@ extension PlacePhotosTableViewCell: UICollectionViewDelegate, UICollectionViewDa
     // DataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
-//        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

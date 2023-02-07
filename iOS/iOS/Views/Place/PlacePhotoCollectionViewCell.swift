@@ -14,6 +14,9 @@ class PlacePhotoCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        photo.layer.cornerRadius = 10
+        photo.contentMode = .scaleAspectFill
     }
 
 }

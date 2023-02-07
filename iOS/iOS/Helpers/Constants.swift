@@ -23,3 +23,10 @@ struct SlideViewConstant {
 public enum UserDefaultsKey {
     static let key = "user"
 }
+
+// PlacePhotoCollectionViewCell
+struct PlacePhotoCVCell {
+    static let spacingWitdh: CGFloat = 5
+    static let cellRows: CGFloat = 2
+    private init() {}
+}
