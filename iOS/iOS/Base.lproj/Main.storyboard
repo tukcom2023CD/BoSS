@@ -194,16 +194,16 @@
             </objects>
             <point key="canvasLocation" x="4851.1450381679388" y="-1502.1126760563382"/>
         </scene>
-        <!--여행지-->
+        <!--MainPlanViewController-->
         <scene sceneID="Cl7-AU-5un">
             <objects>
-                <viewController storyboardIdentifier="MainPlanViewController" id="cgf-qn-URD" customClass="MainPlanViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainPlanViewController" title="MainPlanViewController" id="cgf-qn-URD" customClass="MainPlanViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mhg-gg-OIp">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bom-py-XJo">
-                                <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <rect key="frame" x="0.0" y="155" width="393" height="663"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B2V-z1-e70">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="1200"/>
@@ -268,11 +268,49 @@
                     <connections>
                         <outlet property="scrollView" destination="bom-py-XJo" id="vqJ-Gz-dTz"/>
                         <outlet property="tableView" destination="Vvr-oz-TEI" id="dhl-7V-Uv6"/>
+                        <segue destination="6CL-67-hmA" kind="show" identifier="ToSeePlace" id="N3x-a1-oyF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E4n-EB-mii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6840.4580152671751" y="-1468.3098591549297"/>
+            <point key="canvasLocation" x="6815" y="-1468"/>
+        </scene>
+        <!--Main Plan Button Tapped View Controller-->
+        <scene sceneID="Goc-Y6-2Mn">
+            <objects>
+                <viewController id="6CL-67-hmA" customClass="mainPlanButtonTappedViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o8p-HT-YMI">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p3e-vV-NQV">
+                                <rect key="frame" x="159" y="408.66666666666669" width="75" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="BiO-tU-nGt"/>
+                                    <constraint firstAttribute="width" constant="75" id="NPQ-EL-jo1"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="6CL-67-hmA" eventType="touchUpInside" id="f2B-qM-70d"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="yll-IS-cRU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="p3e-vV-NQV" firstAttribute="centerY" secondItem="o8p-HT-YMI" secondAttribute="centerY" id="ORO-rZ-trF"/>
+                            <constraint firstItem="p3e-vV-NQV" firstAttribute="centerX" secondItem="o8p-HT-YMI" secondAttribute="centerX" id="bjE-cJ-Ubm"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="b24-yd-zqx"/>
+                    <connections>
+                        <outlet property="button" destination="p3e-vV-NQV" id="BFb-2P-nqK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="und-7A-OsA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7688" y="-1468"/>
         </scene>
         <!--지도-->
         <scene sceneID="iFJ-Xb-SWg">

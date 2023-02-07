@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Foundation
 struct Notice{
     let date: String
     let title: String
@@ -18,4 +18,13 @@ struct Notice{
         
         return String(s)
     }
+}
+
+
+struct Sections{
+    let title: String
+    let options: [String]
+    var isOpend: Bool = false
+    
+   
 }

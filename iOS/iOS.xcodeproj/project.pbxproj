@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		36D32DEEF1C5607FA325D100 /* Pods_iOS_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */; };
+		372B4B9E2991FCB500D504E8 /* mainPlanButtonTappedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372B4B9D2991FCB500D504E8 /* mainPlanButtonTappedViewController.swift */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
 		3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F656297B974400014FFE /* FirstCollectionViewCell.xib */; };
 		3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */; };
@@ -77,6 +78,7 @@
 		1456B02B228DC8C37E5ED3AC /* Pods-iOS-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-iOS-iOSUITests/Pods-iOS-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		207460B44357D9F4D787BFC5 /* Pods-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.release.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		34A3E75F0EC9355F20B34FF4 /* Pods-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.debug.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		372B4B9D2991FCB500D504E8 /* mainPlanButtonTappedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainPlanButtonTappedViewController.swift; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3764F656297B974400014FFE /* FirstCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -191,13 +193,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		37B7BE7E29855E5000786A1F /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		37FAFAA0298791280034F1EE /* Region */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +238,7 @@
 				37B7BE87298564F900786A1F /* SlideView.swift */,
 				37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */,
 				37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */,
+				372B4B9D2991FCB500D504E8 /* mainPlanButtonTappedViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -665,6 +661,7 @@
 				37FAFAA6298791E20034F1EE /* MainPlanData.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
+				372B4B9E2991FCB500D504E8 /* mainPlanButtonTappedViewController.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
 				57C399D42982385300F63900 /* Place.swift in Sources */,
 				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
