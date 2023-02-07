@@ -19,26 +19,69 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku0-cd-dNK">
-                                <rect key="frame" x="150" y="733" width="93" height="35"/>
+                                <rect key="frame" x="150" y="733.66666666666663" width="93" height="34.333333333333371"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <connections>
                                     <action selector="testLoginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hDa-xB-xT4"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travelog" translatesAutoresizingMaskIntoConstraints="NO" id="X4F-Wa-9LB">
+                                <rect key="frame" x="46.666666666666657" y="134" width="300" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="8Y0-Za-hln"/>
+                                    <constraint firstAttribute="height" constant="150" id="o0P-6U-POI"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="3Zs-bd-nPb">
+                                <rect key="frame" x="46.666666666666657" y="534" width="300" height="115"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I38-qC-X32">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Ri4-nv-BJf"/>
+                                            <constraint firstAttribute="width" constant="300" id="lZN-U1-gYU"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="-100" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Google로 로그인" image="google">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-2c-FLC">
+                                        <rect key="frame" x="0.0" y="65" width="300" height="50"/>
+                                        <color key="backgroundColor" systemColor="labelColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Ase-ld-VB2"/>
+                                            <constraint firstAttribute="width" constant="300" id="l3i-vA-Y4W"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="-110" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Apple로 로그인" image="apple">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ku0-cd-dNK" secondAttribute="bottom" constant="50" id="5Q7-Dr-Mw9"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ku0-cd-dNK" secondAttribute="trailing" constant="150" id="6VQ-o7-d8m"/>
+                            <constraint firstItem="X4F-Wa-9LB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="75" id="91r-xd-vQm"/>
+                            <constraint firstItem="X4F-Wa-9LB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SSc-d7-0Y5"/>
                             <constraint firstItem="ku0-cd-dNK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="150" id="aGp-OO-tBI"/>
+                            <constraint firstItem="3Zs-bd-nPb" firstAttribute="top" secondItem="X4F-Wa-9LB" secondAttribute="bottom" constant="250" id="hUJ-oJ-AfM"/>
+                            <constraint firstItem="3Zs-bd-nPb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ppE-Dq-rUr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="appleLoginButton" destination="HYt-2c-FLC" id="cZH-8R-jpb"/>
+                        <outlet property="googleLoginButton" destination="I38-qC-X32" id="I9C-eR-LSZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="126" y="-9"/>
+            <point key="canvasLocation" x="125.95419847328243" y="-9.1549295774647899"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="9g9-jD-56m">
@@ -343,8 +386,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Travelog" width="876" height="319"/>
+        <image name="apple" width="26" height="32"/>
         <image name="bell" catalog="system" width="125" height="128"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="google" width="32" height="32"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="65"/>
         <image name="map" catalog="system" width="128" height="112"/>
