@@ -31,8 +31,7 @@ struct Place: Codable {
         case visitDate = "visit_date"
     }
     
-    struct 
-    
+
     
     
     
