@@ -33,13 +33,14 @@ class PlacePhotosTableViewCell: UITableViewCell {
         placesClient = GMSPlacesClient.shared()
         
         setupCollectionView()
-        setupPhotoData()
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
+        setupPhotoData()
     }
     
     func setupCollectionView() {
@@ -63,6 +64,7 @@ class PlacePhotosTableViewCell: UITableViewCell {
     }
     
     func setupPhotoData() {
+        print(#function)
         guard let photoMetadata = photoMetadata else { return }
         
         for metadata in photoMetadata {
