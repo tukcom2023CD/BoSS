@@ -7,12 +7,33 @@
 
 import UIKit
 
+
+
+
+
+
 class LoginViewController: UIViewController {
+    
+    
+    @IBOutlet weak var googleLoginButton: UIButton!
+    @IBOutlet weak var appleLoginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 로그인 버튼 설정
+        setLoginButton()
+        
     }
+    
+    // 로그인 버튼 설정
+    func setLoginButton () {
+        googleLoginButton.layer.cornerRadius = 20
+        googleLoginButton.layer.borderWidth = 1
+        googleLoginButton.layer.borderColor = UIColor.gray.cgColor
+        appleLoginButton.layer.cornerRadius = 20
+    }
+    
     
     // 테스트용 로그인 버튼
     @IBAction func testLoginButtonTapped(_ sender: UIButton) {
@@ -32,6 +53,5 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
 }
 

@@ -13,12 +13,13 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var schedules: [Schedule] = []
+    var upcomingSchedules: [Schedule] = []
+    var previousSchedules: [Schedule] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
         
         setupTableView()
         readScheduleData()
@@ -34,10 +35,29 @@ class HomeViewController: UIViewController {
         let user = UserDefaults.standard.getLoginUser()!
         
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
-            self.schedules = schedules
+            self.upcomingSchedules = schedules
+            
+            self.divideScheduleData(schedules: self.upcomingSchedules)
+            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
+        }
+    }
+    
+    // 다녀온 여행, 다가올 여행 분리
+    /// - parameter schedules : 서버로부터 받은 여행 일정 데이터
+    func divideScheduleData(schedules: [Schedule]) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let currentDate = formatter.string(from: Date())
+        
+        for schedule in schedules {
+            if currentDate <= schedule.stop! {
+                break
+            }
+            self.previousSchedules.insert(schedule, at: 0)
+            self.upcomingSchedules.removeFirst()
         }
     }
     
@@ -61,6 +81,11 @@ class HomeViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
+    @IBAction func testSearchPlaceButtonTapped(_ sender: UIBarButtonItem) {
+        
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SearchPlaceVC") as! SearchPlaceViewController
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
 
@@ -76,7 +101,7 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FirstTableViewCell", for: indexPath) as! FirstTableViewCell
             cell.configure()
             cell.selectionStyle = .none
-            cell.schedules = self.schedules
+            cell.schedules = self.upcomingSchedules
             
             // 여행일정 셀 클릭 시 동작할 기능 정의
             cell.didSelectItem = { schedule in
@@ -94,6 +119,12 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SecondTableViewCell", for: indexPath) as! SecondTableViewCell
             cell.selectionStyle = .none
+            cell.schedules = self.previousSchedules
+            
+            cell.didSelectItem = { schedule in
+                let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
+                self.navigationController?.pushViewController(mainPlanVC, animated: true)
+            }
             
             return cell
             
@@ -104,8 +135,8 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let interval:CGFloat = 3
-        let width: CGFloat = ( UIScreen.main.bounds.width - interval * 3 ) / 2
+        //let interval:CGFloat = 3
+        //let width: CGFloat = ( UIScreen.main.bounds.width - interval * 3 ) / 2
         
         switch indexPath.row {
         case 0:

@@ -28,6 +28,17 @@
 		37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */; };
 		4333AD1A674200E8AAE981B6 /* Pods_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */; };
 		570AAB57298EA026006CB64C /* MarkerInfoWindowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB56298EA026006CB64C /* MarkerInfoWindowView.xib */; };
+		570AAB5B2990F2FB006CB64C /* SearchPlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */; };
+		570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */; };
+		570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB6929916044006CB64C /* PlaceInfoTableViewCell.swift */; };
+		570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */; };
+		570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */; };
+		570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */; };
+		570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB7129917850006CB64C /* PlacePhotosTableViewCell.swift */; };
+		570AAB7429917850006CB64C /* PlacePhotosTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB7229917850006CB64C /* PlacePhotosTableViewCell.xib */; };
+		570AAB79299180CC006CB64C /* PlacePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB77299180CC006CB64C /* PlacePhotoCollectionViewCell.swift */; };
+		570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 570AAB78299180CC006CB64C /* PlacePhotoCollectionViewCell.xib */; };
+		570AAB7E29919C6E006CB64C /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */; };
 		5719B57A298BA302008572CF /* UserNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5719B579298BA302008572CF /* UserNetManager.swift */; };
 		571BD16F29879136000A7F34 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571BD16E29879136000A7F34 /* Schedule.swift */; };
 		573941A9297ED1E900E69D8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941A8297ED1E900E69D8F /* Constants.swift */; };
@@ -91,19 +102,30 @@
 		3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
 		37B7BE87298564F900786A1F /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
 		37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanViewController.swift; sourceTree = "<group>"; };
-		37ECD62129866358005E21D4 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
-		37ECD6232986649D005E21D4 /* RegionDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionDataManager.swift; sourceTree = "<group>"; };
+		37ECD62129866358005E21D4 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Region.swift; path = Models/Region.swift; sourceTree = "<group>"; };
+		37ECD6232986649D005E21D4 /* RegionDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegionDataManager.swift; path = Models/RegionDataManager.swift; sourceTree = "<group>"; };
 		37ECD625298676C8005E21D4 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanningViewController.swift; sourceTree = "<group>"; };
 		37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceTableViewCell.swift; sourceTree = "<group>"; };
 		37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchPlaceTableViewCell.xib; sourceTree = "<group>"; };
 		570AAB56298EA026006CB64C /* MarkerInfoWindowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarkerInfoWindowView.xib; sourceTree = "<group>"; };
+		570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPlaceViewController.swift; sourceTree = "<group>"; };
+		570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailViewController.swift; sourceTree = "<group>"; };
+		570AAB6929916044006CB64C /* PlaceInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInfoTableViewCell.swift; sourceTree = "<group>"; };
+		570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceInfoTableViewCell.xib; sourceTree = "<group>"; };
+		570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceLocationMapTableViewCell.swift; sourceTree = "<group>"; };
+		570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaceLocationMapTableViewCell.xib; sourceTree = "<group>"; };
+		570AAB7129917850006CB64C /* PlacePhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotosTableViewCell.swift; sourceTree = "<group>"; };
+		570AAB7229917850006CB64C /* PlacePhotosTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlacePhotosTableViewCell.xib; sourceTree = "<group>"; };
+		570AAB77299180CC006CB64C /* PlacePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		570AAB78299180CC006CB64C /* PlacePhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlacePhotoCollectionViewCell.xib; sourceTree = "<group>"; };
+		570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		5719B579298BA302008572CF /* UserNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetManager.swift; sourceTree = "<group>"; };
-		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Schedule.swift; path = Models/DBTables/Schedule.swift; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		573941AB2980E57000E69D8F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
-		576C0DBB298A327100485AD5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		576C0DBB298A327100485AD5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/DBTables/User.swift; sourceTree = "<group>"; };
 		5775975C2976541F008CB199 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		577B8F7A2979044600FBD1EB /* OCRNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCRNetManager.swift; sourceTree = "<group>"; };
 		577B8F7C297A7E6500FBD1EB /* OCRResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OCRResult.swift; path = Models/OCRResult.swift; sourceTree = "<group>"; };
@@ -124,7 +146,7 @@
 		5794116829710FEB009192DD /* Bundle+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Ext.swift"; sourceTree = "<group>"; };
 		57A1205E297128A7008F5572 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57C399D12982383600F63900 /* PlaceNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceNetManager.swift; sourceTree = "<group>"; };
-		57C399D32982385300F63900 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Place.swift; path = Models/Place.swift; sourceTree = "<group>"; };
+		57C399D32982385300F63900 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Place.swift; path = Models/DBTables/Place.swift; sourceTree = "<group>"; };
 		57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoWindowView.swift; sourceTree = "<group>"; };
 		64D24A0EE6A955DADD4FDED7 /* Pods-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +218,21 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		570AAB6029911DE4006CB64C /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				570AAB6929916044006CB64C /* PlaceInfoTableViewCell.swift */,
+				570AAB6A29916044006CB64C /* PlaceInfoTableViewCell.xib */,
+				570AAB6D299173E2006CB64C /* PlaceLocationMapTableViewCell.swift */,
+				570AAB6E299173E2006CB64C /* PlaceLocationMapTableViewCell.xib */,
+				570AAB7129917850006CB64C /* PlacePhotosTableViewCell.swift */,
+				570AAB7229917850006CB64C /* PlacePhotosTableViewCell.xib */,
+				570AAB77299180CC006CB64C /* PlacePhotoCollectionViewCell.swift */,
+				570AAB78299180CC006CB64C /* PlacePhotoCollectionViewCell.xib */,
+			);
+			path = Place;
+			sourceTree = "<group>";
+		};
 		5719B578298BA20B008572CF /* DBTables */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +254,7 @@
 		573941AA2980110500E69D8F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				570AAB6029911DE4006CB64C /* Place */,
 				57F9FFF0298E9FA30045E7D0 /* Map */,
 				3764F654297B972400014FFE /* Home */,
 				37B7BE87298564F900786A1F /* SlideView.swift */,
@@ -235,6 +273,8 @@
 				37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */,
 				573941AB2980E57000E69D8F /* MapViewController.swift */,
 				BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */,
+				570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */,
+				570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -327,6 +367,7 @@
 				5794116829710FEB009192DD /* Bundle+Ext.swift */,
 				37ECD625298676C8005E21D4 /* UIView+Ext.swift */,
 				576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */,
+				570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -462,16 +503,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				57808758296BEB5600D2BAF8 /* LaunchScreen.storyboard in Resources */,
+				570AAB7429917850006CB64C /* PlacePhotosTableViewCell.xib in Resources */,
+				570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */,
 				3764F65C297B97A900014FFE /* SecondCollectionViewCell.xib in Resources */,
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
 				3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
+				570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */,
 				57808755296BEB5600D2BAF8 /* Assets.xcassets in Resources */,
 				570AAB57298EA026006CB64C /* MarkerInfoWindowView.xib in Resources */,
 				37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */,
 				F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */,
 				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
+				570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,14 +681,18 @@
 			files = (
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
 				F2E421752986FD62005BD304 /* CalendarCell.swift in Sources */,
+				570AAB7E29919C6E006CB64C /* UIImageView+Ext.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
 				37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */,
 				37ECD62229866358005E21D4 /* Region.swift in Sources */,
 				37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */,
 				576C0DBC298A327100485AD5 /* User.swift in Sources */,
+				570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
 				571BD16F29879136000A7F34 /* Schedule.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
+				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
+				570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */,
 				577B8F7D297A7E6500FBD1EB /* OCRResult.swift in Sources */,
 				57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */,
 				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
@@ -652,15 +701,18 @@
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
+				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
 				5719B57A298BA302008572CF /* UserNetManager.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				576C0DBA298A325900485AD5 /* UserDefaults+Ext.swift in Sources */,
+				570AAB5B2990F2FB006CB64C /* SearchPlaceViewController.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
 				5793B7722988CFAD00649F23 /* ScheduleNetManager.swift in Sources */,
 				57C399D42982385300F63900 /* Place.swift in Sources */,
 				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
 				3764F663297B97FC00014FFE /* FirstTableViewCell.swift in Sources */,
+				570AAB79299180CC006CB64C /* PlacePhotoCollectionViewCell.swift in Sources */,
 				57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */,
 				5780874E296BEB5500D2BAF8 /* SceneDelegate.swift in Sources */,
 				37ECD6242986649D005E21D4 /* RegionDataManager.swift in Sources */,
@@ -857,7 +909,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea.cesw.ios.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea.ce.ios.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -892,7 +944,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea.cesw.ios.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea.ce.ios.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

@@ -14,7 +14,6 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var calendarButton: UIButton!
     
-    var viewBlurEffect: UIVisualEffectView!
     var map: GMSMapView!
     var places: [Place]!
     var startDate: String?
@@ -115,7 +114,7 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        dateFormatter.dateFormat = "yyyy.MM.dd"
         self.startDate = dateFormatter.string(from: startDate)
         self.endDate = dateFormatter.string(from: endDate)
         
