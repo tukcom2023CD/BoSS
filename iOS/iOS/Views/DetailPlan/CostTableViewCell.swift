@@ -12,40 +12,13 @@ import UIKit
 class CostTableViewCell: UITableViewCell {
     var data = [(name: String, quantity: Int, price: Int)]()
     @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var costTableView: UITableView!
-    @IBOutlet weak var viewStateImage: UIImageView!
-    @IBOutlet weak var bottomView: UIStackView!
-    var isExpanded = false
+
     
-    @IBOutlet weak var bottomViewHeightConstraint: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(topViewTapped))
-        topView.addGestureRecognizer(tapGestureRecognizer)
-        bottomView.isHidden = true
-        
-        costTableView.delegate = self
-        costTableView.dataSource = self
-        costTableView.register(UINib(nibName:"CostCell", bundle: nil), forCellReuseIdentifier:"CostCell")
-    }
-
-    @IBAction func addBtn(_ sender: Any) {
-        data.append((name:"품명", quantity: 1, price: 0))
-        let indexPath = IndexPath(row: data.count - 1, section: 0)
-        costTableView.beginUpdates()
-        costTableView.insertRows(at: [indexPath], with: .automatic)
-        costTableView.endUpdates()
-        
     }
     
-    @objc func topViewTapped() {
-        isExpanded = !isExpanded
-        bottomView.isHidden = !isExpanded
-        bottomViewHeightConstraint?.constant = isExpanded ? 400 : 100
-        UIView.animate(withDuration: 0.3){
-            self.layoutIfNeeded()
-        }
-    }
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
@@ -53,25 +26,7 @@ class CostTableViewCell: UITableViewCell {
     }
     
 }
-extension CostTableViewCell: UITableViewDelegate, UITableViewDataSource {
-    
-   
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        costTableView.register(CostCell.self, forCellReuseIdentifier: "CostCell")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CostCell", for: indexPath) as? CostCell
-        let item = data[indexPath.row]
-        cell?.nameLabel?.text = item.name
-        cell?.textLabel?.text = "\(item.quantity)"
-        cell?.textLabel?.text = "\(item.price) ￦"
-
-        return cell!
-    }
-    
     
 //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        // Show an alert to allow editing of the selected item
