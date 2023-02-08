@@ -10,7 +10,7 @@ import UIKit
 class MainPlanTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
-    
+    var indexCount: Int = 1
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

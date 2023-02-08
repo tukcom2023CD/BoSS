@@ -30,4 +30,12 @@ struct Place: Codable {
         case totalSpending = "total_spending"
         case visitDate = "visit_date"
     }
+    
+
+    
+    
+    
+    
+    
+    
 }
