@@ -14,11 +14,11 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="66" id="KGk-i7-Jjw" customClass="ExplainTableViewCell" customModule="iOS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQG-48-euN">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kQG-48-euN">
                         <rect key="frame" x="8" y="8" width="304" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esh-wD-2hZ">
@@ -42,14 +42,15 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="kQG-48-euN" secondAttribute="bottom" constant="16" id="O3m-zw-ODD"/>
+                    <constraint firstAttribute="bottom" secondItem="kQG-48-euN" secondAttribute="bottom" constant="8" id="O3m-zw-ODD"/>
                     <constraint firstItem="kQG-48-euN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Uz2-25-q8H"/>
-                    <constraint firstItem="kQG-48-euN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="pXu-nj-gSa"/>
+                    <constraint firstItem="kQG-48-euN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="pXu-nj-gSa"/>
                     <constraint firstAttribute="trailing" secondItem="kQG-48-euN" secondAttribute="trailing" constant="8" id="tvx-iF-7th"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="textLabel" destination="esh-wD-2hZ" id="M83-zO-8wA"/>
                 <outlet property="topView" destination="kQG-48-euN" id="eF5-yX-vt9"/>
             </connections>
             <point key="canvasLocation" x="7.6335877862595414" y="-130.28169014084509"/>

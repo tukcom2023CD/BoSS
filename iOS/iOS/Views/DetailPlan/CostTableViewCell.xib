@@ -21,8 +21,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q63-he-KAk">
                         <rect key="frame" x="8" y="8" width="304" height="50"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlM-Qs-35j">
-                                <rect key="frame" x="8" y="10" width="43.333333333333336" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내역" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YlM-Qs-35j">
+                                <rect key="frame" x="8" y="10" width="43.666666666666664" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -50,8 +50,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="titleLabel" destination="YlM-Qs-35j" id="5oA-77-eqh"/>
                 <outlet property="topView" destination="q63-he-KAk" id="70m-Dh-KdO"/>
-                <outlet property="viewStateImage" destination="CvF-Ej-M19" id="arS-4I-GXw"/>
             </connections>
             <point key="canvasLocation" x="7.6335877862595414" y="58.450704225352112"/>
         </tableViewCell>

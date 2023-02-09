@@ -110,7 +110,7 @@ extension MainPlanViewController: UITableViewDelegate, UITableViewDataSource {
             cellDetail?.addPlaceButton.isHidden = false
             cellDetail?.plusButtonPressed = { [weak self] (senderCell) in
                 // 뷰컨트롤러에 있는 세그웨이의 실행
-                self?.performSegue(withIdentifier: "ToSeePlace", sender: indexPath)
+                self?.performSegue(withIdentifier: "toDetailPage", sender: indexPath)
             }
          //   print("\(cellDetail!.numberLabelText ?? 0)")
            //       print("\(indexPath.row)")
@@ -143,7 +143,7 @@ extension MainPlanViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.reloadSections([indexPath.section], with: .none)
         } else {
             //세부셀 온터치
-            performSegue(withIdentifier: "toDetailPage", sender: indexPath)
+//            performSegue(withIdentifier: "toDetailPage", sender: indexPath)
         }
     }
 }

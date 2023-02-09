@@ -7,14 +7,26 @@
 
 import UIKit
 
-
+class DetailSection {
+    let title: String
+    let options: [String]
+    var isOpend: Bool = false
+    
+    init(title: String,
+         options: [String],
+         isOpend: Bool = false){
+        
+        self.title = title
+        self.options = options
+        self.isOpend = isOpend
+    }
+}
 
 class WritingPageViewController: UIViewController {
     
     @IBOutlet weak var tableview: UITableView!
-    private var isExpanded = false
+    private var sections = [DetailSection]()
     
-    var placeData: [Place] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         tableview.delegate = self
@@ -23,39 +35,43 @@ class WritingPageViewController: UIViewController {
         tableview.register(UINib(nibName:"TitleTableViewCell", bundle: nil), forCellReuseIdentifier:"TitleTableViewCell")
         tableview.register(UINib(nibName:"ImageTableViewCell", bundle: nil), forCellReuseIdentifier:"ImageTableViewCell")
         tableview.register(UINib(nibName:"ExplainTableViewCell", bundle: nil), forCellReuseIdentifier:"ExplainTableViewCell")
+        tableview.register(UINib(nibName:"ExpainDetailCell", bundle: nil), forCellReuseIdentifier:"ExpainDetailCell")
         tableview.register(UINib(nibName:"CostTableViewCell", bundle: nil), forCellReuseIdentifier:"CostTableViewCell")
-       
-        tableview.rowHeight = UITableView.automaticDimension
-        tableview.estimatedRowHeight = UITableView.automaticDimension
-      
-        // Do any additional setup after loading the view.
-    }
-    func toggleView(cell: ExplainTableViewCell) {
-        isExpanded = !isExpanded
-        cell.bottomView.isHidden = !cell.bottomView.isHidden
-        tableview.beginUpdates()
-        tableview.endUpdates()
-    }
+        tableview.register(UINib(nibName:"CostDetailViewCell", bundle: nil), forCellReuseIdentifier:"CostDetailViewCell")
+        sections = [
+            DetailSection(title: "", options: [].compactMap({ return "Cell \($0)" })), //$0으로 일일이 0 1 2 3 안씀
+            DetailSection(title: "Day 2", options: [].compactMap({ return "Cell \($0)" })),
+            DetailSection(title: "내용", options: [1].compactMap({ return "Cell \($0)" })),
+            DetailSection(title: "비용", options: [1].compactMap({ return "Cell \($0)" }))
+        ]
+        
+        tableview.reloadData()
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableview.reloadData()
+    }
     
 }
 
 extension WritingPageViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        let section = sections[section]
+        
+        if section.isOpend {
+            return section.options.count + 1
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             let cell = tableview.dequeueReusableCell(withIdentifier: "TitleTableViewCell", for: indexPath) as! TitleTableViewCell
             cell.selectionStyle = .none
@@ -69,17 +85,31 @@ extension WritingPageViewController: UITableViewDelegate, UITableViewDataSource 
             return cell
             
         case 2:
-            let cell = tableview.dequeueReusableCell(withIdentifier: "ExplainTableViewCell", for: indexPath) as! ExplainTableViewCell
-            cell.selectionStyle = .none
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ExplainTableViewCell", for: indexPath) as? ExplainTableViewCell
+                cell?.titleLabel?.text = sections[indexPath.section].title
+                
+                return cell!
+            } else {
+                let cellDetail = tableView.dequeueReusableCell(withIdentifier: "ExpainDetailCell", for: indexPath) as? ExpainDetailCell
+                
+                return cellDetail!
+            }
             
             
-            return cell
+           
             
         case 3:
-            let cell = tableview.dequeueReusableCell(withIdentifier: "CostTableViewCell", for: indexPath) as! CostTableViewCell
-            cell.selectionStyle = .none
-            
-            return cell
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CostTableViewCell", for: indexPath) as? CostTableViewCell
+                cell?.titleLabel?.text = sections[indexPath.section].title
+                
+                return cell!
+            } else {
+                let cellDetail = tableView.dequeueReusableCell(withIdentifier: "CostDetailViewCell", for: indexPath) as? CostDetailViewCell
+                
+                return cellDetail!
+            }
         default:
             return UITableViewCell()
         }
@@ -91,33 +121,28 @@ extension WritingPageViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        if indexPath.row == 0 {
+            sections[indexPath.section].isOpend = !sections[indexPath.section].isOpend
+            tableView.reloadSections([indexPath.section], with: .none)
+        } else {
+            //세부셀 온터치
+            //            performSegue(withIdentifier: "toDetailPage", sender: indexPath)
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.row == 1 {
-//            if isExpanded{
-//                return UITableView.automaticDimension
-//            } else if indexPath.row == 2 {
-//                return UITableView.automaticDimension
-//            }
-//            else {
-//                return 0
-//            }
-//        }
-//        return UITableView.automaticDimension
+
         let interval:CGFloat = 3
         let width: CGFloat = ( UIScreen.main.bounds.width - interval * 3 ) / 2
 
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             return 75
         case 1:
-            return 300
+            return 250
         case 2:
-            return 300
+            return 50
         case 3:
-            return 400
-
-            //            return (width + 40 + 3) * 5 + 40
+            return 50
         default:
             return 0
         }

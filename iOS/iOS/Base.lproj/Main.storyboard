@@ -367,7 +367,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAp-MI-axu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6841.9847328244268" y="-1468.3098591549297"/>
+            <point key="canvasLocation" x="7294" y="-718"/>
         </scene>
         <!--지도-->
         <scene sceneID="iFJ-Xb-SWg">
