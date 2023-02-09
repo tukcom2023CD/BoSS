@@ -16,10 +16,11 @@ class MainPlanDetailTableViewCell: UITableViewCell,sendIndexRow {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var numberCheckView: UIView!
     @IBOutlet weak var numberLabel: UILabel!
-    
-    
     @IBOutlet weak var addPlaceButton: UIButton!
     
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     
     var numberLabelText : Int!
     var numberLabelTextString : String! = ""

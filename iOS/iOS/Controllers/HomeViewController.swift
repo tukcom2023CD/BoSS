@@ -62,6 +62,8 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             cell.didSelectItem = { schedule in
                 let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
                 self.navigationController?.pushViewController(mainPlanVC, animated: true)
+                
+               
             }
             
             return cell

@@ -65,6 +65,8 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         
         let schedule = schedules![indexPath.item]
         
+       
+        
         // 여행 일정 클릭 시 상세 일정 페이지로 이동
         didSelectItem?(schedule)
     }

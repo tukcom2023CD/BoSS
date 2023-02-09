@@ -35,6 +35,7 @@ class MainPlanViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var placeTitle: UINavigationItem!
     
     weak var delegate: sendIndexRow?
     private var sections = [Section]()
@@ -44,6 +45,9 @@ class MainPlanViewController: UIViewController {
         changeTitleMode()
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        
+        
         tableView.frame = view.bounds
         tableView.register(UINib(nibName:"MainPlanTableViewCell", bundle: nil), forCellReuseIdentifier:"MainPlanTableViewCell")
         
@@ -77,7 +81,10 @@ class MainPlanViewController: UIViewController {
         }
     }
    
-
+    @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
+      
+    }
+    
 }
 extension MainPlanViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
