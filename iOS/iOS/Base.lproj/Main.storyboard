@@ -323,21 +323,22 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="83x-mw-IgF">
                                 <rect key="frame" x="0.0" y="59" width="393" height="724"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E3d-Nn-3Yd">
+                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3d-Nn-3Yd">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="724"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="QjC-v0-qvG">
-                                                <rect key="frame" x="8" y="8" width="377" height="708"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="724"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             </tableView>
                                         </subviews>
+                                        <viewLayoutGuide key="safeArea" id="nCC-NA-sB9"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="QjC-v0-qvG" firstAttribute="top" secondItem="E3d-Nn-3Yd" secondAttribute="top" constant="8" id="E6P-Mr-QLW"/>
-                                            <constraint firstAttribute="trailing" secondItem="QjC-v0-qvG" secondAttribute="trailing" constant="8" id="FQO-EV-Gmd"/>
-                                            <constraint firstItem="QjC-v0-qvG" firstAttribute="leading" secondItem="E3d-Nn-3Yd" secondAttribute="leading" constant="8" id="Gui-39-xhd"/>
+                                            <constraint firstItem="QjC-v0-qvG" firstAttribute="top" secondItem="E3d-Nn-3Yd" secondAttribute="top" id="E6P-Mr-QLW"/>
+                                            <constraint firstAttribute="trailing" secondItem="QjC-v0-qvG" secondAttribute="trailing" id="FQO-EV-Gmd"/>
+                                            <constraint firstItem="QjC-v0-qvG" firstAttribute="leading" secondItem="E3d-Nn-3Yd" secondAttribute="leading" id="Gui-39-xhd"/>
                                             <constraint firstAttribute="height" priority="250" constant="724" id="ix6-og-xT2"/>
-                                            <constraint firstAttribute="bottom" secondItem="QjC-v0-qvG" secondAttribute="bottom" constant="8" id="thc-zh-cY7"/>
+                                            <constraint firstAttribute="bottom" secondItem="QjC-v0-qvG" secondAttribute="bottom" id="thc-zh-cY7"/>
                                         </constraints>
                                     </view>
                                 </subviews>
