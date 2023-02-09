@@ -1,5 +1,11 @@
 PODS:
   - Alamofire (5.6.4)
+  - AppAuth (1.6.0):
+    - AppAuth/Core (= 1.6.0)
+    - AppAuth/ExternalUserAgent (= 1.6.0)
+  - AppAuth/Core (1.6.0)
+  - AppAuth/ExternalUserAgent (1.6.0):
+    - AppAuth/Core
   - CalendarDateRangePicker (2.0)
   - FirebaseAuth (10.3.0):
     - FirebaseCore (~> 10.0)
@@ -19,6 +25,10 @@ PODS:
   - GoogleMaps/Maps (7.3.0):
     - GoogleMaps/Base
   - GooglePlaces (7.3.0)
+  - GoogleSignIn (6.2.4):
+    - AppAuth (~> 1.5)
+    - GTMAppAuth (~> 1.3)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.1)
   - GoogleUtilities/AppDelegateSwizzler (7.11.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -34,6 +44,9 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.11.0)"
   - GoogleUtilities/Reachability (7.11.0):
     - GoogleUtilities/Logger
+  - GTMAppAuth (1.3.1):
+    - AppAuth/Core (~> 1.6)
+    - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (2.1.0)
   - PromisesObjC (2.1.1)
 
@@ -44,10 +57,12 @@ DEPENDENCIES:
   - FSCalendar
   - GoogleMaps
   - GooglePlaces
+  - GoogleSignIn
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AppAuth
     - CalendarDateRangePicker
     - FirebaseAuth
     - FirebaseCore
@@ -55,12 +70,15 @@ SPEC REPOS:
     - FSCalendar
     - GoogleMaps
     - GooglePlaces
+    - GoogleSignIn
     - GoogleUtilities
+    - GTMAppAuth
     - GTMSessionFetcher
     - PromisesObjC
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   CalendarDateRangePicker: fa5f660023cf896180c04fe5c7687106734a54e4
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
@@ -68,10 +86,12 @@ SPEC CHECKSUMS:
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   GoogleMaps: a146f275ee429d14822178c7a841c03366ec92a1
   GooglePlaces: 0609463845250bbadafa1739938181e54dece439
+  GoogleSignIn: 5651ce3a61e56ca864160e79b484cd9ed3f49b7a
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
+  GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: ffbb25ec00ebcb5201adab0a56d808f6f1902d9f
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
-PODFILE CHECKSUM: a78b14f9a5081ba75d672c47ea78b65b3c7ddb31
+PODFILE CHECKSUM: b7add39585e51ae8f69b816bca3b8ccbb75f1772
 
 COCOAPODS: 1.11.3
