@@ -513,7 +513,7 @@
                                 <rect key="frame" x="0.0" y="456" width="393" height="264"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="68" id="Tgd-fJ-Us9" customClass="CustomCell" customModule="iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomTableCell" rowHeight="68" id="Tgd-fJ-Us9" customClass="CustomTableCell" customModule="iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="68"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Tgd-fJ-Us9" id="cel-05-TvZ">
@@ -604,6 +604,8 @@
                         <outlet property="userSpendingView" destination="eq7-Ws-DQ0" id="QLQ-oT-Dfp"/>
                         <outlet property="userTableView" destination="sfa-9F-TZM" id="Op1-Dq-q2e"/>
                         <outlet property="view" destination="Ngi-ww-CbZ" id="tzi-wL-IDk"/>
+                        <segue destination="jdH-bn-Fsc" kind="presentation" identifier="ShowSchedule" id="zZL-sj-Fcm"/>
+                        <segue destination="0o4-13-1i2" kind="presentation" identifier="ShowSpending" id="dhd-un-kNd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Me-CT-FJe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -674,14 +676,156 @@
             </objects>
             <point key="canvasLocation" x="2938.1679389312976" y="1482.3943661971832"/>
         </scene>
+        <!--My Page Schedule View Controller-->
+        <scene sceneID="hvX-YG-SXK">
+            <objects>
+                <viewController id="jdH-bn-Fsc" customClass="MyPageScheduleViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UpP-mV-fkW">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행일정" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RIp-RH-UKl">
+                                <rect key="frame" x="162" y="40" width="69.333333333333314" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrS-cw-ZUe">
+                                <rect key="frame" x="146.66666666666666" y="5" width="100" height="10"/>
+                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="7Jd-B8-vnl"/>
+                                    <constraint firstAttribute="height" constant="10" id="V4c-Il-e2F"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HtD-oA-q1T">
+                                <rect key="frame" x="0.0" y="89" width="393" height="694"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Tfl-RK-7sG">
+                                    <size key="itemSize" width="350" height="200"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="CustomScheduleCollecionCell" id="o0q-JM-eHT" customClass="CustomScheduleCollecionCell" customModule="iOS" customModuleProvider="target">
+                                        <rect key="frame" x="21.666666666666668" y="10" width="350" height="200"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="200"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJp-o9-p1h">
+                                                    <rect key="frame" x="155" y="5" width="40" height="18"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mhb-Ye-1ob">
+                                                    <rect key="frame" x="100" y="28" width="150" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="IuT-yh-kh7"/>
+                                                        <constraint firstAttribute="height" constant="150" id="wYs-Ed-qGf"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="mhb-Ye-1ob" firstAttribute="centerX" secondItem="o0q-JM-eHT" secondAttribute="centerX" id="Bna-1h-Y5I"/>
+                                            <constraint firstItem="mhb-Ye-1ob" firstAttribute="top" secondItem="bJp-o9-p1h" secondAttribute="bottom" constant="5" id="TXG-tt-wF4"/>
+                                            <constraint firstItem="bJp-o9-p1h" firstAttribute="centerX" secondItem="o0q-JM-eHT" secondAttribute="centerX" id="XM1-68-9NJ"/>
+                                            <constraint firstItem="bJp-o9-p1h" firstAttribute="top" secondItem="o0q-JM-eHT" secondAttribute="top" constant="5" id="hir-qu-JKf"/>
+                                        </constraints>
+                                        <size key="customSize" width="350" height="200"/>
+                                        <connections>
+                                            <outlet property="ScheduleImage" destination="mhb-Ye-1ob" id="0lK-7H-iiW"/>
+                                            <outlet property="ScheduleTitle" destination="bJp-o9-p1h" id="OnZ-vm-4uq"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="jdH-bn-Fsc" id="ZDK-V5-kSb"/>
+                                    <outlet property="delegate" destination="jdH-bn-Fsc" id="ubq-Sl-PPX"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="tzQ-FS-s38"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tzQ-FS-s38" firstAttribute="trailing" secondItem="HtD-oA-q1T" secondAttribute="trailing" id="5TI-WO-PxJ"/>
+                            <constraint firstItem="xrS-cw-ZUe" firstAttribute="centerX" secondItem="UpP-mV-fkW" secondAttribute="centerX" id="I4L-EF-ByU"/>
+                            <constraint firstAttribute="bottom" secondItem="HtD-oA-q1T" secondAttribute="bottom" id="IRt-7X-59E"/>
+                            <constraint firstItem="HtD-oA-q1T" firstAttribute="leading" secondItem="tzQ-FS-s38" secondAttribute="leading" id="LG4-sg-fVn"/>
+                            <constraint firstItem="xrS-cw-ZUe" firstAttribute="top" secondItem="UpP-mV-fkW" secondAttribute="top" constant="5" id="fFf-xB-i26"/>
+                            <constraint firstItem="RIp-RH-UKl" firstAttribute="centerX" secondItem="UpP-mV-fkW" secondAttribute="centerX" id="gIr-mp-lSX"/>
+                            <constraint firstItem="HtD-oA-q1T" firstAttribute="top" secondItem="RIp-RH-UKl" secondAttribute="bottom" constant="25" id="j38-J4-eUV"/>
+                            <constraint firstItem="RIp-RH-UKl" firstAttribute="top" secondItem="xrS-cw-ZUe" secondAttribute="bottom" constant="25" id="jXM-ZL-TxR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bxL-7X-URa"/>
+                    <connections>
+                        <outlet property="horizontal_bar" destination="xrS-cw-ZUe" id="kKM-hH-WzW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kpU-Zt-fj6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4788.5496183206105" y="1238.7323943661972"/>
+        </scene>
+        <!--My Page Spending View Controller-->
+        <scene sceneID="MJJ-t6-3ej">
+            <objects>
+                <viewController id="0o4-13-1i2" customClass="MyPageSpendingViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PD1-TA-I1s">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="지출내역" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kn0-KL-9ND">
+                                <rect key="frame" x="161.66666666666666" y="40" width="70" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbO-r4-uGE">
+                                <rect key="frame" x="146.66666666666666" y="5" width="100" height="10"/>
+                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="7Cx-Eh-PaI"/>
+                                    <constraint firstAttribute="height" constant="10" id="Ha6-aj-prR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sMU-RG-JvR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ZbO-r4-uGE" firstAttribute="top" secondItem="PD1-TA-I1s" secondAttribute="firstBaseline" constant="5" id="9P0-id-AH1"/>
+                            <constraint firstItem="kn0-KL-9ND" firstAttribute="top" secondItem="ZbO-r4-uGE" secondAttribute="bottom" constant="25" id="AZU-RI-yAK"/>
+                            <constraint firstItem="ZbO-r4-uGE" firstAttribute="centerX" secondItem="PD1-TA-I1s" secondAttribute="centerX" id="TPn-5S-0H7"/>
+                            <constraint firstItem="kn0-KL-9ND" firstAttribute="centerX" secondItem="PD1-TA-I1s" secondAttribute="centerX" id="Xik-o1-KOJ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="horizontal_bar" destination="ZbO-r4-uGE" id="8hm-MA-Fgd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aQo-Yl-hil" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4789" y="1938"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="arrow" width="256" height="256"/>
-        <image name="cash" width="256" height="256"/>
         <image name="Travelog" width="876" height="319"/>
         <image name="apple" width="26" height="32"/>
+        <image name="arrow" width="256" height="256"/>
         <image name="bell" catalog="system" width="125" height="128"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="cash" width="256" height="256"/>
         <image name="google" width="32" height="32"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="65"/>

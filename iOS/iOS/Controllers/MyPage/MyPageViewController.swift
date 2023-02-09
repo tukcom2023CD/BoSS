@@ -25,8 +25,8 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
     var userSpending : Int = 1285000
     
     // 테이블 정보
-    let titleArray = ["진행중인 여행", "지출내역"]
-    let contentArray = ["현재 진행중인 여행 일정을 확인하세요", "여행동안의 지출내역을 확인하세요"]
+    let titleArray = ["여행일정", "지출내역"]
+    let contentArray = ["나의 여행 일정을 확인하세요", "여행동안의 지출내역을 확인하세요"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,10 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
         serUI()
         // 설정 메뉴 설정
         setupMenuButton()
+        // 그림자 설정
+        setShadow(view: userDataView)
+        setShadow(view: userScheduleView)
+        setShadow(view: userSpendingView)
     }
     
     // 테이블 설정 함수
@@ -42,12 +46,23 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? CustomCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableCell", for: indexPath) as? CustomTableCell else {
              return UITableViewCell()
          }
          cell.labelTitle.text = titleArray[indexPath.row]
          cell.labelContent.text = contentArray[indexPath.row]
+         cell.selectionStyle = .none
+        
          return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0: self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
+        case 1: self.performSegue(withIdentifier: "ShowSpending", sender: nil)
+        default:
+            return
+        }
     }
             
     func serUI() {
@@ -87,12 +102,21 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
         settingButton.menu = UIMenu(identifier: nil, options: .displayInline, children: menuList)
         settingButton.showsMenuAsPrimaryAction = true
     }
+    
+    // 그림자 설정 함수
+    func setShadow(view : UIView) {
+        view.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
+        view.layer.masksToBounds = false // 그림자 잘림 방지
+        view.layer.shadowOffset = CGSize(width: 0, height: 4) // 그림자 위치
+        view.layer.shadowRadius = 5 // 그림자 반경
+        view.layer.shadowOpacity = 0.3 // alpha 값
+    }
+    
+    
+    
 }
 
-class CustomCell: UITableViewCell {
+class CustomTableCell: UITableViewCell {
      @IBOutlet weak var labelTitle: UILabel!
      @IBOutlet weak var labelContent: UILabel!
 }
-
-
-
