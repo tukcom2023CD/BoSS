@@ -12,6 +12,8 @@ class CalendarTableViewCell: UITableViewCell {
     
     @IBOutlet weak var calendar: FSCalendar!
     
+    var eventDates: [String] = []
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
@@ -62,6 +64,26 @@ extension CalendarTableViewCell: FSCalendarDelegate, FSCalendarDataSource, FSCal
     // 날짜 밑에 문자열 표시
     func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
         return nil
+    }
+    
+    func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
+        
+        let day = dateFormatter.string(from: date)
+        
+        // 캘린더의 표시된 날짜가 이벤트 날짜에 포함되지 않은 경우
+        if !eventDates.contains(day) { return nil }
+        
+        let now = dateFormatter.string(from: Date())
+        
+        if day < now {
+            return UIImage(named: "RedCircle")
+        } else if day == now {
+            return UIImage(named: "GreenCircle")
+        } else {
+            return UIImage(named: "BlueCircle")
+        }
+        
+        
     }
     
     
