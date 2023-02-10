@@ -20,7 +20,7 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
     @IBOutlet weak var userTableView: UITableView!
     
     // 사용자 일정 수
-    var userSchedule : Int = 5
+    var userSchedule : Int = 4
     // 사용자 지출 금액
     var userSpending : Int = 1285000
     
@@ -66,8 +66,6 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
     }
             
     func serUI() {
-        // 배경 지정
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "myPageBackground.png")!)
         // 이미지 설정
         userImage.image = UIImage(named: "user.png")
         userImage.layer.cornerRadius = 50
@@ -111,9 +109,6 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
         view.layer.shadowRadius = 5 // 그림자 반경
         view.layer.shadowOpacity = 0.3 // alpha 값
     }
-    
-    
-    
 }
 
 class CustomTableCell: UITableViewCell {
