@@ -15,7 +15,6 @@ class MapViewController: UIViewController {
     @IBOutlet weak var calendarButton: UIButton!
     
     var map: GMSMapView!
-    var places: [Place]!
     var startDate: String?
     var endDate: String?
     
@@ -45,7 +44,6 @@ class MapViewController: UIViewController {
         
         // 여행지 데이터 호출
         PlaceNetManager.shared.read(uid: user.uid!, startDate: startDate, endDate: endDate) { places in
-            self.places = places
             
             // 마커 표시
             DispatchQueue.main.async {
