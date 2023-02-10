@@ -66,6 +66,7 @@ extension CalendarTableViewCell: FSCalendarDelegate, FSCalendarDataSource, FSCal
         return nil
     }
     
+    // 특정 날짜에 이미지 표시
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
         
         let day = dateFormatter.string(from: date)
