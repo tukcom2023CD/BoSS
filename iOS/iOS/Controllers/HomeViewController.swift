@@ -141,6 +141,7 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             
             cell.selectionStyle = .none
             cell.eventDates = self.eventDates
+            cell.calendar.reloadData()
             
             return cell
             
