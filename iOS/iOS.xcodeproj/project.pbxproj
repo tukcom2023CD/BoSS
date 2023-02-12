@@ -43,6 +43,12 @@
 		571BD16F29879136000A7F34 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571BD16E29879136000A7F34 /* Schedule.swift */; };
 		573941A9297ED1E900E69D8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941A8297ED1E900E69D8F /* Constants.swift */; };
 		573941AC2980E57000E69D8F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941AB2980E57000E69D8F /* MapViewController.swift */; };
+		576B64BE29996EBF002609FA /* MainPlanHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 576B64BD29996EBF002609FA /* MainPlanHeaderView.xib */; };
+		576B64C029996F1A002609FA /* MainPlanHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576B64BF29996F1A002609FA /* MainPlanHeaderView.swift */; };
+		576B64C3299970FA002609FA /* MainPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576B64C1299970FA002609FA /* MainPlanTableViewCell.swift */; };
+		576B64C4299970FA002609FA /* MainPlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 576B64C2299970FA002609FA /* MainPlanTableViewCell.xib */; };
+		576B64C629997361002609FA /* MainPlanFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 576B64C529997361002609FA /* MainPlanFooterView.xib */; };
+		576B64C82999737F002609FA /* MainPlanFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576B64C72999737F002609FA /* MainPlanFooterView.swift */; };
 		576C0DBA298A325900485AD5 /* UserDefaults+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */; };
 		576C0DBC298A327100485AD5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 576C0DBB298A327100485AD5 /* User.swift */; };
 		5775975D2976541F008CB199 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5775975C2976541F008CB199 /* HomeViewController.swift */; };
@@ -122,6 +128,12 @@
 		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Schedule.swift; path = Models/DBTables/Schedule.swift; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		573941AB2980E57000E69D8F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		576B64BD29996EBF002609FA /* MainPlanHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPlanHeaderView.xib; sourceTree = "<group>"; };
+		576B64BF29996F1A002609FA /* MainPlanHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanHeaderView.swift; sourceTree = "<group>"; };
+		576B64C1299970FA002609FA /* MainPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanTableViewCell.swift; sourceTree = "<group>"; };
+		576B64C2299970FA002609FA /* MainPlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPlanTableViewCell.xib; sourceTree = "<group>"; };
+		576B64C529997361002609FA /* MainPlanFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPlanFooterView.xib; sourceTree = "<group>"; };
+		576B64C72999737F002609FA /* MainPlanFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanFooterView.swift; sourceTree = "<group>"; };
 		576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Ext.swift"; sourceTree = "<group>"; };
 		576C0DBB298A327100485AD5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/DBTables/User.swift; sourceTree = "<group>"; };
 		5775975C2976541F008CB199 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +275,12 @@
 		576B64BC29994C80002609FA /* MainPlan */ = {
 			isa = PBXGroup;
 			children = (
+				576B64BF29996F1A002609FA /* MainPlanHeaderView.swift */,
+				576B64BD29996EBF002609FA /* MainPlanHeaderView.xib */,
+				576B64C1299970FA002609FA /* MainPlanTableViewCell.swift */,
+				576B64C2299970FA002609FA /* MainPlanTableViewCell.xib */,
+				576B64C72999737F002609FA /* MainPlanFooterView.swift */,
+				576B64C529997361002609FA /* MainPlanFooterView.xib */,
 			);
 			path = MainPlan;
 			sourceTree = "<group>";
@@ -516,8 +534,11 @@
 				570AAB57298EA026006CB64C /* MarkerInfoWindowView.xib in Resources */,
 				37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */,
 				F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */,
+				576B64C629997361002609FA /* MainPlanFooterView.xib in Resources */,
+				576B64BE29996EBF002609FA /* MainPlanHeaderView.xib in Resources */,
 				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
+				576B64C4299970FA002609FA /* MainPlanTableViewCell.xib in Resources */,
 				570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);
@@ -694,10 +715,13 @@
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
 				570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */,
+				576B64C3299970FA002609FA /* MainPlanTableViewCell.swift in Sources */,
+				576B64C82999737F002609FA /* MainPlanFooterView.swift in Sources */,
 				577B8F7D297A7E6500FBD1EB /* OCRResult.swift in Sources */,
 				57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */,
 				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
 				5794116929710FEB009192DD /* Bundle+Ext.swift in Sources */,
+				576B64C029996F1A002609FA /* MainPlanHeaderView.swift in Sources */,
 				3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */,
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
