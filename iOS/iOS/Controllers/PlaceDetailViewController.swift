@@ -89,5 +89,4 @@ extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate 
         }
     }
 
-
 }

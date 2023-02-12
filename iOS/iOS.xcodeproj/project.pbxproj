@@ -249,6 +249,7 @@
 		573941AA2980110500E69D8F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				576B64BC29994C80002609FA /* MainPlan */,
 				570AAB6029911DE4006CB64C /* Place */,
 				57F9FFF0298E9FA30045E7D0 /* Map */,
 				3764F654297B972400014FFE /* Home */,
@@ -257,6 +258,13 @@
 				37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		576B64BC29994C80002609FA /* MainPlan */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MainPlan;
 			sourceTree = "<group>";
 		};
 		5775975B297653EB008CB199 /* Controllers */ = {
