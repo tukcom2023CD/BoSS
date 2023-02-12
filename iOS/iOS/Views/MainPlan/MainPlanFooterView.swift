@@ -9,6 +9,7 @@ import UIKit
 
 class MainPlanFooterView: UITableViewHeaderFooterView {
 
+    var didSelectButton: (()->())? = nil
     
     override class func awakeFromNib() {
         super.awakeFromNib()
@@ -16,7 +17,7 @@ class MainPlanFooterView: UITableViewHeaderFooterView {
     
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        print("tap")
+        didSelectButton?()
     }
     
 }

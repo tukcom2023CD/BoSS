@@ -51,6 +51,7 @@ class MainPlanViewController: UIViewController {
     }
 }
 
+// MARK: - TableViewDataSource, Delegate
 extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     // 섹션 개수
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -81,17 +82,25 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "MainPlanFooterView") as! MainPlanFooterView
         
+        view.didSelectButton = {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchPlaceVC") as! SearchPlaceViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
         return view
     }
     
+    // 섹션 헤더 높이
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 60
     }
     
+    // 섹션 내 행 높이
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
     
+    // 섹션 푸터 높이
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 50
     }
