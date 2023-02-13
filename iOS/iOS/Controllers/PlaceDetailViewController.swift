@@ -9,19 +9,19 @@ import UIKit
 import GooglePlaces
 
 class PlaceDetailViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     var place: GMSPlace!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupTableView()
         // Do any additional setup after loading the view.
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(barButtonTapped))
-    
+        
     }
     
     func setupTableView() {
@@ -34,16 +34,23 @@ class PlaceDetailViewController: UIViewController {
     }
     
     @objc func barButtonTapped() {
-        
+        guard let vcStack =
+                self.navigationController?.viewControllers else { return }
+        for vc in vcStack {
+            if let view = vc as? MainPlanViewController {
+                
+                self.navigationController?.popToViewController(view, animated: true)
+            }
+        }
     }
-
+    
 }
 
 extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
@@ -51,13 +58,13 @@ extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate 
             
             cell.name.text = place.name
             cell.address.text = place.formattedAddress
-
+            
             if let url = place.iconImageURL {
                 cell.icon.load(url: url)
                 cell.icon.backgroundColor = place.iconBackgroundColor
                 print(cell.icon.image)
             }
-        
+            
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PlaceLocationMapTableViewCell", for: indexPath) as! PlaceLocationMapTableViewCell
@@ -88,6 +95,5 @@ extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate 
             return 0
         }
     }
-
-
+    
 }

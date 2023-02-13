@@ -131,6 +131,9 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             // 여행일정 셀 클릭 시 동작할 기능 정의
             cell.didSelectItem = { schedule in
                 let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
+                
+                mainPlanVC.schedule = schedule
+                
                 self.navigationController?.pushViewController(mainPlanVC, animated: true)
             }
             
@@ -152,6 +155,7 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             
             cell.didSelectItem = { schedule in
                 let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
+                
                 self.navigationController?.pushViewController(mainPlanVC, animated: true)
             }
             
