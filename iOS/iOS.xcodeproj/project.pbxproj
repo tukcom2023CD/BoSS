@@ -68,7 +68,6 @@
 		BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */; };
 		BFF858402994B98F00C7F289 /* MyPageSpendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */; };
 		F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = F27BB72A297E4B4300839669 /* SecretKey.plist */; };
-		F2E421752986FD62005BD304 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E421742986FD62005BD304 /* CalendarCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,7 +158,6 @@
 		BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSpendingViewController.swift; sourceTree = "<group>"; };
 		D186E571686558A6A981FD3E /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27BB72A297E4B4300839669 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
-		F2E421742986FD62005BD304 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		F4FA390FF50812A0CA8EBB9F /* Pods-iOS-iOSUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-iOSUITests.release.xcconfig"; path = "Target Support Files/Pods-iOS-iOSUITests/Pods-iOS-iOSUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,7 +215,6 @@
 				3764F666297B980800014FFE /* SecondTableViewCell.xib */,
 				3764F669297BB04800014FFE /* CalendarTableViewCell.swift */,
 				3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */,
-				F2E421742986FD62005BD304 /* CalendarCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -694,7 +691,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
-				F2E421752986FD62005BD304 /* CalendarCell.swift in Sources */,
 				570AAB7E29919C6E006CB64C /* UIImageView+Ext.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
 				37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */,

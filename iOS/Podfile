@@ -12,7 +12,7 @@ target 'iOS' do
   pod 'FirebaseAuth'
   pod 'FSCalendar'
   pod 'CalendarDateRangePicker'
-
+  pod 'GoogleSignIn'
 
   target 'iOSTests' do
     inherit! :search_paths

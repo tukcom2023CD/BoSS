@@ -36,28 +36,31 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="3Zs-bd-nPb">
                                 <rect key="frame" x="46.666666666666657" y="534" width="300" height="115"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I38-qC-X32">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Ri4-nv-BJf"/>
-                                            <constraint firstAttribute="width" constant="300" id="lZN-U1-gYU"/>
-                                        </constraints>
-                                        <inset key="imageEdgeInsets" minX="-100" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Google로 로그인" image="google">
-                                            <color key="titleColor" systemColor="labelColor"/>
-                                        </state>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-2c-FLC">
-                                        <rect key="frame" x="0.0" y="65" width="300" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
                                         <color key="backgroundColor" systemColor="labelColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Ase-ld-VB2"/>
                                             <constraint firstAttribute="width" constant="300" id="l3i-vA-Y4W"/>
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="-110" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="Apple로 로그인" image="apple">
+                                        <state key="normal" title="Apple 로그인" image="apple">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I38-qC-X32">
+                                        <rect key="frame" x="0.0" y="65" width="300" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Ri4-nv-BJf"/>
+                                            <constraint firstAttribute="width" constant="300" id="lZN-U1-gYU"/>
+                                        </constraints>
+                                        <inset key="imageEdgeInsets" minX="-100" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Google 로그인" image="google">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="googleLoginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bB8-f6-u7K"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

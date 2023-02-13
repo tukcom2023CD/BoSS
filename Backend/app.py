@@ -22,7 +22,7 @@ class CreateUser(Resource):
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
-       
+
 # 유저 정보 가져오기 (R)
 @api.route('/api/user/read/<string:email>')  
 class ReadUser(Resource):
@@ -106,7 +106,8 @@ class ReadSchedule(Resource):
         conn.execute() # sql문 수행합니다.
         data = conn.fetch() # json 형식의 데이터를 가져옵니다.
         del conn # DB와 연결을 해제합니다.
-        data.sort(key=lambda x: x["start"]) # 여행 시작 날짜순으로 정렬
+        if len(data) != 0:
+            data.sort(key=lambda x: x["start"]) # 여행 시작 날짜순으로 정렬
         return jsonify({"schedules": data}) # josn 형식의 데이터를 반환합니다.
         
 
@@ -166,7 +167,8 @@ class ReadPlace(Resource):
         conn.execute()
         data = conn.fetch()
         del conn
-        data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
+        if len(data) != 0:
+            data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
 
         return jsonify({"places": data})
 
@@ -286,4 +288,4 @@ class DeleteCategories(Resource):
         del conn # DB와 연결을 해제합니다.
 
 if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True) 
+    app.run('0.0.0.0', port=5001, debug=True) 
