@@ -112,7 +112,9 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.section) - \(indexPath.row)")
+        let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

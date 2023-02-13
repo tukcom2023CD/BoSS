@@ -357,6 +357,21 @@
             </objects>
             <point key="canvasLocation" x="5688" y="-1489"/>
         </scene>
+        <!--Writing Page View Controller-->
+        <scene sceneID="Njv-cw-aBQ">
+            <objects>
+                <viewController storyboardIdentifier="WritingPageViewController" id="Gnc-Cg-8Fv" customClass="WritingPageViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="C5A-XR-Qr2">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="bcF-Fu-FmX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gil-6W-1iZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6516.7938931297704" y="-1489.4366197183099"/>
+        </scene>
         <!--지도-->
         <scene sceneID="iFJ-Xb-SWg">
             <objects>
