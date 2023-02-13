@@ -113,6 +113,7 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
+        //여기서 작업시작
         
         navigationController?.pushViewController(vc, animated: true)
     }

@@ -42,4 +42,20 @@ extension UIView {
 
     }
 
+
+func dropShadow(color: UIColor, offSet: CGSize, opacity: Float, radius: CGFloat) {
+    
+    // 그림자 색상 설정
+    layer.shadowColor = color.cgColor
+    // 그림자 크기 설정
+    layer.shadowOffset = offSet
+    // 그림자 투명도 설정
+    layer.shadowOpacity = opacity
+    // 그림자의 blur 설정
+    layer.shadowRadius = radius
+    
+    layer.masksToBounds = false
 }
+}
+
+
