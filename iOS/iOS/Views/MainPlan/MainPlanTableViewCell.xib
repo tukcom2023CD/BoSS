@@ -48,13 +48,23 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zol-A5-qdA">
+                        <rect key="frame" x="290" y="22" width="20" height="16.333333333333329"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="N4S-EZ-bnk"/>
+                            <constraint firstAttribute="width" constant="20" id="P8X-gz-CTO"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="aF3-p9-uP3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="9j6-Om-qie"/>
                     <constraint firstItem="dWF-3E-hnz" firstAttribute="top" secondItem="o8K-lG-bnO" secondAttribute="bottom" constant="2" id="FFo-Sp-oM5"/>
                     <constraint firstItem="CGy-r2-jEW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HDl-Co-wbe"/>
                     <constraint firstItem="dWF-3E-hnz" firstAttribute="leading" secondItem="o8K-lG-bnO" secondAttribute="leading" id="IWr-QM-08g"/>
+                    <constraint firstAttribute="trailing" secondItem="Zol-A5-qdA" secondAttribute="trailing" constant="20" id="QkB-fg-zuG"/>
                     <constraint firstAttribute="bottom" secondItem="aF3-p9-uP3" secondAttribute="bottom" id="RSv-qf-tI9"/>
+                    <constraint firstItem="Zol-A5-qdA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cHB-aB-BaM"/>
                     <constraint firstItem="CGy-r2-jEW" firstAttribute="centerX" secondItem="aF3-p9-uP3" secondAttribute="centerX" id="chL-Er-oIk"/>
                     <constraint firstItem="o8K-lG-bnO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="nYD-gR-bmm"/>
                     <constraint firstItem="aF3-p9-uP3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ndl-zb-EhG"/>
@@ -66,6 +76,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

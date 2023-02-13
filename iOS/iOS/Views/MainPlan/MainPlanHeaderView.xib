@@ -41,7 +41,7 @@
                 <outlet property="date" destination="F9g-IW-kwY" id="iOT-Rs-LJ7"/>
                 <outlet property="day" destination="ZRg-tV-ljh" id="Pr4-1k-1HZ"/>
             </connections>
-            <point key="canvasLocation" x="120.61068702290076" y="330.63380281690144"/>
+            <point key="canvasLocation" x="-366" y="41"/>
         </view>
     </objects>
     <resources>

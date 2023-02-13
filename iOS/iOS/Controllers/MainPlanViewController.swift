@@ -17,6 +17,8 @@ class MainPlanViewController: UIViewController {
     
     var schedule: Schedule!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,6 +26,10 @@ class MainPlanViewController: UIViewController {
         
         setupUI()
         setupTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
     }
     
     func setupUI() {
@@ -104,4 +110,9 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 50
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath.section) - \(indexPath.row)")
+    }
+    
 }
