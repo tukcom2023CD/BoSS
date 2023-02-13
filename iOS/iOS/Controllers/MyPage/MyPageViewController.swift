@@ -55,7 +55,7 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
         
          return cell
     }
-    
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0: self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
