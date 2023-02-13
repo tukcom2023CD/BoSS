@@ -16,8 +16,7 @@ class MainPlanViewController: UIViewController {
     @IBOutlet weak var period: UILabel!
     
     var schedule: Schedule!
-    
-    
+    var places: [Place]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +25,7 @@ class MainPlanViewController: UIViewController {
         
         setupUI()
         setupTableView()
+        requestPlaceData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,9 +52,16 @@ class MainPlanViewController: UIViewController {
         tableView.register(UINib(nibName: "MainPlanHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "MainPlanHeaderView")
         tableView.register(UINib(nibName: "MainPlanTableViewCell", bundle: nil), forCellReuseIdentifier: "MainPlanTableViewCell")
         tableView.register(UINib(nibName: "MainPlanFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "MainPlanFooterView")
-        
-        
     }
+    
+    func requestPlaceData() {
+        PlaceNetManager.shared.read(sid: schedule.sid!) { places in
+            self.places = places
+            print(places)
+        }
+    }
+    
+    
 }
 
 // MARK: - TableViewDataSource, Delegate

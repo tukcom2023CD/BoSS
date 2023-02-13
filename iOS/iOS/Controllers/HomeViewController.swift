@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
 //        navigationController?.navigationBar.prefersLargeTitles = true
         
         setupTableView()
-        readScheduleData()
+        requestScheduleData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +38,7 @@ class HomeViewController: UIViewController {
     
     // 여행 일정 불러오기
     /// - parameter uid : 로그인 유저 ID
-    func readScheduleData() {
+    func requestScheduleData() {
         let user = UserDefaults.standard.getLoginUser()!
         
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in

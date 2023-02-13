@@ -77,6 +77,7 @@ class LoginViewController: UIViewController {
     
     // 테스트용 로그인 버튼
     @IBAction func testLoginButtonTapped(_ sender: UIButton) {
+        print(#function)
         
         let user = User(email: "lee@naver.com", name: "lee")
         
