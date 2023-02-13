@@ -64,6 +64,7 @@
 		57C399D42982385300F63900 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C399D32982385300F63900 /* Place.swift */; };
 		57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */; };
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
+		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
 		BFEF3F312999ECEC00DF39FE /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */; };
 		F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = F27BB72A297E4B4300839669 /* SecretKey.plist */; };
 /* End PBXBuildFile section */
@@ -151,6 +152,7 @@
 		8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagePopUpController.swift; sourceTree = "<group>"; };
 		BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		D186E571686558A6A981FD3E /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27BB72A297E4B4300839669 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 		5775975B297653EB008CB199 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BF64B75F299A18F5009C5937 /* Album */,
 				5780874F296BEB5500D2BAF8 /* LoginViewController.swift */,
 				5775975C2976541F008CB199 /* HomeViewController.swift */,
 				37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */,
@@ -271,7 +274,6 @@
 				573941AB2980E57000E69D8F /* MapViewController.swift */,
 				570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */,
 				570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */,
-				BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -386,6 +388,15 @@
 				8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF64B75F299A18F5009C5937 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */,
+				BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */,
+			);
+			path = Album;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -702,6 +713,7 @@
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				576C0DBA298A325900485AD5 /* UserDefaults+Ext.swift in Sources */,
 				570AAB5B2990F2FB006CB64C /* SearchPlaceViewController.swift in Sources */,
+				BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
 				5793B7722988CFAD00649F23 /* ScheduleNetManager.swift in Sources */,
