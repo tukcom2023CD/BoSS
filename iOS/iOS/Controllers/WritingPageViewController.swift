@@ -16,24 +16,26 @@ class WritingPageViewController: UIViewController
     @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var imageCard: UIImageView!
     
-    @IBOutlet weak var contents: UITextView!
+    @IBOutlet weak var contents: UILabel!
+    
     @IBOutlet weak var costButton: UIButton!
     
     @IBOutlet weak var costLabel: UILabel!
     
     @IBOutlet weak var detailCost: UIView!
     
-    var diary: Diary? {
-        didSet {
-            guard let diary = diary else { return }
-            imageCard.image = diary.imageCard
-            contents.text = diary.contents
-           
-        }
-        
-        
-    }
-    
+//    var diary: Diary? {
+//        didSet {
+//            guard let diary = diary else { return }
+//            imageCard.image = diary.imageCard
+//            contents.text = diary.contents
+//
+//        }
+//
+//
+//    }
+    var imageCardData = UIImage(named: "여행사진 1")
+    var contentsData: String?
     
 //    var topItems = [String]()
 //    var subItems = [String]()
@@ -45,15 +47,15 @@ class WritingPageViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         changeTitleMode()
-      
-      
-       
         imageCardSetting()
         
         uiViewSetting()
         costButtonSetting()
         detailCostSetting()
-
+        // 전화면에서 전달받은 데이터들을 통해 셋팅
+        imageCard.image = imageCardData
+        contents.text = contentsData
+    
  
     
     }
@@ -120,7 +122,7 @@ class WritingPageViewController: UIViewController
         print(#function)
         
         guard let viewController = self.storyboard?.instantiateViewController(identifier: "WritingEditPageViewController") as? WritingEditPageViewController else { return }
-      
+    
        // guard diary != nil else { return }
        
         self.navigationController?.pushViewController(viewController, animated: true)

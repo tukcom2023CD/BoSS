@@ -18,7 +18,7 @@ class WritingEditPageViewController: UIViewController {
 //
 //        }
 //    }
-    
+
     
     @IBOutlet weak var scrollView: UIScrollView!
    // @IBOutlet weak var tableview: UITableView!
@@ -31,17 +31,12 @@ class WritingEditPageViewController: UIViewController {
    // @IBOutlet weak var costLabel: UILabel!
     
     @IBOutlet weak var detailCost: UIView!
-    var diaryListManager = DiaryManager()
+  
     
-    var diary: Diary? {
-        didSet {
-            guard let diary = diary else { return }
-            imageCard.image = diary.imageCard
-            contents.text = diary.contents
-        }
-        
-        
-    }
+
+    
+    
+
     
     
     override func viewDidLoad() {
@@ -52,7 +47,7 @@ class WritingEditPageViewController: UIViewController {
         
         setupTapGestures()
         // Do any additional setup after loading the view.
-        diaryListManager.makeDiaryDatas()
+    
         
      
     }
@@ -119,6 +114,26 @@ class WritingEditPageViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
   
 }
+    
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
+        vc.imageCardData = imageCard.image
+        vc.contentsData = contents.text
+
+        navigationController?.pushViewController(vc, animated: true)
+
+        self.navigationController?.popViewController(animated: true)
+//        if segue.identifier == "toSecondVC" {
+//            let secondVC = segue.destination as! SecondViewController
+//            secondVC.modalPresentationStyle = .fullScreen
+//
+//            // 다음화면으로 데이터 전달
+//            secondVC.bmiNumber = bmi
+//            secondVC.bmiColor = getBackgroundColor()
+//            secondVC.adviceString = getBMIAdviceString()
+//        }
+    }
+    
 }
 //MARK: - 피커뷰 델리게이트 설정
 
