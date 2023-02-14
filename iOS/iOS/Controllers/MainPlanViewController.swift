@@ -65,7 +65,7 @@ class MainPlanViewController: UIViewController {
     func requestPlaceData() {
         PlaceNetManager.shared.read(sid: schedule.sid!) { places in
             self.places = places
-    
+            
             self.extractScheduleDate(schedules: [self.schedule])
             self.setupSection()
             DispatchQueue.main.async {
@@ -77,6 +77,7 @@ class MainPlanViewController: UIViewController {
     // MARK: -  여행 날짜 추출
     /// - parameter schedules : 모든 일정 데이터
     func extractScheduleDate(schedules: [Schedule]) {
+        sections = []
         for schedule in schedules {
             let start = CustomDateFormatter.format.date(from: schedule.start!)!
             let stop = CustomDateFormatter.format.date(from: schedule.stop!)!
@@ -145,6 +146,8 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
         
         view.didSelectButton = {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchPlaceVC") as! SearchPlaceViewController
+            vc.visitDate = self.sections[section].date
+            vc.scheduleId = self.schedule.sid!
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
@@ -163,11 +166,13 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     
     // 섹션 푸터 높이
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 50
+        return 60
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
+        
+        // sections[indexPath.section].rows[indexPath.row]
         
         navigationController?.pushViewController(vc, animated: true)
     }

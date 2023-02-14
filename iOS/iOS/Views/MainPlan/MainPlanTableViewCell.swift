@@ -9,6 +9,7 @@ import UIKit
 
 class MainPlanTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var circleImage: UIView!
     @IBOutlet weak var placeName: UILabel!
     
     @IBOutlet weak var totalSpending: UILabel!
@@ -16,12 +17,18 @@ class MainPlanTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        setupUI()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setupUI() {
+        circleImage.layer.cornerRadius = circleImage.frame.width / 2
     }
     
 }

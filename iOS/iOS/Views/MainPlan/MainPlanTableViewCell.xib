@@ -19,28 +19,28 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aF3-p9-uP3">
-                        <rect key="frame" x="50" y="0.0" width="1" height="60"/>
+                        <rect key="frame" x="50" y="0.0" width="2" height="60"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="1" id="Xkc-2X-ke4"/>
+                            <constraint firstAttribute="width" constant="2" id="Xkc-2X-ke4"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGy-r2-jEW">
-                        <rect key="frame" x="45.666666666666664" y="25" width="10" height="10"/>
+                        <rect key="frame" x="43.666666666666664" y="22.666666666666668" width="15" height="15.000000000000004"/>
                         <color key="backgroundColor" systemColor="systemMintColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="10" id="eET-Rp-0Wi"/>
-                            <constraint firstAttribute="height" constant="10" id="xAZ-yu-HrV"/>
+                            <constraint firstAttribute="width" constant="15" id="eET-Rp-0Wi"/>
+                            <constraint firstAttribute="height" constant="15" id="xAZ-yu-HrV"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="해운대 해수욕장" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8K-lG-bnO">
-                        <rect key="frame" x="95.666666666666686" y="10" width="101" height="20"/>
+                        <rect key="frame" x="98.666666666666686" y="10" width="101" height="20"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0원" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWF-3E-hnz">
-                        <rect key="frame" x="95.666666666666686" y="32" width="100" height="17"/>
+                        <rect key="frame" x="98.666666666666686" y="32" width="100" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="wRJ-6u-XXu"/>
                         </constraints>
@@ -73,6 +73,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="circleImage" destination="CGy-r2-jEW" id="cyA-Ol-Yqu"/>
                 <outlet property="placeName" destination="o8K-lG-bnO" id="F2T-d3-v2l"/>
                 <outlet property="totalSpending" destination="dWF-3E-hnz" id="bI1-ZI-er6"/>
             </connections>
