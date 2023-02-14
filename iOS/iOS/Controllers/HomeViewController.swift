@@ -17,12 +17,6 @@ class HomeViewController: UIViewController {
     var previousSchedules: [Schedule] = []
     var eventDates: [String] = []
     
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        return formatter
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
@@ -72,15 +66,15 @@ class HomeViewController: UIViewController {
     /// - parameter schedules : 모든 일정 데이터
     func extractScheduleDate(schedules: [Schedule]) {
         for schedule in schedules {
-            let start = dateFormatter.date(from: schedule.start!)!
-            let stop = dateFormatter.date(from: schedule.stop!)!
+            let start = CustomDateFormatter.format.date(from: schedule.start!)!
+            let stop = CustomDateFormatter.format.date(from: schedule.stop!)!
             
             let interval = start.distance(to: stop) // 시작, 종료 날짜까지의 TimeInterval
             let days = Int(interval / 86400) // 시작, 종료 날짜까지의 Day
             
             for i in 0...days {
                 let event = start.addingTimeInterval(TimeInterval(86400 * i))
-                let eventStr = dateFormatter.string(from: event)
+                let eventStr = CustomDateFormatter.format.string(from: event)
                 eventDates.append(eventStr)
             }
         }
@@ -155,6 +149,8 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             
             cell.didSelectItem = { schedule in
                 let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
+                
+                mainPlanVC.schedule = schedule
                 
                 self.navigationController?.pushViewController(mainPlanVC, animated: true)
             }

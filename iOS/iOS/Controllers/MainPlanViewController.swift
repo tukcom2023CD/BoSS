@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct Section {
+    var date: String
+    var rows: [Place] = []
+}
+
 class MainPlanViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -16,7 +21,9 @@ class MainPlanViewController: UIViewController {
     @IBOutlet weak var period: UILabel!
     
     var schedule: Schedule!
-    var places: [Place]?
+    var places: [Place] = []
+    
+    var sections: [Section] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,26 +61,62 @@ class MainPlanViewController: UIViewController {
         tableView.register(UINib(nibName: "MainPlanFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "MainPlanFooterView")
     }
     
+    // MARK: -  여행지 데이터 호출
     func requestPlaceData() {
         PlaceNetManager.shared.read(sid: schedule.sid!) { places in
             self.places = places
-            print(places)
+    
+            self.extractScheduleDate(schedules: [self.schedule])
+            self.setupSection()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     
+    // MARK: -  여행 날짜 추출
+    /// - parameter schedules : 모든 일정 데이터
+    func extractScheduleDate(schedules: [Schedule]) {
+        for schedule in schedules {
+            let start = CustomDateFormatter.format.date(from: schedule.start!)!
+            let stop = CustomDateFormatter.format.date(from: schedule.stop!)!
+            
+            let interval = start.distance(to: stop) // 시작, 종료 날짜까지의 TimeInterval
+            let days = Int(interval / 86400) // 시작, 종료 날짜까지의 Day
+            
+            for i in 0...days {
+                let event = start.addingTimeInterval(TimeInterval(86400 * i))
+                let eventStr = CustomDateFormatter.format.string(from: event)
+                //eventDates.append(eventStr)
+                
+                sections.append(Section(date: eventStr))
+            }
+        }
+        print(sections)
+    }
     
+    // MARK: -  섹션 설정
+    func setupSection() {
+        for place in places {
+            for index in 0..<sections.count {
+                if sections[index].date == place.visitDate! {
+                    sections[index].rows.append(place)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - TableViewDataSource, Delegate
 extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     // 섹션 개수
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return sections.count
     }
     
     // 섹션 내 행 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return sections[section].rows.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,7 +129,8 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "MainPlanHeaderView") as! MainPlanHeaderView
         
-        view.day.text = "\(section)"
+        view.day.text = "Day \(section)"
+        view.date.text = sections[section].date
         
         return view
     }
