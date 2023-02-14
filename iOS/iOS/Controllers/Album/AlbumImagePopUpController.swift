@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AlbumImagePopUpController: UIViewController, UIGestureRecognizerDelegate{
+class AlbumImagePopUpController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var closeButton: UIButton!
@@ -28,6 +28,7 @@ class AlbumImagePopUpController: UIViewController, UIGestureRecognizerDelegate{
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(AlbumImagePopUpController.doPinch(_:)))
         // 핀치 제스처를 등록
         self.view.addGestureRecognizer(pinch)
+        
         // 탭 제스쳐 정의 (이미지 원래대로)
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(AlbumImagePopUpController.handleTap(_:)))
         tapGR.delegate = self
@@ -56,29 +57,6 @@ class AlbumImagePopUpController: UIViewController, UIGestureRecognizerDelegate{
         deleteButton.layer.borderWidth = 1
         deleteButton.layer.borderColor = UIColor.red.cgColor
         deleteButton.layer.cornerRadius = 15
-    }
-    
-    // 핀치 제스쳐 메서드 구현
-    @objc func doPinch(_ pinch: UIPinchGestureRecognizer) {
-        guard imageView != nil else {return}
-        if pinch.state == .began || pinch.state == .changed {
-            if (recognizerScale < maxScale && pinch.scale > 1.0) {
-                imageView.transform = (imageView.transform).scaledBy(x: pinch.scale, y: pinch.scale)
-                recognizerScale *= pinch.scale
-                pinch.scale = 1.0
-            }
-            else if (recognizerScale > minScale && pinch.scale < 1.0) {
-                imageView.transform = (imageView.transform).scaledBy(x: pinch.scale, y: pinch.scale)
-                recognizerScale *= pinch.scale
-                pinch.scale = 1.0
-            }
-        }
-    }
-    
-    // 탭 제스쳐 메서드 구현
-    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        imageView.transform = CGAffineTransform.identity
-        recognizerScale = 1.0
     }
     
     // 닫기 버튼 동작

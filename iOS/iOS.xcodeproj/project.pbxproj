@@ -72,6 +72,7 @@
 		57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */; };
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
 		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
+		BFAB8F6A299B8A41007F16A5 /* Album+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB8F69299B8A41007F16A5 /* Album+Ext.swift */; };
 		BFEF3F312999ECEC00DF39FE /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */; };
 		F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = F27BB72A297E4B4300839669 /* SecretKey.plist */; };
 /* End PBXBuildFile section */
@@ -167,6 +168,7 @@
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagePopUpController.swift; sourceTree = "<group>"; };
+		BFAB8F69299B8A41007F16A5 /* Album+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Album+Ext.swift"; sourceTree = "<group>"; };
 		BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		D186E571686558A6A981FD3E /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27BB72A297E4B4300839669 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				37ECD625298676C8005E21D4 /* UIView+Ext.swift */,
 				576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */,
 				570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */,
+				BFAB8F69299B8A41007F16A5 /* Album+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -719,6 +722,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFAB8F6A299B8A41007F16A5 /* Album+Ext.swift in Sources */,
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
 				570AAB7E29919C6E006CB64C /* UIImageView+Ext.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
