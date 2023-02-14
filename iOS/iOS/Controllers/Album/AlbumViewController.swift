@@ -7,7 +7,13 @@
 
 import UIKit
 
-class AlbumViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class AlbumViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    
     
     // 예시 이미지 url
     let imageUrl : String = "https://placeimg.com/480/480/arch"
@@ -16,6 +22,11 @@ class AlbumViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // UISearchController 객체 생성
+        let searchController = UISearchController(searchResultsController: nil)
+        self.navigationItem.searchController = searchController
+        
     }
     
     // 셀 개수 설정
