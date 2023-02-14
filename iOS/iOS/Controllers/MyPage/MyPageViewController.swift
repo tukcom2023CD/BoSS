@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class MyPageViewController: UIViewController,  UITableViewDataSource, UITableViewDelegate{
+class MyPageViewController: UIViewController {
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
@@ -40,31 +40,6 @@ class MyPageViewController: UIViewController,  UITableViewDataSource, UITableVie
         setShadow(view: userSpendingView)
     }
     
-    // 테이블 설정 함수
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titleArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableCell", for: indexPath) as? CustomTableCell else {
-             return UITableViewCell()
-         }
-         cell.labelTitle.text = titleArray[indexPath.row]
-         cell.labelContent.text = contentArray[indexPath.row]
-         cell.selectionStyle = .none
-        
-         return cell
-    }
-        
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0: self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
-        case 1: self.performSegue(withIdentifier: "ShowSpending", sender: nil)
-        default:
-            return
-        }
-    }
-            
     func serUI() {
         // 이미지 설정
         userImage.image = UIImage(named: "user.png")
