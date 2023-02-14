@@ -68,3 +68,29 @@ class AlbumImagePopUpController: UIViewController {
     @IBAction func deleteButtonPressed(_ sender: UIButton) {
     }
 }
+
+
+extension AlbumImagePopUpController : UIGestureRecognizerDelegate {
+    // 핀치 제스쳐 메서드 구현
+    @objc func doPinch(_ pinch: UIPinchGestureRecognizer) {
+        guard imageView != nil else {return}
+        if pinch.state == .began || pinch.state == .changed {
+            if (recognizerScale < maxScale && pinch.scale > 1.0) {
+                imageView.transform = (imageView.transform).scaledBy(x: pinch.scale, y: pinch.scale)
+                recognizerScale *= pinch.scale
+                pinch.scale = 1.0
+            }
+            else if (recognizerScale > minScale && pinch.scale < 1.0) {
+                imageView.transform = (imageView.transform).scaledBy(x: pinch.scale, y: pinch.scale)
+                recognizerScale *= pinch.scale
+                pinch.scale = 1.0
+            }
+        }
+    }
+    
+    // 탭 제스쳐 메서드 구현
+    @objc func handleTap(_ gesture: UITapGestureRecognizer) {
+        imageView.transform = CGAffineTransform.identity
+        recognizerScale = 1.0
+    }
+}
