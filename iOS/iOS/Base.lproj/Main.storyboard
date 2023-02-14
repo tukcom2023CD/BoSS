@@ -298,39 +298,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="shw-WB-ciG">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="265"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripimg" translatesAutoresizingMaskIntoConstraints="NO" id="V8W-17-DQW">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="220"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="225"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인천 여행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBW-8P-ZDK">
-                                        <rect key="frame" x="10" y="190" width="184" height="60"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2023.01.01 ~ 2023.01.03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7e-O4-Hx2">
+                                        <rect key="frame" x="20" y="246" width="163.33333333333334" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2023.01.01 ~ 2023.01.03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7e-O4-Hx2">
-                                        <rect key="frame" x="214" y="224.33333333333334" width="158.66666666666663" height="17"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인천 여행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBW-8P-ZDK">
+                                        <rect key="frame" x="10" y="186" width="184" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="50"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="05G-vT-cya"/>
-                                    <constraint firstItem="dBW-8P-ZDK" firstAttribute="leading" secondItem="shw-WB-ciG" secondAttribute="leading" constant="10" id="6Y7-RA-AJd"/>
+                                    <constraint firstAttribute="height" constant="265" id="05G-vT-cya"/>
+                                    <constraint firstItem="dBW-8P-ZDK" firstAttribute="leading" secondItem="shw-WB-ciG" secondAttribute="leading" constant="10" id="1dz-xH-C7Y"/>
+                                    <constraint firstAttribute="bottom" secondItem="k7e-O4-Hx2" secondAttribute="bottom" constant="2" id="8Ze-Cd-v7V"/>
                                     <constraint firstItem="V8W-17-DQW" firstAttribute="leading" secondItem="shw-WB-ciG" secondAttribute="leading" id="Geq-z8-k1O"/>
-                                    <constraint firstAttribute="bottom" secondItem="V8W-17-DQW" secondAttribute="bottom" constant="30" id="JDA-7H-cQ5"/>
+                                    <constraint firstAttribute="bottom" secondItem="V8W-17-DQW" secondAttribute="bottom" constant="40" id="JDA-7H-cQ5"/>
+                                    <constraint firstItem="k7e-O4-Hx2" firstAttribute="top" secondItem="dBW-8P-ZDK" secondAttribute="bottom" id="Kh2-gz-f7U"/>
                                     <constraint firstAttribute="trailing" secondItem="V8W-17-DQW" secondAttribute="trailing" id="Q9E-J0-LIu"/>
                                     <constraint firstItem="V8W-17-DQW" firstAttribute="top" secondItem="shw-WB-ciG" secondAttribute="top" id="d2V-QZ-fKT"/>
-                                    <constraint firstItem="k7e-O4-Hx2" firstAttribute="baseline" secondItem="dBW-8P-ZDK" secondAttribute="baseline" id="eRc-0j-Gzb"/>
-                                    <constraint firstItem="k7e-O4-Hx2" firstAttribute="leading" secondItem="dBW-8P-ZDK" secondAttribute="trailing" constant="20" id="fQ1-f7-6aQ"/>
-                                    <constraint firstAttribute="bottom" secondItem="dBW-8P-ZDK" secondAttribute="bottom" id="hcZ-Un-tRF"/>
+                                    <constraint firstItem="k7e-O4-Hx2" firstAttribute="leading" secondItem="shw-WB-ciG" secondAttribute="leading" constant="20" id="siy-Dd-r4J"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="JmO-YV-xVi">
-                                <rect key="frame" x="0.0" y="250" width="393" height="602"/>
+                                <rect key="frame" x="0.0" y="265" width="393" height="587"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>

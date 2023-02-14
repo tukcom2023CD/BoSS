@@ -133,7 +133,7 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: "MainPlanHeaderView") as! MainPlanHeaderView
         
-        view.day.text = "Day \(section)"
+        view.day.text = "Day \(section+1)"
         view.date.text = sections[section].date
         
         return view
