@@ -156,11 +156,7 @@
                     <navigationItem key="navigationItem" id="qIv-w1-agK">
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="line.horizontal.3" catalog="system" id="YZo-6k-Sjr"/>
-                            <barButtonItem title="Item" image="bell" catalog="system" id="vwi-jR-EI3">
-                                <connections>
-                                    <action selector="testSearchPlaceButtonTapped:" destination="3m2-jw-HGR" id="DyR-6N-VYf"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem title="Item" image="bell" catalog="system" id="vwi-jR-EI3"/>
                             <barButtonItem title="Item" image="plus" catalog="system" id="6c8-Dz-ZUi">
                                 <connections>
                                     <action selector="createScheduleBarButtonTapped:" destination="3m2-jw-HGR" id="oKz-he-ors"/>

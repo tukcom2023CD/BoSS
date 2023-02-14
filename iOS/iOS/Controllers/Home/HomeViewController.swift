@@ -100,12 +100,6 @@ class HomeViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
-    @IBAction func testSearchPlaceButtonTapped(_ sender: UIBarButtonItem) {
-        
-        let vc = storyboard?.instantiateViewController(withIdentifier: "SearchPlaceVC") as! SearchPlaceViewController
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
 }
 
 extension HomeViewController: UITableViewDelegate,UITableViewDataSource {

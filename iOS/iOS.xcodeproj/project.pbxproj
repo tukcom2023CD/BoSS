@@ -296,15 +296,14 @@
 		5775975B297653EB008CB199 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				57C3DD9C299BF335009466FA /* Home */,
 				BF6A5F372994AF51008B76B6 /* MyPage */,
 				5780874F296BEB5500D2BAF8 /* LoginViewController.swift */,
-				5775975C2976541F008CB199 /* HomeViewController.swift */,
-				37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */,
 				37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */,
-				573941AB2980E57000E69D8F /* MapViewController.swift */,
 				570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */,
 				570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */,
 				576B64C9299A0895002609FA /* WritingPageViewController.swift */,
+				573941AB2980E57000E69D8F /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -400,6 +399,15 @@
 				570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		57C3DD9C299BF335009466FA /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				5775975C2976541F008CB199 /* HomeViewController.swift */,
+				37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		57F9FFF0298E9FA30045E7D0 /* Map */ = {

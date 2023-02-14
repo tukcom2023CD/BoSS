@@ -77,7 +77,7 @@ class MainPlanViewController: UIViewController {
     // MARK: -  여행 날짜 추출
     /// - parameter schedules : 모든 일정 데이터
     func extractScheduleDate(schedules: [Schedule]) {
-        sections = []
+        sections.removeAll()
         for schedule in schedules {
             let start = CustomDateFormatter.format.date(from: schedule.start!)!
             let stop = CustomDateFormatter.format.date(from: schedule.stop!)!
