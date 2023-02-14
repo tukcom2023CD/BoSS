@@ -86,7 +86,36 @@ class MyPageViewController: UIViewController {
     }
 }
 
+extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
+    
+    // 테이블 설정 함수
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return titleArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableCell", for: indexPath) as? CustomTableCell else {
+             return UITableViewCell()
+         }
+         cell.labelTitle.text = titleArray[indexPath.row]
+         cell.labelContent.text = contentArray[indexPath.row]
+         cell.selectionStyle = .none
+        
+         return cell
+    }
+        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0: self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
+        case 1: self.performSegue(withIdentifier: "ShowSpending", sender: nil)
+        default:
+            return
+        }
+    }
+}
+
 class CustomTableCell: UITableViewCell {
      @IBOutlet weak var labelTitle: UILabel!
      @IBOutlet weak var labelContent: UILabel!
 }
+

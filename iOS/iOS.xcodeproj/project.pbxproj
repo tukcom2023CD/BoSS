@@ -65,7 +65,6 @@
 		57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */; };
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
 		BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */; };
-		BFAB8F68299B85D8007F16A5 /* MyPage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB8F67299B85D8007F16A5 /* MyPage+Ext.swift */; };
 		BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */; };
 		BFF858402994B98F00C7F289 /* MyPageSpendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */; };
 		F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = F27BB72A297E4B4300839669 /* SecretKey.plist */; };
@@ -155,7 +154,6 @@
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageScheduleViewController.swift; sourceTree = "<group>"; };
-		BFAB8F67299B85D8007F16A5 /* MyPage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyPage+Ext.swift"; sourceTree = "<group>"; };
 		BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSpendingViewController.swift; sourceTree = "<group>"; };
 		D186E571686558A6A981FD3E /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,7 +369,6 @@
 				37ECD625298676C8005E21D4 /* UIView+Ext.swift */,
 				576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */,
 				570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */,
-				BFAB8F67299B85D8007F16A5 /* MyPage+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -703,7 +700,6 @@
 				570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
 				571BD16F29879136000A7F34 /* Schedule.swift in Sources */,
-				BFAB8F68299B85D8007F16A5 /* MyPage+Ext.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
 				570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */,
