@@ -119,8 +119,12 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
         return sections[section].rows.count
     }
     
+    // 섹션 내 행
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainPlanTableViewCell", for: indexPath) as! MainPlanTableViewCell
+        
+        cell.placeName.text = sections[indexPath.section].rows[indexPath.row].name
+        cell.totalSpending.text = "\(sections[indexPath.section].rows[indexPath.row].totalSpending!)"
         
         return cell
     }

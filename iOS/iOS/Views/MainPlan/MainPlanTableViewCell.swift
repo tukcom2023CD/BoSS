@@ -9,6 +9,10 @@ import UIKit
 
 class MainPlanTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var placeName: UILabel!
+    
+    @IBOutlet weak var totalSpending: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
