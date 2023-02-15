@@ -72,7 +72,7 @@
 		57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */; };
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
 		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
-		BFAB8F6D299B9575007F16A5 /* AlbumSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFAB8F6C299B9575007F16A5 /* AlbumSearchViewController.swift */; };
+		BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD681299BB4AF00071565 /* ResultsTableController.swift */; };
 		BFEF3F312999ECEC00DF39FE /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */; };
 		F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = F27BB72A297E4B4300839669 /* SecretKey.plist */; };
 /* End PBXBuildFile section */
@@ -168,7 +168,7 @@
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagePopUpController.swift; sourceTree = "<group>"; };
-		BFAB8F6C299B9575007F16A5 /* AlbumSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumSearchViewController.swift; sourceTree = "<group>"; };
+		BF8AD681299BB4AF00071565 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
 		BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		D186E571686558A6A981FD3E /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27BB72A297E4B4300839669 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 			children = (
 				BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */,
 				BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */,
-				BFAB8F6C299B9575007F16A5 /* AlbumSearchViewController.swift */,
+				BF8AD681299BB4AF00071565 /* ResultsTableController.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -754,7 +754,7 @@
 				3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */,
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
-				BFAB8F6D299B9575007F16A5 /* AlbumSearchViewController.swift in Sources */,
+				BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
 				5719B57A298BA302008572CF /* UserNetManager.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,

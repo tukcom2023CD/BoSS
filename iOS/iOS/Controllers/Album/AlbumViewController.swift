@@ -7,35 +7,60 @@
 
 import UIKit
 
-class AlbumViewController: UIViewController {
+class AlbumViewController: UIViewController, UISearchResultsUpdating {
     
+    // 서치 리설트 컨트롤러
+    var resultTC : ResultTableController!
+    // 서치 컨트롤러
+    var searchController : UISearchController!
     // 예시 이미지 url
     let imageUrl : String = "https://placeimg.com/480/480/arch"
     // 간격 수치 설정
     let sectionInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-    // 검색 결과를 보여줄 viewController 생성
-    let resultVC = AlbumSearchViewController()
+    
+//    필터링에대한 조건
+//    var isFiltering: Bool {
+//            let searchController = self.navigationItem.searchController
+//            let isActive = searchController?.isActive ?? false
+//            let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
+//            return isActive && isSearchBarHasText // SearchController활성화 + Search바에 텍스트가 입력됨
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 서치 리설트 컨트롤러 인스턴스화
+        resultTC = self.storyboard?.instantiateViewController(withIdentifier: "ResultTC") as? ResultTableController
+        
+        // 서치 컨트롤러 설정 함수 호출
         setSearchController()
     }
     
-    // 서치바 생성 및 설정 함수
+    // 서치 컨트롤러 설정 함수
     func setSearchController () {
-        let searchController = UISearchController(searchResultsController: resultVC)
-        searchController.searchBar.placeholder = "카테고리 검색" // placeholder 설정
-        searchController.obscuresBackgroundDuringPresentation = false // 검색창 클릭시 화면 어둡게 하는 설정 false
+        self.searchController = UISearchController(searchResultsController: self.resultTC)
+        self.searchController.searchBar.placeholder = "카테고리 검색" // placeholder 설정
+        self.searchController.obscuresBackgroundDuringPresentation = false // 검색창 클릭시 화면 어둡게 하는 설정 false
+        self.searchController.searchResultsUpdater = self // 검색결과 변경을 담당하는 VC 선택
         self.navigationItem.title = "앨범" // 네비게이션 아이템 타이틀
-        self.navigationItem.searchController = searchController // 네비게이션 아이템의 searchController 지정
+        self.navigationItem.searchController = self.searchController // 네비게이션 아이템의 searchController 지정
+        self.searchController.showsSearchResultsController = true
+    }
+    
+    // 검색 결과 업데이트 함수 (문자열을 검색창에 타이핑할때마다)
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return } // 문자열을 가져옴
+        self.resultTC.searchedCategoryArray = self.resultTC.categoryArray.filter
+        {$0.localizedCaseInsensitiveContains(text)} // categoryArray 배열에서 해당 문자열로 검색하여  searchedCategoryArray저장 
+        dump(self.resultTC.searchedCategoryArray) // searchedCategoryArray 출력
+        self.resultTC.tableView.reloadData() // 테이블뷰 다시 로드
     }
 }
-
 
 extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // 셀 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 13
+        return 1
     }
     // 셀 내용 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -43,7 +68,6 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
                 AlbumCollectionViewCell else {
             return UICollectionViewCell()
         }
-        
         // 이미지 설정
         cell.imageView.contentMode = .scaleToFill
         let url = URL(string: imageUrl)

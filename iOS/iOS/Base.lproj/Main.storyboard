@@ -549,37 +549,6 @@
             </objects>
             <point key="canvasLocation" x="4601" y="-9"/>
         </scene>
-        <!--Album Search View Controller-->
-        <scene sceneID="eCL-tv-P52">
-            <objects>
-                <viewController id="Xp3-Mf-Gjb" customClass="AlbumSearchViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Wny-9d-HTE">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FAv-0B-9aN">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Xp3-Mf-Gjb" id="1Ov-aC-YHN"/>
-                                    <outlet property="delegate" destination="Xp3-Mf-Gjb" id="OwV-zf-gw5"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="pSC-y4-Ksc"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="FAv-0B-9aN" firstAttribute="top" secondItem="pSC-y4-Ksc" secondAttribute="top" id="cZ5-z0-Ppb"/>
-                            <constraint firstItem="pSC-y4-Ksc" firstAttribute="bottom" secondItem="FAv-0B-9aN" secondAttribute="bottom" id="htd-PF-xe3"/>
-                            <constraint firstItem="FAv-0B-9aN" firstAttribute="leading" secondItem="pSC-y4-Ksc" secondAttribute="leading" id="iN7-3D-2TJ"/>
-                            <constraint firstItem="pSC-y4-Ksc" firstAttribute="trailing" secondItem="FAv-0B-9aN" secondAttribute="trailing" id="zRD-fR-5Os"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kqH-hB-CDD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5343" y="-9"/>
-        </scene>
         <!--추천-->
         <scene sceneID="5k9-aw-Hl2">
             <objects>
@@ -675,6 +644,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5cC-b7-UhU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2904.5801526717555" y="-9.1549295774647899"/>
+        </scene>
+        <!--Result Table Controller-->
+        <scene sceneID="BHR-EN-udS">
+            <objects>
+                <tableViewController storyboardIdentifier="ResultTC" id="721-cX-d2J" customClass="ResultTableController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="uAI-za-3nn">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Ksx-Bc-8wd">
+                                <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ksx-Bc-8wd" id="oTj-dQ-GeQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="721-cX-d2J" id="Won-Bj-O41"/>
+                            <outlet property="delegate" destination="721-cX-d2J" id="UQG-DO-wpd"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NXC-O6-vSs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5392" y="-9"/>
         </scene>
     </scenes>
     <resources>
