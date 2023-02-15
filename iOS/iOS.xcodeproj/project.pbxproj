@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		36D32DEEF1C5607FA325D100 /* Pods_iOS_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */; };
+		372183B4299A1F7600373F9C /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B3299A1F7600373F9C /* Diary.swift */; };
+		372183B6299A1F8900373F9C /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B5299A1F8900373F9C /* DiaryManager.swift */; };
+		372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B7299A201100373F9C /* WritingEditPageViewController.swift */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
 		3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F656297B974400014FFE /* FirstCollectionViewCell.xib */; };
 		3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */; };
@@ -98,6 +101,9 @@
 		1456B02B228DC8C37E5ED3AC /* Pods-iOS-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-iOS-iOSUITests/Pods-iOS-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		207460B44357D9F4D787BFC5 /* Pods-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.release.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		34A3E75F0EC9355F20B34FF4 /* Pods-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.debug.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		372183B3299A1F7600373F9C /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
+		372183B5299A1F8900373F9C /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
+		372183B7299A201100373F9C /* WritingEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPageViewController.swift; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3764F656297B974400014FFE /* FirstCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -304,6 +310,7 @@
 				570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */,
 				576B64C9299A0895002609FA /* WritingPageViewController.swift */,
 				573941AB2980E57000E69D8F /* MapViewController.swift */,
+				372183B7299A201100373F9C /* WritingEditPageViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -315,6 +322,8 @@
 				577B8F7C297A7E6500FBD1EB /* OCRResult.swift */,
 				37ECD62129866358005E21D4 /* Region.swift */,
 				37ECD6232986649D005E21D4 /* RegionDataManager.swift */,
+				372183B3299A1F7600373F9C /* Diary.swift */,
+				372183B5299A1F8900373F9C /* DiaryManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -739,6 +748,7 @@
 				576C0DBC298A327100485AD5 /* User.swift in Sources */,
 				570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
+				372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */,
 				571BD16F29879136000A7F34 /* Schedule.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
@@ -765,6 +775,7 @@
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
 				5793B7722988CFAD00649F23 /* ScheduleNetManager.swift in Sources */,
+				372183B4299A1F7600373F9C /* Diary.swift in Sources */,
 				57C399D42982385300F63900 /* Place.swift in Sources */,
 				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
 				3764F663297B97FC00014FFE /* FirstTableViewCell.swift in Sources */,

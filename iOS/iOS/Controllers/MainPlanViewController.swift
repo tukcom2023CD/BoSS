@@ -171,10 +171,27 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
+        //여기서 작업시작
+
+
         
         // sections[indexPath.section].rows[indexPath.row]
         
         navigationController?.pushViewController(vc, animated: true)
     }
     
+}
+
+
+extension MainPlanViewController: WritePlanDelegate {
+
+    
+    // 업데이트 되면 실행할 메서드 구현
+    func update(index: Int, _ diary: Diary) {
+        print("업데이트")
+        // 모델에 멤버 정보 업데이트
+        diaryListManager.updateDiaryInfo(index: index, diary: diary)
+        // 테이블뷰를 다시 로드 (다시 그리기)
+        tableView.reloadData()
+    }
 }
