@@ -52,15 +52,16 @@ class WritingPageViewController: UIViewController
         uiViewSetting()
         costButtonSetting()
         detailCostSetting()
-        // 전화면에서 전달받은 데이터들을 통해 셋팅
-        imageCard.image = imageCardData
-        contents.text = contentsData
+   
     
  
     
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        // 전화면에서 전달받은 데이터들을 통해 셋팅
+        imageCard.image = imageCardData
+        contents.text = contentsData
        // tableview.reloadData()
     }
     
