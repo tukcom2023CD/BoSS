@@ -13,6 +13,8 @@ class PlaceDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var place: GMSPlace!
+    var visitDate: String!
+    var scheduleId: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +36,23 @@ class PlaceDetailViewController: UIViewController {
     }
     
     @objc func barButtonTapped() {
-        guard let vcStack =
-                self.navigationController?.viewControllers else { return }
-        for vc in vcStack {
-            if let view = vc as? MainPlanViewController {
-                
-                self.navigationController?.popToViewController(view, animated: true)
+        guard let user = UserDefaults.standard.getLoginUser() else {
+            print(#function)
+            return
+        }
+        
+        let placeData = Place(name: place.name!, address: place.formattedAddress!, latitude: place.coordinate.latitude, longitude: place.coordinate.longitude, visitDate: visitDate, sid: scheduleId, uid: user.uid!)
+        
+        PlaceNetManager.shared.create(place: placeData) {
+            DispatchQueue.main.async {
+                guard let vcStack =
+                        self.navigationController?.viewControllers else { return }
+                for vc in vcStack {
+                    if let view = vc as? MainPlanViewController {
+                        view.requestPlaceData()
+                        self.navigationController?.popToViewController(view, animated: true)
+                    }
+                }
             }
         }
     }

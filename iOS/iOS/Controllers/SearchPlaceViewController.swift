@@ -13,6 +13,8 @@ class SearchPlaceViewController: UIViewController {
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
+    var visitDate: String!
+    var scheduleId: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +48,8 @@ extension SearchPlaceViewController: GMSAutocompleteResultsViewControllerDelegat
         print(place)
         let placeDetailVC = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailVC") as! PlaceDetailViewController
         placeDetailVC.place = place
+        placeDetailVC.visitDate = visitDate
+        placeDetailVC.scheduleId = scheduleId
         navigationController?.pushViewController(placeDetailVC, animated: true)
         
     }

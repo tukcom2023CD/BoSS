@@ -17,19 +17,13 @@ class HomeViewController: UIViewController {
     var previousSchedules: [Schedule] = []
     var eventDates: [String] = []
     
-    let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy.MM.dd"
-        return formatter
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
 //        navigationController?.navigationBar.prefersLargeTitles = true
         
         setupTableView()
-        readScheduleData()
+        requestScheduleData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +32,7 @@ class HomeViewController: UIViewController {
     
     // 여행 일정 불러오기
     /// - parameter uid : 로그인 유저 ID
-    func readScheduleData() {
+    func requestScheduleData() {
         let user = UserDefaults.standard.getLoginUser()!
         
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
@@ -72,15 +66,15 @@ class HomeViewController: UIViewController {
     /// - parameter schedules : 모든 일정 데이터
     func extractScheduleDate(schedules: [Schedule]) {
         for schedule in schedules {
-            let start = dateFormatter.date(from: schedule.start!)!
-            let stop = dateFormatter.date(from: schedule.stop!)!
+            let start = CustomDateFormatter.format.date(from: schedule.start!)!
+            let stop = CustomDateFormatter.format.date(from: schedule.stop!)!
             
             let interval = start.distance(to: stop) // 시작, 종료 날짜까지의 TimeInterval
             let days = Int(interval / 86400) // 시작, 종료 날짜까지의 Day
             
             for i in 0...days {
                 let event = start.addingTimeInterval(TimeInterval(86400 * i))
-                let eventStr = dateFormatter.string(from: event)
+                let eventStr = CustomDateFormatter.format.string(from: event)
                 eventDates.append(eventStr)
             }
         }
@@ -104,12 +98,6 @@ class HomeViewController: UIViewController {
         
         navigationController?.pushViewController(planningVC, animated: true)
         tabBarController?.tabBar.isHidden = true
-    }
-    
-    @IBAction func testSearchPlaceButtonTapped(_ sender: UIBarButtonItem) {
-        
-        let vc = storyboard?.instantiateViewController(withIdentifier: "SearchPlaceVC") as! SearchPlaceViewController
-        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -155,6 +143,8 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
             
             cell.didSelectItem = { schedule in
                 let mainPlanVC = self.storyboard?.instantiateViewController(withIdentifier: "MainPlanViewController") as! MainPlanViewController
+                
+                mainPlanVC.schedule = schedule
                 
                 self.navigationController?.pushViewController(mainPlanVC, animated: true)
             }

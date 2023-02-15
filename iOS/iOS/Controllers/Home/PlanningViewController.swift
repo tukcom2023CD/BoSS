@@ -35,7 +35,7 @@ class PlanningViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         slideUpView.isHidden = true
         
         setupView()
@@ -60,7 +60,7 @@ class PlanningViewController: UIViewController{
         
         let alert = UIAlertController(title: "생성하시겠습니까?", message:
                                         nil, preferredStyle: .alert)
-
+        
         let ok = UIAlertAction(title: "확인", style: .default) { action in
             
             let user = UserDefaults.standard.getLoginUser()!
@@ -80,7 +80,7 @@ class PlanningViewController: UIViewController{
                         self.navigationController?.popToRootViewController(animated: true)
                     }
                 }
-       
+                
             }
         }
         
@@ -90,24 +90,24 @@ class PlanningViewController: UIViewController{
         self.present(alert, animated: true, completion: nil)
         
         
-
-//
-//
-//        let action = UIAlertAction(title: "네", style: .default, handler:  {(action) in
-//                                   let vc = self.storyboard!.instantiateViewController(
-//                                    withIdentifier: "MainPlanViewController") as! MainPlanViewController
-//                                   self.present(vc, animated: true, completion: nil)
-//
-//                                   })
-//        let cancel = UIAlertAction(title: "다시 정하기", style: .cancel, handler: nil)
-//        alert.addAction(cancel)
-//        alert.addAction(action)
-//        //alert.modalTransitionStyle = UIModalTransitionStyle.partialCurl
-//
-//
-//       // self.navigationController?.pushViewController(MainPlanViewController, animated: true)
-//        present(alert, animated: true, completion: nil)
-//
+        
+        //
+        //
+        //        let action = UIAlertAction(title: "네", style: .default, handler:  {(action) in
+        //                                   let vc = self.storyboard!.instantiateViewController(
+        //                                    withIdentifier: "MainPlanViewController") as! MainPlanViewController
+        //                                   self.present(vc, animated: true, completion: nil)
+        //
+        //                                   })
+        //        let cancel = UIAlertAction(title: "다시 정하기", style: .cancel, handler: nil)
+        //        alert.addAction(cancel)
+        //        alert.addAction(action)
+        //        //alert.modalTransitionStyle = UIModalTransitionStyle.partialCurl
+        //
+        //
+        //       // self.navigationController?.pushViewController(MainPlanViewController, animated: true)
+        //        present(alert, animated: true, completion: nil)
+        //
         
         
     }
@@ -134,20 +134,20 @@ class PlanningViewController: UIViewController{
         let translation = gestureRecognizer.translation(in: self.slideUpView)
         switch gestureRecognizer.state{
         case .began, .changed:
-           
+            
             gestureRecognizer.view!.center = CGPoint(x: self.slideUpView.center.x, y: max(gestureRecognizer.view!.center.y + translation.y, originalCenterOfslideUpView))
             gestureRecognizer.setTranslation(CGPoint.zero, in: self.slideUpView)
             totalDistance += translation.y
             break
         case .ended:
-           //y축을 보고 많이 안내렸으면 handleDismiss()->안내려감. 그게 아니면 끄는 걸로
+            //y축을 보고 많이 안내렸으면 handleDismiss()->안내려감. 그게 아니면 끄는 걸로
             if gestureRecognizer.velocity(in: slideUpView).y > 300 {
                 handleDismiss()
             } else if totalDistance >= 0{
                 UIView.animate(withDuration: TimeInterval(animationTime), delay: 0, options: [.curveEaseOut],
                                animations: {
-                                self.slideUpView.center.y -= self.totalDistance
-                                self.slideUpView.layoutIfNeeded()
+                    self.slideUpView.center.y -= self.totalDistance
+                    self.slideUpView.layoutIfNeeded()
                 }, completion: nil)
             } else {
             }
@@ -170,7 +170,7 @@ class PlanningViewController: UIViewController{
         regionDataArray = regionDataManager.getRegionData()
     }
     
-//slideupView 보이기
+    //slideupView 보이기
     func setupSlideView(){
         slideUpView.isHidden = false
         dateLabel.isHidden = true
@@ -181,7 +181,7 @@ class PlanningViewController: UIViewController{
             self.slideUpView.backgroundColor = UIColor.white
             self.slideUpView.layer.cornerRadius = SlideViewConstant.cornerRadiusOfSlideView
             self.slideUpView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-          
+            
         }, completion: nil)
         slideUpView.slideUpShow(animationTime)
         //self.tabBarController?.tabBar.isHidden = true
@@ -211,8 +211,8 @@ class PlanningViewController: UIViewController{
         dateRangePickerViewController.selectedEndDate = nil
         dateRangePickerViewController.selectedColor = UIColor.systemBlue
         dateRangePickerViewController.titleText = "날짜를 선택해주세요!"
-         
-
+        
+        
         let navigationController = UINavigationController(rootViewController: dateRangePickerViewController)
         self.navigationController?.present(navigationController, animated: true, completion: nil)
         
@@ -227,16 +227,16 @@ extension PlanningViewController: UITableViewDataSource {
         print(#function)
         return regionDataArray.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchPlaceTableViewCell", for: indexPath) as! SearchPlaceTableViewCell
         
         cell.tripImg.image = regionDataArray[indexPath.row].placeImage
         cell.title.text =  regionDataArray[indexPath.row].placeName
         cell.subtitle.text =  regionDataArray[indexPath.row].placeSubtitle
         cell.selectionStyle = .none
-       
+        
         return cell
     }
 }
@@ -245,7 +245,7 @@ extension PlanningViewController: UITableViewDelegate {
         setupSlideView()
         placeNameCheck.text = regionDataArray[indexPath.row].placeName
         // 세그웨이를 실행 -> 사용 예정
-      //  performSegue(withIdentifier: "toPlanMain", sender: indexPath)
+        //  performSegue(withIdentifier: "toPlanMain", sender: indexPath)
     }
 }
 
@@ -260,17 +260,17 @@ extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        self.startDate = dateFormatter.string(from: startDate)
-        self.endDate = dateFormatter.string(from: endDate)
+        //        let dateFormatter = DateFormatter()
+        //        dateFormatter.dateFormat = "yyyy.MM.dd"
+        self.startDate = CustomDateFormatter.format.string(from: startDate)
+        self.endDate = CustomDateFormatter.format.string(from: endDate)
         
         dateLabel.text = "출발 : " + self.startDate! + " \n" + "도착 : " + self.endDate!
         self.navigationController?.dismiss(animated: true, completion: nil)
         dateLabel.isHidden = false
         nextButton.isHidden = false
         selectCheckButton.setTitle("날짜 재설정", for: .normal)
-     
+        
     }
     
     @objc func didSelectStartDate(startDate: Date!){
