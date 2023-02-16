@@ -7,60 +7,73 @@
 
 import UIKit
 
-class AlbumViewController: UIViewController, UISearchResultsUpdating {
+class AlbumViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
     
     // 서치 리설트 컨트롤러
     var resultTC : ResultTableController!
     // 서치 컨트롤러
     var searchController : UISearchController!
     // 예시 이미지 url
-    let imageUrl : String = "https://placeimg.com/480/480/arch"
+    let imageUrl : String = "https://placeimg.com/240/240/arch"
     // 간격 수치 설정
     let sectionInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     
-//    필터링에대한 조건
-//    var isFiltering: Bool {
-//            let searchController = self.navigationItem.searchController
-//            let isActive = searchController?.isActive ?? false
-//            let isSearchBarHasText = searchController?.searchBar.text?.isEmpty == false
-//            return isActive && isSearchBarHasText // SearchController활성화 + Search바에 텍스트가 입력됨
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // 서치 리설트 컨트롤러 인스턴스화
         resultTC = self.storyboard?.instantiateViewController(withIdentifier: "ResultTC") as? ResultTableController
-        
         // 서치 컨트롤러 설정 함수 호출
         setSearchController()
     }
     
     // 서치 컨트롤러 설정 함수
     func setSearchController () {
-        self.searchController = UISearchController(searchResultsController: self.resultTC)
+        self.searchController = UISearchController(searchResultsController: self.resultTC) //서치 리설트 컨트롤러 지정
+        self.searchController.searchBar.delegate = self // 서치바 델리게이트 설정
         self.searchController.searchBar.placeholder = "카테고리 검색" // placeholder 설정
+        self.searchController.searchBar.scopeButtonTitles = ["전체", "선택됨"] // scope 버튼 설정
+        self.searchController.searchBar.showsScopeBar = false // ScopeBar를 항상 표시할지 여부
         self.searchController.obscuresBackgroundDuringPresentation = false // 검색창 클릭시 화면 어둡게 하는 설정 false
         self.searchController.searchResultsUpdater = self // 검색결과 변경을 담당하는 VC 선택
+        self.searchController.showsSearchResultsController = true // 검색창이 활성화된 경우(isActive인 경우) 검색 결과창 바로표시할지 여부
         self.navigationItem.title = "앨범" // 네비게이션 아이템 타이틀
         self.navigationItem.searchController = self.searchController // 네비게이션 아이템의 searchController 지정
-        self.searchController.showsSearchResultsController = true
     }
     
     // 검색 결과 업데이트 함수 (문자열을 검색창에 타이핑할때마다)
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return } // 문자열을 가져옴
-        self.resultTC.searchedCategoryArray = self.resultTC.categoryArray.filter
+        self.resultTC.searchedCategoryArray = self.resultTC.currentScope.filter
         {$0.localizedCaseInsensitiveContains(text)} // categoryArray 배열에서 해당 문자열로 검색하여  searchedCategoryArray저장 
         dump(self.resultTC.searchedCategoryArray) // searchedCategoryArray 출력
         self.resultTC.tableView.reloadData() // 테이블뷰 다시 로드
+    }
+    
+    // 스콥 버튼 클릭시
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        if selectedScope == 0 {
+            resultTC.currentScope = resultTC.categoryArray // 스콥을 전체로 설정
+        } else {
+            resultTC.currentScope = resultTC.userCheckedCategory // 스콥을 선택됨으로 설정
+        }
+        self.resultTC.tableView.reloadData()
+    }
+    
+    // 텍스트가 수정될 때
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchController.searchBar.showsScopeBar = true // ScopeBar를 항상 표시할지 여부
+    }
+    
+    // 텍스트 수정이 완료될 때
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        self.searchController.searchBar.showsScopeBar = false // ScopeBar를 항상 표시할지 여부
     }
 }
 
 extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // 셀 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
     // 셀 내용 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -98,8 +111,8 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
         
         // 현재 셀 가져오기
         guard let currentCell = collectionView.cellForItem(at: indexPath) as? AlbumCollectionViewCell else {
-                    return
-                }
+            return
+        }
         // 자세히 보기 화면 전환
         guard let popupVC = self.storyboard?.instantiateViewController(identifier: "popupVC") as? AlbumImagePopUpController else {return}
         popupVC.modalPresentationStyle = .overFullScreen
