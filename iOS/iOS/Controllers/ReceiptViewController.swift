@@ -10,9 +10,13 @@ import UIKit
 class ReceiptViewController: UIViewController {
     
     @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var textInput: UITextField!
+    @IBOutlet weak var textInput1: UITextField!
+    @IBOutlet weak var textInput2: UITextField!
+    @IBOutlet weak var textInput3: UITextField!
+    
+    
     @IBOutlet weak var tableView: UITableView!
-
+    var stackLabel : String!
     var stringArr = [String]()
     
     override func viewDidLoad() {
@@ -24,15 +28,39 @@ class ReceiptViewController: UIViewController {
     
     
     @IBAction func addButtonTapped(_ sender: Any) {
-        if let txt = textInput.text{
-            if textInput.text != ""{
-                self.stringArr.insert(txt, at: 0)
+        if let txt1 = textInput1.text , let txt2 = textInput2.text , let txt3 = textInput3.text{
+            if textInput1.text != "" && textInput2.text != "" && textInput3.text != ""{
+                let txtString : String = "\(txt1)       |        \(txt2)    |   \(txt3) "
+                self.stringArr.insert(txtString, at: 0)
                 tableView.beginUpdates()
                 tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
-                textInput.text = nil
+                textInput1.text = nil
+                textInput2.text = nil
+                textInput3.text = nil
                 tableView.endUpdates()
             }
         }
+//        if let txt = textInput2.text{
+//            if textInput2.text != ""{
+//                self.stringArr.insert(txt, at: 0)
+//                tableView.beginUpdates()
+//                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
+//                textInput2.text = nil
+//                tableView.endUpdates()
+//            }
+//        }
+//        if let txt = textInput3.text{
+//            if textInput3.text != ""{
+//                self.stringArr.insert(txt, at: 0)
+//                tableView.beginUpdates()
+//                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
+//                textInput3.text = nil
+//                tableView.endUpdates()
+//            }
+//        }
+//
+        
+        
     }
     
 
@@ -56,6 +84,9 @@ extension ReceiptViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditTableViewCell", for: indexPath) as? EditTableViewCell else {return UITableViewCell()}
         cell.inputLabel.text = stringArr[indexPath.row]
+//        cell.inputLabel2.text = stringArr[indexPath.row]
+//        cell.inputLabel3.text = stringArr[indexPath.row]
+     
         return cell
     }
     
