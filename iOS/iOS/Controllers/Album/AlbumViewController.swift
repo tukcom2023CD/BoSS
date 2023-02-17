@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AlbumViewController: UIViewController, UISearchResultsUpdating, UISearchBarDelegate {
+class AlbumViewController: UIViewController {
     
     // 서치 리설트 컨트롤러
     var resultTC : ResultTableController!
@@ -44,7 +44,7 @@ class AlbumViewController: UIViewController, UISearchResultsUpdating, UISearchBa
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return } // 문자열을 가져옴
         self.resultTC.searchedCategoryArray = self.resultTC.currentScope.filter
-        {$0.localizedCaseInsensitiveContains(text)} // categoryArray 배열에서 해당 문자열로 검색하여  searchedCategoryArray저장 
+        {$0.localizedCaseInsensitiveContains(text)} // categoryArray 배열에서 해당 문자열로 검색하여  searchedCategoryArray저장
         dump(self.resultTC.searchedCategoryArray) // searchedCategoryArray 출력
         self.resultTC.tableView.reloadData() // 테이블뷰 다시 로드
     }
@@ -52,9 +52,12 @@ class AlbumViewController: UIViewController, UISearchResultsUpdating, UISearchBa
     // 스콥 버튼 클릭시
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         if selectedScope == 0 {
-            resultTC.currentScope = resultTC.categoryArray // 스콥을 전체로 설정
+            resultTC.scopeState = "total" // 스콥 상태 전체로 설정
+            resultTC.currentScope = resultTC.categoryArray // 스콥 배열을 전체로 설정
         } else {
-            resultTC.currentScope = resultTC.userCheckedCategory // 스콥을 선택됨으로 설정
+            resultTC.scopeState = "check" // 스콥 상태 선택됨으로 설정
+            resultTC.currentScope = resultTC.userCheckedCategory // 스콥 배열을 선택됨으로 설정
+            resultTC.userSavedCheckedCategory = resultTC.userCheckedCategory // 사용자 선택 카테고리 임시 저장
         }
         self.resultTC.tableView.reloadData()
     }
@@ -70,7 +73,7 @@ class AlbumViewController: UIViewController, UISearchResultsUpdating, UISearchBa
     }
 }
 
-extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // 셀 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10

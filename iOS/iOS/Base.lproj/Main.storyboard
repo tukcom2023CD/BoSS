@@ -654,11 +654,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="dnb-Jd-JXv">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="53" translatesAutoresizingMaskIntoConstraints="NO" id="tXh-Xy-Fbf">
-                                    <rect key="frame" x="118" y="10" width="157" height="30"/>
+                                    <rect key="frame" x="118" y="0.0" width="157" height="30"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twM-Yw-fZ2">
                                             <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
@@ -687,7 +687,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchResultCell" rowHeight="74" id="ISr-Bk-nyT" customClass="searchResultCell" customModule="iOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100" width="393" height="74"/>
+                                <rect key="frame" x="0.0" y="80" width="393" height="74"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ISr-Bk-nyT" id="fUo-GK-uuV">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="74"/>
