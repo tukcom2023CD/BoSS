@@ -8,17 +8,9 @@
 import UIKit
 import PhotosUI
 
-class WritingEditPageViewController: UIViewController {
+class WritingEditPageViewController: UIViewController{
     
-    //    var diary: Diary? {
-    //        didSet {
-    //            guard var diary = diary else { return }
-    //            imageCard.image = diary.imageCard
-    //            contents.text = diary.contents
-    //
-    //        }
-    //    }
-    
+
     
     @IBOutlet weak var scrollView: UIScrollView!
     // @IBOutlet weak var tableview: UITableView!
@@ -26,25 +18,51 @@ class WritingEditPageViewController: UIViewController {
     @IBOutlet weak var imageCard: UIImageView!
     
     @IBOutlet weak var contents: UITextView!
-    // @IBOutlet weak var costButton: UIButton!
+   
     
-    // @IBOutlet weak var costLabel: UILabel!
+    @IBOutlet weak var receiptView: UIView!
+    //  @IBOutlet weak var detailCost: UIView!
     
-    @IBOutlet weak var detailCost: UIView!
+    let textViewPlaceHolder = "텍스트를 입력하세요"
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         uiViewSetting()
         imageCardSetting()
-        detailCostSetting()
+        //detailCostSetting()
         setupTapGestures()
+        contentsSetting()
         // Do any additional setup after loading the view.
-        
-        
-        
+        self.contents.delegate = self
+        contents.isScrollEnabled = false
+        receiptView.layer.cornerRadius = 5
+//        receiptView.layer.borderWidth = 1
+//        receiptView.layer.borderColor = UIColor.systemGray2
+//            .cgColor
     }
     
+    func contentsSetting(){
+        contents.layer.cornerRadius = 10
+        contents.layer.borderWidth = 3
+        contents.layer.borderColor = UIColor.systemGray6
+            .cgColor
+        contents.text = textViewPlaceHolder
+        contents.textColor = .lightGray
+      
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if contents.text == textViewPlaceHolder {
+            contents.text = nil
+            contents.textColor = .black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if contents.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            contents.text = textViewPlaceHolder
+            contents.textColor = .lightGray
+        }
+    }
     
     // 제스쳐 설정 (이미지뷰가 눌리면, 실행)
     func setupTapGestures() {
@@ -88,10 +106,10 @@ class WritingEditPageViewController: UIViewController {
         self.imageCard.layer.cornerRadius = 10
         
     }
-    func detailCostSetting(){
-        
-        detailCost.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-    }
+//    func detailCostSetting(){
+//
+//        detailCost.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
+//    }
     func changeTitleMode(){
         self.navigationController?.navigationBar.prefersLargeTitles = true
         print(self.scrollView.contentOffset.y)
@@ -122,6 +140,16 @@ class WritingEditPageViewController: UIViewController {
         
         
     }
+    
+    
+    @IBAction func receiptButtonTapped(_ sender: UIButton) {
+        print(#function)
+ 
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+              let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController")
+              
+              present(vc, animated:true, completion: nil)
+    }
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -138,6 +166,7 @@ class WritingEditPageViewController: UIViewController {
         }
       
     }
+
     
 }
 //MARK: - 피커뷰 델리게이트 설정
@@ -163,4 +192,24 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
         }
     }
 }
+extension WritingEditPageViewController: UITextViewDelegate{
+        // MARK: textview 높이 자동조절
+        func textViewDidChange(_ textView: UITextView) {
+            
+            let size = CGSize(width: view.frame.width, height: .infinity)
+            let estimatedSize = textView.sizeThatFits(size)
+            
+            textView.constraints.forEach { (constraint) in
+                
+                /// 50 이하일때는 더 이상 줄어들지 않게하기
+                if estimatedSize.height <= 50 {
+                    
+                }
+                else {
+                    if constraint.firstAttribute == .height {
+                        constraint.constant = estimatedSize.height
+                    }
+                }
+            }
+        }}
 
