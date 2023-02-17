@@ -1199,8 +1199,18 @@
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zHq-dL-sVK">
                                 <rect key="frame" x="30" y="139" width="333" height="34"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T4H-p4-wzC">
-                                        <rect key="frame" x="0.0" y="0.0" width="283" height="34"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T4H-p4-wzC">
+                                        <rect key="frame" x="0.0" y="0.0" width="199" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HIC-Ln-U7Z">
+                                        <rect key="frame" x="209" y="0.0" width="32" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NVl-i3-Iem">
+                                        <rect key="frame" x="251" y="0.0" width="32" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -1232,7 +1242,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xPb-UU-dfu">
-                                                    <rect key="frame" x="50" y="18.666666666666664" width="43.666666666666657" height="21.666666666666664"/>
+                                                    <rect key="frame" x="50" y="18.666666666666664" width="243" height="21.666666666666664"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1256,13 +1266,14 @@
                                             <constraints>
                                                 <constraint firstItem="asN-Hc-rUU" firstAttribute="centerY" secondItem="94P-dV-9nX" secondAttribute="centerY" id="7t6-cK-hhH"/>
                                                 <constraint firstItem="xPb-UU-dfu" firstAttribute="leading" secondItem="94P-dV-9nX" secondAttribute="leadingMargin" constant="30" id="HIa-qr-YJx"/>
+                                                <constraint firstItem="asN-Hc-rUU" firstAttribute="leading" secondItem="xPb-UU-dfu" secondAttribute="trailing" constant="10" id="XKV-6c-ICX"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="asN-Hc-rUU" secondAttribute="trailing" constant="20" id="ZPA-21-vqP"/>
                                                 <constraint firstItem="xPb-UU-dfu" firstAttribute="centerY" secondItem="94P-dV-9nX" secondAttribute="centerY" id="yIn-XJ-IFR"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="deleteButton" destination="asN-Hc-rUU" id="DHB-rl-mfZ"/>
-                                            <outlet property="inputLabel" destination="xPb-UU-dfu" id="H67-kW-yKU"/>
+                                            <outlet property="inputLabel" destination="xPb-UU-dfu" id="5WI-qa-9F7"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1314,7 +1325,6 @@
                         <viewLayoutGuide key="safeArea" id="I7e-A6-ZFC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Q9X-gp-mWP" firstAttribute="trailing" secondItem="T4H-p4-wzC" secondAttribute="trailing" id="0kh-Ya-kcy"/>
                             <constraint firstItem="I7e-A6-ZFC" firstAttribute="bottom" secondItem="RDe-kl-Gv8" secondAttribute="bottom" id="3JH-Ch-NJc"/>
                             <constraint firstItem="T4H-p4-wzC" firstAttribute="top" secondItem="Q9X-gp-mWP" secondAttribute="bottom" constant="5" id="T8k-y1-Tgc"/>
                             <constraint firstItem="I7e-A6-ZFC" firstAttribute="trailing" secondItem="RDe-kl-Gv8" secondAttribute="trailing" id="WYW-2x-Zv9"/>
@@ -1323,6 +1333,7 @@
                             <constraint firstItem="RDe-kl-Gv8" firstAttribute="top" secondItem="zHq-dL-sVK" secondAttribute="bottom" constant="30" id="ffM-DQ-WgX"/>
                             <constraint firstItem="I7e-A6-ZFC" firstAttribute="bottom" secondItem="RDe-kl-Gv8" secondAttribute="bottom" id="gm2-eG-5Bo"/>
                             <constraint firstItem="RDe-kl-Gv8" firstAttribute="leading" secondItem="I7e-A6-ZFC" secondAttribute="leading" id="gtg-Mg-KJ7"/>
+                            <constraint firstItem="Q9X-gp-mWP" firstAttribute="trailing" secondItem="NVl-i3-Iem" secondAttribute="trailing" id="hlx-xe-iUs"/>
                             <constraint firstItem="zHq-dL-sVK" firstAttribute="leading" secondItem="I7e-A6-ZFC" secondAttribute="leading" constant="30" id="jGc-S2-1II"/>
                             <constraint firstItem="Q9X-gp-mWP" firstAttribute="leading" secondItem="T4H-p4-wzC" secondAttribute="leading" id="weI-iV-h7E"/>
                         </constraints>
@@ -1331,7 +1342,9 @@
                     <connections>
                         <outlet property="addButton" destination="Ydy-uj-UQz" id="2dJ-uE-yJZ"/>
                         <outlet property="tableView" destination="RDe-kl-Gv8" id="nO5-nM-cPr"/>
-                        <outlet property="textInput" destination="T4H-p4-wzC" id="s1u-aK-EPL"/>
+                        <outlet property="textInput1" destination="T4H-p4-wzC" id="fdc-nn-GCJ"/>
+                        <outlet property="textInput2" destination="HIC-Ln-U7Z" id="7o2-by-aVP"/>
+                        <outlet property="textInput3" destination="NVl-i3-Iem" id="0pO-ka-tod"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PC5-D8-KGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
