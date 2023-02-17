@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		36D32DEEF1C5607FA325D100 /* Pods_iOS_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */; };
 		372183B4299A1F7600373F9C /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B3299A1F7600373F9C /* Diary.swift */; };
-		372183B6299A1F8900373F9C /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B5299A1F8900373F9C /* DiaryManager.swift */; };
 		372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B7299A201100373F9C /* WritingEditPageViewController.swift */; };
+		3742356F299F3C390049DFA1 /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742356E299F3C390049DFA1 /* ReceiptViewController.swift */; };
+		37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37423570299F41FE0049DFA1 /* EditTableViewCell.swift */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
 		3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F656297B974400014FFE /* FirstCollectionViewCell.xib */; };
 		3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */; };
@@ -104,6 +105,8 @@
 		372183B3299A1F7600373F9C /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		372183B5299A1F8900373F9C /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 		372183B7299A201100373F9C /* WritingEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPageViewController.swift; sourceTree = "<group>"; };
+		3742356E299F3C390049DFA1 /* ReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
+		37423570299F41FE0049DFA1 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3764F656297B974400014FFE /* FirstCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -282,6 +285,7 @@
 				37B7BE87298564F900786A1F /* SlideView.swift */,
 				37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */,
 				37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */,
+				37423570299F41FE0049DFA1 /* EditTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -311,6 +315,7 @@
 				576B64C9299A0895002609FA /* WritingPageViewController.swift */,
 				573941AB2980E57000E69D8F /* MapViewController.swift */,
 				372183B7299A201100373F9C /* WritingEditPageViewController.swift */,
+				3742356E299F3C390049DFA1 /* ReceiptViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -748,10 +753,12 @@
 				576C0DBC298A327100485AD5 /* User.swift in Sources */,
 				570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
+				3742356F299F3C390049DFA1 /* ReceiptViewController.swift in Sources */,
 				372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */,
 				571BD16F29879136000A7F34 /* Schedule.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
+				37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */,
 				570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */,
 				576B64C3299970FA002609FA /* MainPlanTableViewCell.swift in Sources */,
 				576B64C82999737F002609FA /* MainPlanFooterView.swift in Sources */,
