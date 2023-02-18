@@ -7,7 +7,7 @@
 
 import UIKit
 protocol TotalProtocol: AnyObject {
-    func sendData(totalPriceData: String)
+    func sendData(totalPriceData: String, priceData: [String])
 }
 
 class ReceiptViewController: UIViewController {
@@ -34,12 +34,12 @@ class ReceiptViewController: UIViewController {
         
         textInput2.delegate = self
         textInput3.delegate = self
-
+        
         
     }
     //사라질때 넘기기
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.sendData(totalPriceData: "\(totalPrice)")
+        delegate?.sendData(totalPriceData: "\(totalPrice ?? 0)", priceData: stringArr)
         
     }
     
@@ -49,12 +49,12 @@ class ReceiptViewController: UIViewController {
         if let txt1 = textInput1.text , let txt2 = textInput2.text , let txt3 = textInput3.text{
             if textInput1.text != "" && textInput2.text != "" && textInput3.text != ""{
                 //column나눌까
-                let txtString : String = "\(txt1)  |   수량 : \(txt2)  |  금액 : \(txt3) "
-             
-               
+                let txtString : String = "\(txt1)  |    \(txt2)  |   \(txt3) "
+                
+                
                 let input1:Int! = Int(textInput2.text!)
                 let input2:Int! = Int(textInput3.text!)
-               newTotalPrice = input1 * input2
+                newTotalPrice = input1 * input2
                 totalPrice += newTotalPrice
                 
                 totalPriceLabel.text = String(totalPrice)
@@ -69,12 +69,9 @@ class ReceiptViewController: UIViewController {
                 tableView.endUpdates()
             }
         }
-
-        
-        
     }
     
-
+    
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         let point = sender.convert(CGPoint.zero, to: tableView)
@@ -82,7 +79,6 @@ class ReceiptViewController: UIViewController {
         totalPrice -= stringArr1[indexpath.row]
         stringArr.remove(at: indexpath.row)
         stringArr1.remove(at: indexpath.row)
-        
         totalPriceLabel.text = String(totalPrice)
         
         //cell.price
@@ -101,10 +97,6 @@ extension ReceiptViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditTableViewCell", for: indexPath) as? EditTableViewCell else {return UITableViewCell()}
         cell.inputLabel.text = stringArr[indexPath.row]
-       // cell.price = stringArr1[indexPath.row]
-        
-
-     
         return cell
     }
     
@@ -115,7 +107,7 @@ extension ReceiptViewController: UITableViewDelegate, UITableViewDataSource{
 
 
 extension ReceiptViewController: UITextFieldDelegate {
-   
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         print(string)
         
@@ -123,10 +115,8 @@ extension ReceiptViewController: UITextFieldDelegate {
         if Int(string) != nil || string == "" {
             if Int(string) ?? 0 < 1000000{
                 return true
-            }}
+            }
+        }
         return false
     }
-    
-    
-    
 }
