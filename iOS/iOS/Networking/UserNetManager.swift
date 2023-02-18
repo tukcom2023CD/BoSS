@@ -12,7 +12,10 @@ class UserNetManager {
     private init() {}
     
     func loginUser(user: User, completion: @escaping (User)->()) {
-        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/user/login") else { return }
+        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/user/login") else {
+            print("URL Error")
+            return
+        }
         
         guard let jsonData = try? JSONEncoder().encode(user) else {
             print("Error: Trying to convert model to JSON data")

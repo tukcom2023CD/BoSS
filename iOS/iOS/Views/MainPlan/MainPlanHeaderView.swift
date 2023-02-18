@@ -13,7 +13,7 @@ class MainPlanHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var date: UILabel!
     
-    override class func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
     }
 

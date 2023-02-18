@@ -30,3 +30,11 @@ struct PlacePhotoCVCell {
     static let cellRows: CGFloat = 2
     private init() {}
 }
+
+struct CustomDateFormatter {
+    static let format: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        return formatter
+    }()
+}
