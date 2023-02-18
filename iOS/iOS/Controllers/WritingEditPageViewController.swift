@@ -8,9 +8,15 @@
 import UIKit
 import PhotosUI
 
-class WritingEditPageViewController: UIViewController{
+class WritingEditPageViewController: UIViewController, TotalProtocol{
+  
+    func sendData(totalPriceData: String) {
+        totalPriceLabel.text = "\(totalPriceData) 원"
+    }
     
-
+    
+    @IBOutlet weak var totalPriceLabel: UILabel!
+    
     
     @IBOutlet weak var scrollView: UIScrollView!
     // @IBOutlet weak var tableview: UITableView!
@@ -28,6 +34,7 @@ class WritingEditPageViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         uiViewSetting()
         imageCardSetting()
         //detailCostSetting()
@@ -37,11 +44,31 @@ class WritingEditPageViewController: UIViewController{
         self.contents.delegate = self
         contents.isScrollEnabled = false
         receiptView.layer.cornerRadius = 5
-//        receiptView.layer.borderWidth = 1
-//        receiptView.layer.borderColor = UIColor.systemGray2
-//            .cgColor
+       // let vc = ReceiptViewController()
+           //   vc.delegate = self
+        print( totalPriceLabel.text ?? "" )
     }
+    override func viewWillAppear(_ animated: Bool) {
+        guard let vc: ReceiptViewController = self.storyboard?.instantiateViewController(withIdentifier: "ReceiptViewController") as? ReceiptViewController else {return}
+        vc.delegate = self
+        print( totalPriceLabel.text ?? "" )
+        print("\(String(describing: vc.totalPrice)) 원")
+        
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+ 
     
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ReceiptViewController"{
+            guard let vc : ReceiptViewController = segue.destination as? ReceiptViewController
+            else {return}
+            vc.delegate = self
+            
+        }
+        
+    }
     func contentsSetting(){
         contents.layer.cornerRadius = 10
         contents.layer.borderWidth = 3
@@ -120,6 +147,8 @@ class WritingEditPageViewController: UIViewController{
             navigationItem.largeTitleDisplayMode = .always
         }
     }
+    
+    
     //수정 취소후 뒤로 가기
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         //한번 물어보는 alert창 띄우기
@@ -147,8 +176,9 @@ class WritingEditPageViewController: UIViewController{
  
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
               let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController")
-              
+        
               present(vc, animated:true, completion: nil)
+       
     }
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
@@ -166,7 +196,6 @@ class WritingEditPageViewController: UIViewController{
         }
       
     }
-
     
 }
 //MARK: - 피커뷰 델리게이트 설정

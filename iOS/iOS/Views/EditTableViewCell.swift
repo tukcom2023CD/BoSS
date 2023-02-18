@@ -11,8 +11,7 @@ class EditTableViewCell: UITableViewCell {
     
     @IBOutlet weak var inputLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
-    var amount:Int!
-    var price:Int!
+    
     override func awakeFromNib() {
         
         
