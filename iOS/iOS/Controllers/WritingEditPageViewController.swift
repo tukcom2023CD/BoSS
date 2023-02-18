@@ -9,14 +9,12 @@ import UIKit
 import PhotosUI
 
 
-
-class WritingEditPageViewController: UIViewController, TotalProtocol{
+class WritingEditPageViewController: UIViewController, TotalProtocol {
+    
     func sendData(totalPriceData: String, priceData: [String]) {
         totalPriceLabel.text = "\(totalPriceData) 원"
         price = priceData
     }
-    
-    
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -26,11 +24,12 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     @IBOutlet weak var receiptView: UIView!
     
     var imagePickerStatus = false // 이미지 피커 상태 (false: 여행 사진 선택, true: 영수증 OCR)
-    
+    var price : [String] = []  //WritingPage로 넘길 데이터
     
     let textViewPlaceHolder = "텍스트를 입력하세요"
-    //WritingPage로 넘길 데이터
-    var price : [String] = []
+    let camera = UIImagePickerController()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,6 +37,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         imageCardSetting()
         
         setupTapGestures()
+        setupCamera()
         contentsSetting()
         
         self.contents.delegate = self
@@ -64,6 +64,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
             contents.textColor = .black
         }
     }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if contents.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             contents.text = textViewPlaceHolder
@@ -99,7 +100,14 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         self.present(picker, animated: true, completion: nil)
     }
     
-    
+    // 카메라 관련 설정
+    func setupCamera() {
+        camera.sourceType = .camera
+        camera.allowsEditing = false
+        camera.cameraDevice = .rear
+        camera.cameraCaptureMode = .photo
+        camera.delegate = self
+    }
     
     func uiViewSetting(){
         uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
@@ -158,8 +166,22 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     
     
     @IBAction func cameraButtonTapped(_ sender: UIButton) {
-        imagePickerStatus = true
-        setupImagePicker()
+        
+        let actionSheet = UIAlertController(title: "영수증 사진을 추가하시오.", message: "카메라 또는 앨범에 접근하시오.", preferredStyle: .actionSheet)
+        let cameraSheet = UIAlertAction(title: "카메라", style: .default) { action in
+            self.present(self.camera, animated: true)
+        }
+        let albumSheet = UIAlertAction(title: "앨범", style: .default) { action in
+            self.imagePickerStatus = true
+            self.setupImagePicker()
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        actionSheet.addAction(cameraSheet)
+        actionSheet.addAction(albumSheet)
+        actionSheet.addAction(cancel)
+        
+        present(actionSheet, animated: true)
     }
     
     
@@ -180,6 +202,8 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         }
     }
 }
+
+
 //MARK: - 피커뷰 델리게이트 설정
 
 extension WritingEditPageViewController: PHPickerViewControllerDelegate {
@@ -202,14 +226,12 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
                             self.price.append("\(name)  |    -  |   \(price) ")
-                            print(self.price)
                         } else {
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
                                 let count = item.count.formatted.value
                                 let price = item.price.price.formatted.value
                                 self.price.append("\(name)  |    \(count)  |   \(price) ")
-                                print(self.price)
                             }
                         }
                     }
@@ -225,7 +247,45 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
         }
     }
 }
-extension WritingEditPageViewController: UITextViewDelegate{
+
+extension WritingEditPageViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print(#function)
+        guard let image = info[.originalImage] as? UIImage else { return }
+        
+        // 인공지능 네트워킹 처리
+        
+        let alert = UIAlertController(title: "처리 중...", message: "잠시만 기다려주세요.", preferredStyle: .alert)
+        
+        picker.present(alert, animated: true) {
+            OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
+                if receiptData.subResults.isEmpty {
+                    let name = receiptData.storeInfo.name.formatted.value
+                    let price = receiptData.totalPrice.price.formatted.value
+                    self.price.append("\(name)  |    -  |   \(price) ")
+                } else {
+                    for item in receiptData.subResults[0].items {
+                        let name = item.name.formatted.value
+                        let count = item.count.formatted.value
+                        let price = item.price.price.formatted.value
+                        self.price.append("\(name)  |    \(count)  |   \(price) ")
+                    }
+                }
+                alert.dismiss(animated: true)
+                picker.dismiss(animated: true)
+            }
+        }
+        
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        picker.dismiss(animated: true)
+    }
+}
+
+extension WritingEditPageViewController: UITextViewDelegate {
     // MARK: textview 높이 자동조절
     func textViewDidChange(_ textView: UITextView) {
         
@@ -247,3 +307,6 @@ extension WritingEditPageViewController: UITextViewDelegate{
     }
 }
 
+extension WritingEditPageViewController: UINavigationControllerDelegate {
+    
+}

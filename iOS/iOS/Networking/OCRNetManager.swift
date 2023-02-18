@@ -52,7 +52,6 @@ class OCRNetManager {
                 return
             }
 
-            dump(response.value)
             let decodedData = try? JSONDecoder().decode(OCRResult.self, from: safeData)
             guard let ocrResult = decodedData else {
                 print("ERR")
