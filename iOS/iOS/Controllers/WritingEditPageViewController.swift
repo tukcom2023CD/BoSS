@@ -25,10 +25,12 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
     
+    var imagePickerStatus = false // 이미지 피커 상태 (false: 여행 사진 선택, true: 영수증 OCR)
+    
     
     let textViewPlaceHolder = "텍스트를 입력하세요"
     //WritingPage로 넘길 데이터
-    var price : [String]!
+    var price : [String] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +81,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     
     @objc func touchUpImageView() {
         print("이미지뷰 터치")
+        imagePickerStatus = false
         setupImagePicker()
     }
     
@@ -86,7 +89,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         // 기본설정 셋팅
         var configuration = PHPickerConfiguration()
         configuration.selectionLimit = 0
-        configuration.filter = .any(of: [.images, .videos])
+        configuration.filter = .images
         
         // 기본설정을 가지고, 피커뷰컨트롤러 생성
         let picker = PHPickerViewController(configuration: configuration)
@@ -115,8 +118,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     func changeTitleMode(){
         self.navigationController?.navigationBar.prefersLargeTitles = true
         print(self.scrollView.contentOffset.y)
-        if self.scrollView.contentOffset.y > 0
-        {
+        if self.scrollView.contentOffset.y > 0 {
             navigationItem.largeTitleDisplayMode = .never
         } else {
             navigationItem.largeTitleDisplayMode = .always
@@ -153,6 +155,14 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         present(vc, animated:true, completion: nil)
         
     }
+    
+    
+    @IBAction func cameraButtonTapped(_ sender: UIButton) {
+        imagePickerStatus = true
+        setupImagePicker()
+    }
+    
+    
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -183,9 +193,31 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
         
         if let itemProvider = itemProvider, itemProvider.canLoadObject(ofClass: UIImage.self) {
             itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                DispatchQueue.main.async {
-                    // 이미지뷰에 표시
-                    self.imageCard.image = image as? UIImage
+                
+                guard let image = image as? UIImage else { return }
+                
+                if self.imagePickerStatus { // 영수증 OCR
+                    OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
+                        if receiptData.subResults.isEmpty {
+                            let name = receiptData.storeInfo.name.formatted.value
+                            let price = receiptData.totalPrice.price.formatted.value
+                            self.price.append("\(name)  |    -  |   \(price) ")
+                            print(self.price)
+                        } else {
+                            for item in receiptData.subResults[0].items {
+                                let name = item.name.formatted.value
+                                let count = item.count.formatted.value
+                                let price = item.price.price.formatted.value
+                                self.price.append("\(name)  |    \(count)  |   \(price) ")
+                                print(self.price)
+                            }
+                        }
+                    }
+                } else { // 여행 사진 추가
+                    DispatchQueue.main.async {
+                        // 이미지뷰에 표시
+                        self.imageCard.image = image
+                    }
                 }
             }
         } else {

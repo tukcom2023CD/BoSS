@@ -1099,6 +1099,9 @@
                                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                         <state key="normal" image="camera" catalog="system"/>
+                                                                        <connections>
+                                                                            <action selector="cameraButtonTapped:" destination="X4M-3I-wCl" eventType="touchUpInside" id="ipd-Qf-c7O"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVD-Q7-vgp">
                                                                         <rect key="frame" x="198" y="10" width="30" height="30"/>

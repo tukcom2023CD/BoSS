@@ -316,9 +316,9 @@
 				570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */,
 				570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */,
 				576B64C9299A0895002609FA /* WritingPageViewController.swift */,
-				573941AB2980E57000E69D8F /* MapViewController.swift */,
 				372183B7299A201100373F9C /* WritingEditPageViewController.swift */,
 				3742356E299F3C390049DFA1 /* ReceiptViewController.swift */,
+				573941AB2980E57000E69D8F /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

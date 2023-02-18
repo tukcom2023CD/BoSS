@@ -40,6 +40,7 @@ class WritingPageViewController: UIViewController
         imageView.addGestureRecognizer(tapGestureRecognizer)
         
     }
+    
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
         onTapped = !onTapped
         if onTapped == true{
@@ -113,8 +114,6 @@ class WritingPageViewController: UIViewController
         self.navigationController?.popViewController(animated: true)
     }
     
-    
-    
     //수정 페이지로 이동
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         print(#function)
@@ -122,6 +121,10 @@ class WritingPageViewController: UIViewController
         guard let viewController = self.storyboard?.instantiateViewController(identifier: "WritingEditPageViewController") as? WritingEditPageViewController else { return }
         self.navigationController?.pushViewController(viewController, animated: true)
     }
+    
+    
+    
+    
 }
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
