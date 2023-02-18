@@ -8,43 +8,66 @@
 import UIKit
 import PhotosUI
 
-class WritingEditPageViewController: UIViewController {
-    
-    //    var diary: Diary? {
-    //        didSet {
-    //            guard var diary = diary else { return }
-    //            imageCard.image = diary.imageCard
-    //            contents.text = diary.contents
-    //
-    //        }
-    //    }
-    
-    
-    @IBOutlet weak var scrollView: UIScrollView!
-    // @IBOutlet weak var tableview: UITableView!
-    @IBOutlet weak var uiView: UIView!
-    @IBOutlet weak var imageCard: UIImageView!
-    
-    @IBOutlet weak var contents: UITextView!
-    // @IBOutlet weak var costButton: UIButton!
-    
-    // @IBOutlet weak var costLabel: UILabel!
-    
-    @IBOutlet weak var detailCost: UIView!
-  
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        uiViewSetting()
-        imageCardSetting()
-        detailCostSetting()
-        setupTapGestures()
-        // Do any additional setup after loading the view.
-        
-        
-        
+
+
+class WritingEditPageViewController: UIViewController, TotalProtocol{
+    func sendData(totalPriceData: String, priceData: [String]) {
+        totalPriceLabel.text = "\(totalPriceData) 원"
+        price = priceData
     }
     
+    
+    
+    @IBOutlet weak var totalPriceLabel: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var uiView: UIView!
+    @IBOutlet weak var imageCard: UIImageView!
+    @IBOutlet weak var contents: UITextView!
+    @IBOutlet weak var receiptView: UIView!
+    
+    
+    let textViewPlaceHolder = "텍스트를 입력하세요"
+    //WritingPage로 넘길 데이터
+    var price : [String]!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        uiViewSetting()
+        imageCardSetting()
+        
+        setupTapGestures()
+        contentsSetting()
+        
+        self.contents.delegate = self
+        contents.isScrollEnabled = false
+        receiptView.layer.cornerRadius = 5
+        
+        print( totalPriceLabel.text ?? "" )
+    }
+    
+    
+    
+    func contentsSetting(){
+        contents.layer.cornerRadius = 10
+        contents.layer.borderWidth = 3
+        contents.layer.borderColor = UIColor.systemGray6
+            .cgColor
+        contents.text = textViewPlaceHolder
+        contents.textColor = .lightGray
+        
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if contents.text == textViewPlaceHolder {
+            contents.text = nil
+            contents.textColor = .black
+        }
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if contents.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            contents.text = textViewPlaceHolder
+            contents.textColor = .lightGray
+        }
+    }
     
     // 제스쳐 설정 (이미지뷰가 눌리면, 실행)
     func setupTapGestures() {
@@ -88,10 +111,7 @@ class WritingEditPageViewController: UIViewController {
         self.imageCard.layer.cornerRadius = 10
         
     }
-    func detailCostSetting(){
-        
-        detailCost.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-    }
+    
     func changeTitleMode(){
         self.navigationController?.navigationBar.prefersLargeTitles = true
         print(self.scrollView.contentOffset.y)
@@ -102,24 +122,35 @@ class WritingEditPageViewController: UIViewController {
             navigationItem.largeTitleDisplayMode = .always
         }
     }
+    
+    
     //수정 취소후 뒤로 가기
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         //한번 물어보는 alert창 띄우기
-        let alert = UIAlertController(title: "페이지를 나가겠습니까?", message:
-         "수정이 취소됩니다.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "페이지를 나가겠습니까?", message:"수정이 취소됩니다.", preferredStyle: .alert)
         //액션 만들기
-      
+        
         let action = UIAlertAction(title: "네", style: .default, handler:  {(action) in
             self.navigationController?.popViewController(animated: true)
-                                           
-                                           })
+        })
         let cancel = UIAlertAction(title: "아니오", style: .cancel, handler: nil)
         //액션 추가 여기서 alert or actionsheet
         alert.addAction(cancel)
         alert.addAction(action)
-               
+        
         present(alert, animated: true, completion: nil)
         
+        
+    }
+    
+    
+    @IBAction func receiptButtonTapped(_ sender: UIButton) {
+        print(#function)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
+        vc.delegate = self
+        present(vc, animated:true, completion: nil)
         
     }
     //저장하기
@@ -132,13 +163,12 @@ class WritingEditPageViewController: UIViewController {
             if let view = vc as? WritingPageViewController {
                 view.imageCardData = imageCard.image
                 view.contentsData = contents.text
-            
-               self.navigationController?.popToViewController(view, animated: true)
+                view.getPrice = price ?? [""]
+                view.totalPrice = totalPriceLabel.text ?? ""
+                self.navigationController?.popToViewController(view, animated: true)
             }
         }
-      
     }
-    
 }
 //MARK: - 피커뷰 델리게이트 설정
 
@@ -160,6 +190,27 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
             }
         } else {
             print("이미지 못 불러옴")
+        }
+    }
+}
+extension WritingEditPageViewController: UITextViewDelegate{
+    // MARK: textview 높이 자동조절
+    func textViewDidChange(_ textView: UITextView) {
+        
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        
+        textView.constraints.forEach { (constraint) in
+            
+            /// 50 이하일때는 더 이상 줄어들지 않게하기
+            if estimatedSize.height <= 50 {
+                
+            }
+            else {
+                if constraint.firstAttribute == .height {
+                    constraint.constant = estimatedSize.height
+                }
+            }
         }
     }
 }
