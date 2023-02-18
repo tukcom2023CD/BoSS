@@ -23,9 +23,8 @@ class ReceiptViewController: UIViewController {
     var newTotalPrice : Int! = 0
     @IBOutlet weak var tableView: UITableView!
     var stackLabel : String!
-    var stringArr = [String]()
-    
-    var stringArr1 = [Int]() //삭제시 사용할 그 행의 총 가격
+    var stringArr: [String] = []
+    var stringArr1: [Int] = [] //삭제시 사용할 그 행의 총 가격
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
