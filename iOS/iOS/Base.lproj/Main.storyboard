@@ -1039,8 +1039,8 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YuB-Mm-dw2">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6po-br-iHP">
-                                                        <rect key="frame" x="20" y="20" width="353" height="960"/>
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6po-br-iHP">
+                                                        <rect key="frame" x="40" y="154" width="353" height="960"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="여행사진 1" translatesAutoresizingMaskIntoConstraints="NO" id="RDl-48-psX">
                                                                 <rect key="frame" x="20" y="20" width="313" height="250"/>
@@ -1181,6 +1181,7 @@
                         <outlet property="imageCard" destination="RDl-48-psX" id="xsq-4j-qHq"/>
                         <outlet property="receiptView" destination="0RO-1w-0eN" id="ejk-Dp-IoK"/>
                         <outlet property="scrollView" destination="WeB-yn-0A0" id="QYn-5l-BfM"/>
+                        <outlet property="totalPriceLabel" destination="UeD-Ag-bgX" id="5Yd-VP-H40"/>
                         <outlet property="uiView" destination="6po-br-iHP" id="5ye-2J-5fJ"/>
                     </connections>
                 </viewController>

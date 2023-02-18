@@ -6,8 +6,12 @@
 //
 
 import UIKit
+protocol TotalProtocol: AnyObject {
+    func sendData(totalPriceData: String)
+}
 
 class ReceiptViewController: UIViewController {
+    var delegate: TotalProtocol?
     
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var textInput1: UITextField!
@@ -33,13 +37,19 @@ class ReceiptViewController: UIViewController {
 
         
     }
+    //사라질때 넘기기
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate?.sendData(totalPriceData: "\(totalPrice)")
+        
+    }
+    
     
     
     @IBAction func addButtonTapped(_ sender: Any) {
         if let txt1 = textInput1.text , let txt2 = textInput2.text , let txt3 = textInput3.text{
             if textInput1.text != "" && textInput2.text != "" && textInput3.text != ""{
-                //column나눠야함.
-                let txtString : String = "\(txt1):\(txt2) |\(txt3) "
+                //column나눌까
+                let txtString : String = "\(txt1)  |   수량 : \(txt2)  |  금액 : \(txt3) "
              
                
                 let input1:Int! = Int(textInput2.text!)
@@ -82,7 +92,7 @@ class ReceiptViewController: UIViewController {
     }
     
 }
-    
+
 extension ReceiptViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stringArr.count
@@ -91,10 +101,9 @@ extension ReceiptViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditTableViewCell", for: indexPath) as? EditTableViewCell else {return UITableViewCell()}
         cell.inputLabel.text = stringArr[indexPath.row]
-        cell.price = stringArr1[indexPath.row]
+       // cell.price = stringArr1[indexPath.row]
         
-//        cell.inputLabel2.text = stringArr[indexPath.row]
-//        cell.inputLabel3.text = stringArr[indexPath.row]
+
      
         return cell
     }
