@@ -11,6 +11,7 @@ import PhotosUI
 
 class WritingEditPageViewController: UIViewController, TotalProtocol {
     
+    // MARK: - sendData
     func sendData(totalPriceData: String, priceData: [String]) {
         totalPriceLabel.text = "\(totalPriceData) 원"
         price = priceData
@@ -27,9 +28,9 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
     var price : [String] = []  //WritingPage로 넘길 데이터
     
     let textViewPlaceHolder = "텍스트를 입력하세요"
-    let camera = UIImagePickerController()
+    let camera = UIImagePickerController() // 카메라 변수
     
-    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,7 +49,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
     }
     
     
-    
+    // MARK: - contentsSetting
     func contentsSetting(){
         contents.layer.cornerRadius = 10
         contents.layer.borderWidth = 3
@@ -58,20 +59,8 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         contents.textColor = .lightGray
         
     }
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if contents.text == textViewPlaceHolder {
-            contents.text = nil
-            contents.textColor = .black
-        }
-    }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if contents.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            contents.text = textViewPlaceHolder
-            contents.textColor = .lightGray
-        }
-    }
-    
+    // MARK: - setupTapGestures
     // 제스쳐 설정 (이미지뷰가 눌리면, 실행)
     func setupTapGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchUpImageView))
@@ -80,12 +69,14 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         print(#function)
     }
     
+    // MARK: - touchUpImageView
     @objc func touchUpImageView() {
         print("이미지뷰 터치")
         imagePickerStatus = false
         setupImagePicker()
     }
     
+    // MARK: - setupImagePicker
     func setupImagePicker() {
         // 기본설정 셋팅
         var configuration = PHPickerConfiguration()
@@ -100,7 +91,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         self.present(picker, animated: true, completion: nil)
     }
     
-    // 카메라 관련 설정
+    // MARK: - setupCamera
     func setupCamera() {
         camera.sourceType = .camera
         camera.allowsEditing = false
@@ -109,6 +100,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         camera.delegate = self
     }
     
+    // MARK: - uiViewSetting
     func uiViewSetting(){
         uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
         
@@ -116,6 +108,8 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         self.uiView.layer.borderColor = UIColor.lightGray.cgColor
         self.uiView.layer.cornerRadius = 10
     }
+    
+    // MARK: - imageCardSetting
     func imageCardSetting(){
         self.imageCard.layer.borderWidth = 0.3
         self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
@@ -123,6 +117,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         
     }
     
+    // MARK: - changeTitleMode
     func changeTitleMode(){
         self.navigationController?.navigationBar.prefersLargeTitles = true
         print(self.scrollView.contentOffset.y)
@@ -133,7 +128,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         }
     }
     
-    
+    // MARK: - backButtonTapped
     //수정 취소후 뒤로 가기
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         //한번 물어보는 alert창 띄우기
@@ -153,7 +148,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         
     }
     
-    
+    // MARK: - receiptButtonTapped
     @IBAction func receiptButtonTapped(_ sender: UIButton) {
         print(#function)
         
@@ -164,7 +159,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         
     }
     
-    
+    // MARK: - cameraButtonTapped
     @IBAction func cameraButtonTapped(_ sender: UIButton) {
         
         let actionSheet = UIAlertController(title: "영수증 사진을 추가하시오.", message: "카메라 또는 앨범에 접근하시오.", preferredStyle: .actionSheet)
@@ -184,7 +179,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
         present(actionSheet, animated: true)
     }
     
-    
+    // MARK: - saveButtonTapped
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -205,7 +200,6 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
 
 
 //MARK: - 피커뷰 델리게이트 설정
-
 extension WritingEditPageViewController: PHPickerViewControllerDelegate {
     
     // 사진이 선택이 된 후에 호출되는 메서드
@@ -248,6 +242,7 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
     }
 }
 
+// MARK: - ImagePickerControllerDelegate
 extension WritingEditPageViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print(#function)
@@ -285,8 +280,9 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
     }
 }
 
+// MARK: - UITextFieldDelegate
 extension WritingEditPageViewController: UITextViewDelegate {
-    // MARK: textview 높이 자동조절
+    // textview 높이 자동조절
     func textViewDidChange(_ textView: UITextView) {
         
         let size = CGSize(width: view.frame.width, height: .infinity)
@@ -303,6 +299,20 @@ extension WritingEditPageViewController: UITextViewDelegate {
                     constraint.constant = estimatedSize.height
                 }
             }
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if contents.text == textViewPlaceHolder {
+            contents.text = nil
+            contents.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if contents.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            contents.text = textViewPlaceHolder
+            contents.textColor = .lightGray
         }
     }
 }
