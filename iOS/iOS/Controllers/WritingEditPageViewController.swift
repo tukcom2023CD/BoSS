@@ -8,15 +8,28 @@
 import UIKit
 import PhotosUI
 
+struct AllData {
+    var itemData:String
+    var amountData:String
+    var priceData:String
+    
+    init(itemData:String, amountData:String, priceData:String) {
+        self.itemData = itemData
+        self.amountData = amountData
+        self.priceData = priceData
+    }
+}
 
+/// the data for the table
+var dataArray = [AllData]()
 
 class WritingEditPageViewController: UIViewController, TotalProtocol{
-    func sendData(totalPriceData: String, priceData: [String]) {
+    func sendData(totalPriceData: String, priceData: [AllData]) {
         totalPriceLabel.text = "\(totalPriceData) 원"
-        price = priceData
+        allData = priceData
     }
     
-    
+   
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -28,7 +41,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     
     let textViewPlaceHolder = "텍스트를 입력하세요"
     //WritingPage로 넘길 데이터
-    var price : [String]!
+    var allData : [AllData]!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -163,7 +176,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
             if let view = vc as? WritingPageViewController {
                 view.imageCardData = imageCard.image
                 view.contentsData = contents.text
-                view.getPrice = price ?? [""]
+                view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
                 view.totalPrice = totalPriceLabel.text ?? ""
                 self.navigationController?.popToViewController(view, animated: true)
             }
