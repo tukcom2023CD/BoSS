@@ -46,12 +46,13 @@ class ReceiptViewController: UIViewController {
     
     @IBAction func addButtonTapped(_ sender: Any) {
         if let txt1 = textInput1.text , let txt2 = textInput2.text , let txt3 = textInput3.text{
-            if textInput1.text != "" && textInput2.text != "" && textInput3.text != ""{
+            if textInput1.text != "" && textInput3.text != ""{
+               
                 //column나눌까
                 let txtString : String = "\(txt1)  |    \(txt2)  |   \(txt3) "
                 
                 
-                let input1:Int! = Int(textInput2.text!)
+                let input1:Int = Int(textInput2.text ?? "1") ?? 1
                 let input2:Int! = Int(textInput3.text!)
                 newTotalPrice = input1 * input2
                 totalPrice += newTotalPrice
@@ -67,6 +68,8 @@ class ReceiptViewController: UIViewController {
                 textInput3.text = nil
                 tableView.endUpdates()
             }
+            
+            
         }
     }
     
@@ -95,7 +98,9 @@ extension ReceiptViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditTableViewCell", for: indexPath) as? EditTableViewCell else {return UITableViewCell()}
-        cell.inputLabel.text = stringArr[indexPath.row]
+        cell.itemLabel.text = stringArr[indexPath.row]
+        cell.amountLabel.text = stringArr[indexPath.row]
+        cell.priceLabel.text = stringArr[indexPath.row]
         return cell
     }
     

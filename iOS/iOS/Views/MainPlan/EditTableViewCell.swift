@@ -9,7 +9,10 @@ import UIKit
 
 class EditTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var inputLabel: UILabel!
+    @IBOutlet weak var itemLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
+    
     @IBOutlet weak var deleteButton: UIButton!
     
     override func awakeFromNib() {
