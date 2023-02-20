@@ -7,12 +7,12 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-RUN chmod +x wait-for.sh
+# RUN chmod +x wait-for.sh
 
-ENTRYPOINT ["./wait-for.sh", "db:3306", "--", "python", "app.py"]
+# ENTRYPOINT ["./wait-for.sh", "db:3306", "--", "python", "app.py"]
 
 # COPY . .
 
-# CMD ["python", "app.py"]
+CMD ["python", "app.py"]
 
 

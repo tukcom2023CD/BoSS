@@ -13,6 +13,12 @@ services:
       - "3307:3306"
     networks:
       - network
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD}"]
+      timeout: 5s
+      retries: 10
   web:
     build: .
     ports:
@@ -21,6 +27,12 @@ services:
       - db
     networks:
       - network
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
 networks:
   network:
     driver: bridge
