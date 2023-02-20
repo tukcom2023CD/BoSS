@@ -24,16 +24,18 @@ struct AllData {
 
 
 var dataArray = [AllData]()
-
 // MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) 받고 5contents 정보 생김 => 1-5 정보 WritingPageviewController로 넘김
 class WritingEditPageViewController: UIViewController, TotalProtocol{
     
-    func sendData(totalPriceData: String, priceData: [AllData]) {
+    func sendData(totalPriceData: String, priceData: [AllData], subTotalData: [Int]) {
         totalPriceLabel.text = "\(totalPriceData) 원"
         allData = priceData
+        self.subTotalData = subTotalData
     }
-    
+    var subTotalData: [Int]?
+
     //다시 받을 데이터
+    var getSubTotalData : [Int]?
     var getImageCard : UIImage?
     var getContents : String?
     var getAllData : [AllData]?
@@ -79,10 +81,10 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         if getContents != nil {
             contents.text = getContents
         }
-        if getAllData != nil {
+        if getAllData![0].priceData != ""{
             allData = getAllData
         }
-        if getTotalData != "0 원" {
+        if getTotalData != "0" {
             totalPriceLabel.text = getTotalData
         }
     }
@@ -193,13 +195,15 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
-        if ((getAllData?.isEmpty) != nil) {
+        if ((getAllData![0].priceData) !=  "" ) {
             vc.stringArr = getAllData!
         }
         if (getTotalData != "0원") {
             vc.getTotalData = self.getTotalData
         }
-        
+        if (getSubTotalData != nil){
+            vc.getSubTotalData = self.getSubTotalData
+        }
     
         vc.delegate = self
         present(vc, animated:true, completion: nil)
@@ -239,6 +243,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
                 view.contentsData = contents.text
                 view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
                 view.totalPrice = totalPriceLabel.text ?? ""
+                view.subTotalData = subTotalData
                 self.navigationController?.popToViewController(view, animated: true)
             }
         }

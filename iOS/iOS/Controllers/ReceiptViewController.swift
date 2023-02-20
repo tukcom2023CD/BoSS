@@ -9,7 +9,7 @@ import UIKit
 //총합과 AllData(품명, 수량, 가격)넘기기
 //MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) EditPageViewController로 넘기기
 protocol TotalProtocol: AnyObject {
-    func sendData(totalPriceData: String, priceData: [AllData])
+    func sendData(totalPriceData: String, priceData: [AllData],subTotalData:[Int])
 }
 
 class ReceiptViewController: UIViewController {
@@ -27,8 +27,10 @@ class ReceiptViewController: UIViewController {
     var stackLabel : String!
     var stringArr: [AllData] = []
     //var getStringArr: [AllData]? = []
-    var stringArr1: [Int] = [] //삭제시 사용할 그 행의 총 가격
+    var stringArr1: [Int] = [] //삭제시 사용할 그 행의 총 가격 subTotalData로 넘김
     var getTotalData: String!
+    var getSubTotalData : [Int]?
+    
     //var allData: [AllData]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +40,20 @@ class ReceiptViewController: UIViewController {
         
         textInput2.delegate = self
         textInput3.delegate = self
-        if getTotalData != "0원"{
-            totalPriceLabel.text = getTotalData
+        if getSubTotalData != nil {
+            //stringArr1 = getSubTotalData!
+            stringArr1.append(contentsOf: getSubTotalData!)
         }
+//        if getTotalData != "0"{
+//           // totalPrice = Int(getTotalData)
+//            
+//            totalPriceLabel.text = getTotalData
+//            print(totalPriceLabel.text)
+//           //totalPrice = Int(totalPriceLabel.text!) ?? 0
+//        }
+        totalPrice = Int(totalPriceLabel.text!) ?? 0
+
+        //totalPrice = Int(totalPriceLabel.text!) ?? 0
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -48,7 +61,7 @@ class ReceiptViewController: UIViewController {
     }
     //사라질때 넘기기
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.sendData(totalPriceData: "\(totalPrice ?? 0)", priceData: stringArr)
+        delegate?.sendData(totalPriceData: "\(totalPrice ?? 0)", priceData: stringArr, subTotalData: stringArr1)
         
     }
     
@@ -67,7 +80,7 @@ class ReceiptViewController: UIViewController {
                 newTotalPrice = input1 * input2
                 totalPrice += newTotalPrice
                 
-                totalPriceLabel.text = "\(totalPrice!)원"
+                totalPriceLabel.text = "\(totalPrice!)"
                 
                 self.stringArr.insert(txtString, at: 0)
                 self.stringArr1.insert(newTotalPrice, at: 0)
@@ -91,9 +104,9 @@ class ReceiptViewController: UIViewController {
         totalPrice -= stringArr1[indexpath.row]
         stringArr.remove(at: indexpath.row)
         stringArr1.remove(at: indexpath.row)
-        totalPriceLabel.text = "\(totalPrice!)원"
+        totalPriceLabel.text = "\(totalPrice!) "
         
-        //cell.price
+       
         tableView.beginUpdates()
         tableView.deleteRows(at: [IndexPath(row: indexpath.row, section: 0)], with: .left)
         tableView.endUpdates()

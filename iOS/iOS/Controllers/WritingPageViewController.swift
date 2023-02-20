@@ -40,7 +40,8 @@ class WritingPageViewController: UIViewController
     var onTapped :Bool = true
     var selectedIndexPathSection:Int = -1
     var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")]
-    var totalPrice : String = "0 원"
+    var totalPrice : String = "0"
+    var subTotalData: [Int]?
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -147,6 +148,7 @@ class WritingPageViewController: UIViewController
         vc.getImageCard = imageCard.image
         vc.getContents = contents.text
         vc.getTotalData = costLabel.text
+        vc.getSubTotalData = subTotalData
         /*
          view.imageCardData = imageCard.image
          view.contentsData = contents.text
