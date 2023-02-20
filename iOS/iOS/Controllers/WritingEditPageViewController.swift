@@ -8,14 +8,28 @@
 import UIKit
 import PhotosUI
 
-
-class WritingEditPageViewController: UIViewController, TotalProtocol {
+struct AllData {
+    var itemData:String
+    var amountData:String
+    var priceData:String
     
-    // MARK: - sendData
-    func sendData(totalPriceData: String, priceData: [String]) {
-        totalPriceLabel.text = "\(totalPriceData) 원"
-        price = priceData
+    init(itemData:String, amountData:String, priceData:String) {
+        self.itemData = itemData
+        self.amountData = amountData
+        self.priceData = priceData
     }
+}
+
+/// the data for the table
+var dataArray = [AllData]()
+
+class WritingEditPageViewController: UIViewController, TotalProtocol{
+    func sendData(totalPriceData: String, priceData: [AllData]) {
+        totalPriceLabel.text = "\(totalPriceData) 원"
+        allData = priceData
+    }
+    
+   
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -28,6 +42,8 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
     var price : [String] = []  //WritingPage로 넘길 데이터
     
     let textViewPlaceHolder = "텍스트를 입력하세요"
+    //WritingPage로 넘길 데이터
+    var allData : [AllData]!
     let camera = UIImagePickerController() // 카메라 변수
     
     // MARK: - viewDidLoad
@@ -190,7 +206,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol {
             if let view = vc as? WritingPageViewController {
                 view.imageCardData = imageCard.image
                 view.contentsData = contents.text
-                view.getPrice = price ?? [""]
+                view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
                 view.totalPrice = totalPriceLabel.text ?? ""
                 self.navigationController?.popToViewController(view, animated: true)
             }

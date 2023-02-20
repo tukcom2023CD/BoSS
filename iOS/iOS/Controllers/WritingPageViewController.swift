@@ -16,6 +16,12 @@ class WritingPageViewController: UIViewController
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var costView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var tableLabel: UIStackView!
+    
+    @IBOutlet weak var labelView: UIView!
+    
+    
     //이미지 터치기능을 위한 didset
     @IBOutlet var imageView: UIImageView!{
         didSet {
@@ -27,7 +33,7 @@ class WritingPageViewController: UIViewController
     var contentsData: String?
     var onTapped :Bool = true
     var selectedIndexPathSection:Int = -1
-    var getPrice : [String] = [""]
+    var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")]
     var totalPrice : String = "0 원"
     
     override func viewDidLoad() {
@@ -36,6 +42,8 @@ class WritingPageViewController: UIViewController
         imageCardSetting()
         uiViewSetting()
         costViewSetting()
+        tableView.isHidden = true
+        tableLabel.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
         
@@ -45,10 +53,12 @@ class WritingPageViewController: UIViewController
         onTapped = !onTapped
         if onTapped == true{
             tableView.isHidden = true
+            tableLabel.isHidden = true
             imageView.image = UIImage(systemName: "chevron.down")
         }
         else {
             tableView.isHidden = false
+            tableLabel.isHidden = false
             imageView.image = UIImage(systemName: "chevron.up")
         }
         
@@ -64,18 +74,18 @@ class WritingPageViewController: UIViewController
         self.tableView.delegate = self
         self.tableView.dataSource = self
         costLabel.text = totalPrice
-        contentsSetting()
+        labelViewSetting()
         
     }
     
     
     
     
-    func contentsSetting(){
-        contents.layer.cornerRadius = 10
-        contents.layer.borderWidth = 3
-        contents.layer.borderColor = UIColor.systemGray6.cgColor
-        contents.textColor = .black
+    func labelViewSetting(){
+        labelView.layer.cornerRadius = 10
+        labelView.layer.borderWidth = 3
+        labelView.layer.borderColor = UIColor.systemGray6.cgColor
+        
         
     }
     func uiViewSetting(){
@@ -130,10 +140,16 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         getPrice.count
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else {return UITableViewCell()}
-        cell.priceLabel.text = getPrice[indexPath.row]
+        cell.itemLabel.text = getPrice[indexPath.row].itemData
+        cell.amountLabel.text = getPrice[indexPath.row].amountData
+        cell.priceLabel.text = getPrice[indexPath.row].priceData
         
         return cell
     }

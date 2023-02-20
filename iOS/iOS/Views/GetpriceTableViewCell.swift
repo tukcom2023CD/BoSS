@@ -8,8 +8,8 @@
 import UIKit
 
 class GetpriceTableViewCell: UITableViewCell {
-
-    
+    @IBOutlet weak var itemLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     
     override func awakeFromNib() {
