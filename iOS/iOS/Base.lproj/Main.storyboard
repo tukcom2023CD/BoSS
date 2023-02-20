@@ -1362,7 +1362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jlg-yh-3Qj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8238.9312977099235" y="-1333.0985915492959"/>
+            <point key="canvasLocation" x="7789" y="-1333"/>
         </scene>
         <!--여행지-->
         <scene sceneID="1jJ-4T-7QL">
@@ -1412,6 +1412,9 @@
                                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                         <state key="normal" image="camera" catalog="system"/>
+                                                                        <connections>
+                                                                            <action selector="cameraButtonTapped:" destination="X4M-3I-wCl" eventType="touchUpInside" id="ipd-Qf-c7O"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FVD-Q7-vgp">
                                                                         <rect key="frame" x="198" y="10" width="30" height="30"/>
@@ -1529,7 +1532,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKL-Lp-7vJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8988.5496183206105" y="-1333.0985915492959"/>
+            <point key="canvasLocation" x="9915.2671755725187" y="-1333.0985915492959"/>
         </scene>
         <!--Title-->
         <scene sceneID="jje-2N-FgO">
@@ -1734,7 +1737,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PC5-D8-KGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9875.5725190839694" y="-1354.2253521126761"/>
+            <point key="canvasLocation" x="10802.290076335878" y="-1354.2253521126761"/>
         </scene>
     </scenes>
     <resources>
