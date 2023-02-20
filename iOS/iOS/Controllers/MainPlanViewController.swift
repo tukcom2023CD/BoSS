@@ -35,10 +35,6 @@ class MainPlanViewController: UIViewController {
         requestPlaceData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-    }
-    
     func setupUI() {
         period.text = "\(schedule.start!) ~ \(schedule.stop!)"
         tripTitle.attributedText = NSAttributedString(
