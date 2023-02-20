@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:5.7
+    platform: linux/amd64 # 로컬 환경에서만
+    environment:
+      MYSQL_DATABASE: Boss
+      MYSQL_USER: boss
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3307:3306"
+    networks:
+      - network
+  web:
+    build: .
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db
+    networks:
+      - network
+networks:
+  network:
+    driver: bridge

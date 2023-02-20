@@ -3,7 +3,7 @@ import pymysql
 # Mysql과 연결을 설정하거나 해제합니다.
 class ConnectDB:
     
-    conn= pymysql.connect(host='localhost', user='root', password='password', db='Boss', charset='utf8', autocommit=True) # DB와 연결합니다.
+    conn= pymysql.connect(host='db', user='boss', password='password', db='Boss', charset='utf8', autocommit=True) # DB와 연결합니다.
     curs= conn.cursor(pymysql.cursors.DictCursor) # sql문 수행을 위해 cursor 객체를 생성합니다.
     
     # 인스턴스 초기화 
