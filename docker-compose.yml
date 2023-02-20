@@ -46,11 +46,6 @@ services:
     networks:
       - network
     restart: on-failure
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5002/"]
-      interval: 5s
-      timeout: 3s
-      retries: 3
       
 networks:
   network:
