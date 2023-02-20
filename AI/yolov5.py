@@ -1,52 +1,43 @@
 import torch
 import json
 
-model = torch.hub.load('ultralytics/yolov5', 'yolov5s')
+def model():
 
+  model = torch.hub.load('ultralytics/yolov5', 'yolov5s', trust_repo=True)
 
+  with open('tags_ko.json', encoding= "UTF8") as f:
+    tags_ko = json.load(f)
 
-with open('tags_ko.json', encoding= "UTF8") as f:
-  tags_ko = json.load(f)
+    print(tags_ko) 
 
-  print(tags_ko) 
+    from glob import glob
 
-  from glob import glob
+  img_list = glob('static/photos/*.jpg')
+  db = {}
 
-img_list = glob('static/photos/*.jpg')
-db = {}
+  for img_path in img_list:
+      results = model(img_path);
 
-for img_path in img_list:
-    results = model(img_path);
+      tags = set()
 
-    tags = set()
-
-    for pred in results.pred[0]:
-        tag = tags_ko[int(pred[-1])]
-
-    for img_path in img_list:
-        results = model(img_path)
-
-        tags = set()
-
-        for pred in results.pred[0]:
-
+      for pred in results.pred[0]:
           tag = tags_ko[int(pred[-1])]
-          tag = tag.replace(' ', '')
-          tags.add(tag)
 
-        db[img_path] = list(tags)
+      for img_path in img_list:
+          results = model(img_path)
 
-print(db)
+          tags = set()
 
-from flask import Flask, render_template
+          for pred in results.pred[0]:
 
+            tag = tags_ko[int(pred[-1])]
+            tag = tag.replace(' ', '')
+            tags.add(tag)
 
-app = Flask(__name__)
+          db[img_path] = list(tags)
 
-@app.route('/')
-def index():
-  return render_template('index.html',photos = db)
+  print(db)
 
-if __name__ == '__main__':
-  app.run('0.0.0.0', port=5001, debug=True)
+  return db
+
 
