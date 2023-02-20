@@ -6,6 +6,8 @@
 //
 
 import UIKit
+//총합과 AllData(품명, 수량, 가격)넘기기
+//MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) EditPageViewController로 넘기기
 protocol TotalProtocol: AnyObject {
     func sendData(totalPriceData: String, priceData: [AllData])
 }
@@ -24,7 +26,10 @@ class ReceiptViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var stackLabel : String!
     var stringArr: [AllData] = []
+    //var getStringArr: [AllData]? = []
     var stringArr1: [Int] = [] //삭제시 사용할 그 행의 총 가격
+    var getTotalData: String!
+    //var allData: [AllData]
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
@@ -33,7 +38,9 @@ class ReceiptViewController: UIViewController {
         
         textInput2.delegate = self
         textInput3.delegate = self
-        
+        if getTotalData != "0원"{
+            totalPriceLabel.text = getTotalData
+        }
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -51,7 +58,7 @@ class ReceiptViewController: UIViewController {
         if let txt1 = textInput1.text , let txt2 = textInput2.text , let txt3 = textInput3.text{
             if textInput1.text != "" && textInput3.text != ""{
                
-                //column나눌까
+                
                 let txtString : AllData = AllData(itemData: "\(txt1)", amountData: "\(txt2)", priceData: "\(txt3)") 
                 
                 
@@ -60,7 +67,7 @@ class ReceiptViewController: UIViewController {
                 newTotalPrice = input1 * input2
                 totalPrice += newTotalPrice
                 
-                totalPriceLabel.text = String(totalPrice)
+                totalPriceLabel.text = "\(totalPrice!)원"
                 
                 self.stringArr.insert(txtString, at: 0)
                 self.stringArr1.insert(newTotalPrice, at: 0)
@@ -84,7 +91,7 @@ class ReceiptViewController: UIViewController {
         totalPrice -= stringArr1[indexpath.row]
         stringArr.remove(at: indexpath.row)
         stringArr1.remove(at: indexpath.row)
-        totalPriceLabel.text = String(totalPrice)
+        totalPriceLabel.text = "\(totalPrice!)원"
         
         //cell.price
         tableView.beginUpdates()

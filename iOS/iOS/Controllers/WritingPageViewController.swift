@@ -6,7 +6,13 @@
 //
 
 import UIKit
+// MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격)  5contents 정보 받음 => 1-5 정보다시 EditPageviewController로 넘김
+//물어볼꺼1 viewController에서 Model 이렇게 접근해도 괜찮은지? 나중에 데이터 저장하는거 만들면 이거 없애는건지?
 
+//protocol ResendTotalProtocol: AnyObject {
+//    func sendData(reSendtotalPriceData: String, reSendPriceData: [AllData],reSendImageCardData: Image, reSendContentsData: String)
+//}
+//       view.imageCardData = imageCard.image        view.contentsData = contents.text
 class WritingPageViewController: UIViewController
 {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -22,20 +28,21 @@ class WritingPageViewController: UIViewController
     @IBOutlet weak var labelView: UIView!
     
     
-    //이미지 터치기능을 위한 didset
+    // MARK: 이미지 터치기능을 위한 didset
     @IBOutlet var imageView: UIImageView!{
         didSet {
             imageView.isUserInteractionEnabled = true
             imageView.image = UIImage(systemName: "chevron.down")
         }
     }
-    var imageCardData = UIImage(named: "여행사진 1")
+    var imageCardData : UIImage! = UIImage(named: "여행사진 1")
     var contentsData: String?
     var onTapped :Bool = true
     var selectedIndexPathSection:Int = -1
     var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")]
     var totalPrice : String = "0 원"
     
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         changeTitleMode()
@@ -64,6 +71,7 @@ class WritingPageViewController: UIViewController
         
     }
     
+    // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 전화면에서 전달받은 데이터들을 통해 셋팅
@@ -79,8 +87,7 @@ class WritingPageViewController: UIViewController
     }
     
     
-    
-    
+    // MARK: - labelViewSetting() :UI세팅
     func labelViewSetting(){
         labelView.layer.cornerRadius = 10
         labelView.layer.borderWidth = 3
@@ -88,25 +95,29 @@ class WritingPageViewController: UIViewController
         
         
     }
+    // MARK: - uiViewSetting() :UI세팅
     func uiViewSetting(){
         uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
         self.uiView.layer.borderWidth = 0.3
         self.uiView.layer.borderColor = UIColor.lightGray.cgColor
         self.uiView.layer.cornerRadius = 10
     }
+    // MARK: -imageCardSetting() :UI세팅
     func imageCardSetting(){
         self.imageCard.layer.borderWidth = 0.3
         self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
         self.imageCard.layer.cornerRadius = 10
         
     }
+    // MARK: -costViewSetting() :UI세팅
     func costViewSetting(){
         costView.layer.cornerRadius = 10
         
     }
     
     
-    //스무스한 타이틀 변경
+    
+    // MARK: 스무스한 타이틀 변경
     func changeTitleMode(){
         self.navigationController?.navigationBar.prefersLargeTitles = true
         print(self.scrollView.contentOffset.y)
@@ -119,17 +130,33 @@ class WritingPageViewController: UIViewController
     }
     
     
-    
+    // MARK: backButtonTapped
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    //수정 페이지로 이동
+    // MARK: editButtonTapped(수정 페이지로 이동 + 데이터 전달
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         print(#function)
         
-        guard let viewController = self.storyboard?.instantiateViewController(identifier: "WritingEditPageViewController") as? WritingEditPageViewController else { return }
-        self.navigationController?.pushViewController(viewController, animated: true)
+        guard let vc = self.storyboard?.instantiateViewController(identifier: "WritingEditPageViewController") as? WritingEditPageViewController else { return }
+       // vc.imageCard = self.imageCard
+       // vc.contents = self.contents
+        vc.getAllData = getPrice 
+       // vc.totalPriceLabel.text = totalPrice
+        vc.getImageCard = imageCard.image
+        vc.getContents = contents.text
+        vc.getTotalData = costLabel.text
+        /*
+         view.imageCardData = imageCard.image
+         view.contentsData = contents.text
+         view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
+         view.totalPrice = totalPriceLabel.text ?? ""
+         
+         */
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        //여기서 정보 전달
     }
     
     

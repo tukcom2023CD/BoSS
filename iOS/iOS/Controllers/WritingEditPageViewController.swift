@@ -8,6 +8,7 @@
 import UIKit
 import PhotosUI
 
+//영수증 데이터구조체: 품명, 수량, 가격
 struct AllData {
     var itemData:String
     var amountData:String
@@ -20,15 +21,25 @@ struct AllData {
     }
 }
 
-/// the data for the table
+
+
 var dataArray = [AllData]()
 
+// MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) 받고 5contents 정보 생김 => 1-5 정보 WritingPageviewController로 넘김
 class WritingEditPageViewController: UIViewController, TotalProtocol{
+    
     func sendData(totalPriceData: String, priceData: [AllData]) {
         totalPriceLabel.text = "\(totalPriceData) 원"
         allData = priceData
     }
     
+    //다시 받을 데이터
+    var getImageCard : UIImage?
+    var getContents : String?
+    var getAllData : [AllData]?
+    var getTotalData : String?
+    
+    //var get
    
     
     @IBOutlet weak var totalPriceLabel: UILabel!
@@ -62,6 +73,18 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         receiptView.layer.cornerRadius = 5
         
         print( totalPriceLabel.text ?? "" )
+        if getImageCard != nil {
+            imageCard.image = getImageCard
+        }
+        if getContents != nil {
+            contents.text = getContents
+        }
+        if getAllData != nil {
+            allData = getAllData
+        }
+        if getTotalData != "0 원" {
+            totalPriceLabel.text = getTotalData
+        }
     }
     
     
@@ -170,6 +193,14 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
+        if ((getAllData?.isEmpty) != nil) {
+            vc.stringArr = getAllData!
+        }
+        if (getTotalData != "0원") {
+            vc.getTotalData = self.getTotalData
+        }
+        
+    
         vc.delegate = self
         present(vc, animated:true, completion: nil)
         
@@ -235,6 +266,7 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                         if receiptData.subResults.isEmpty {     // 총 비용만 존재할 때
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
+                           //왜 있는지 물어보기
                             self.price.append("\(name)  |    -  |   \(price) ")
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
@@ -274,12 +306,13 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
                     let name = receiptData.storeInfo.name.formatted.value
                     let price = receiptData.totalPrice.price.formatted.value
                     self.price.append("\(name)  |    -  |   \(price) ")
+                   // self.allData
                 } else {  // 상세 지출 내역이 존재할 때
                     for item in receiptData.subResults[0].items {
                         let name = item.name.formatted.value
                         let count = item.count.formatted.value
                         let price = item.price.price.formatted.value
-                        self.price.append("\(name)  |    \(count)  |   \(price) ")
+                       self.price.append("\(name)  |    \(count)  |   \(price) ")
                     }
                 }
                 alert.dismiss(animated: true)
