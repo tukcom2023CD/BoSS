@@ -48,6 +48,8 @@
 		571BD16F29879136000A7F34 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571BD16E29879136000A7F34 /* Schedule.swift */; };
 		571FF69C29A3C787005E54F6 /* Spending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571FF69B29A3C787005E54F6 /* Spending.swift */; };
 		571FF69E29A3C88F005E54F6 /* SpendingNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571FF69D29A3C88F005E54F6 /* SpendingNetManager.swift */; };
+		571FF6A029A3CFF7005E54F6 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571FF69F29A3CFF7005E54F6 /* Photo.swift */; };
+		571FF6A229A3D0A0005E54F6 /* PhotoNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571FF6A129A3D0A0005E54F6 /* PhotoNetManager.swift */; };
 		573941A9297ED1E900E69D8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941A8297ED1E900E69D8F /* Constants.swift */; };
 		573941AC2980E57000E69D8F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941AB2980E57000E69D8F /* MapViewController.swift */; };
 		576B64BE29996EBF002609FA /* MainPlanHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 576B64BD29996EBF002609FA /* MainPlanHeaderView.xib */; };
@@ -148,6 +150,8 @@
 		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Schedule.swift; path = Models/DBTables/Schedule.swift; sourceTree = "<group>"; };
 		571FF69B29A3C787005E54F6 /* Spending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spending.swift; sourceTree = "<group>"; };
 		571FF69D29A3C88F005E54F6 /* SpendingNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingNetManager.swift; sourceTree = "<group>"; };
+		571FF69F29A3CFF7005E54F6 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		571FF6A129A3D0A0005E54F6 /* PhotoNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoNetManager.swift; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		573941AB2980E57000E69D8F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		576B64BD29996EBF002609FA /* MainPlanHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPlanHeaderView.xib; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 				571BD16E29879136000A7F34 /* Schedule.swift */,
 				576C0DBB298A327100485AD5 /* User.swift */,
 				571FF69B29A3C787005E54F6 /* Spending.swift */,
+				571FF69F29A3CFF7005E54F6 /* Photo.swift */,
 			);
 			name = DBTables;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 				5793B7712988CFAD00649F23 /* ScheduleNetManager.swift */,
 				5719B579298BA302008572CF /* UserNetManager.swift */,
 				571FF69D29A3C88F005E54F6 /* SpendingNetManager.swift */,
+				571FF6A129A3D0A0005E54F6 /* PhotoNetManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -808,7 +814,9 @@
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
 				BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
+				571FF6A029A3CFF7005E54F6 /* Photo.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
+				571FF6A229A3D0A0005E54F6 /* PhotoNetManager.swift in Sources */,
 				BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */,
 				5719B57A298BA302008572CF /* UserNetManager.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,

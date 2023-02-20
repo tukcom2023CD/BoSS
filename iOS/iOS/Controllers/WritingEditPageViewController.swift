@@ -200,6 +200,8 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
         
+        
+        
         guard let vcStack =
                 self.navigationController?.viewControllers else { return }
         for vc in vcStack {

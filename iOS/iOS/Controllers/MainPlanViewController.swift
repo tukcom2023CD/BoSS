@@ -170,13 +170,12 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
         //여기서 작업시작
         
         let place = sections[indexPath.section].rows[indexPath.row]
-        SpendingNetManager.shared.read(pid: place.pid!) { spendings in
-            
-            DispatchQueue.main.async {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-        }
         
+        // 1. 다음 화면으로 place 데이터 전달
+        // 2. 지출 내역, 사진 네트워킹 시작
+        // 3. 두 네트워킹 종료 후 화면 이동
+        
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
