@@ -9,33 +9,66 @@ import UIKit
 
 class MyPageScheduleViewController: UIViewController {
     
-    // 여행 일정 예시 데이터
-    var schedule_1 : Schedule = Schedule(sid: 1, title: "서울 여행", region: "서울", start: "2023-01-05", stop: "2023-01-09", uid: 1)
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    var schedule_2 : Schedule = Schedule(sid: 2, title: "부산 여행", region: "부산", start: "2023-01-10", stop: "2023-01-15", uid: 1)
-    
-    var schedule_3 : Schedule = Schedule(sid: 3, title: "경주 여행", region: "경주", start: "2023-01-20", stop: "2023-01-25", uid: 1)
-    
-    var schedule_4 : Schedule = Schedule(sid: 4, title: "인천 여행", region: "인천", start: "2023-02-13", stop: "2023-02-30", uid: 1)
-    
-    // 예시 데이터 배열
-    lazy var scheduleData : [Schedule] = [schedule_1, schedule_2, schedule_3, schedule_4]
-    
-    // 여행상태 에시 데이터 배열
-    var status = ["완료", "완료", "완료", "진행중"]
-    
+    // 일정 개수
+    var scheduleCount = 0
+    // db 에서 받아온 사용자 여행 일정
+    var dbSchedules : [Schedule] = []
+    // 여행 일정 완료 여부 배열
+    var scheduleStausArray : [String] = []
     // 여행 사진 예시 데이터
-    let imageArray = [#imageLiteral(resourceName: "seoul"), #imageLiteral(resourceName: "busan"), #imageLiteral(resourceName: "gangwondo"), #imageLiteral(resourceName: "incheon")]
+    let scheduleImage = #imageLiteral(resourceName: "tripimg")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        requestScheduleData() // 여행 일정 불러옴
+    }
+    
+    // 여행 일정 불러오기
+    /// - parameter uid : 로그인 유저 ID
+    func requestScheduleData() {
+        let user = UserDefaults.standard.getLoginUser()!
+        
+        ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            // 일정 수 저장
+            self.scheduleCount = schedules.count
+            
+            // 일정 배열 저장
+            self.dbSchedules = schedules
+            
+            // 일정 상태 구분
+            self.discriminationScheduleData(schedules: self.dbSchedules)
+        }
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    // 완료, 진행, 미완료 일정 구분
+    /// - parameter schedules : 서버로부터 받은 여행 일정 데이터
+    func discriminationScheduleData(schedules: [Schedule]) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let currentDate = formatter.string(from: Date())
+        
+        for schedule in schedules {
+            if currentDate > schedule.stop! {
+                self.scheduleStausArray.append("완료")
+            } else if (currentDate >= schedule.start! && currentDate <= schedule.stop!) {
+                self.scheduleStausArray.append("진행중")
+            } else {
+                self.scheduleStausArray.append("예정")
+            }
+        }
     }
 }
 
 extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     // 컬렉션 뷰 cell 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return scheduleData.count
+        return self.scheduleCount
     }
 
     // 컬렉션 뷰 cell 내용 설정
@@ -54,12 +87,12 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         cell.layer.shadowOpacity = 0.3 // alpha값
         
         // cell 내용 설정
-        cell.scheduleTitle.text = scheduleData[indexPath.row].title
-        cell.regionLabel.text = scheduleData[indexPath.row].region
-        cell.startLabel.text = scheduleData[indexPath.row].start
-        cell.stopLabel.text = scheduleData[indexPath.row].stop
-        cell.scheduleImage.image = imageArray[indexPath.row]
-        cell.statusLabel.text = status[indexPath.row]
+        cell.scheduleTitle.text = dbSchedules[indexPath.row].title
+        cell.regionLabel.text = dbSchedules[indexPath.row].region
+        cell.startLabel.text = dbSchedules[indexPath.row].start
+        cell.stopLabel.text = dbSchedules[indexPath.row].stop
+        cell.scheduleImage.image = self.scheduleImage
+        cell.statusLabel.text = scheduleStausArray[indexPath.row]
         cell.statusLabel.layer.cornerRadius = 30
         cell.statusLabel.layer.borderWidth = 2
         
@@ -69,6 +102,9 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         } else if cell.statusLabel.text == "진행중" {
             cell.statusLabel.textColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
             cell.statusLabel.layer.borderColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        } else {
+            cell.statusLabel.textColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+            cell.statusLabel.layer.borderColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         }
                 
         // cell 내부 이미지 설정

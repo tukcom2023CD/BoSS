@@ -1086,6 +1086,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bxL-7X-URa"/>
+                    <connections>
+                        <outlet property="collectionView" destination="HtD-oA-q1T" id="RPC-49-D8x"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kpU-Zt-fj6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
