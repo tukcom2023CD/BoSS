@@ -17,6 +17,10 @@ class MapViewController: UIViewController {
     var map: GMSMapView!
     var startDate: String?
     var endDate: String?
+    var minimumDate: String? = "2000.01.01"
+    var maximumDate: String? = "2000.01.01"
+    
+    let dateRangePickerVC = CalendarDateRangePickerViewController(collectionViewLayout: UICollectionViewFlowLayout())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +49,14 @@ class MapViewController: UIViewController {
         // 여행지 데이터 호출
         PlaceNetManager.shared.read(uid: user.uid!, startDate: startDate, endDate: endDate) { places in
             
+            if self.startDate == nil {
+                self.minimumDate = places.first?.visitDate
+                self.maximumDate = places.last?.visitDate
+            } else {
+                self.startDate = nil
+                self.endDate = nil
+            }
+            
             // 마커 표시
             DispatchQueue.main.async {
                 for place in places {
@@ -62,10 +74,13 @@ class MapViewController: UIViewController {
     // 기간 설정 버튼 클릭
     @IBAction func calendarButtonTapped(_ sender: UIButton) {
         print(#function)
-        let dateRangePickerVC = CalendarDateRangePickerViewController(collectionViewLayout: UICollectionViewFlowLayout())
+    
         dateRangePickerVC.delegate = self
-        dateRangePickerVC.minimumDate = Date()
+    
+        dateRangePickerVC.minimumDate = CustomDateFormatter.format.date(from: minimumDate!)
         dateRangePickerVC.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())
+        
+        print(dateRangePickerVC.minimumDate)
         
         dateRangePickerVC.selectedStartDate = nil
         dateRangePickerVC.selectedEndDate = nil
@@ -83,7 +98,12 @@ class MapViewController: UIViewController {
 extension MapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        print("클릭")
+        let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
+        
+        vc.modalPresentationStyle = .popover
+        // 네트워킹 통신으로 image, spending 데이터 가져오기 (Dispatch Group 사용)
+        
+        present(vc, animated: true)
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
@@ -92,12 +112,14 @@ extension MapViewController: GMSMapViewDelegate {
         //infoWindow.frame = CGRect(x: 0, y: 0, width: 175, height: 125)
 
         infoWindow.infoView.layer.cornerRadius = 10
+        infoWindow.infoView.layer.borderColor = UIColor.lightGray.cgColor
+        infoWindow.infoView.layer.borderWidth = 2
         
         let place = marker.userData as! Place
         
         infoWindow.name.text = place.name
         infoWindow.date.text = place.visitDate
-        infoWindow.spending.text = "\(place.totalSpending!)"
+        infoWindow.spending.text = "\(place.totalSpending!) 원"
         
         return infoWindow
     }
@@ -111,10 +133,10 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
     }
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy.MM.dd"
-        self.startDate = dateFormatter.string(from: startDate)
-        self.endDate = dateFormatter.string(from: endDate)
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy.MM.dd"
+        self.startDate = CustomDateFormatter.format.string(from: startDate)
+        self.endDate = CustomDateFormatter.format.string(from: endDate)
         
         dismiss(animated: true) {
             self.map.clear()
