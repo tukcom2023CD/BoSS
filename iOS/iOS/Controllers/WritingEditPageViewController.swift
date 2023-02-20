@@ -232,11 +232,11 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                 
                 if self.imagePickerStatus { // 영수증 OCR
                     OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
-                        if receiptData.subResults.isEmpty {
+                        if receiptData.subResults.isEmpty {     // 총 비용만 존재할 때
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
                             self.price.append("\(name)  |    -  |   \(price) ")
-                        } else {
+                        } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
                                 let count = item.count.formatted.value
@@ -270,11 +270,11 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
         
         picker.present(alert, animated: true) {
             OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
-                if receiptData.subResults.isEmpty {
+                if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
                     let name = receiptData.storeInfo.name.formatted.value
                     let price = receiptData.totalPrice.price.formatted.value
                     self.price.append("\(name)  |    -  |   \(price) ")
-                } else {
+                } else {  // 상세 지출 내역이 존재할 때
                     for item in receiptData.subResults[0].items {
                         let name = item.name.formatted.value
                         let count = item.count.formatted.value
