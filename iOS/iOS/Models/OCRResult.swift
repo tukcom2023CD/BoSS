@@ -8,75 +8,42 @@
 import Foundation
 
 
+// MARK: - OCRResult
 struct OCRResult: Codable {
     let images: [Image]
 }
 
+// MARK: - Image
 struct Image: Codable {
     let receipt: Receipt
-    let message: String
 }
 
 // MARK: - Receipt
 struct Receipt: Codable {
-    let receiptData: ReceiptData
-    
-    enum CodingKeys: String, CodingKey {
-        case receiptData = "result"
-    }
+    let result: ReceiptData
 }
 
 // MARK: - Result
 struct ReceiptData: Codable {
     let storeInfo: StoreInfo
-    let paymentInfo: PaymentInfo
     let subResults: [SubResult]
-    let totalPrice: TotalPrice
+    let totalPrice: Price
 }
 
 // MARK: - StoreInfo
 struct StoreInfo: Codable {
-    let name, subName: Name
-    let address: [Name]
+    let name: Name
 }
 
 // MARK: - Name
 struct Name: Codable {
     let text: String
-    let formatted: NameFormatted
+    let formatted: Formatted
 }
 
-// MARK: - NameFormatted
-struct NameFormatted: Codable {
+// MARK: - Formatted
+struct Formatted: Codable {
     let value: String
-}
-
-// MARK: - PaymentInfo
-struct PaymentInfo: Codable {
-    let date: DateClass
-    let time: Time
-}
-
-// MARK: - DateClass
-struct DateClass: Codable {
-    let text: String
-    let formatted: DateFormatted
-}
-
-// MARK: - DateFormatted
-struct DateFormatted: Codable {
-    let year, month, day: String
-}
-
-// MARK: - Time
-struct Time: Codable {
-    let text: String
-    let formatted: TimeFormatted
-}
-
-// MARK: - TimeFormatted
-struct TimeFormatted: Codable {
-    let hour, minute, second: String
 }
 
 // MARK: - SubResult
@@ -87,15 +54,10 @@ struct SubResult: Codable {
 // MARK: - Item
 struct Item: Codable {
     let name, count: Name
-    let priceInfo: PriceInfo
+    let price: Price
 }
 
-// MARK: - PriceInfo
-struct PriceInfo: Codable {
-    let price, unitPrice: Name
-}
-
-// MARK: - TotalPrice
-struct TotalPrice: Codable {
+// MARK: - Price
+struct Price: Codable {
     let price: Name
 }

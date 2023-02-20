@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		36D32DEEF1C5607FA325D100 /* Pods_iOS_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */; };
+		370DCB0629A0DD4C007B4FDD /* GetpriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370DCB0529A0DD4C007B4FDD /* GetpriceTableViewCell.swift */; };
 		372183B4299A1F7600373F9C /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B3299A1F7600373F9C /* Diary.swift */; };
-		372183B6299A1F8900373F9C /* DiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B5299A1F8900373F9C /* DiaryManager.swift */; };
 		372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B7299A201100373F9C /* WritingEditPageViewController.swift */; };
+		3742356F299F3C390049DFA1 /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742356E299F3C390049DFA1 /* ReceiptViewController.swift */; };
+		37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37423570299F41FE0049DFA1 /* EditTableViewCell.swift */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
 		3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F656297B974400014FFE /* FirstCollectionViewCell.xib */; };
 		3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */; };
@@ -74,6 +76,9 @@
 		57C399D42982385300F63900 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C399D32982385300F63900 /* Place.swift */; };
 		57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */; };
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
+		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
+		BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD681299BB4AF00071565 /* ResultsTableController.swift */; };
+		BFEF3F312999ECEC00DF39FE /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */; };
 		BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */; };
 		BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */; };
 		BFF858402994B98F00C7F289 /* MyPageSpendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */; };
@@ -101,9 +106,12 @@
 		1456B02B228DC8C37E5ED3AC /* Pods-iOS-iOSUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS-iOSUITests.debug.xcconfig"; path = "Target Support Files/Pods-iOS-iOSUITests/Pods-iOS-iOSUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		207460B44357D9F4D787BFC5 /* Pods-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.release.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		34A3E75F0EC9355F20B34FF4 /* Pods-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.debug.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		370DCB0529A0DD4C007B4FDD /* GetpriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetpriceTableViewCell.swift; sourceTree = "<group>"; };
 		372183B3299A1F7600373F9C /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		372183B5299A1F8900373F9C /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 		372183B7299A201100373F9C /* WritingEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPageViewController.swift; sourceTree = "<group>"; };
+		3742356E299F3C390049DFA1 /* ReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
+		37423570299F41FE0049DFA1 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3764F656297B974400014FFE /* FirstCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -173,6 +181,9 @@
 		8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagePopUpController.swift; sourceTree = "<group>"; };
+		BF8AD681299BB4AF00071565 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
+		BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageScheduleViewController.swift; sourceTree = "<group>"; };
 		BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSpendingViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +286,7 @@
 		573941AA2980110500E69D8F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BFAB8F6B299B8C08007F16A5 /* Album */,
 				576B64BC29994C80002609FA /* MainPlan */,
 				570AAB6029911DE4006CB64C /* Place */,
 				57F9FFF0298E9FA30045E7D0 /* Map */,
@@ -282,6 +294,7 @@
 				37B7BE87298564F900786A1F /* SlideView.swift */,
 				37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */,
 				37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */,
+				370DCB0529A0DD4C007B4FDD /* GetpriceTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -295,6 +308,7 @@
 				576B64C2299970FA002609FA /* MainPlanTableViewCell.xib */,
 				576B64C72999737F002609FA /* MainPlanFooterView.swift */,
 				576B64C529997361002609FA /* MainPlanFooterView.xib */,
+				37423570299F41FE0049DFA1 /* EditTableViewCell.swift */,
 			);
 			path = MainPlan;
 			sourceTree = "<group>";
@@ -302,6 +316,7 @@
 		5775975B297653EB008CB199 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BF64B75F299A18F5009C5937 /* Album */,
 				57C3DD9C299BF335009466FA /* Home */,
 				BF6A5F372994AF51008B76B6 /* MyPage */,
 				5780874F296BEB5500D2BAF8 /* LoginViewController.swift */,
@@ -309,8 +324,9 @@
 				570AAB5A2990F2FB006CB64C /* SearchPlaceViewController.swift */,
 				570AAB5E29911C1D006CB64C /* PlaceDetailViewController.swift */,
 				576B64C9299A0895002609FA /* WritingPageViewController.swift */,
-				573941AB2980E57000E69D8F /* MapViewController.swift */,
 				372183B7299A201100373F9C /* WritingEditPageViewController.swift */,
+				3742356E299F3C390049DFA1 /* ReceiptViewController.swift */,
+				573941AB2980E57000E69D8F /* MapViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -436,6 +452,23 @@
 				8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF64B75F299A18F5009C5937 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */,
+				BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */,
+				BF8AD681299BB4AF00071565 /* ResultsTableController.swift */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		BFAB8F6B299B8C08007F16A5 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Album;
 			sourceTree = "<group>";
 		};
 		BF6A5F372994AF51008B76B6 /* MyPage */ = {
@@ -742,16 +775,19 @@
 				3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */,
 				570AAB7E29919C6E006CB64C /* UIImageView+Ext.swift in Sources */,
 				5775975D2976541F008CB199 /* HomeViewController.swift in Sources */,
+				BFEF3F312999ECEC00DF39FE /* AlbumViewController.swift in Sources */,
 				37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */,
 				37ECD62229866358005E21D4 /* Region.swift in Sources */,
 				37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */,
 				576C0DBC298A327100485AD5 /* User.swift in Sources */,
 				570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */,
 				57808750296BEB5500D2BAF8 /* LoginViewController.swift in Sources */,
+				3742356F299F3C390049DFA1 /* ReceiptViewController.swift in Sources */,
 				372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */,
 				571BD16F29879136000A7F34 /* Schedule.swift in Sources */,
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
+				37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */,
 				570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */,
 				576B64C3299970FA002609FA /* MainPlanTableViewCell.swift in Sources */,
 				576B64C82999737F002609FA /* MainPlanFooterView.swift in Sources */,
@@ -763,6 +799,7 @@
 				3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */,
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
+				BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
 				BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */,
@@ -772,6 +809,7 @@
 				576C0DBA298A325900485AD5 /* UserDefaults+Ext.swift in Sources */,
 				BFF858402994B98F00C7F289 /* MyPageSpendingViewController.swift in Sources */,
 				570AAB5B2990F2FB006CB64C /* SearchPlaceViewController.swift in Sources */,
+				BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */,
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
 				5793B7722988CFAD00649F23 /* ScheduleNetManager.swift in Sources */,
@@ -781,6 +819,7 @@
 				3764F663297B97FC00014FFE /* FirstTableViewCell.swift in Sources */,
 				570AAB79299180CC006CB64C /* PlacePhotoCollectionViewCell.swift in Sources */,
 				57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */,
+				370DCB0629A0DD4C007B4FDD /* GetpriceTableViewCell.swift in Sources */,
 				5780874E296BEB5500D2BAF8 /* SceneDelegate.swift in Sources */,
 				37ECD6242986649D005E21D4 /* RegionDataManager.swift in Sources */,
 				573941AC2980E57000E69D8F /* MapViewController.swift in Sources */,

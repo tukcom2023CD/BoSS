@@ -47,12 +47,18 @@ class OCRNetManager {
             guard let statusCode = response.response?.statusCode else { return }
             print(statusCode)
 
-            guard let safeData = response.data else { return }
+            guard let safeData = response.data else {
+                print("Data Err")
+                return
+            }
 
             let decodedData = try? JSONDecoder().decode(OCRResult.self, from: safeData)
-            guard let ocrResult = decodedData else { return }
+            guard let ocrResult = decodedData else {
+                print("ERR")
+                return
+            }
             
-            let receiptData = ocrResult.images[0].receipt.receiptData
+            let receiptData = ocrResult.images[0].receipt.result
             dump(receiptData)
             
             completion(receiptData)
