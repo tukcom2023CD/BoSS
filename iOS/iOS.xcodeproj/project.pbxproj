@@ -46,6 +46,8 @@
 		570AAB7E29919C6E006CB64C /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */; };
 		5719B57A298BA302008572CF /* UserNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5719B579298BA302008572CF /* UserNetManager.swift */; };
 		571BD16F29879136000A7F34 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571BD16E29879136000A7F34 /* Schedule.swift */; };
+		571FF69C29A3C787005E54F6 /* Spending.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571FF69B29A3C787005E54F6 /* Spending.swift */; };
+		571FF69E29A3C88F005E54F6 /* SpendingNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 571FF69D29A3C88F005E54F6 /* SpendingNetManager.swift */; };
 		573941A9297ED1E900E69D8F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941A8297ED1E900E69D8F /* Constants.swift */; };
 		573941AC2980E57000E69D8F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 573941AB2980E57000E69D8F /* MapViewController.swift */; };
 		576B64BE29996EBF002609FA /* MainPlanHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 576B64BD29996EBF002609FA /* MainPlanHeaderView.xib */; };
@@ -77,10 +79,10 @@
 		57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */; };
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
 		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
-		BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD681299BB4AF00071565 /* ResultsTableController.swift */; };
-		BFEF3F312999ECEC00DF39FE /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */; };
 		BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */; };
+		BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD681299BB4AF00071565 /* ResultsTableController.swift */; };
 		BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */; };
+		BFEF3F312999ECEC00DF39FE /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */; };
 		BFF858402994B98F00C7F289 /* MyPageSpendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */; };
 		F27BB72B297E4B4300839669 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = F27BB72A297E4B4300839669 /* SecretKey.plist */; };
 /* End PBXBuildFile section */
@@ -144,6 +146,8 @@
 		570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		5719B579298BA302008572CF /* UserNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetManager.swift; sourceTree = "<group>"; };
 		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Schedule.swift; path = Models/DBTables/Schedule.swift; sourceTree = "<group>"; };
+		571FF69B29A3C787005E54F6 /* Spending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spending.swift; sourceTree = "<group>"; };
+		571FF69D29A3C88F005E54F6 /* SpendingNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingNetManager.swift; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		573941AB2980E57000E69D8F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		576B64BD29996EBF002609FA /* MainPlanHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainPlanHeaderView.xib; sourceTree = "<group>"; };
@@ -182,10 +186,10 @@
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagePopUpController.swift; sourceTree = "<group>"; };
-		BF8AD681299BB4AF00071565 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
-		BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageScheduleViewController.swift; sourceTree = "<group>"; };
+		BF8AD681299BB4AF00071565 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
 		BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageSpendingViewController.swift; sourceTree = "<group>"; };
 		D186E571686558A6A981FD3E /* Pods_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F27BB72A297E4B4300839669 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
@@ -271,6 +275,7 @@
 				57C399D32982385300F63900 /* Place.swift */,
 				571BD16E29879136000A7F34 /* Schedule.swift */,
 				576C0DBB298A327100485AD5 /* User.swift */,
+				571FF69B29A3C787005E54F6 /* Spending.swift */,
 			);
 			name = DBTables;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 				57C399D12982383600F63900 /* PlaceNetManager.swift */,
 				5793B7712988CFAD00649F23 /* ScheduleNetManager.swift */,
 				5719B579298BA302008572CF /* UserNetManager.swift */,
+				571FF69D29A3C88F005E54F6 /* SpendingNetManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -464,13 +470,6 @@
 			path = Album;
 			sourceTree = "<group>";
 		};
-		BFAB8F6B299B8C08007F16A5 /* Album */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Album;
-			sourceTree = "<group>";
-		};
 		BF6A5F372994AF51008B76B6 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +478,13 @@
 				BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		BFAB8F6B299B8C08007F16A5 /* Album */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Album;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -793,6 +799,7 @@
 				576B64C82999737F002609FA /* MainPlanFooterView.swift in Sources */,
 				577B8F7D297A7E6500FBD1EB /* OCRResult.swift in Sources */,
 				57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */,
+				571FF69C29A3C787005E54F6 /* Spending.swift in Sources */,
 				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
 				5794116929710FEB009192DD /* Bundle+Ext.swift in Sources */,
 				576B64C029996F1A002609FA /* MainPlanHeaderView.swift in Sources */,
@@ -806,6 +813,7 @@
 				5719B57A298BA302008572CF /* UserNetManager.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				576B64CA299A0895002609FA /* WritingPageViewController.swift in Sources */,
+				571FF69E29A3C88F005E54F6 /* SpendingNetManager.swift in Sources */,
 				576C0DBA298A325900485AD5 /* UserDefaults+Ext.swift in Sources */,
 				BFF858402994B98F00C7F289 /* MyPageSpendingViewController.swift in Sources */,
 				570AAB5B2990F2FB006CB64C /* SearchPlaceViewController.swift in Sources */,

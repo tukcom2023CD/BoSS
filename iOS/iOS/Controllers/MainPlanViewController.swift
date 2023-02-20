@@ -168,12 +168,16 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
         //여기서 작업시작
-
-
         
-        // sections[indexPath.section].rows[indexPath.row]
+        let place = sections[indexPath.section].rows[indexPath.row]
+        SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+            
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
         
-        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 }
