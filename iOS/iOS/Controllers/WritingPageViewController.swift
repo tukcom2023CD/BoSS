@@ -143,6 +143,7 @@ class WritingPageViewController: UIViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+//MARK: - WriringPageVieController
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         getPrice.count

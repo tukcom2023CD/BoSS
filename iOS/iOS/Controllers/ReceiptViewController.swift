@@ -8,11 +8,15 @@
 import UIKit
 //총합과 AllData(품명, 수량, 가격)넘기기
 //MARK: - WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) EditPageViewController로 넘기기
+
+
 protocol TotalProtocol: AnyObject {
-    func sendData(totalPriceData: String, priceData: [AllData],subTotalData:[Int])
+    func sendData(totalPriceData: String, receiptData: [AllData],subTotalData:[Int])
 }
 
 class ReceiptViewController: UIViewController {
+   
+    //MARK: - Properties
     var delegate: TotalProtocol?
     
     @IBOutlet weak var addButton: UIButton!
@@ -25,8 +29,9 @@ class ReceiptViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var stackLabel : String!
     var stringArr: [AllData] = []
-    //var getStringArr: [AllData]? = []
-    var stringArr1: [Int] = [] //삭제시 사용할 그 행의 총 가격 subTotalData로 넘김
+    var subPriceData: [Int] = [] //삭제시 사용할 그 행의 총 가격 subTotalData로  데이터로 넘김
+    
+    
     var getTotalData: String! = "0"
     var getTotalInt: Int! = 0
     var getSubTotalData : [Int]?
@@ -45,7 +50,7 @@ class ReceiptViewController: UIViewController {
         textInput3.delegate = self
         if getSubTotalData != nil {
             //stringArr1 = getSubTotalData!
-            stringArr1.append(contentsOf: getSubTotalData!)
+            subPriceData.append(contentsOf: getSubTotalData!)
         }
         totalPriceLabel.text = getTotalData
         totalPrice = Int(totalPriceLabel.text ?? "0")
@@ -55,30 +60,31 @@ class ReceiptViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    //사라질때 넘기기
+    //MARK: - viewWillDisappear   화면 사라질때 데이터 넘기기
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.sendData(totalPriceData: "\(totalPrice ?? 0)", priceData: stringArr, subTotalData: stringArr1)
+        delegate?.sendData(totalPriceData: "\(totalPrice ?? 0)", receiptData: stringArr, subTotalData: subPriceData)
     }
     
     
-    
+    //MARK: - addButtonTapped
     @IBAction func addButtonTapped(_ sender: Any) {
+        
         if let txt1 = textInput1.text , let txt2 = textInput2.text , let txt3 = textInput3.text{
             if textInput1.text != "" && textInput3.text != ""{
                 
                 
                 let txtString : AllData = AllData(itemData: "\(txt1)", amountData: "\(txt2)", priceData: "\(txt3)")
-                
-                
+
                 let input1:Int = Int(textInput2.text ?? "1") ?? 1
                 let input2:Int! = Int(textInput3.text!)
+                //새로 생긴 행의 새 수량*가격
                 newTotalPrice = input1 * input2
                 totalPrice += newTotalPrice
                 
                 totalPriceLabel.text = "\(totalPrice!)"
                 
                 self.stringArr.insert(txtString, at: 0)
-                self.stringArr1.insert(newTotalPrice, at: 0)
+                self.subPriceData.insert(newTotalPrice, at: 0)
                 tableView.beginUpdates()
                 tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
                 textInput1.text = nil
@@ -93,9 +99,9 @@ class ReceiptViewController: UIViewController {
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         let point = sender.convert(CGPoint.zero, to: tableView)
         guard let indexpath = tableView.indexPathForRow(at: point) else {return}
-        totalPrice -= stringArr1[indexpath.row]
+        totalPrice -= subPriceData[indexpath.row]
         stringArr.remove(at: indexpath.row)
-        stringArr1.remove(at: indexpath.row)
+        subPriceData.remove(at: indexpath.row)
         totalPriceLabel.text = "\(totalPrice!) "
         
         
