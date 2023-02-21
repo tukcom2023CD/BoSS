@@ -28,11 +28,17 @@ var dataArray = [AllData]()
 class WritingEditPageViewController: UIViewController, TotalProtocol{
     
     func sendData(totalPriceData: String, priceData: [AllData], subTotalData: [Int]) {
+        getTotalData = "\(totalPriceData)"
+       getAllData = priceData
+       getSubTotalData = subTotalData
+
+        
         totalPriceLabel.text = "\(totalPriceData) 원"
         allData = priceData
         self.subTotalData = subTotalData
     }
-    var subTotalData: [Int]?
+    
+    var subTotalData: [Int]? //delete를 위한 각각 합 데이터
 
     //다시 받을 데이터
     var getSubTotalData : [Int]?
@@ -198,7 +204,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         if ((getAllData![0].priceData) !=  "" ) {
             vc.stringArr = getAllData!
         }
-        if (getTotalData != "0원") {
+        if (getTotalData != "0") {
             vc.getTotalData = self.getTotalData
         }
         if (getSubTotalData != nil){

@@ -147,7 +147,7 @@ class WritingPageViewController: UIViewController
        // vc.totalPriceLabel.text = totalPrice
         vc.getImageCard = imageCard.image
         vc.getContents = contents.text
-        vc.getTotalData = costLabel.text
+        vc.getTotalData = totalPrice//costLabel.text
         vc.getSubTotalData = subTotalData
         /*
          view.imageCardData = imageCard.image
