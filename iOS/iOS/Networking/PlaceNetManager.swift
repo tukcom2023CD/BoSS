@@ -136,6 +136,7 @@ class PlaceNetManager {
     func update(place: Place, completion: @escaping ()->()) {
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/place/update") else { return }
         
+        
         guard let jsonData = try? JSONEncoder().encode(place) else {
             print("Error: Trying to convert model to JSON data")
             return

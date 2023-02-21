@@ -10,8 +10,8 @@ import UIKit
 //물어볼꺼1 viewController에서 Model 이렇게 접근해도 괜찮은지? 나중에 데이터 저장하는거 만들면 이거 없애는건지?
 
 
-class WritingPageViewController: UIViewController
-{
+class WritingPageViewController: UIViewController {
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var imageCard: UIImageView!
@@ -19,9 +19,7 @@ class WritingPageViewController: UIViewController
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var costView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var tableLabel: UIStackView!
-    
     @IBOutlet weak var labelView: UIView!
     
     
@@ -39,6 +37,9 @@ class WritingPageViewController: UIViewController
     var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")]
     var totalPrice : String = "0"
     var subTotalData: [Int]?
+    
+    var place: Place! // MainPlan에서 넘어온 Place 데이터 (diary, total_spending)
+    var spendings: [Spending] = [] // 상세 지출내역 리스트
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -72,12 +73,18 @@ class WritingPageViewController: UIViewController
         super.viewWillAppear(animated)
         // 전화면에서 전달받은 데이터들을 통해 셋팅
         imageCard.image = imageCardData
-        contents.text = contentsData
+        
+        //contents.text = contentsData
+        //costLabel.text = totalPrice
+        contents.text = place.diary
+        costLabel.text = "\(place.totalSpending!)"
+        
+        
         contents.translatesAutoresizingMaskIntoConstraints = false
         tableView.reloadData()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        costLabel.text = totalPrice
+        
         labelViewSetting()
     }
     
@@ -112,11 +119,10 @@ class WritingPageViewController: UIViewController
     
     
     // MARK: 스무스한 타이틀 변경
-    func changeTitleMode(){
+    func changeTitleMode() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         print(self.scrollView.contentOffset.y)
-        if self.scrollView.contentOffset.y > 0
-        {
+        if self.scrollView.contentOffset.y > 0 {
             navigationItem.largeTitleDisplayMode = .never
         } else {
             navigationItem.largeTitleDisplayMode = .always
@@ -140,24 +146,35 @@ class WritingPageViewController: UIViewController
         vc.getContents = contents.text
         vc.getTotalData = totalPrice
         vc.getSubTotalData = subTotalData
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+
 //MARK: - WriringPageVieController
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        getPrice.count
+        //getPrice.count
+        spendings.count
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else {return UITableViewCell()}
-        cell.itemLabel.text = getPrice[indexPath.row].itemData
-        cell.amountLabel.text = getPrice[indexPath.row].amountData
-        cell.priceLabel.text = getPrice[indexPath.row].priceData
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else { return UITableViewCell() }
+        
+//        cell.itemLabel.text = getPrice[indexPath.row].itemData
+//        cell.amountLabel.text = getPrice[indexPath.row].amountData
+//        cell.priceLabel.text = getPrice[indexPath.row].priceData
+        
+        let spending = spendings[indexPath.row]
+        
+        cell.itemLabel.text = spending.name
+        cell.amountLabel.text = "\(spending.quantity ?? 1)"
+        cell.priceLabel.text = "\(spending.price)"
         
         return cell
     }

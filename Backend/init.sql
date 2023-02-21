@@ -66,5 +66,5 @@ create table category (
 
 
 insert into user(email, name) values("lee@naver.com", "lee");
-insert into schedule(title, region, start, stop, uid) values ("부산 여행", "부산", "2023-04-01", "2023-04-07", 1);
+insert into schedule(title, region, start, stop, uid) values ("부산 여행", "부산", "2023.04.01", "2023.04.07", 1);
 insert into place(name, address, latitude, longitude, category, status, diary, total_spending, visit_date, sid, uid) values ("더베이", "부산", 35.1565954, 129.1520357, "", 0, "", 0, "2023.04.01", 1, 1);

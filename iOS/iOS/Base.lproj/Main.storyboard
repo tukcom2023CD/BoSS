@@ -1362,7 +1362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jlg-yh-3Qj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7789" y="-1333"/>
+            <point key="canvasLocation" x="6511" y="-1489"/>
         </scene>
         <!--여행지-->
         <scene sceneID="1jJ-4T-7QL">
@@ -1532,7 +1532,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKL-Lp-7vJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9915.2671755725187" y="-1333.0985915492959"/>
+            <point key="canvasLocation" x="7303" y="-1489"/>
         </scene>
         <!--Title-->
         <scene sceneID="jje-2N-FgO">
@@ -1737,7 +1737,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PC5-D8-KGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="10802.290076335878" y="-1354.2253521126761"/>
+            <point key="canvasLocation" x="8105" y="-1489"/>
         </scene>
     </scenes>
     <resources>
