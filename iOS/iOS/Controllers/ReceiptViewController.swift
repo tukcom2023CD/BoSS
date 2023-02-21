@@ -28,10 +28,14 @@ class ReceiptViewController: UIViewController {
     var stringArr: [AllData] = []
     //var getStringArr: [AllData]? = []
     var stringArr1: [Int] = [] //삭제시 사용할 그 행의 총 가격 subTotalData로 넘김
-    var getTotalData: String!
+    var getTotalData: String! = "0"
+    var getTotalInt: Int! = 0
     var getSubTotalData : [Int]?
     
     //var allData: [AllData]
+    override func viewWillAppear(_ animated: Bool) {
+        totalPrice = Int(getTotalData)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self

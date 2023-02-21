@@ -28,10 +28,10 @@ var dataArray = [AllData]()
 class WritingEditPageViewController: UIViewController, TotalProtocol{
     
     func sendData(totalPriceData: String, priceData: [AllData], subTotalData: [Int]) {
-        getTotalData = "\(totalPriceData)"
+    getTotalData = "\(totalPriceData)"
        getAllData = priceData
        getSubTotalData = subTotalData
-
+       
         
         totalPriceLabel.text = "\(totalPriceData) 원"
         allData = priceData
@@ -207,6 +207,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         if (getTotalData != "0") {
             vc.getTotalData = self.getTotalData
         }
+        //vc.getTotalInt = Int(getTotalData)
         if (getSubTotalData != nil){
             vc.getSubTotalData = self.getSubTotalData
         }
