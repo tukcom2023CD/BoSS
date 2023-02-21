@@ -33,7 +33,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
        getSubTotalData = subTotalData
 
         
-        totalPriceLabel.text = "\(totalPriceData) 원"
+        totalPriceLabel.text = "\(totalPriceData)"
         allData = priceData
         self.subTotalData = subTotalData
     }
@@ -205,8 +205,9 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
             vc.stringArr = getAllData!
         }
         if (getTotalData != "0") {
-            vc.getTotalData = self.getTotalData
+            vc.getTotalData = totalPriceLabel.text//self.getTotalData
         }
+        
         if (getSubTotalData != nil){
             vc.getSubTotalData = self.getSubTotalData
         }

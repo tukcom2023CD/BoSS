@@ -30,7 +30,6 @@ class ReceiptViewController: UIViewController {
     var stringArr1: [Int] = [] //삭제시 사용할 그 행의 총 가격 subTotalData로 넘김
     var getTotalData: String!
     var getSubTotalData : [Int]?
-    
     //var allData: [AllData]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +50,8 @@ class ReceiptViewController: UIViewController {
 //            print(totalPriceLabel.text)
 //           //totalPrice = Int(totalPriceLabel.text!) ?? 0
 //        }
-        totalPrice = Int(totalPriceLabel.text!) ?? 0
+        totalPriceLabel.text = getTotalData
+        totalPrice = Int(totalPriceLabel.text ?? "0")
 
         //totalPrice = Int(totalPriceLabel.text!) ?? 0
         DispatchQueue.main.async {
