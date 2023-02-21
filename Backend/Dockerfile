@@ -7,6 +7,8 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
+RUN mkdir -p /app/images
+
 # RUN chmod +x wait-for.sh
 
 # ENTRYPOINT ["./wait-for.sh", "db:3306", "--", "python", "app.py"]
