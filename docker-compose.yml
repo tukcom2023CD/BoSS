@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  db:
+    image: mysql:5.7
+    platform: linux/amd64 # 로컬 환경에서만
+    environment:
+      MYSQL_DATABASE: Boss
+      MYSQL_USER: boss
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3307:3306"
+    networks:
+      - network
+    volumes:
+      - ./Backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p${MYSQL_ROOT_PASSWORD}"]
+      timeout: 5s
+      retries: 10
+  web:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db
+    networks:
+      - network
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+  ai:
+    build:
+      context: ./AI
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    depends_on:
+      - db
+    networks:
+      - network
+    restart: on-failure
+      
+networks:
+  network:
+    driver: bridge
