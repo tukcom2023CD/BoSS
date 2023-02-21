@@ -302,7 +302,7 @@ class CreatePhoto(Resource):
         file_name = file_object.filename
         
         # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
-        save_image_dir = f"/Users/jun/Desktop/무제 폴더/{file_name}"
+        save_image_dir = f"/app/images/{file_name}"
         
         # 파일 저장
         file_object.save(save_image_dir)
