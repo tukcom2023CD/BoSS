@@ -5,31 +5,69 @@
 //  Created by 박다미 on 2023/02/13.
 //
 
+
+
+
+/*
+ 필요한 정보 = 화면이동후에도 지속적으로 나타나야하는 정보들
+ wrtingPage : 1
+ editPage:    2
+ reciepVC:    3
+ 
+ 1-2: 1)image, 2)contents 3)영수증관련[총합  품명,수량,가격  각 행마다의 가격]
+        *각 행마다의 가격:여기선 안쓰지만 3에서 delete기능을 사용하기 위한 정보:1->2로가져와야 3에서 delete수행가능
+
+ 2-3: 1)영수증관련 정보 [총합  품명,수량,가격  각 행마다의 가격]을 가져와서 add delete 계산
+ 
+
+----------------------------
+ 3->2   :IBAction사용을 안해서 프로토콜로 데이터 전송함: totalPriceData, receiptData, subTotalData
+        그외  @IBAction로 받음
+ 2->3 이 밑으로는 @IBAction 시 vc로 데이터 전송
+ 
+ -------
+ 
+ 2->1
+ 1->2
+ 2->3
+ -----------------------------
+ 1->3으로 다시 데이터를 가져올때는 변수앞에 get붙여서 사용함 ex) getTotalData..
+ 
+ 
+ 
+ */
 import UIKit
 import PhotosUI
 
-struct AllData {
-    var itemData:String
-    var amountData:String
-    var priceData:String
-    
-    init(itemData:String, amountData:String, priceData:String) {
-        self.itemData = itemData
-        self.amountData = amountData
-        self.priceData = priceData
-    }
-}
 
-/// the data for the table
+
+
 var dataArray = [AllData]()
 
+// MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) 받고 5contents 정보 생김 => 1-5 정보 WritingPageviewController로 넘김
 class WritingEditPageViewController: UIViewController, TotalProtocol{
-    func sendData(totalPriceData: String, priceData: [AllData]) {
-        totalPriceLabel.text = "\(totalPriceData) 원"
-        allData = priceData
+    
+    func sendData(totalPriceData: String, receiptData: [AllData], subTotalData: [Int]) {
+        getTotalData = "\(totalPriceData)" //2에서의 데이터는 1로가던 3으로 가던 같은 정보를 전달하므로 get을 붙인 변수를 같이 사용함
+        getAllData = receiptData
+        getSubTotalData = subTotalData
+        
+        
+        totalPriceLabel.text = "\(totalPriceData)"
+        allData = receiptData
+        self.subTotalData = subTotalData
     }
     
-   
+    //MARK: - Properties
+    var subTotalData: [Int]? //delete를 위한 각 행의 가격 데이터
+    //WritingPageVC에서 다시 받을 데이터
+    var getSubTotalData : [Int]?
+    var getImageCard : UIImage?
+    var getContents : String?
+    var getAllData : [AllData]?
+    var getTotalData : String?
+    
+    
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -52,7 +90,6 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         
         uiViewSetting()
         imageCardSetting()
-        
         setupTapGestures()
         setupCamera()
         contentsSetting()
@@ -62,6 +99,18 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         receiptView.layer.cornerRadius = 5
         
         print( totalPriceLabel.text ?? "" )
+        if getImageCard != nil {
+            imageCard.image = getImageCard
+        }
+        if getContents != nil {
+            contents.text = getContents
+        }
+        if getAllData![0].priceData != ""{
+            allData = getAllData
+        }
+        if getTotalData != "0" {
+            totalPriceLabel.text = getTotalData
+        }
     }
     
     
@@ -170,6 +219,17 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
+        if ((getAllData?[0].priceData) !=  "" ) {
+            vc.stringArr = getAllData!
+        }
+        if (getTotalData != "0") {
+            vc.getTotalData = totalPriceLabel.text//self.getTotalData
+        }
+        
+        if (getSubTotalData != nil){
+            vc.getSubTotalData = self.getSubTotalData
+        }
+        
         vc.delegate = self
         present(vc, animated:true, completion: nil)
         
@@ -208,6 +268,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
                 view.contentsData = contents.text
                 view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
                 view.totalPrice = totalPriceLabel.text ?? ""
+                view.subTotalData = subTotalData
                 self.navigationController?.popToViewController(view, animated: true)
             }
         }
@@ -235,13 +296,14 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                         if receiptData.subResults.isEmpty {     // 총 비용만 존재할 때
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
-                            self.price.append("\(name)  |    -  |   \(price) ")
+                            //왜 있는지 물어보기
+                            self.allData
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
                                 let count = item.count.formatted.value
                                 let price = item.price.price.formatted.value
-                                self.price.append("\(name)  |    \(count)  |   \(price) ")
+                                self.allData
                             }
                         }
                     }
@@ -273,13 +335,13 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
                 if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
                     let name = receiptData.storeInfo.name.formatted.value
                     let price = receiptData.totalPrice.price.formatted.value
-                    self.price.append("\(name)  |    -  |   \(price) ")
+                    self.allData
                 } else {  // 상세 지출 내역이 존재할 때
                     for item in receiptData.subResults[0].items {
                         let name = item.name.formatted.value
                         let count = item.count.formatted.value
                         let price = item.price.price.formatted.value
-                        self.price.append("\(name)  |    \(count)  |   \(price) ")
+                        self.allData
                     }
                 }
                 alert.dismiss(animated: true)
