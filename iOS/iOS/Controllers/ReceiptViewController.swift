@@ -31,7 +31,6 @@ class ReceiptViewController: UIViewController {
     var getTotalData: String! = "0"
     var getTotalInt: Int! = 0
     var getSubTotalData : [Int]?
-    
     //var allData: [AllData]
     override func viewWillAppear(_ animated: Bool) {
         totalPrice = Int(getTotalData)
@@ -55,7 +54,8 @@ class ReceiptViewController: UIViewController {
 //            print(totalPriceLabel.text)
 //           //totalPrice = Int(totalPriceLabel.text!) ?? 0
 //        }
-        totalPrice = Int(totalPriceLabel.text!) ?? 0
+        totalPriceLabel.text = getTotalData
+        totalPrice = Int(totalPriceLabel.text ?? "0")
 
         //totalPrice = Int(totalPriceLabel.text!) ?? 0
         DispatchQueue.main.async {
