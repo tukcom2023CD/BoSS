@@ -44,6 +44,7 @@ class WritingPageViewController: UIViewController {
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         changeTitleMode()
         imageCardSetting()
         uiViewSetting()
@@ -72,7 +73,8 @@ class WritingPageViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 전화면에서 전달받은 데이터들을 통해 셋팅
-        imageCard.image = imageCardData
+//        imageCard.image = imageCardData
+        uploadImageCard()
         
         //contents.text = contentsData
         //costLabel.text = totalPrice
@@ -86,6 +88,25 @@ class WritingPageViewController: UIViewController {
         self.tableView.dataSource = self
         
         labelViewSetting()
+    }
+    
+    // MARK: - uploadImageCard
+    // 여행지 사진 네트워킹
+    func uploadImageCard() {
+        PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
+            
+            // 여행지에 추가한 여러 사진들을 적용
+            for photo in photos {
+                guard let url = URL(string: photo.imageUrl) else { return }
+                guard let data = try? Data(contentsOf: url) else { return }
+                
+                DispatchQueue.main.async {
+                    self.imageCard.image = UIImage(data: data)
+                }
+                
+            }
+            
+        }
     }
     
     
@@ -104,6 +125,7 @@ class WritingPageViewController: UIViewController {
         self.uiView.layer.borderColor = UIColor.lightGray.cgColor
         self.uiView.layer.cornerRadius = 10
     }
+    
     // MARK: -imageCardSetting() :UI세팅
     func imageCardSetting(){
         self.imageCard.layer.borderWidth = 0.3

@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct PhotoData: Codable {
+    var photos: [Photo]
+    
+    enum CodingKeys: String, CodingKey {
+        case photos = "url"
+    }
+}
 
 struct Photo: Codable {
     var phid: Int
