@@ -9,10 +9,7 @@ import UIKit
 // MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격)  5contents 정보 받음 => 1-5 정보다시 EditPageviewController로 넘김
 //물어볼꺼1 viewController에서 Model 이렇게 접근해도 괜찮은지? 나중에 데이터 저장하는거 만들면 이거 없애는건지?
 
-//protocol ResendTotalProtocol: AnyObject {
-//    func sendData(reSendtotalPriceData: String, reSendPriceData: [AllData],reSendImageCardData: Image, reSendContentsData: String)
-//}
-//       view.imageCardData = imageCard.image        view.contentsData = contents.text
+
 class WritingPageViewController: UIViewController
 {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -54,7 +51,6 @@ class WritingPageViewController: UIViewController
         tableLabel.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
-        
     }
     
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
@@ -69,7 +65,6 @@ class WritingPageViewController: UIViewController
             tableLabel.isHidden = false
             imageView.image = UIImage(systemName: "chevron.up")
         }
-        
     }
     
     // MARK: - viewWillAppear
@@ -84,7 +79,6 @@ class WritingPageViewController: UIViewController
         self.tableView.dataSource = self
         costLabel.text = totalPrice
         labelViewSetting()
-        
     }
     
     
@@ -113,7 +107,6 @@ class WritingPageViewController: UIViewController
     // MARK: -costViewSetting() :UI세팅
     func costViewSetting(){
         costView.layer.cornerRadius = 10
-        
     }
     
     
@@ -141,29 +134,14 @@ class WritingPageViewController: UIViewController
         print(#function)
         
         guard let vc = self.storyboard?.instantiateViewController(identifier: "WritingEditPageViewController") as? WritingEditPageViewController else { return }
-       // vc.imageCard = self.imageCard
-       // vc.contents = self.contents
-        vc.getAllData = getPrice 
-       // vc.totalPriceLabel.text = totalPrice
+        
+        vc.getAllData = getPrice
         vc.getImageCard = imageCard.image
         vc.getContents = contents.text
-        vc.getTotalData = totalPrice//costLabel.text
+        vc.getTotalData = totalPrice
         vc.getSubTotalData = subTotalData
-        /*
-         view.imageCardData = imageCard.image
-         view.contentsData = contents.text
-         view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
-         view.totalPrice = totalPriceLabel.text ?? ""
-         
-         */
         self.navigationController?.pushViewController(vc, animated: true)
-        
-        //여기서 정보 전달
     }
-    
-    
-    
-    
 }
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -172,7 +150,7 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else {return UITableViewCell()}

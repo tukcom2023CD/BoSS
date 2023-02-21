@@ -250,7 +250,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
                 view.contentsData = contents.text
                 view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
                 view.totalPrice = totalPriceLabel.text ?? ""
-                view.subTotalData = subTotalData
+                view.subTotalData = subTotalData 
                 self.navigationController?.popToViewController(view, animated: true)
             }
         }
@@ -279,13 +279,13 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
                            //왜 있는지 물어보기
-                            self.price.append("\(name)  |    -  |   \(price) ")
+                            self.allData
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
                                 let count = item.count.formatted.value
                                 let price = item.price.price.formatted.value
-                                self.price.append("\(name)  |    \(count)  |   \(price) ")
+                                self.allData
                             }
                         }
                     }
@@ -317,14 +317,13 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
                 if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
                     let name = receiptData.storeInfo.name.formatted.value
                     let price = receiptData.totalPrice.price.formatted.value
-                    self.price.append("\(name)  |    -  |   \(price) ")
-                   // self.allData
+                      self.allData
                 } else {  // 상세 지출 내역이 존재할 때
                     for item in receiptData.subResults[0].items {
                         let name = item.name.formatted.value
                         let count = item.count.formatted.value
                         let price = item.price.price.formatted.value
-                       self.price.append("\(name)  |    \(count)  |   \(price) ")
+                        self.allData
                     }
                 }
                 alert.dismiss(animated: true)
