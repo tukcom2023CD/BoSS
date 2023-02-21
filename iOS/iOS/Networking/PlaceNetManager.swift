@@ -68,7 +68,6 @@ class PlaceNetManager {
         }
         
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/places/read/\(uid)\(queryString)") else { return }
-        print(url)
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

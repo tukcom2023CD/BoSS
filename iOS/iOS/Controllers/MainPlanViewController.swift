@@ -32,6 +32,10 @@ class MainPlanViewController: UIViewController {
         
         setupUI()
         setupTableView()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         requestPlaceData()
     }
     

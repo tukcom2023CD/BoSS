@@ -54,6 +54,9 @@ class WritingPageViewController: UIViewController {
         tableLabel.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        
+        uploadImageCard()
     }
     
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
@@ -75,7 +78,7 @@ class WritingPageViewController: UIViewController {
         super.viewWillAppear(animated)
         // 전화면에서 전달받은 데이터들을 통해 셋팅
 //        imageCard.image = imageCardData
-        uploadImageCard()
+        
         
         //contents.text = contentsData
         //costLabel.text = totalPrice
