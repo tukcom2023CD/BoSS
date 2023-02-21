@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=xcode
 
 AI/.venv
+s3_access_key.py
 
 ### Secret Key ###
 iOS/iOS/SecretKey.plist
