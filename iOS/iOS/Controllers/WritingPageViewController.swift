@@ -30,14 +30,15 @@ class WritingPageViewController: UIViewController {
             imageView.image = UIImage(systemName: "chevron.down")
         }
     }
-    var imageCardData : UIImage! = UIImage(named: "여행사진 1")
+    var imageCardData : UIImage! = UIImage(named: "여행사진 1") // X
     var contentsData: String?
     var onTapped :Bool = true
     var selectedIndexPathSection:Int = -1
-    var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")]
-    var totalPrice : String = "0"
+    var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")] // X
+    var totalPrice : String = "0"  // X
     var subTotalData: [Int]?
     
+    // 새로 추가한 변수
     var place: Place! // MainPlan에서 넘어온 Place 데이터 (diary, total_spending)
     var spendings: [Spending] = [] // 상세 지출내역 리스트
     
@@ -101,11 +102,10 @@ class WritingPageViewController: UIViewController {
                 guard let data = try? Data(contentsOf: url) else { return }
                 
                 DispatchQueue.main.async {
+                    // 이후에 이미지 슬라이드를 통해 여러 사진 적용할 수 있도록 수정
                     self.imageCard.image = UIImage(data: data)
                 }
-                
             }
-            
         }
     }
     
@@ -163,11 +163,14 @@ class WritingPageViewController: UIViewController {
         
         guard let vc = self.storyboard?.instantiateViewController(identifier: "WritingEditPageViewController") as? WritingEditPageViewController else { return }
         
-        vc.getAllData = getPrice
-        vc.getImageCard = imageCard.image
-        vc.getContents = contents.text
-        vc.getTotalData = totalPrice
+        vc.getAllData = getPrice // 상세 지출
+        vc.getImageCard = imageCard.image // 여행지 사진
+        vc.getContents = contents.text // 일지
+        vc.getTotalData = totalPrice // 총 지출
         vc.getSubTotalData = subTotalData
+        
+        vc.place = place // Place 데이터 전달 (diary, total_spending)
+        vc.spendings = spendings // spendings(상세 지출) 데이터 전달
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -192,7 +195,8 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
 //        cell.amountLabel.text = getPrice[indexPath.row].amountData
 //        cell.priceLabel.text = getPrice[indexPath.row].priceData
         
-        let spending = spendings[indexPath.row]
+        
+        let spending = spendings[indexPath.row] // 상세 지출 내역
         
         cell.itemLabel.text = spending.name
         cell.amountLabel.text = "\(spending.quantity ?? 1)"

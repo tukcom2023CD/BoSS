@@ -227,6 +227,10 @@ class CreateSpending(Resource):
     def post(self):
         spendings = (request.json.get('spendings'))
 
+        sql = f"delete from spending where pid={spendings[0]['pid']}"
+        conn = connect.ConnectDB(sql)
+        conn.execute()
+
         for spending in spendings:
             name = (spending['name'])
             quantity = (spending['quantity'])

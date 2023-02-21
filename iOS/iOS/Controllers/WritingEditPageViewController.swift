@@ -84,6 +84,11 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     var allData : [AllData]!
     let camera = UIImagePickerController() // 카메라 변수
     
+
+    // 새로 추가한 변수
+    var place: Place!
+    var spendings: [Spending]!
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -259,21 +264,25 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
-        
-        
-        
-        guard let vcStack =
-                self.navigationController?.viewControllers else { return }
-        for vc in vcStack {
-            if let view = vc as? WritingPageViewController {
-                view.imageCardData = imageCard.image
-                view.contentsData = contents.text
-                view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
-                view.totalPrice = totalPriceLabel.text ?? ""
-                view.subTotalData = subTotalData
-                self.navigationController?.popToViewController(view, animated: true)
+        PhotoNetManager.shared.create(uid: place.uid!, sid: place.sid!, pid: place.pid!, image: imageCard.image!) {
+            DispatchQueue.main.async {
+                guard let vcStack =
+                        self.navigationController?.viewControllers else { return }
+                for vc in vcStack {
+                    if let view = vc as? WritingPageViewController {
+                        view.imageCardData = self.imageCard.image
+                        view.contentsData = self.contents.text
+                        view.getPrice = self.allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
+                        view.totalPrice = self.totalPriceLabel.text ?? ""
+                        view.subTotalData = self.subTotalData
+                        self.navigationController?.popToViewController(view, animated: true)
+                    }
+                }
             }
         }
+        
+        
+        
     }
 }
 
