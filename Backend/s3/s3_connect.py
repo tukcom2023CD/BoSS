@@ -1,5 +1,5 @@
 import boto3
-import s3_access_key as ak
+from . import s3_access_key as ak
 
 # s3 연동
 def s3_connection():
