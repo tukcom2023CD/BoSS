@@ -14,7 +14,7 @@ class ResultTableController : UITableViewController {
     // 현재 스콥 배열
     var currentScope : [String]!
     // 전체 카테고리 저장 배열
-    let categoryArray: [String] = ["인간", "동물", "자연", "건축물"]
+    var categoryArray: [String] = []
     // 검색된 카테고리 저장 배열
     var searchedCategoryArray: [String] = []
     // 유저가 선택한 카테고리 배열
@@ -30,6 +30,22 @@ class ResultTableController : UITableViewController {
         super.viewDidLoad()
         scopeState = "total" // 초기 스콥 전체로 설정
         currentScope = categoryArray // 초기 스콥 배열은 전체 카테고리 배열로 설정
+        requestCaegoryTypeData() // 모든 카테고리 불러옴
+    }
+    
+    // 카테고리 종류 불러오는 함수
+    func requestCaegoryTypeData() {
+        CategoryNetManager.shared.read() { categoryTypes in
+            print(categoryTypes)
+            for categoryType in categoryTypes {
+                self.categoryArray.append(categoryType.category_name!)
+            }
+            
+            DispatchQueue.main.async {
+                self.currentScope = self.categoryArray
+                self.tableView.reloadData()
+            }
+        }
     }
     
     // 셀 수

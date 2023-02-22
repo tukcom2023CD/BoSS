@@ -22,7 +22,7 @@ class MyPageViewController: UIViewController {
     // 사용자 일정 수
     var userSchedule : Int = 0
     // 사용자 지출 금액
-    var userSpending : Int = 0
+    var totalSpending : Int = 0
     
     // 테이블 정보
     let titleArray = ["여행일정", "지출내역"]
@@ -41,8 +41,8 @@ class MyPageViewController: UIViewController {
         
         // 일정 데이터 불러오기
         requestScheduleData()
-        // 지출내역 수 불러오기
-        //requestSpendingData()
+        // 총지출  불러오기
+        requestSpendingData()
     }
     
     func serUI() {
@@ -58,7 +58,7 @@ class MyPageViewController: UIViewController {
         // 유저 여행 일정수 표시
         userScheduleLabel.text = String(userSchedule)
         // 유저 지출금액 표시
-        userSpendingLabel.text = numberFormatter(number: userSpending)
+        userSpendingLabel.text = numberFormatter(number: totalSpending)
     }
     
     // 금액 콤마 표기 함수
@@ -102,7 +102,7 @@ class MyPageViewController: UIViewController {
         }
     }
 
-    // 지출내역 수 불러오기
+    // 총 지출 내역 불러오기
     /// - parameter pid : 여행 장소 ID
     func requestSpendingData() {
         let user = UserDefaults.standard.getLoginUser()!
@@ -110,13 +110,13 @@ class MyPageViewController: UIViewController {
         // 유저의 모든 여행장소 정보 가져와 pid값 저장
         PlaceNetManager.shared.read(uid: user.uid!) { places in
             for place in places {
-                
                 SpendingNetManager.shared.read(pid: place.pid!) { spendings in
                     // 지출 내역 수
-                    self.userSpending += spendings.count
-                
+                    for spending in spendings {
+                        self.totalSpending += Int(spending.price!)
+                    }
                     DispatchQueue.main.async {
-                        self.userSpendingLabel.text = String(self.userSpending)
+                        self.userSpendingLabel.text = self.numberFormatter(number: self.totalSpending)
                     }
                 }
             }
