@@ -39,10 +39,10 @@ class MyPageScheduleViewController: UIViewController {
             
             // 일정 상태 구분
             self.discriminationScheduleData(schedules: self.dbSchedules)
-        }
-        
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
         }
     }
     

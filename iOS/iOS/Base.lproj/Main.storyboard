@@ -774,8 +774,6 @@
                         <outlet property="userSpendingView" destination="eq7-Ws-DQ0" id="QLQ-oT-Dfp"/>
                         <outlet property="userTableView" destination="sfa-9F-TZM" id="Op1-Dq-q2e"/>
                         <outlet property="view" destination="Ngi-ww-CbZ" id="tzi-wL-IDk"/>
-                        <segue destination="jdH-bn-Fsc" kind="presentation" identifier="ShowSchedule" id="zZL-sj-Fcm"/>
-                        <segue destination="0o4-13-1i2" kind="presentation" identifier="ShowSpending" id="dhd-un-kNd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Me-CT-FJe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -968,13 +966,13 @@
         <!--My Page Schedule View Controller-->
         <scene sceneID="hvX-YG-SXK">
             <objects>
-                <viewController id="jdH-bn-Fsc" customClass="MyPageScheduleViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="scheduleVC" id="jdH-bn-Fsc" customClass="MyPageScheduleViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UpP-mV-fkW">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HtD-oA-q1T">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Tfl-RK-7sG">
                                     <size key="itemSize" width="350" height="220"/>
@@ -1096,13 +1094,13 @@
         <!--My Page Spending View Controller-->
         <scene sceneID="MJJ-t6-3ej">
             <objects>
-                <viewController id="0o4-13-1i2" customClass="MyPageSpendingViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="spendingVC" id="0o4-13-1i2" customClass="MyPageSpendingViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PD1-TA-I1s">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="dLq-VZ-EQs">
-                                <rect key="frame" x="0.0" y="59" width="393" height="724"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="6vT-z5-GT4">
                                     <size key="itemSize" width="350" height="100"/>
@@ -1136,7 +1134,7 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="장소" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXM-EV-T9f">
                                                             <rect key="frame" x="0.0" y="20.333333333333336" width="59" height="20.333333333333336"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1193,6 +1191,9 @@
                             <constraint firstItem="dLq-VZ-EQs" firstAttribute="top" secondItem="sMU-RG-JvR" secondAttribute="top" id="reJ-kk-VtO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="dLq-VZ-EQs" id="rRI-WC-m1v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aQo-Yl-hil" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
