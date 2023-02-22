@@ -2,21 +2,19 @@
 //  SpendingNetManager.swift
 //  iOS
 //
-//  Created by JunHee on 2023/02/22.
+//  Created by 이정동 on 2023/02/21.
 //
 
 import Foundation
 
 class SpendingNetManager {
-    
     static let shared = SpendingNetManager()
     private init() {}
     
-    func create(spendingData: SpendingData, completion: @escaping ()->()) {
-        
+    func create(spendings: SpendingData, completion: @escaping ()->()) {
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/spending/create") else { return }
         
-        guard let jsonData = try? JSONEncoder().encode(spendingData) else {
+        guard let jsonData = try? JSONEncoder().encode(spendings) else {
             print("Error: Trying to convert model to JSON data")
             return
         }
@@ -49,8 +47,7 @@ class SpendingNetManager {
         }.resume()
     }
     
-    func read(pid: Int, completion: @escaping ([Spending])->()){
-        
+    func read(pid: Int, completion: @escaping ([Spending])->()) {
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/spending/read/\(pid)") else { return }
         
         var request = URLRequest(url: url)

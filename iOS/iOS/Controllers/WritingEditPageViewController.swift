@@ -84,6 +84,11 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     var allData : [AllData]!
     let camera = UIImagePickerController() // 카메라 변수
     
+
+    // 새로 추가한 변수
+    var place: Place!
+    var spendings: [Spending]!
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -259,17 +264,47 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
+        place.diary = contents.text
+        // place.total_spending = ...
         
-        guard let vcStack =
-                self.navigationController?.viewControllers else { return }
-        for vc in vcStack {
-            if let view = vc as? WritingPageViewController {
-                view.imageCardData = imageCard.image
-                view.contentsData = contents.text
-                view.getPrice = allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
-                view.totalPrice = totalPriceLabel.text ?? ""
-                view.subTotalData = subTotalData
-                self.navigationController?.popToViewController(view, animated: true)
+        let image = imageCard.image
+        
+        DispatchQueue.global().async {
+            let dispatchGroup = DispatchGroup()
+            
+            dispatchGroup.enter()
+            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: image!) {
+                dispatchGroup.leave()
+            }
+            
+            dispatchGroup.enter()
+            PlaceNetManager.shared.update(place: self.place) {
+                dispatchGroup.leave()
+            }
+            
+            // 상세 지출 내역 네트워킹 코드 추가
+            //            SpendingNetManager.shared.create(spendings: ) {
+            //
+            //            }
+            
+            dispatchGroup.notify(queue: .main) {
+                guard let vcStack =
+                        self.navigationController?.viewControllers else { return }
+                for vc in vcStack {
+                    if let view = vc as? WritingPageViewController {
+                        view.imageCardData = self.imageCard.image
+                        view.contentsData = self.contents.text
+                        view.getPrice = self.allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
+                        view.totalPrice = self.totalPriceLabel.text ?? ""
+                        view.subTotalData = self.subTotalData
+                        
+                        
+                        view.place = self.place
+                        view.imageCard.image = self.imageCard.image
+                        
+                        self.navigationController?.popToViewController(view, animated: true)
+                    }
+                }
             }
         }
     }

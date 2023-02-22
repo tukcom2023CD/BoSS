@@ -42,7 +42,7 @@ class MyPageViewController: UIViewController {
         // 일정 데이터 불러오기
         requestScheduleData()
         // 지출내역 수 불러오기
-        requestSpendingData()
+        //requestSpendingData()
     }
     
     func serUI() {
