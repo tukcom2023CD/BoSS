@@ -41,6 +41,8 @@ class MyPageViewController: UIViewController {
         
         // 일정 데이터 불러오기
         requestScheduleData()
+        // 지출내역 수 불러오기
+        requestSpendingData()
     }
     
     func serUI() {
@@ -99,6 +101,27 @@ class MyPageViewController: UIViewController {
             }
         }
     }
+
+    // 지출내역 수 불러오기
+    /// - parameter pid : 여행 장소 ID
+    func requestSpendingData() {
+        let user = UserDefaults.standard.getLoginUser()!
+        
+        // 유저의 모든 여행장소 정보 가져와 pid값 저장
+        PlaceNetManager.shared.read(uid: user.uid!) { places in
+            for place in places {
+                
+                SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                    // 지출 내역 수
+                    self.userSpending += spendings.count
+                
+                    DispatchQueue.main.async {
+                        self.userSpendingLabel.text = String(self.userSpending)
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
@@ -121,8 +144,20 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0: self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
-        case 1: self.performSegue(withIdentifier: "ShowSpending", sender: nil)
+        case 0:
+            guard let scheduleVC = self.storyboard?.instantiateViewController(identifier: "scheduleVC") as? MyPageScheduleViewController else {return}
+            scheduleVC.modalPresentationStyle = .automatic
+            scheduleVC.modalTransitionStyle = .coverVertical
+            
+            self.present(scheduleVC, animated: true)
+            // self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
+        case 1:
+            guard let spendingVC = self.storyboard?.instantiateViewController(identifier: "spendingVC") as? MyPageSpendingViewController else {return}
+            spendingVC.modalPresentationStyle = .automatic
+            spendingVC.modalTransitionStyle = .coverVertical
+            
+            self.present(spendingVC, animated: true)
+            // self.performSegue(withIdentifier: "ShowSpending", sender: nil)
         default:
             return
         }
