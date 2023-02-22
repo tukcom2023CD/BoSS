@@ -296,7 +296,6 @@
 		573941AA2980110500E69D8F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BFAB8F6B299B8C08007F16A5 /* Album */,
 				576B64BC29994C80002609FA /* MainPlan */,
 				570AAB6029911DE4006CB64C /* Place */,
 				57F9FFF0298E9FA30045E7D0 /* Map */,
@@ -800,6 +799,7 @@
 				37B7BE88298564F900786A1F /* SlideView.swift in Sources */,
 				570AAB6F299173E2006CB64C /* PlaceLocationMapTableViewCell.swift in Sources */,
 				37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */,
+				BF9E6C5829A5D11100B69FDB /* Spending.swift in Sources */,
 				570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */,
 				576B64C3299970FA002609FA /* MainPlanTableViewCell.swift in Sources */,
 				576B64C82999737F002609FA /* MainPlanFooterView.swift in Sources */,
@@ -833,6 +833,7 @@
 				57C399D42982385300F63900 /* Place.swift in Sources */,
 				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
 				3764F663297B97FC00014FFE /* FirstTableViewCell.swift in Sources */,
+				BF9E6C5629A5D0E600B69FDB /* SpendingNetManager.swift in Sources */,
 				570AAB79299180CC006CB64C /* PlacePhotoCollectionViewCell.swift in Sources */,
 				57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */,
 				370DCB0629A0DD4C007B4FDD /* GetpriceTableViewCell.swift in Sources */,

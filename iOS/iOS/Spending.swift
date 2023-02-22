@@ -7,13 +7,14 @@
 
 import Foundation
 
-
 struct SpendingData: Codable {
     var spendings: [Spending]
 }
 
 struct Spending: Codable {
-    var name: String
+    var spid: Int?
+    var name: String?
     var quantity: Int?
-    var price: Int
+    var price: Int?
+    var pid: Int?
 }

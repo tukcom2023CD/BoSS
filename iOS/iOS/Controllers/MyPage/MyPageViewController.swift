@@ -20,9 +20,9 @@ class MyPageViewController: UIViewController {
     @IBOutlet weak var userTableView: UITableView!
     
     // 사용자 일정 수
-    var userSchedule : Int = 4
+    var userSchedule : Int = 0
     // 사용자 지출 금액
-    var userSpending : Int = 1285000
+    var userSpending : Int = 0
     
     // 테이블 정보
     let titleArray = ["여행일정", "지출내역"]
@@ -38,6 +38,11 @@ class MyPageViewController: UIViewController {
         setShadow(view: userDataView)
         setShadow(view: userScheduleView)
         setShadow(view: userSpendingView)
+        
+        // 일정 데이터 불러오기
+        requestScheduleData()
+        // 지출내역 수 불러오기
+        //requestSpendingData()
     }
     
     func serUI() {
@@ -50,12 +55,10 @@ class MyPageViewController: UIViewController {
         userScheduleView.layer.cornerRadius = 25
         // 유저 지출금액 표시 뷰 설정
         userSpendingView.layer.cornerRadius = 25
-        // 유저 지출금액 표시
+        // 유저 여행 일정수 표시
         userScheduleLabel.text = String(userSchedule)
         // 유저 지출금액 표시
         userSpendingLabel.text = numberFormatter(number: userSpending)
-//        //테이블 뷰 설정
-//        userTableView.layer.cornerRadius = 40
     }
     
     // 금액 콤마 표기 함수
@@ -84,6 +87,41 @@ class MyPageViewController: UIViewController {
         view.layer.shadowRadius = 5 // 그림자 반경
         view.layer.shadowOpacity = 0.3 // alpha 값
     }
+    
+    // 여행 일정 수 불러오기
+    /// - parameter uid : 로그인 유저 ID
+    func requestScheduleData() {
+        let user = UserDefaults.standard.getLoginUser()!
+        
+        ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            // 여행 일정 수 변경
+            self.userSchedule = schedules.count
+            DispatchQueue.main.async {
+                self.userScheduleLabel.text = String(self.userSchedule)
+            }
+        }
+    }
+
+    // 지출내역 수 불러오기
+    /// - parameter pid : 여행 장소 ID
+    func requestSpendingData() {
+        let user = UserDefaults.standard.getLoginUser()!
+        
+        // 유저의 모든 여행장소 정보 가져와 pid값 저장
+        PlaceNetManager.shared.read(uid: user.uid!) { places in
+            for place in places {
+                
+                SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                    // 지출 내역 수
+                    self.userSpending += spendings.count
+                
+                    DispatchQueue.main.async {
+                        self.userSpendingLabel.text = String(self.userSpending)
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
@@ -95,19 +133,31 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableCell", for: indexPath) as? CustomTableCell else {
-             return UITableViewCell()
-         }
-         cell.labelTitle.text = titleArray[indexPath.row]
-         cell.labelContent.text = contentArray[indexPath.row]
-         cell.selectionStyle = .none
+            return UITableViewCell()
+        }
+        cell.labelTitle.text = titleArray[indexPath.row]
+        cell.labelContent.text = contentArray[indexPath.row]
+        cell.selectionStyle = .none
         
-         return cell
+        return cell
     }
-        
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
-        case 0: self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
-        case 1: self.performSegue(withIdentifier: "ShowSpending", sender: nil)
+        case 0:
+            guard let scheduleVC = self.storyboard?.instantiateViewController(identifier: "scheduleVC") as? MyPageScheduleViewController else {return}
+            scheduleVC.modalPresentationStyle = .automatic
+            scheduleVC.modalTransitionStyle = .coverVertical
+            
+            self.present(scheduleVC, animated: true)
+            // self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
+        case 1:
+            guard let spendingVC = self.storyboard?.instantiateViewController(identifier: "spendingVC") as? MyPageSpendingViewController else {return}
+            spendingVC.modalPresentationStyle = .automatic
+            spendingVC.modalTransitionStyle = .coverVertical
+            
+            self.present(spendingVC, animated: true)
+            // self.performSegue(withIdentifier: "ShowSpending", sender: nil)
         default:
             return
         }
@@ -115,7 +165,7 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
 }
 
 class CustomTableCell: UITableViewCell {
-     @IBOutlet weak var labelTitle: UILabel!
-     @IBOutlet weak var labelContent: UILabel!
+    @IBOutlet weak var labelTitle: UILabel!
+    @IBOutlet weak var labelContent: UILabel!
 }
 
