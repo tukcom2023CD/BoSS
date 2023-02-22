@@ -102,7 +102,6 @@ class PlaceNetManager {
     func read(sid: Int, completion: @escaping ([Place])->()) {
         
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/place/read/\(sid)") else { return }
-        print(url)
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

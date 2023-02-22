@@ -49,7 +49,7 @@ class PlaceDetailViewController: UIViewController {
                         self.navigationController?.viewControllers else { return }
                 for vc in vcStack {
                     if let view = vc as? MainPlanViewController {
-                        view.requestPlaceData()
+                        //view.requestPlaceData()
                         self.navigationController?.popToViewController(view, animated: true)
                     }
                 }
