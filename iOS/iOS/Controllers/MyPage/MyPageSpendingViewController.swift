@@ -67,7 +67,7 @@ class MyPageSpendingViewController: UIViewController {
                     self.spendingCount += spendings.count
 
                     // 지출내역 배열 저장
-                    for x in 0...spendings.count - 1 {
+                    for x in 0..<spendings.count {
                         self.spendingArray.append(spendings[x])
                         self.PlaceArray.append(place.name!)
                     }
