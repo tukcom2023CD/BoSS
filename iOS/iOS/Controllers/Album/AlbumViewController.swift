@@ -111,6 +111,12 @@ class AlbumViewController: UIViewController {
     func requestPhotoDataWithCategory() {
         let user = UserDefaults.standard.getLoginUser()!
         
+        if resultTC.userCheckedCategory == [] {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        
         for selectedCategory in resultTC.userCheckedCategory {
             // 유저의 모든 여행장소 정보 가져와 pid값 저장
             PhotoNetManager.shared.read(uid: user.uid!, category: selectedCategory) { photos in
