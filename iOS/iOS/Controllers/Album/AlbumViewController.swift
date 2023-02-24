@@ -94,8 +94,7 @@ class AlbumViewController: UIViewController {
     // 모든 사진 데이터 불러오는 함수
     func requestAllPhotoData() {
         let user = UserDefaults.standard.getLoginUser()!
-        
-        // 유저의 모든 여행장소 정보 가져와 pid값 저장
+    
         PhotoNetManager.shared.read(uid: user.uid!) { photos in
             self.totalImageCount = photos.count
             for photo in photos {
