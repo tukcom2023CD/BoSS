@@ -98,7 +98,7 @@ class PhotoNetManager {
             if let safeData = data {
                 do {
                     let decodedData = try JSONDecoder().decode(PhotoData.self, from: safeData)
-                    dump(decodedData)
+                    // dump(decodedData)
                     completion(decodedData.photos)
                 } catch {
                     print("Decode Error")
@@ -132,7 +132,7 @@ class PhotoNetManager {
             if let safeData = data {
                 do {
                     let decodedData = try JSONDecoder().decode(PhotoWithCategoryData.self, from: safeData)
-                    dump(decodedData)
+                    // dump(decodedData)
                     completion(decodedData.PhotoWithCategories)
                 } catch {
                     print("Decode Error")

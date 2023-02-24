@@ -102,6 +102,7 @@ class AlbumViewController: UIViewController {
             }
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                self.navigationItem.title = "사진 \(self.totalImageCount) 장"
             }
         }
     }
@@ -110,14 +111,15 @@ class AlbumViewController: UIViewController {
     func requestPhotoDataWithCategory() {
         let user = UserDefaults.standard.getLoginUser()!
         
+        // 어떠한 카테고리도 선택되어 있지 않은 경우
         if resultTC.userCheckedCategory == [] {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
         }
         
+        // 선택한 카테고리 별로 사진을 가져옴
         for selectedCategory in resultTC.userCheckedCategory {
-            // 유저의 모든 여행장소 정보 가져와 pid값 저장
             PhotoNetManager.shared.read(uid: user.uid!, category: selectedCategory) { photos in
                 for photo in photos {
                     if !(self.categoryImageUrlArray.contains(photo.imageUrl)) {
@@ -127,6 +129,7 @@ class AlbumViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
+                    self.navigationItem.title = "사진 \(self.categoryImageCount) 장"
                 }
             }
         }
@@ -151,16 +154,26 @@ extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UI
         if imageScope == "total" {
             // 이미지 설정
             cell.imageView.contentMode = .scaleToFill
-            let url = URL(string: totalImageUrlArray[indexPath.row])
-            let data = try! Data(contentsOf: url!)
-            cell.imageView.image = UIImage(data: data)
+            let url = URL(string: self.totalImageUrlArray[indexPath.row])
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url!) {
+                    DispatchQueue.main.async {
+                        cell.imageView.image = UIImage(data: data)
+                    }
+                }
+            }
             return cell
         } else {
             // 이미지 설정
             cell.imageView.contentMode = .scaleToFill
-            let url = URL(string: categoryImageUrlArray[indexPath.row])
-            let data = try! Data(contentsOf: url!)
-            cell.imageView.image = UIImage(data: data)
+            let url = URL(string: self.categoryImageUrlArray[indexPath.row])
+            DispatchQueue.global().async {
+                if let data = try? Data(contentsOf: url!) {
+                    DispatchQueue.main.async {
+                        cell.imageView.image = UIImage(data: data)
+                    }
+                }
+            }
             return cell
         }
     }
