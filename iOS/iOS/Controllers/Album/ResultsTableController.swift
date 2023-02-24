@@ -42,7 +42,8 @@ class ResultTableController : UITableViewController {
             }
             
             DispatchQueue.main.async {
-                self.currentScope = self.categoryArray
+                self.currentScope = self.categoryArray // 받아온 카테고리를 현재 스콥 카테고리 배열로
+                self.userCheckedCategory = self.categoryArray // 모든 카테고리를 선택됨으로
                 self.tableView.reloadData()
             }
         }
