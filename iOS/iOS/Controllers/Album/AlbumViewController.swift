@@ -115,6 +115,7 @@ class AlbumViewController: UIViewController {
         if resultTC.userCheckedCategory == [] {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+                self.navigationItem.title = "사진 \(self.categoryImageCount) 장"
             }
         }
         
@@ -151,26 +152,59 @@ extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UI
                 AlbumCollectionViewCell else {
             return UICollectionViewCell()
         }
-        if imageScope == "total" {
-            // 이미지 설정
-            cell.imageView.contentMode = .scaleToFill
+        
+        cell.imageView.contentMode = .scaleToFill // 이미지 설정
+        
+        // 이미지 설정
+        if imageScope == "total" { // scope이 total 일때
+                        
+            // URL배열에서 URL 하나씩 가져옴
             let url = URL(string: self.totalImageUrlArray[indexPath.row])
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url!) {
-                    DispatchQueue.main.async {
-                        cell.imageView.image = UIImage(data: data)
+            
+            // 받아온 url을 통해 키 생성
+            let cacheKey = NSString(string: self.totalImageUrlArray[indexPath.row])
+            
+            // 만약 캐시데이터가 있다면 해당 데이터로 이미지 설정
+            if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                DispatchQueue.main.async {
+                    cell.imageView.image = cachedImage
+                }
+            } else { // 만약 캐시데이터가 없다면
+                DispatchQueue.global().async { // 멀티쓰레드 사용
+                    // url 통해서 이미지 데이터 다운로드
+                    if let data = try? Data(contentsOf: url!) {
+                        // 키, 밸류 값으로 캐시값 저장
+                        AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
+                        // 이미지 설정
+                        DispatchQueue.main.async {
+                            cell.imageView.image = UIImage(data: data)
+                        }
                     }
                 }
             }
             return cell
         } else {
-            // 이미지 설정
-            cell.imageView.contentMode = .scaleToFill
+            // URL배열에서 URL 하나씩 가져옴
             let url = URL(string: self.categoryImageUrlArray[indexPath.row])
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: url!) {
-                    DispatchQueue.main.async {
-                        cell.imageView.image = UIImage(data: data)
+            
+            // 받아온 url을 통해 키 생성
+            let cacheKey = NSString(string: self.categoryImageUrlArray[indexPath.row])
+            
+            // 만약 캐시데이터가 있다면 해당 데이터로 이미지 설정
+            if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                DispatchQueue.main.async {
+                    cell.imageView.image = cachedImage
+                }
+            } else { // 만약 캐시데이터가 없다면
+                DispatchQueue.global().async { // 멀티쓰레드 사용
+                    // url 통해서 이미지 데이터 다운로드
+                    if let data = try? Data(contentsOf: url!) {
+                        // 키, 밸류 값으로 캐시값 저장
+                        AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
+                        // 이미지 설정
+                        DispatchQueue.main.async {
+                            cell.imageView.image = UIImage(data: data)
+                        }
                     }
                 }
             }
