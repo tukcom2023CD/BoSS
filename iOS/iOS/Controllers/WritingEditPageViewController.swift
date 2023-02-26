@@ -45,7 +45,7 @@ import PhotosUI
 var dataArray = [AllData]()
 
 // MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) 받고 5contents 정보 생김 => 1-5 정보 WritingPageviewController로 넘김
-class WritingEditPageViewController: UIViewController, TotalProtocol{
+class WritingEditPageViewController: UIViewController, SendProtocol{
     
     func sendData(totalPriceData: String, receiptData: [AllData], subTotalData: [Int]) {
         getTotalData = "\(totalPriceData)" //2에서의 데이터는 1로가던 3으로 가던 같은 정보를 전달하므로 get을 붙인 변수를 같이 사용함
@@ -53,9 +53,15 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         getSubTotalData = subTotalData
         
         
+//        totalPriceLabel.text = "\(totalPriceData)"
+//        allData = receiptData
+//        self.subTotalData = subTotalData
+    }
+    func sendData(totalPriceData: String, receiptData: [Spending], subTotalData: [Int]) {
         totalPriceLabel.text = "\(totalPriceData)"
-        allData = receiptData
+        spendings = receiptData
         self.subTotalData = subTotalData
+        
     }
     
     //MARK: - Properties
@@ -116,6 +122,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         if getTotalData != "0" {
             totalPriceLabel.text = getTotalData
         }
+        
     }
     
     
@@ -224,17 +231,21 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
-        if ((getAllData?[0].priceData) !=  "" ) {
-            vc.stringArr = getAllData!
-        }
-        if (getTotalData != "0") {
-            vc.getTotalData = totalPriceLabel.text//self.getTotalData
-        }
         
-        if (getSubTotalData != nil){
-            vc.getSubTotalData = self.getSubTotalData
+        if (spendings != nil){
+            vc.spendings = self.spendings!
         }
-        
+//        if ((getAllData?[0].priceData) !=  "" ) {
+//            vc.stringArr = getAllData!
+//        }
+//        if (getTotalData != "0") {
+//            vc.getTotalData = totalPriceLabel.text//self.getTotalData
+//        }
+//
+//        if (getSubTotalData != nil){
+//            vc.getSubTotalData = self.getSubTotalData
+//        }
+//
         vc.delegate = self
         present(vc, animated:true, completion: nil)
         

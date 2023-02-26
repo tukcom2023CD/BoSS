@@ -18,3 +18,6 @@ struct Spending: Codable {
     var price: Int?
     var pid: Int?
 }
+
+
+
