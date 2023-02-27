@@ -44,23 +44,26 @@ import PhotosUI
 
 var dataArray = [AllData]()
 
+
 // MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) 받고 5contents 정보 생김 => 1-5 정보 WritingPageviewController로 넘김
 class WritingEditPageViewController: UIViewController, SendProtocol{
     
-    func sendData(totalPriceData: String, receiptData: [AllData], subTotalData: [Int]) {
-        getTotalData = "\(totalPriceData)" //2에서의 데이터는 1로가던 3으로 가던 같은 정보를 전달하므로 get을 붙인 변수를 같이 사용함
-        getAllData = receiptData
-        getSubTotalData = subTotalData
-        
-        
+//    func sendData(totalPriceData: String, receiptData: [AllData], subTotalData: [Int]) {
+//        getTotalData = "\(totalPriceData)" //2에서의 데이터는 1로가던 3으로 가던 같은 정보를 전달하므로 get을 붙인 변수를 같이 사용함
+//        getAllData = receiptData
+//        getSubTotalData = subTotalData
+//
+//
 //        totalPriceLabel.text = "\(totalPriceData)"
 //        allData = receiptData
 //        self.subTotalData = subTotalData
-    }
+//    }
     func sendData(totalPriceData: String, receiptData: [Spending], subTotalData: [Int]) {
         totalPriceLabel.text = "\(totalPriceData)"
         spendings = receiptData
         self.subTotalData = subTotalData
+        
+      
         
     }
     
@@ -82,6 +85,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
     
+    // 새로 추가한 변수
+    var place: Place!
+    var spendings: [Spending]!
+   // var edit_to_Recipt:Bool = false //보낼 데이터가 있으면 true. 보낼 데이터가 없을때 0이나 nil을 보냄방지용
     var imagePickerStatus = false // 이미지 피커 상태 (false: 여행 사진 선택, true: 영수증 OCR)
     var price : [String] = []  //WritingPage로 넘길 데이터
     
@@ -91,9 +98,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     let camera = UIImagePickerController() // 카메라 변수
     
 
-    // 새로 추가한 변수
-    var place: Place!
-    var spendings: [Spending]!
+ 
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -232,7 +237,9 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
         
+        //[name,quantity, price] 보내기
         if (spendings != nil){
+            
             vc.spendings = self.spendings!
         }
 //        if ((getAllData?[0].priceData) !=  "" ) {
