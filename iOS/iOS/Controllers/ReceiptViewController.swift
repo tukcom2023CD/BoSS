@@ -14,13 +14,13 @@ import UIKit
 //    func sendData(totalPriceData: String, receiptData: [AllData],subTotalData:[Int])
 //}
 protocol SendProtocol: AnyObject {
-    func sendData(totalPriceData: String, receiptData: [Spending], subTotalData:[Int])
+    func sendData(totalPriceData: String, receiptData: [Spending])
 }
 
 class ReceiptViewController: UIViewController {
     
     //MARK: - Properties
-    //var delegate: TotalProtocol?
+
     var delegate: SendProtocol?
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var textInput1: UITextField!
@@ -30,27 +30,21 @@ class ReceiptViewController: UIViewController {
     var totalPrice : Int! = 0
     var newTotalPrice : Int! = 0
     @IBOutlet weak var tableView: UITableView!
-    var stackLabel : String!
-    var stringArr: [AllData] = []
-    var subPriceData: [Int] = [] //삭제시 사용할 그 행의 총 가격 subTotalData로  데이터로 넘김
-    
-    
-    var getTotalData: String! = "0"
-    var getTotalInt: Int! = 0
-    var getSubTotalData : [Int]?
-    
+    //var stackLabel : String!
+
+    var subPriceData: [Int] = [] //삭제시 사용할 그 행의 총 가격
+//    
     
     
     var spendings: [Spending]=[]
     
     
     
-    //var allData: [AllData]
+ 
     override func viewWillAppear(_ animated: Bool) {
         totalPrice = 0
         subPriceData = []
-       // totalPrice = Int(getTotalData)
-        //for문으로 totalPrice 구하고 프로토콜에서 변수 제거
+
         if (spendings.count != 0){
             for i in 0...spendings.count-1{
                 totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
@@ -59,9 +53,7 @@ class ReceiptViewController: UIViewController {
             subPriceData.reverse()
             totalPriceLabel.text = String(totalPrice)
         
-        }//(txtString.quantity ?? 1) * txtString.price!
-        //subTotalPrice구하기
-        
+        }
       
     }
     //MARK: - viewDidLoad()
@@ -73,12 +65,7 @@ class ReceiptViewController: UIViewController {
         
         textInput2.delegate = self
         textInput3.delegate = self
-//        if getSubTotalData != nil {
-//            //stringArr1 = getSubTotalData!
-//            subPriceData.append(contentsOf: getSubTotalData!)
-//        }
-//        totalPriceLabel.text = getTotalData
-//        totalPrice = Int(totalPriceLabel.text ?? "0")
+
         
        
         DispatchQueue.main.async {
@@ -87,7 +74,7 @@ class ReceiptViewController: UIViewController {
     }
     //MARK: - viewWillDisappear   화면 사라질때 데이터 넘기기
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.sendData(totalPriceData: "\(totalPrice ?? 0)", receiptData: spendings, subTotalData: subPriceData)
+        delegate?.sendData(totalPriceData: "\(totalPrice ?? 0)", receiptData: spendings)
     }
     
     
@@ -97,29 +84,24 @@ class ReceiptViewController: UIViewController {
             if textInput1.text != "" && textInput3.text != ""{
                 
                 let txtString: Spending = Spending(spid: 0, name: txt1, quantity: Int(txt2), price: Int(txt3), pid: 0)
-//                let input1:Int = Int(textInput2.text ?? "1") ?? 1
-//                let input2:Int! = Int(textInput3.text!)
+
                 //새로 생긴 행의 새 수량*가격
-                newTotalPrice = (txtString.quantity ?? 1) * txtString.price!//txtString.quantity! * txtString.price!
-                //input1 * input2
+                newTotalPrice = (txtString.quantity ?? 1) * txtString.price!
+              
                 totalPrice += newTotalPrice
                 totalPriceLabel.text = "\(totalPrice!)"
             
-            /*
-                            self.stringArr.insert(txtString, at: 0)
-                             self.subPriceData.insert(newTotalPrice, at: 0)
-             */
-                //insert
+          
                 
                 self.spendings.insert(txtString, at: 0)
-                //print(spendings[0].name)
+            
                 self.subPriceData.insert(newTotalPrice, at: 0)
                 tableView.beginUpdates()
                 tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
                 
-                for i in 0...subPriceData.count-1{
-                    print("\(i)행 가격:\(subPriceData[i])")
-                }
+//                for i in 0...subPriceData.count-1{
+//                    print("\(i)행 가격:\(subPriceData[i])")
+//                }
               
                 textInput1.text = nil
                 textInput2.text = nil
@@ -128,30 +110,7 @@ class ReceiptViewController: UIViewController {
             }
         }
         
-        //        if let txt1 = textInput1.text , let txt2 = textInput2.text , let txt3 = textInput3.text{
-        //            if textInput1.text != "" && textInput3.text != ""{
-        //
-        //
-        //                let txtString : AllData = AllData(itemData: "\(txt1)", amountData: "\(txt2)", priceData: "\(txt3)")
-        //
-        //                let input1:Int = Int(textInput2.text ?? "1") ?? 1
-        //                let input2:Int! = Int(textInput3.text!)
-        //                //새로 생긴 행의 새 수량*가격
-        //                newTotalPrice = input1 * input2
-        //                totalPrice += newTotalPrice
-        //
-        //                totalPriceLabel.text = "\(totalPrice!)"
-        //
-        //                self.stringArr.insert(txtString, at: 0)
-        //                self.subPriceData.insert(newTotalPrice, at: 0)
-        //                tableView.beginUpdates()
-        //                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
-        //                textInput1.text = nil
-        //                textInput2.text = nil
-        //                textInput3.text = nil
-        //                tableView.endUpdates()
-        //            }
-        //        }
+     
     }
     
     //MARK: - deleteButtonTapped
@@ -161,9 +120,9 @@ class ReceiptViewController: UIViewController {
         guard let indexpath = tableView.indexPathForRow(at: point) else {return}
         
         totalPrice -= subPriceData[indexpath.row]
-        for i in 0...subPriceData.count-1{
-            print("\(i)행 가격:\(subPriceData[i])")
-        }
+//        for i in 0...subPriceData.count-1{
+//            print("\(i)행 가격:\(subPriceData[i])")
+//        }
         
         
         spendings.remove(at: indexpath.row)
@@ -172,18 +131,7 @@ class ReceiptViewController: UIViewController {
         tableView.beginUpdates()
         tableView.deleteRows(at: [IndexPath(row: indexpath.row, section: 0)], with: .left)
         tableView.endUpdates()
-        //        let point = sender.convert(CGPoint.zero, to: tableView)
-        //        guard let indexpath = tableView.indexPathForRow(at: point) else {return}
-        //        totalPrice -= subPriceData[indexpath.row]
-        //        stringArr.remove(at: indexpath.row)
-        //        subPriceData.remove(at: indexpath.row)
-        //        totalPriceLabel.text = "\(totalPrice!) "
-        //
-        //
-        //        tableView.beginUpdates()
-        //        tableView.deleteRows(at: [IndexPath(row: indexpath.row, section: 0)], with: .left)
-        //        tableView.endUpdates()
-        //    }
+       
         
     }
     

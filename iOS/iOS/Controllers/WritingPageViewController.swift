@@ -6,8 +6,6 @@
 //
 
 import UIKit
-// MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격)  5contents 정보 받음 => 1-5 정보다시 EditPageviewController로 넘김
-//물어볼꺼1 viewController에서 Model 이렇게 접근해도 괜찮은지? 나중에 데이터 저장하는거 만들면 이거 없애는건지?
 
 
 class WritingPageViewController: UIViewController {
@@ -33,15 +31,15 @@ class WritingPageViewController: UIViewController {
     var imageCardData : UIImage! = UIImage(named: "여행사진 1") // X
     var contentsData: String?
     var onTapped :Bool = true
-    var selectedIndexPathSection:Int = -1
-    var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")] // X
-    var totalPrice : String = "0"  // X
-    var subTotalData: [Int]?
+    //var selectedIndexPathSection:Int = -1
+    //var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")] // X
+   
+    //var subTotalData: [Int]?
     
     // 새로 추가한 변수
-    var place: Place! // MainPlan에서 넘어온 Place 데이터 (diary, total_spending)
-    var spendings: [Spending] = [] // 상세 지출내역 리스트
-    
+    var place: Place!
+    var spendings: [Spending] = []
+   
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +74,7 @@ class WritingPageViewController: UIViewController {
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        var totalPrice : Int = 0
         // 전화면에서 전달받은 데이터들을 통해 셋팅
 //        imageCard.image = imageCardData
         
@@ -83,9 +82,16 @@ class WritingPageViewController: UIViewController {
         //contents.text = contentsData
         //costLabel.text = totalPrice
         contents.text = place.diary
-        costLabel.text = "\(place.totalSpending!)"
-        
-        
+//        costLabel.text = "\(place.totalSpending!)"
+       
+        if (spendings.count != 0){
+            for i in 0...spendings.count-1{
+                totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
+            }
+           // costLabel.text = String(totalPrice)
+            place.totalSpending! += totalPrice
+            costLabel.text = "\(totalPrice)"
+        }
         contents.translatesAutoresizingMaskIntoConstraints = false
         tableView.reloadData()
         self.tableView.delegate = self
@@ -155,22 +161,16 @@ class WritingPageViewController: UIViewController {
     }
     
     
-    // MARK: backButtonTapped
+    // MARK: - backButtonTapped
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    // MARK: editButtonTapped(수정 페이지로 이동 + 데이터 전달
+    // MARK: - editButtonTapped(수정 페이지로 이동 + 데이터 전달
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         print(#function)
         
         guard let vc = self.storyboard?.instantiateViewController(identifier: "WritingEditPageViewController") as? WritingEditPageViewController else { return }
-        
-        vc.getAllData = getPrice // 상세 지출
-        vc.getImageCard = imageCard.image // 여행지 사진
-        vc.getContents = contents.text // 일지
-        vc.getTotalData = totalPrice // 총 지출
-        vc.getSubTotalData = subTotalData
         
         vc.place = place // Place 데이터 전달 (diary, total_spending)
         vc.spendings = spendings // spendings(상세 지출) 데이터 전달
@@ -183,7 +183,7 @@ class WritingPageViewController: UIViewController {
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //getPrice.count
+       
         spendings.count
     }
     
@@ -193,17 +193,13 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else { return UITableViewCell() }
-        
-//        cell.itemLabel.text = getPrice[indexPath.row].itemData
-//        cell.amountLabel.text = getPrice[indexPath.row].amountData
-//        cell.priceLabel.text = getPrice[indexPath.row].priceData
-        
+
         
         let spending = spendings[indexPath.row] // 상세 지출 내역
         
         cell.itemLabel.text = spending.name
         cell.amountLabel.text = "\(spending.quantity ?? 1)"
-        cell.priceLabel.text = "\(spending.price)"
+        cell.priceLabel.text = "\(spending.price ?? 0)"
         
         return cell
     }
