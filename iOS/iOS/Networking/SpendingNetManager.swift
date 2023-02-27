@@ -11,10 +11,12 @@ class SpendingNetManager {
     static let shared = SpendingNetManager()
     private init() {}
     
-    func create(spendings: SpendingData, completion: @escaping ()->()) {
+    func create(spendings: [Spending], completion: @escaping ()->()) {
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/spending/create") else { return }
         
-        guard let jsonData = try? JSONEncoder().encode(spendings) else {
+        let spendingData = SpendingData(spendings: spendings)
+        
+        guard let jsonData = try? JSONEncoder().encode(spendingData) else {
             print("Error: Trying to convert model to JSON data")
             return
         }

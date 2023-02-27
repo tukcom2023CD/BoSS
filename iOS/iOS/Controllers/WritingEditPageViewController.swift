@@ -6,68 +6,22 @@
 //
 
 
-
-
-/*
- 필요한 정보 = 화면이동후에도 지속적으로 나타나야하는 정보들
- wrtingPage : 1
- editPage:    2
- reciepVC:    3
- 
- 1-2: 1)image, 2)contents 3)영수증관련[총합  품명,수량,가격  각 행마다의 가격]
-        *각 행마다의 가격:여기선 안쓰지만 3에서 delete기능을 사용하기 위한 정보:1->2로가져와야 3에서 delete수행가능
-
- 2-3: 1)영수증관련 정보 [총합  품명,수량,가격  각 행마다의 가격]을 가져와서 add delete 계산
- 
-
-----------------------------
- 3->2   :IBAction사용을 안해서 프로토콜로 데이터 전송함: totalPriceData, receiptData, subTotalData
-        그외  @IBAction로 받음
- 2->3 이 밑으로는 @IBAction 시 vc로 데이터 전송
- 
- -------
- 
- 2->1
- 1->2
- 2->3
- -----------------------------
- 1->3으로 다시 데이터를 가져올때는 변수앞에 get붙여서 사용함 ex) getTotalData..
- 
- 
- 
- */
 import UIKit
 import PhotosUI
 
 
-
-
-var dataArray = [AllData]()
-
-// MARK: WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) 받고 5contents 정보 생김 => 1-5 정보 WritingPageviewController로 넘김
-class WritingEditPageViewController: UIViewController, TotalProtocol{
+class WritingEditPageViewController: UIViewController, SendProtocol{
     
-    func sendData(totalPriceData: String, receiptData: [AllData], subTotalData: [Int]) {
-        getTotalData = "\(totalPriceData)" //2에서의 데이터는 1로가던 3으로 가던 같은 정보를 전달하므로 get을 붙인 변수를 같이 사용함
-        getAllData = receiptData
-        getSubTotalData = subTotalData
+    func sendData(receiptData: [Spending]) {
+        spendings = receiptData
+        total_subPriceCal()
         
         
-        totalPriceLabel.text = "\(totalPriceData)"
-        allData = receiptData
-        self.subTotalData = subTotalData
     }
     
     //MARK: - Properties
-    var subTotalData: [Int]? //delete를 위한 각 행의 가격 데이터
-    //WritingPageVC에서 다시 받을 데이터
-    var getSubTotalData : [Int]?
+    var subTotalData: [Int] = [] //delete를 위한 각 행의 가격 데이터
     var getImageCard : UIImage?
-    var getContents : String?
-    var getAllData : [AllData]?
-    var getTotalData : String?
-    
-    
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -76,18 +30,25 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
     
+    // 새로 추가한 변수
+    var place: Place!
+    
+    var spendings: [Spending]!
+    
+    
     var imagePickerStatus = false // 이미지 피커 상태 (false: 여행 사진 선택, true: 영수증 OCR)
-    var price : [String] = []  //WritingPage로 넘길 데이터
     
     let textViewPlaceHolder = "텍스트를 입력하세요"
     //WritingPage로 넘길 데이터
-    var allData : [AllData]!
-    let camera = UIImagePickerController() // 카메라 변수
     
-
-    // 새로 추가한 변수
-    var place: Place!
-    var spendings: [Spending]!
+    let camera = UIImagePickerController() // 카메라 변수
+    var totalPrice : Int = 0
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        total_subPriceCal()
+        
+    }
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
@@ -103,21 +64,26 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         contents.isScrollEnabled = false
         receiptView.layer.cornerRadius = 5
         
-        print( totalPriceLabel.text ?? "" )
+        
         if getImageCard != nil {
             imageCard.image = getImageCard
         }
-        if getContents != nil {
-            contents.text = getContents
-        }
-        if getAllData![0].priceData != ""{
-            allData = getAllData
-        }
-        if getTotalData != "0" {
-            totalPriceLabel.text = getTotalData
+        
+        contents.text = place.diary
+        
+    }
+    // MARK: - total_subPriceCal : 총가격과 행마다의 가격계산함수
+    func total_subPriceCal(){
+        totalPrice = 0
+        subTotalData = []
+        if (spendings.count != 0){
+            for i in 0...spendings.count-1{
+                totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
+                subTotalData.insert((spendings[i].quantity ?? 1) * (spendings[i].price ?? 0), at: 0)
+            }
+            totalPriceLabel.text = String(totalPrice)
         }
     }
-    
     
     // MARK: - contentsSetting
     func contentsSetting(){
@@ -224,20 +190,14 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
-        if ((getAllData?[0].priceData) !=  "" ) {
-            vc.stringArr = getAllData!
-        }
-        if (getTotalData != "0") {
-            vc.getTotalData = totalPriceLabel.text//self.getTotalData
-        }
         
-        if (getSubTotalData != nil){
-            vc.getSubTotalData = self.getSubTotalData
+        
+        if (spendings != nil){
+            vc.spendings = self.spendings!
         }
         
         vc.delegate = self
         present(vc, animated:true, completion: nil)
-        
     }
     
     // MARK: - cameraButtonTapped
@@ -265,8 +225,6 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
         place.diary = contents.text
-        // place.total_spending = ...
-        
         let image = imageCard.image
         
         DispatchQueue.global().async {
@@ -283,9 +241,10 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
             }
             
             // 상세 지출 내역 네트워킹 코드 추가
-            //            SpendingNetManager.shared.create(spendings: ) {
-            //
-            //            }
+            dispatchGroup.enter()
+            SpendingNetManager.shared.create(spendings: self.spendings) {
+                dispatchGroup.leave()
+            }
             
             dispatchGroup.notify(queue: .main) {
                 guard let vcStack =
@@ -293,12 +252,7 @@ class WritingEditPageViewController: UIViewController, TotalProtocol{
                 for vc in vcStack {
                     if let view = vc as? WritingPageViewController {
                         view.imageCardData = self.imageCard.image
-                        view.contentsData = self.contents.text
-                        view.getPrice = self.allData ?? [AllData(itemData: "", amountData:"", priceData: "")]
-                        view.totalPrice = self.totalPriceLabel.text ?? ""
-                        view.subTotalData = self.subTotalData
-                        
-                        
+                        view.spendings = self.spendings
                         view.place = self.place
                         view.imageCard.image = self.imageCard.image
                         
@@ -331,14 +285,15 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                         if receiptData.subResults.isEmpty {     // 총 비용만 존재할 때
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
-                            //왜 있는지 물어보기
-                            self.allData
+                            
+                            self.spendings.insert(Spending(name: name, quantity: 1, price:Int(price), pid: self.place.pid!), at: 0)
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
                                 let count = item.count.formatted.value
                                 let price = item.price.price.formatted.value
-                                self.allData
+                                
+                                self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price), pid: self.place.pid!), at: 0)
                             }
                         }
                     }
@@ -370,13 +325,19 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
                 if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
                     let name = receiptData.storeInfo.name.formatted.value
                     let price = receiptData.totalPrice.price.formatted.value
-                    self.allData
+                    
+                    self.spendings.insert(Spending( price:Int(price)), at: 0)
+                    
+                    
+                    
                 } else {  // 상세 지출 내역이 존재할 때
                     for item in receiptData.subResults[0].items {
                         let name = item.name.formatted.value
                         let count = item.count.formatted.value
                         let price = item.price.price.formatted.value
-                        self.allData
+                        
+                        self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price)), at: 0)
+                        
                     }
                 }
                 alert.dismiss(animated: true)
