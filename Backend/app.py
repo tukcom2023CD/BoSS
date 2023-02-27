@@ -271,6 +271,17 @@ category
 
 # 사진에 대한 카테고리 생성 (C)
         
+# 카테고리 종류 가져오기 (R)
+@api.route('/api/categorytype/read')  
+class ReadCategortType(Resource):
+    def get(self):
+        sql = f"select DISTINCT category_name from category" # sql문을 생성합니다.
+        conn = connect.ConnectDB(sql) # DB와 연결합니다.
+        conn.execute() # sql문 수행합니다.
+        data = conn.fetch() # json 형식의 데이터를 가져옵니다.
+        del conn # DB와 연결을 해제합니다.
+        return jsonify({"categoryTypes": data}) # josn 형식의 데이터를 반환합니다.
+    
 # 사진의 카테고리 가져오기 (R)
 @api.route('/api/categories/read/<int:phid>')  
 class ReadCategories(Resource):
@@ -345,6 +356,18 @@ class CreatePhoto(Resource):
         # url = get
         # webbrowser.open(url)
         
+# test 사진 데이터 삽입
+@api.route('/api/photo/create/<int:uid>')  
+class CreateTestPhotosWithUid(Resource):
+    def get(self, uid):
+        for x in range(1, 100) :
+            url =  f"https://picsum.photos/id/{x}/300"
+            sql = f"insert into photo (uid, pid, url) values ({uid}, 1, '{url}')"
+            conn = connect.ConnectDB(sql) # DB와 연결합니다.
+            conn.execute() # sql문 수행합니다.
+            data = conn.fetch() # json 형식의 데이터를 가져옵니다.
+            del conn # DB와 연결을 해제합니다. 
+
 # 사진 url 가져오기 (R) -> 특정 유저의 전체 사진
 @api.route('/api/photo/read/<int:uid>')  
 class ReadPhotosWithUid(Resource):

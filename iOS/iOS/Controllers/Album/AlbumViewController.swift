@@ -8,13 +8,24 @@
 import UIKit
 
 class AlbumViewController: UIViewController {
+
+    @IBOutlet weak var collectionView: UICollectionView!
     
+    // 사진표시 스콥
+    var imageScope : String = ""
+    // 전체 이미지 개수
+    var totalImageCount : Int = 0
+    // 전체 이미지 url
+    var totalImageUrlArray : [String] = []
+    // 카테고리에 따른 이미지 개수
+    var categoryImageCount : Int = 0
+    // 카테고리에 따른 이미지 url
+    var categoryImageUrlArray : [String] = []
     // 서치 리설트 컨트롤러
     var resultTC : ResultTableController!
     // 서치 컨트롤러
     var searchController : UISearchController!
-    // 예시 이미지 url
-    let imageUrl : String = "https://placeimg.com/240/240/arch"
+    
     // 간격 수치 설정
     let sectionInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
     
@@ -24,6 +35,10 @@ class AlbumViewController: UIViewController {
         resultTC = self.storyboard?.instantiateViewController(withIdentifier: "ResultTC") as? ResultTableController
         // 서치 컨트롤러 설정 함수 호출
         setSearchController()
+        // 스콥 설정
+        imageScope = "total"
+        // 모든 사진 데이터 불러오는 함수 호출
+        requestAllPhotoData()
     }
     
     // 서치 컨트롤러 설정 함수
@@ -70,13 +85,66 @@ class AlbumViewController: UIViewController {
     // 텍스트 수정이 완료될 때
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         self.searchController.searchBar.showsScopeBar = false // ScopeBar를 항상 표시할지 여부
+        imageScope = "category"
+        categoryImageCount = 0
+        categoryImageUrlArray = []
+        requestPhotoDataWithCategory() // 선택된 카테고리에 해당 하는 사진 불러오기
+    }
+    
+    // 모든 사진 데이터 불러오는 함수
+    func requestAllPhotoData() {
+        let user = UserDefaults.standard.getLoginUser()!
+    
+        PhotoNetManager.shared.read(uid: user.uid!) { photos in
+            self.totalImageCount = photos.count
+            for photo in photos {
+                self.totalImageUrlArray.append(photo.imageUrl)
+            }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.navigationItem.title = "사진 \(self.totalImageCount) 장"
+            }
+        }
+    }
+    
+    // 특정 유저의 특정 카테고리 불러오는 함수
+    func requestPhotoDataWithCategory() {
+        let user = UserDefaults.standard.getLoginUser()!
+        
+        // 어떠한 카테고리도 선택되어 있지 않은 경우
+        if resultTC.userCheckedCategory == [] {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.navigationItem.title = "사진 \(self.categoryImageCount) 장"
+            }
+        }
+        
+        // 선택한 카테고리 별로 사진을 가져옴
+        for selectedCategory in resultTC.userCheckedCategory {
+            PhotoNetManager.shared.read(uid: user.uid!, category: selectedCategory) { photos in
+                for photo in photos {
+                    if !(self.categoryImageUrlArray.contains(photo.imageUrl)) {
+                        self.categoryImageCount += 1
+                        self.categoryImageUrlArray.append(photo.imageUrl)
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.navigationItem.title = "사진 \(self.categoryImageCount) 장"
+                }
+            }
+        }
     }
 }
 
 extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     // 셀 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if imageScope == "total" {
+            return self.totalImageCount
+        } else {
+            return self.categoryImageCount
+        }
     }
     // 셀 내용 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -84,12 +152,64 @@ extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UI
                 AlbumCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        cell.imageView.contentMode = .scaleToFill // 이미지 설정
+        
         // 이미지 설정
-        cell.imageView.contentMode = .scaleToFill
-        let url = URL(string: imageUrl)
-        let data = try! Data(contentsOf: url!)
-        cell.imageView.image = UIImage(data: data)
-        return cell
+        if imageScope == "total" { // scope이 total 일때
+                        
+            // URL배열에서 URL 하나씩 가져옴
+            let url = URL(string: self.totalImageUrlArray[indexPath.row])
+            
+            // 받아온 url을 통해 키 생성
+            let cacheKey = NSString(string: self.totalImageUrlArray[indexPath.row])
+            
+            // 만약 캐시데이터가 있다면 해당 데이터로 이미지 설정
+            if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                DispatchQueue.main.async {
+                    cell.imageView.image = cachedImage
+                }
+            } else { // 만약 캐시데이터가 없다면
+                DispatchQueue.global().async { // 멀티쓰레드 사용
+                    // url 통해서 이미지 데이터 다운로드
+                    if let data = try? Data(contentsOf: url!) {
+                        // 키, 밸류 값으로 캐시값 저장
+                        AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
+                        // 이미지 설정
+                        DispatchQueue.main.async {
+                            cell.imageView.image = UIImage(data: data)
+                        }
+                    }
+                }
+            }
+            return cell
+        } else {
+            // URL배열에서 URL 하나씩 가져옴
+            let url = URL(string: self.categoryImageUrlArray[indexPath.row])
+            
+            // 받아온 url을 통해 키 생성
+            let cacheKey = NSString(string: self.categoryImageUrlArray[indexPath.row])
+            
+            // 만약 캐시데이터가 있다면 해당 데이터로 이미지 설정
+            if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                DispatchQueue.main.async {
+                    cell.imageView.image = cachedImage
+                }
+            } else { // 만약 캐시데이터가 없다면
+                DispatchQueue.global().async { // 멀티쓰레드 사용
+                    // url 통해서 이미지 데이터 다운로드
+                    if let data = try? Data(contentsOf: url!) {
+                        // 키, 밸류 값으로 캐시값 저장
+                        AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
+                        // 이미지 설정
+                        DispatchQueue.main.async {
+                            cell.imageView.image = UIImage(data: data)
+                        }
+                    }
+                }
+            }
+            return cell
+        }
     }
     // 셀 크기 설정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

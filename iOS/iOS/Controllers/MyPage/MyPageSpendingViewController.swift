@@ -59,26 +59,26 @@ class MyPageSpendingViewController: UIViewController {
         let user = UserDefaults.standard.getLoginUser()!
         
         // 유저의 모든 여행장소 정보 가져와 pid값 저장
-//        PlaceNetManager.shared.read(uid: user.uid!) { places in
-//            for place in places {
-//
-//                SpendingNetManager.shared.read(pid: place.pid!) { spendings in
-//                    // 지출 내역 수
-//                    self.spendingCount += spendings.count
-//
-//                    // 지출내역 배열 저장
-//                    for x in 0...spendings.count - 1 {
-//                        self.spendingArray.append(spendings[x])
-//                        self.PlaceArray.append(place.name!)
-//                    }
-//
-//                    DispatchQueue.main.async {
-//                        self.collectionView.reloadData()
-//                    }
-//                }
-//            }
-//
-//        }
+        PlaceNetManager.shared.read(uid: user.uid!) { places in
+            for place in places {
+
+                SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                    // 지출 내역 수
+                    self.spendingCount += spendings.count
+
+                    // 지출내역 배열 저장
+                    for x in 0..<spendings.count {
+                        self.spendingArray.append(spendings[x])
+                        self.PlaceArray.append(place.name!)
+                    }
+
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                }
+            }
+
+        }
     }
 }
 

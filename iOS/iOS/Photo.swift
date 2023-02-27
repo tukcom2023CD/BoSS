@@ -26,3 +26,23 @@ struct Photo: Codable {
         case imageUrl = "url"
     }
 }
+
+struct PhotoWithCategoryData: Codable {
+    var PhotoWithCategories: [PhotoWithCategory]
+    
+    enum CodingKeys: String, CodingKey {
+        case PhotoWithCategories = "url"
+    }
+}
+
+struct PhotoWithCategory: Codable {
+    var category_name: String
+    var phid: Int
+    var uid: Int
+    var imageUrl: String
+    
+    enum CodingKeys: String, CodingKey {
+        case phid, uid, category_name
+        case imageUrl = "url"
+    }
+}
