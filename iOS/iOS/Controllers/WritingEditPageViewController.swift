@@ -241,9 +241,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
             }
             
             // 상세 지출 내역 네트워킹 코드 추가
-            //            SpendingNetManager.shared.create(spendings: ) {
-            //
-            //            }
+            dispatchGroup.enter()
+            SpendingNetManager.shared.create(spendings: self.spendings) {
+                dispatchGroup.leave()
+            }
             
             dispatchGroup.notify(queue: .main) {
                 guard let vcStack =
@@ -285,14 +286,14 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
                             
-                            self.spendings.insert(Spending( price:Int(price)), at: 0)
+                            self.spendings.insert(Spending(name: name, quantity: 1, price:Int(price), pid: self.place.pid!), at: 0)
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
                                 let count = item.count.formatted.value
                                 let price = item.price.price.formatted.value
                                 
-                                self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price)), at: 0)
+                                self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price), pid: self.place.pid!), at: 0)
                             }
                         }
                     }
