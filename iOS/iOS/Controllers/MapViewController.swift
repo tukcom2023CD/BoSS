@@ -145,7 +145,6 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
     }
     
     func didSelectStartDate(startDate: Date!) { }
-    
     func didSelectEndDate(endDate: Date!) { }
     
 }

@@ -28,8 +28,7 @@ class WritingPageViewController: UIViewController {
             imageView.image = UIImage(systemName: "chevron.down")
         }
     }
-    var imageCardData : UIImage! = UIImage(named: "여행사진 1") // X
-    //  var contentsData: String?
+    var imageCardData : UIImage! = UIImage(named: "여행사진 1")
     var onTapped :Bool = true
     
     
@@ -49,8 +48,6 @@ class WritingPageViewController: UIViewController {
         tableLabel.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
-        
-        
         uploadImageCard()
     }
     
@@ -73,8 +70,6 @@ class WritingPageViewController: UIViewController {
         super.viewWillAppear(animated)
         var totalPrice : Int = 0
         // 전화면에서 전달받은 데이터들을 통해 셋팅
-        //        imageCard.image = imageCardData
-        
         contents.text = place.diary
         
         if (spendings.count != 0){
@@ -176,7 +171,6 @@ class WritingPageViewController: UIViewController {
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         spendings.count
     }
     
@@ -189,7 +183,6 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
         
         
         let spending = spendings[indexPath.row] // 상세 지출 내역
-        
         cell.itemLabel.text = spending.name
         cell.amountLabel.text = "\(spending.quantity ?? 1)"
         cell.priceLabel.text = "\(spending.price ?? 0)"

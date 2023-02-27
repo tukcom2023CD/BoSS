@@ -80,11 +80,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
             for i in 0...spendings.count-1{
                 totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
                 subTotalData.insert((spendings[i].quantity ?? 1) * (spendings[i].price ?? 0), at: 0)
-                
             }
             totalPriceLabel.text = String(totalPrice)
-            
-            
         }
     }
     
@@ -201,7 +198,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         
         vc.delegate = self
         present(vc, animated:true, completion: nil)
-        
     }
     
     // MARK: - cameraButtonTapped
@@ -229,8 +225,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
         place.diary = contents.text
-        // place.total_spending = ...
-        
         let image = imageCard.image
         
         DispatchQueue.global().async {
@@ -257,12 +251,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
                 for vc in vcStack {
                     if let view = vc as? WritingPageViewController {
                         view.imageCardData = self.imageCard.image
-                        //view.contentsData = self.contents.text
-                        
                         view.spendings = self.spendings
-                        
                         view.place = self.place
-                        //view.contentsData = place.diary
                         view.imageCard.image = self.imageCard.image
                         
                         self.navigationController?.popToViewController(view, animated: true)
@@ -294,14 +284,15 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                         if receiptData.subResults.isEmpty {     // 총 비용만 존재할 때
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
-                            //왜 있는지 물어보기
-                            //   self.allData
+                            
+                            self.spendings.insert(Spending( price:Int(price)), at: 0)
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
                                 let count = item.count.formatted.value
                                 let price = item.price.price.formatted.value
-                                //    self.allData
+                                
+                                self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price)), at: 0)
                             }
                         }
                     }
@@ -333,19 +324,19 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
                 if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
                     let name = receiptData.storeInfo.name.formatted.value
                     let price = receiptData.totalPrice.price.formatted.value
-                    //  self.allData
-                   // self.price.append("\(name)  |    -  |   \(price) ")
+                    
+                    self.spendings.insert(Spending( price:Int(price)), at: 0)
                     
                     
-
+                    
                 } else {  // 상세 지출 내역이 존재할 때
                     for item in receiptData.subResults[0].items {
                         let name = item.name.formatted.value
                         let count = item.count.formatted.value
                         let price = item.price.price.formatted.value
-                        //  self.allData
-                       // self.price.append("\(name)  |    \(count)  |   \(price) ")
-
+                        
+                        self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price)), at: 0)
+                        
                     }
                 }
                 alert.dismiss(animated: true)

@@ -6,9 +6,6 @@
 //
 
 import UIKit
-//총합과 AllData(품명, 수량, 가격)넘기기
-//MARK: - WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) EditPageViewController로 넘기기
-
 
 protocol SendProtocol: AnyObject {
     func sendData(receiptData: [Spending])
@@ -17,7 +14,6 @@ protocol SendProtocol: AnyObject {
 class ReceiptViewController: UIViewController {
     
     //MARK: - Properties
-    
     var delegate: SendProtocol?
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var textInput1: UITextField!
