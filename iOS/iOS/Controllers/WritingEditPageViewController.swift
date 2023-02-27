@@ -12,24 +12,16 @@ import PhotosUI
 
 class WritingEditPageViewController: UIViewController, SendProtocol{
     
-
-    func sendData(totalPriceData: String, receiptData: [Spending]) {
-        totalPriceLabel.text = "\(totalPriceData)"
+    func sendData(receiptData: [Spending]) {
         spendings = receiptData
-        //self.subTotalData = subTotalData
+        total_subPriceCal()
         
-      
         
     }
     
     //MARK: - Properties
     var subTotalData: [Int] = [] //delete를 위한 각 행의 가격 데이터
-
     var getImageCard : UIImage?
-    var getContents : String?
-
-
-    
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -40,31 +32,21 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     
     // 새로 추가한 변수
     var place: Place!
+    
     var spendings: [Spending]!
     
-   // var edit_to_Recipt:Bool = false //보낼 데이터가 있으면 true. 보낼 데이터가 없을때 0이나 nil을 보냄방지용
+    
     var imagePickerStatus = false // 이미지 피커 상태 (false: 여행 사진 선택, true: 영수증 OCR)
-    //var price : [String] = []  //WritingPage로 넘길 데이터
     
     let textViewPlaceHolder = "텍스트를 입력하세요"
     //WritingPage로 넘길 데이터
-  //  var allData : [AllData]!
+    
     let camera = UIImagePickerController() // 카메라 변수
     var totalPrice : Int = 0
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        totalPrice = 0
-        subTotalData = []
-        if (spendings.count != 0){
-            for i in 0...spendings.count-1{
-                totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
-                subTotalData.insert((spendings[i].quantity ?? 1) * (spendings[i].price ?? 0), at: 0)
-            
-            }
-            totalPriceLabel.text = String(totalPrice)
-        
-        }
+        total_subPriceCal()
         
     }
     
@@ -82,17 +64,29 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         contents.isScrollEnabled = false
         receiptView.layer.cornerRadius = 5
         
-      //  print( totalPriceLabel.text ?? "" )
+        
         if getImageCard != nil {
             imageCard.image = getImageCard
         }
-        if getContents != nil {
-            contents.text = getContents
-        }
-
+        
+        contents.text = place.diary
         
     }
-    
+    // MARK: - total_subPriceCal : 총가격과 행마다의 가격계산함수
+    func total_subPriceCal(){
+        totalPrice = 0
+        subTotalData = []
+        if (spendings.count != 0){
+            for i in 0...spendings.count-1{
+                totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
+                subTotalData.insert((spendings[i].quantity ?? 1) * (spendings[i].price ?? 0), at: 0)
+                
+            }
+            totalPriceLabel.text = String(totalPrice)
+            
+            
+        }
+    }
     
     // MARK: - contentsSetting
     func contentsSetting(){
@@ -200,11 +194,11 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
         
-  
+        
         if (spendings != nil){
             vc.spendings = self.spendings!
         }
-
+        
         vc.delegate = self
         present(vc, animated:true, completion: nil)
         
@@ -263,11 +257,12 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
                 for vc in vcStack {
                     if let view = vc as? WritingPageViewController {
                         view.imageCardData = self.imageCard.image
-                        view.contentsData = self.contents.text
-
+                        //view.contentsData = self.contents.text
+                        
                         view.spendings = self.spendings
                         
                         view.place = self.place
+                        //view.contentsData = place.diary
                         view.imageCard.image = self.imageCard.image
                         
                         self.navigationController?.popToViewController(view, animated: true)
@@ -300,13 +295,13 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
                             //왜 있는지 물어보기
-                         //   self.allData
+                            //   self.allData
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
                                 let count = item.count.formatted.value
                                 let price = item.price.price.formatted.value
-                            //    self.allData
+                                //    self.allData
                             }
                         }
                     }
@@ -338,13 +333,19 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
                 if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
                     let name = receiptData.storeInfo.name.formatted.value
                     let price = receiptData.totalPrice.price.formatted.value
-                  //  self.allData
+                    //  self.allData
+                   // self.price.append("\(name)  |    -  |   \(price) ")
+                    
+                    
+
                 } else {  // 상세 지출 내역이 존재할 때
                     for item in receiptData.subResults[0].items {
                         let name = item.name.formatted.value
                         let count = item.count.formatted.value
                         let price = item.price.price.formatted.value
-                      //  self.allData
+                        //  self.allData
+                       // self.price.append("\(name)  |    \(count)  |   \(price) ")
+
                     }
                 }
                 alert.dismiss(animated: true)

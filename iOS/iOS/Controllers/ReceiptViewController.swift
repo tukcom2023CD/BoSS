@@ -10,17 +10,14 @@ import UIKit
 //MARK: - WritingEditPageViewController : 영수증정보( 1총합, 2품명, 3수량, 4가격) EditPageViewController로 넘기기
 
 
-//protocol TotalProtocol: AnyObject {
-//    func sendData(totalPriceData: String, receiptData: [AllData],subTotalData:[Int])
-//}
 protocol SendProtocol: AnyObject {
-    func sendData(totalPriceData: String, receiptData: [Spending])
+    func sendData(receiptData: [Spending])
 }
 
 class ReceiptViewController: UIViewController {
     
     //MARK: - Properties
-
+    
     var delegate: SendProtocol?
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var textInput1: UITextField!
@@ -30,21 +27,15 @@ class ReceiptViewController: UIViewController {
     var totalPrice : Int! = 0
     var newTotalPrice : Int! = 0
     @IBOutlet weak var tableView: UITableView!
-    //var stackLabel : String!
-
+    
     var subPriceData: [Int] = [] //삭제시 사용할 그 행의 총 가격
-//    
-    
-    
     var spendings: [Spending]=[]
     
     
-    
- 
     override func viewWillAppear(_ animated: Bool) {
         totalPrice = 0
         subPriceData = []
-
+        
         if (spendings.count != 0){
             for i in 0...spendings.count-1{
                 totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
@@ -52,9 +43,8 @@ class ReceiptViewController: UIViewController {
             }
             subPriceData.reverse()
             totalPriceLabel.text = String(totalPrice)
-        
+            
         }
-      
     }
     //MARK: - viewDidLoad()
     override func viewDidLoad() {
@@ -65,16 +55,16 @@ class ReceiptViewController: UIViewController {
         
         textInput2.delegate = self
         textInput3.delegate = self
-
         
-       
+        
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     //MARK: - viewWillDisappear   화면 사라질때 데이터 넘기기
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.sendData(totalPriceData: "\(totalPrice ?? 0)", receiptData: spendings)
+        delegate?.sendData(receiptData: spendings)
     }
     
     
@@ -84,33 +74,25 @@ class ReceiptViewController: UIViewController {
             if textInput1.text != "" && textInput3.text != ""{
                 
                 let txtString: Spending = Spending(spid: 0, name: txt1, quantity: Int(txt2), price: Int(txt3), pid: 0)
-
+                
                 //새로 생긴 행의 새 수량*가격
                 newTotalPrice = (txtString.quantity ?? 1) * txtString.price!
-              
                 totalPrice += newTotalPrice
                 totalPriceLabel.text = "\(totalPrice!)"
-            
-          
+                
                 
                 self.spendings.insert(txtString, at: 0)
-            
                 self.subPriceData.insert(newTotalPrice, at: 0)
                 tableView.beginUpdates()
                 tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .right)
+
                 
-//                for i in 0...subPriceData.count-1{
-//                    print("\(i)행 가격:\(subPriceData[i])")
-//                }
-              
                 textInput1.text = nil
                 textInput2.text = nil
                 textInput3.text = nil
                 tableView.endUpdates()
             }
         }
-        
-     
     }
     
     //MARK: - deleteButtonTapped
@@ -120,10 +102,6 @@ class ReceiptViewController: UIViewController {
         guard let indexpath = tableView.indexPathForRow(at: point) else {return}
         
         totalPrice -= subPriceData[indexpath.row]
-//        for i in 0...subPriceData.count-1{
-//            print("\(i)행 가격:\(subPriceData[i])")
-//        }
-        
         
         spendings.remove(at: indexpath.row)
         subPriceData.remove(at: indexpath.row)
@@ -131,7 +109,7 @@ class ReceiptViewController: UIViewController {
         tableView.beginUpdates()
         tableView.deleteRows(at: [IndexPath(row: indexpath.row, section: 0)], with: .left)
         tableView.endUpdates()
-       
+        
         
     }
     
@@ -150,13 +128,11 @@ extension ReceiptViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EditTableViewCell", for: indexPath) as? EditTableViewCell else {return UITableViewCell()}
         cell.itemLabel.text = spendings[indexPath.row].name!//stringArr[indexPath.row].itemData
-       
+        
         cell.amountLabel.text = "\(spendings[indexPath.row].quantity ?? 1)"
         cell.priceLabel.text = "\(String(describing: spendings[indexPath.row].price!))"
         return cell
     }
-    
-    
 }
 
 

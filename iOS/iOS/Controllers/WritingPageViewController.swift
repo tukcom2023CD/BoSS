@@ -29,17 +29,14 @@ class WritingPageViewController: UIViewController {
         }
     }
     var imageCardData : UIImage! = UIImage(named: "여행사진 1") // X
-    var contentsData: String?
+    //  var contentsData: String?
     var onTapped :Bool = true
-    //var selectedIndexPathSection:Int = -1
-    //var getPrice : [AllData] = [AllData(itemData: "", amountData: "", priceData: "")] // X
-   
-    //var subTotalData: [Int]?
+    
     
     // 새로 추가한 변수
     var place: Place!
     var spendings: [Spending] = []
-   
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,19 +73,15 @@ class WritingPageViewController: UIViewController {
         super.viewWillAppear(animated)
         var totalPrice : Int = 0
         // 전화면에서 전달받은 데이터들을 통해 셋팅
-//        imageCard.image = imageCardData
+        //        imageCard.image = imageCardData
         
-        
-        //contents.text = contentsData
-        //costLabel.text = totalPrice
         contents.text = place.diary
-//        costLabel.text = "\(place.totalSpending!)"
-       
+        
         if (spendings.count != 0){
             for i in 0...spendings.count-1{
                 totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
             }
-           // costLabel.text = String(totalPrice)
+            // costLabel.text = String(totalPrice)
             place.totalSpending! += totalPrice
             costLabel.text = "\(totalPrice)"
         }
@@ -183,7 +176,7 @@ class WritingPageViewController: UIViewController {
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
+        
         spendings.count
     }
     
@@ -193,7 +186,7 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else { return UITableViewCell() }
-
+        
         
         let spending = spendings[indexPath.row] // 상세 지출 내역
         
