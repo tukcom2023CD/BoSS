@@ -26,7 +26,7 @@ class ReceiptViewController: UIViewController {
     
     var subPriceData: [Int] = [] //삭제시 사용할 그 행의 총 가격
     var spendings: [Spending]=[]
-    
+    var place: Place!
     
     override func viewWillAppear(_ animated: Bool) {
         totalPrice = 0
@@ -69,8 +69,9 @@ class ReceiptViewController: UIViewController {
         if let txt1 = textInput1.text , let txt2 = textInput2.text , let txt3 = textInput3.text{
             if textInput1.text != "" && textInput3.text != ""{
                 
-                let txtString: Spending = Spending(spid: 0, name: txt1, quantity: Int(txt2), price: Int(txt3), pid: 0)
-                
+                let txtString = Spending(name: txt1, quantity: Int(txt2), price: Int(txt3),pid: self.place.pid!)
+              
+                //self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price), pid: self.place.pid!), at: 0)
                 //새로 생긴 행의 새 수량*가격
                 newTotalPrice = (txtString.quantity ?? 1) * txtString.price!
                 totalPrice += newTotalPrice
@@ -87,6 +88,7 @@ class ReceiptViewController: UIViewController {
                 textInput2.text = nil
                 textInput3.text = nil
                 tableView.endUpdates()
+            
             }
         }
     }
