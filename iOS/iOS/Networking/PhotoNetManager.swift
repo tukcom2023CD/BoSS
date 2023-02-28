@@ -110,7 +110,9 @@ class PhotoNetManager {
     
     // 특정 유저의 특정 카테고리 사진 불러오기
     func read(uid: Int, category : String, completion: @escaping ([PhotoWithCategory])->()) {
-        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/photo/read/\(uid)/\(category)") else { return }
+        var encoded_category = ""
+        encoded_category = category.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)! // 한글 인코딩
+        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/photo/read/\(uid)/\(encoded_category)") else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
