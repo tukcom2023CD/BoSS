@@ -193,6 +193,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         
         
         if (spendings != nil){
+            vc.place = self.place!
             vc.spendings = self.spendings!
         }
         
@@ -281,12 +282,13 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                 guard let image = image as? UIImage else { return }
                 
                 if self.imagePickerStatus { // 영수증 OCR
-                    OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
+                    OCRNetManager.shared.requestReceiptData(image: image) { [self] receiptData in
                         if receiptData.subResults.isEmpty {     // 총 비용만 존재할 때
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
                             
-                            self.spendings.insert(Spending(name: name, quantity: 1, price:Int(price), pid: self.place.pid!), at: 0)
+                           self.spendings.insert(Spending(name: name, quantity: 1, price:Int(price), pid: self.place.pid!), at: 0)
+                            total_subPriceCal()
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
                                 let name = item.name.formatted.value
@@ -294,6 +296,8 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                                 let price = item.price.price.formatted.value
                                 
                                 self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price), pid: self.place.pid!), at: 0)
+                               
+                                total_subPriceCal()
                             }
                         }
                     }
