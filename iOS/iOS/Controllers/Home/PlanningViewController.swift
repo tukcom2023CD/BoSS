@@ -75,6 +75,8 @@ class PlanningViewController: UIViewController{
                         
                         //rootVC.schedules.append(schedule)
                         rootVC.upcomingSchedules = schedules
+                        rootVC.extractScheduleDate(schedules: schedules)
+                        rootVC.divideScheduleData(schedules: schedules)
                         rootVC.tableView.reloadData()
                         //self.tabBarController?.tabBar.isHidden = false
                         self.navigationController?.popToRootViewController(animated: true)
