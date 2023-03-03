@@ -3,6 +3,7 @@
 
 AI/.venv
 s3_access_key.py
+__pycache__
 
 ### Secret Key ###
 iOS/iOS/SecretKey.plist
