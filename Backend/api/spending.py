@@ -1,19 +1,20 @@
 from flask import Flask, request, jsonify
-from flask_restx import Api, Resource
+from flask_restx import Api, Resource, Namespace
 import connect
 
-# flask 객체를 생섭합니다.
-app= Flask(__name__)
+Spending = Namespace('Spending')
 
-# Api 객체를 생성합니다. 
-api= Api(app)
 
 # 지출 내역 추가 (C)
 ## JSON 배열로 전달됨
-@api.route('/api/spending/create')
+@Spending.route('/api/spending/create')
 class CreateSpending(Resource):
     def post(self):
         spendings = (request.json.get('spendings'))
+
+        sql = f"delete from spending where pid={spendings[0]['pid']}"
+        conn = connect.ConnectDB(sql)
+        conn.execute()
 
         for spending in spendings:
             name = (spending['name'])
@@ -27,9 +28,8 @@ class CreateSpending(Resource):
 
         del conn
 
-
 # 지출 내역 읽기 (R)
-@api.route('/api/spending/read/<int:pid>')
+@Spending.route('/api/spending/read/<int:pid>')
 class ReadSpending(Resource):
     def get(self, pid):
         sql = f"select * from spending where pid={pid}"
@@ -41,7 +41,7 @@ class ReadSpending(Resource):
         return jsonify({"spendings": data})
 
 # 지출 내역 삭제 (D)
-@api.route('/api/spending/delete/<int:spid>')
+@Spending.route('/api/spending/delete/<int:spid>')
 class DeleteSpending(Resource):
     def get(self, spid):
         sql = f"delete from spending where spid={spid}"
@@ -49,6 +49,3 @@ class DeleteSpending(Resource):
         conn.execute()
         data = conn.fetch()
         del conn
-        
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5000, debug=True) 

@@ -1,17 +1,12 @@
 from flask import Flask, request, jsonify
-from flask_restx import Api, Resource
+from flask_restx import Api, Resource, Namespace
 import connect
 
-# @app.route("/")
+Place = Namespace('Place')
 
-# flask 객체를 생섭합니다.
-app= Flask(__name__)
-
-# Api 객체를 생성합니다. 
-api= Api(app)
 
 # 여행지 추가 (C)
-@api.route('/api/place/create')
+@Place.route('/api/place/create')
 class CreatePlace(Resource):
     def post(self):
         name = (request.json.get('name'))
@@ -30,7 +25,7 @@ class CreatePlace(Resource):
         
 # 여행지 조회 (R)
 ## sid로 여행지 조회
-@api.route('/api/place/read/<int:sid>')
+@Place.route('/api/place/read/<int:sid>')
 class ReadPlace(Resource):
     def get(self, sid):
         sql = f"select * from place where sid = {sid}"
@@ -38,26 +33,32 @@ class ReadPlace(Resource):
         conn.execute()
         data = conn.fetch()
         del conn
-        data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
+        if len(data) != 0:
+            data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
 
         return jsonify({"places": data})
 
 ## uid로 여행지 조회
-@api.route('/api/places/read/<int:uid>')
+@Place.route('/api/places/read/<int:uid>')
 class ReadPlaces(Resource):
     def get(self, uid):
-        sql = f"select * from place where uid = {uid}"
+        sql = ""
+        if request.args.get('start') == None:
+            sql = f"select * from place where uid = {uid}"
+        else:
+            startDate = request.args.get('start')
+            endDate = request.args.get('end')
+            sql = f"select * from place where (uid = {uid}) and (visit_date between '{startDate}' and '{endDate}')"
         conn = connect.ConnectDB(sql)
         conn.execute()
         data = conn.fetch()
         del conn
-        data.sort(key=lambda x: x["visit_date"]) # 방문 날짜순으로 정렬
 
         return jsonify({"places": data})
 
 # 여행지 수정 (U)
 # 일지, 총 지출, 방문여부 수정
-@api.route('/api/place/update')
+@Place.route('/api/place/update')
 class UpdatePlace(Resource):
     def post(self):
         pid = (request.json.get('pid'))
@@ -70,15 +71,12 @@ class UpdatePlace(Resource):
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
 
-
 # 여행지 삭제 (D)
-@api.route('/api/place/delete/<int:pid>')
+@Place.route('/api/place/delete/<int:pid>')
 class DeletePlace(Resource):
     def get(self, pid):
         sql = f"delete from place where pid={pid}"
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
-
-if __name__ == '__main__':
-    app.run('0.0.0.0', port=5001, debug=True) 
+        
