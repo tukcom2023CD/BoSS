@@ -25,7 +25,7 @@ class CreatePhoto(Resource):
     
             # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
             save_image_dir = f"/app/images/{file_name}"
-        
+
             # 파일 저장
             file.save(save_image_dir)
             
@@ -63,6 +63,11 @@ class CreatePhoto(Resource):
             path = save_image_dir # 사진 저장 경로
             categoryArray = [] # 탐지된 카테고리 저장 배열
             categoryArray = yolov5.model(path) # yolov5 모델로 해당 사진의 객체 탐지후 저장
+            
+            # 탐지된 객체가 없는 경우
+            if categoryArray == [] :
+                categoryArray.append("기타")
+            
             # 각 카테고리 DB 저장
             for category_name in categoryArray :
                 sql = f"insert into category (phid, category_name) values ({phid}, '{category_name}')"
