@@ -8,12 +8,8 @@ COPY . .
 RUN apt-get update
 RUN apt-get -y install libgl1-mesa-glx
 
-RUN pip install -r requirements2.txt
-RUN pip install pillow
-
 RUN pip install -r requirements.txt
-
-RUN mkdir -p /app/images
+RUN pip install pillow
 
 # RUN chmod +x wait-for.sh
 
@@ -22,5 +18,3 @@ RUN mkdir -p /app/images
 # COPY . .
 
 CMD ["python", "app.py"]
-
-

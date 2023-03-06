@@ -3,6 +3,7 @@ from flask_restx import Api, Resource, Namespace
 from s3 import s3_access_key as ak
 from s3 import s3_connect as sc
 import connect
+from yolov5 import yolov5
 
 
 Photo = Namespace('Photo')
@@ -11,51 +12,68 @@ Photo = Namespace('Photo')
 @Photo.route('/api/photo/create/<int:uid>/<int:sid>/<int:pid>')
 class CreatePhoto(Resource):
     def post(self, uid, sid, pid):
-        # 바디에 포함된 파일을 가져옴
-        file_object = request.files['file']
         
-        # 원본 파일이름 가져옴
-        file_name = file_object.filename
+        # 바디에 포함된 파일들을 가져옴
+        file_objects = request.files
         
-        # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
-        save_image_dir = f"/app/images/{file_name}"
+        # 각 파일들에 접근
+        for field_name in file_objects : 
+            file = request.files[field_name] # 필드이름으로 각 파일을 받음
         
-        # 파일 저장
-        file_object.save(save_image_dir)
-        
-        # 빈 url 을 가진 photo 레코드 생성
-        sql = f"insert into photo (uid, pid) values ({uid}, {pid})"
-        conn = connect.ConnectDB(sql) # DB와 연결합니다.
-        conn.execute() # sql문 수행합니다.
-        del conn # DB와 연결을 해제합니다.
-        
-        # 해당 uid, pid 를 가지는 photo 레코드들중 가장 큰 phid 값을 리턴
-        sql = f"select MAX(phid) from photo where uid = {uid} and pid = {pid}"
-        conn = connect.ConnectDB(sql) # DB와 연결합니다.
-        conn.execute() # sql문 수행합니다.
-        data = conn.fetch() # 쿼리문 결과 데이터를 가져옵니다.
-        phid = (data[0]['MAX(phid)']) # 리스트안의 딕셔너리의 키 MAX(phid)로 값을 가져옴
-        del conn # DB와 연결을 해제합니다.
-        
-        # s3에 저장할 파일 이름 설정
-        s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpeg"
+            # 파일이름 저장
+            file_name = file.filename
     
-        # 해당 uid, pid, phid 값을 이름으로 갖는 이미지를 s3에 저장 
-        s3 = sc.s3_connection() # s3 객체 생성
-        # 파일 업로드 함수 호출
-        put = sc.s3_put_object(s3, ak.bucket_name(), save_image_dir, s3_file_name)
-        # 파일 url 얻는 함수 호출
-        get = sc.s3_get_image_url(s3, s3_file_name)
+            # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
+            save_image_dir = f"/app/images/{file_name}"
 
-        # url 저장
-        sql = f"update photo set url = '{get}' where phid = {phid}" # sql문 
-        conn = connect.ConnectDB(sql) # DB와 연결합니다.
-        conn.execute() # sql문 수행합니다.
-        del conn # DB와 연결을 해제합니다.
+            # 파일 저장
+            file.save(save_image_dir)
+            
+            # 빈 url 을 가진 photo 레코드 생성
+            sql = f"insert into photo (uid, pid) values ({uid}, {pid})"
+            conn = connect.ConnectDB(sql) # DB와 연결합니다.
+            conn.execute() # sql문 수행합니다.
+            del conn # DB와 연결을 해제합니다.
         
-        # 이미지 url 바로 열기
-        # url = get
-        # webbrowser.open(url)
+            # 해당 uid, pid 를 가지는 photo 레코드들중 가장 큰 phid 값을 리턴
+            sql = f"select MAX(phid) from photo where uid = {uid} and pid = {pid}"
+            conn = connect.ConnectDB(sql) # DB와 연결합니다.
+            conn.execute() # sql문 수행합니다.
+            data = conn.fetch() # 쿼리문 결과 데이터를 가져옵니다.
+            phid = (data[0]['MAX(phid)']) # 리스트안의 딕셔너리의 키 MAX(phid)로 값을 가져옴
+            del conn # DB와 연결을 해제합니다.
+            
+            # s3에 저장할 파일 이름 설정
+            s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpeg"
+    
+            # 해당 uid, pid, phid 값을 이름으로 갖는 이미지를 s3에 저장 
+            s3 = sc.s3_connection() # s3 객체 생성
+            # 파일 업로드 함수 호출
+            put = sc.s3_put_object(s3, ak.bucket_name(), save_image_dir, s3_file_name)
+            # 파일 url 얻는 함수 호출
+            get = sc.s3_get_image_url(s3, s3_file_name)
+
+            # url 저장
+            sql = f"update photo set url = '{get}' where phid = {phid}" # sql문 
+            conn = connect.ConnectDB(sql) # DB와 연결합니다.
+            conn.execute() # sql문 수행합니다.
+            del conn # DB와 연결을 해제합니다.
+            
+            # 사진에대한 객체탐지후 DB 저장
+            path = save_image_dir # 사진 저장 경로
+            categoryArray = [] # 탐지된 카테고리 저장 배열
+            categoryArray = yolov5.model(path) # yolov5 모델로 해당 사진의 객체 탐지후 저장
+            
+            # 탐지된 객체가 없는 경우
+            if categoryArray == [] :
+                categoryArray.append("기타")
+            
+            # 각 카테고리 DB 저장
+            for category_name in categoryArray :
+                sql = f"insert into category (phid, category_name) values ({phid}, '{category_name}')"
+                conn = connect.ConnectDB(sql) # DB와 연결합니다.
+                conn.execute() # sql문 수행합니다.
+                del conn # DB와 연결을 해제합니다.
         
 # test 사진 데이터 삽입
 @Photo.route('/api/photo/create/<int:uid>')  
