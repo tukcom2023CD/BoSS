@@ -3,11 +3,11 @@ from flask_restx import Api, Resource, Namespace
 from s3 import s3_access_key as ak
 from s3 import s3_connect as sc
 import connect
-from yolov5 import yolov5
+from AI import yolov5
+import celery_test
 
 
 Photo = Namespace('Photo')
-
 
 @Photo.route('/api/photo/create/<int:uid>/<int:sid>/<int:pid>')
 class CreatePhoto(Resource):
@@ -59,21 +59,9 @@ class CreatePhoto(Resource):
             conn.execute() # sql문 수행합니다.
             del conn # DB와 연결을 해제합니다.
             
-            # 사진에대한 객체탐지후 DB 저장
-            path = save_image_dir # 사진 저장 경로
-            categoryArray = [] # 탐지된 카테고리 저장 배열
-            categoryArray = yolov5.model(path) # yolov5 모델로 해당 사진의 객체 탐지후 저장
+            # 이미지 객체 탐지 함수 비동기 호출
+            celery_test.working.delay(save_image_dir, phid, get)
             
-            # 탐지된 객체가 없는 경우
-            if categoryArray == [] :
-                categoryArray.append("기타")
-            
-            # 각 카테고리 DB 저장
-            for category_name in categoryArray :
-                sql = f"insert into category (phid, category_name) values ({phid}, '{category_name}')"
-                conn = connect.ConnectDB(sql) # DB와 연결합니다.
-                conn.execute() # sql문 수행합니다.
-                del conn # DB와 연결을 해제합니다.
         
 # test 사진 데이터 삽입
 @Photo.route('/api/photo/create/<int:uid>')  
