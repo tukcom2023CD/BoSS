@@ -3,7 +3,7 @@ from flask_restx import Api, Resource, Namespace
 from s3 import s3_access_key as ak
 from s3 import s3_connect as sc
 import connect
-from api.AI import yolov5
+from yolov5 import yolov5
 
 
 Photo = Namespace('Photo')
