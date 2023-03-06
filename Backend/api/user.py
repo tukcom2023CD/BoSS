@@ -10,39 +10,23 @@ class LoginUser(Resource):
     def post(self):
         email = (request.json.get('email'))
         name = (request.json.get('name'))
-
-        for i in range(1,5):
-            celery_test.working.delay(name, email+str(i))
+        sql = f"select * from user where email='{email}'"
+        conn = connect.ConnectDB(sql)
+        conn.execute()
+        data = conn.fetch()
         
-        print("종료")
-        return "종료"
-
-# @User.route('/api/user/login')
-# class LoginUser(Resource):
-#     def post(self):
-#         email = (request.json.get('email'))
-#         name = (request.json.get('name'))
-#         sql = f"select * from user where email='{email}'"
-#         conn = connect.ConnectDB(sql)
-#         conn.execute()
-#         data = conn.fetch()
-        
-#         if len(data) == 0:
-#             insertSql = f"insert into user(email, name) values('{email}', '{name}')"
-#             conn = connect.ConnectDB(insertSql)
-#             conn.execute()
+        if len(data) == 0:
+            insertSql = f"insert into user(email, name) values('{email}', '{name}')"
+            conn = connect.ConnectDB(insertSql)
+            conn.execute()
             
-#             conn = connect.ConnectDB(sql)
-#             conn.execute()
-#             data = conn.fetch()
+            conn = connect.ConnectDB(sql)
+            conn.execute()
+            data = conn.fetch()
     
-#         print(data)
-#         del conn
-#         return jsonify(data[0])
-
-
-        
-    
+        print(data)
+        del conn
+        return jsonify(data[0])
 
 
 # 유저 정보 업데이트 (U)
@@ -65,3 +49,17 @@ class DeleteUser(Resource):
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
+
+
+
+# @User.route('/api/user/login')
+# class LoginUser(Resource):
+#     def post(self):
+#         email = (request.json.get('email'))
+#         name = (request.json.get('name'))
+
+#         for i in range(1,5):
+#             celery_test.working.delay(name, email+str(i))
+        
+#         print("종료")
+#         return "종료"
