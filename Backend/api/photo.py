@@ -5,7 +5,41 @@ from s3 import s3_connect as sc
 import connect
 from AI import yolov5
 import celery_test
+from threading import Thread
 
+# 이미지 저장 함수
+def downloadImages(file, phidArray, index) :
+    # 파일이름 설정
+    file_name = str(phidArray[index]) + ".jpg"
+    
+    # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
+    save_image_dir = f"/app/images/{file_name}"
+    # save_image_dir = f"/Users/jun/Desktop/무제 폴더/{file_name}"
+
+    # 파일 저장
+    file.save(save_image_dir)
+    
+# s3 이미지 저장 함수
+def s3UploadImages(phid, uid, sid, pid) :
+    # 이미지 저장 경로
+    save_image_dir = f"/app/images/{phid}.jpg"
+    # save_image_dir = f"/Users/jun/Desktop/무제 폴더/{phid}.jpg"
+
+    # s3에 저장할 파일 이름 설정
+    s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpg"
+    
+    # 해당 uid, pid, phid 값을 이름으로 갖는 이미지를 s3에 저장 
+    s3 = sc.s3_connection() # s3 객체 생성
+    # 파일 업로드 함수 호출
+    put = sc.s3_put_object(s3, ak.bucket_name(), save_image_dir, s3_file_name)
+    # 파일 url 얻는 함수 호출
+    get = sc.s3_get_image_url(s3, s3_file_name)
+            
+    # url 저장
+    sql = f"update photo set url = '{get}' where phid = {phid}" # sql문 
+    conn = connect.ConnectDB(sql) # DB와 연결합니다.
+    conn.execute() # sql문 수행합니다.
+    del conn # DB와 연결을 해제합니다.
 
 Photo = Namespace('Photo')
 
@@ -16,18 +50,11 @@ class CreatePhoto(Resource):
         # 바디에 포함된 파일들을 가져옴
         file_objects = request.files
         
+        # phid 저장할 배열
+        phidArray = []
+        
         # 각 파일들에 접근
         for field_name in file_objects : 
-            file = request.files[field_name] # 필드이름으로 각 파일을 받음
-        
-            # 파일이름 저장
-            file_name = file.filename
-    
-            # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
-            save_image_dir = f"/app/images/{file_name}"
-
-            # 파일 저장
-            file.save(save_image_dir)
             
             # 빈 url 을 가진 photo 레코드 생성
             sql = f"insert into photo (uid, pid) values ({uid}, {pid})"
@@ -43,25 +70,45 @@ class CreatePhoto(Resource):
             phid = (data[0]['MAX(phid)']) # 리스트안의 딕셔너리의 키 MAX(phid)로 값을 가져옴
             del conn # DB와 연결을 해제합니다.
             
-            # s3에 저장할 파일 이름 설정
-            s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpeg"
-    
-            # 해당 uid, pid, phid 값을 이름으로 갖는 이미지를 s3에 저장 
-            s3 = sc.s3_connection() # s3 객체 생성
-            # 파일 업로드 함수 호출
-            put = sc.s3_put_object(s3, ak.bucket_name(), save_image_dir, s3_file_name)
-            # 파일 url 얻는 함수 호출
-            get = sc.s3_get_image_url(s3, s3_file_name)
-            
-            # 이미지 객체 탐지 함수 비동기 호출
-            celery_test.working.delay(save_image_dir, phid, get)
-
-            # url 저장
-            sql = f"update photo set url = '{get}' where phid = {phid}" # sql문 
-            conn = connect.ConnectDB(sql) # DB와 연결합니다.
-            conn.execute() # sql문 수행합니다.
-            del conn # DB와 연결을 해제합니다.
+            phidArray.append(phid)
         
+        # phid 배열 접근하기 위한 인덱스
+        index = -1 
+        
+        # 이미지 저장 
+        for field_name in file_objects : 
+            index += 1 # 1증가
+            # 필드이름으로 각 파일을 받음
+            file = file_objects[field_name] 
+            # 이미지 다운로드 함수 멀티쓰레드로 호출
+            thread = Thread(target = downloadImages, args=(file, phidArray, index,))
+            thread.start()
+            thread.join()
+        
+        # s3 이미지 저장 및 url DB 저장
+        for phid in phidArray :
+            # 이미지 다운로드 함수 멀티쓰레드로 호출
+            thread = Thread(target = s3UploadImages, args=(phid, uid, sid, pid,))
+            thread.start()
+            thread.join()
+            
+        # 객체 탐지
+        for phid in phidArray :
+            
+            # 이미지 경로 설정
+            save_image_dir = f"/app/images/{phid}.jpg"
+            
+            # s3 객체 생성
+            s3 = sc.s3_connection() 
+            
+            # s3 이미지 이름
+            s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpg"
+            
+            # 이미지 url 값 받아오기
+            url = sc.s3_get_image_url(s3, s3_file_name)
+            
+            # 객체 탐지 함수 호출 
+            celery_test.working.delay(save_image_dir, phid, url)
         
 # test 사진 데이터 삽입
 @Photo.route('/api/photo/create/<int:uid>')  
