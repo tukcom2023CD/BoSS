@@ -52,16 +52,16 @@ class CreatePhoto(Resource):
             put = sc.s3_put_object(s3, ak.bucket_name(), save_image_dir, s3_file_name)
             # 파일 url 얻는 함수 호출
             get = sc.s3_get_image_url(s3, s3_file_name)
+            
+            # 이미지 객체 탐지 함수 비동기 호출
+            celery_test.working.delay(save_image_dir, phid, get)
 
             # url 저장
             sql = f"update photo set url = '{get}' where phid = {phid}" # sql문 
             conn = connect.ConnectDB(sql) # DB와 연결합니다.
             conn.execute() # sql문 수행합니다.
             del conn # DB와 연결을 해제합니다.
-            
-            # 이미지 객체 탐지 함수 비동기 호출
-            celery_test.working.delay(save_image_dir, phid, get)
-            
+        
         
 # test 사진 데이터 삽입
 @Photo.route('/api/photo/create/<int:uid>')  
