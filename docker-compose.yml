@@ -39,17 +39,17 @@ services:
       timeout: 3s
       retries: 3
 
-  ai:
-    build:
-      context: ./AI
-      dockerfile: Dockerfile
-    ports:
-      - "5002:5002"
-    depends_on:
-      - db
-    networks:
-      - network
-    restart: on-failure
+  # ai:
+  #   build:
+  #     context: ./AI
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5002:5002"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - network
+  #   restart: on-failure
 
   rabbitmq:
     image: rabbitmq
