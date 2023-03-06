@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource, Namespace
 import connect
-
+import celery_test
 
 User = Namespace('User')
 
@@ -10,23 +10,38 @@ class LoginUser(Resource):
     def post(self):
         email = (request.json.get('email'))
         name = (request.json.get('name'))
-        sql = f"select * from user where email='{email}'"
-        conn = connect.ConnectDB(sql)
-        conn.execute()
-        data = conn.fetch()
+
+        for i in range(1,5):
+            celery_test.working.delay(name, email+str(i))
         
-        if len(data) == 0:
-            insertSql = f"insert into user(email, name) values('{email}', '{name}')"
-            conn = connect.ConnectDB(insertSql)
-            conn.execute()
+        print("종료")
+        return "종료"
+
+# @User.route('/api/user/login')
+# class LoginUser(Resource):
+#     def post(self):
+#         email = (request.json.get('email'))
+#         name = (request.json.get('name'))
+#         sql = f"select * from user where email='{email}'"
+#         conn = connect.ConnectDB(sql)
+#         conn.execute()
+#         data = conn.fetch()
+        
+#         if len(data) == 0:
+#             insertSql = f"insert into user(email, name) values('{email}', '{name}')"
+#             conn = connect.ConnectDB(insertSql)
+#             conn.execute()
             
-            conn = connect.ConnectDB(sql)
-            conn.execute()
-            data = conn.fetch()
+#             conn = connect.ConnectDB(sql)
+#             conn.execute()
+#             data = conn.fetch()
     
-        print(data)
-        del conn
-        return jsonify(data[0])
+#         print(data)
+#         del conn
+#         return jsonify(data[0])
+
+
+        
     
 
 
