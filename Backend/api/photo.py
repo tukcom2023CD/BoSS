@@ -58,8 +58,13 @@ class CreatePhoto(Resource):
         # 바디에 포함된 파일들을 가져옴
         file_objects = request.files
         
-        # 사진 개수 만큼 빈 url을 가지는 photo 레코드 생성
+        # 사진 수 계산
+        fileCount = 0
         for field_name in file_objects : 
+            fileCount += 1
+        
+        # 사진 개수 만큼 빈 url을 가지는 photo 레코드 생성
+        for i in range(1, fileCount+1) : 
             thread = Thread(target = createPhotoRecord, args=(uid, pid,))
             thread.start()
             thread.join()
@@ -74,10 +79,8 @@ class CreatePhoto(Resource):
         
         # 가장 phid값 부터 사진 수 만큼 -1 하면서 phid배열 설정
         phidArray = [] # phid 저장할 배열
-        n = 0
-        for field_name in file_objects : 
-            phidArray.insert(0, phid - n)
-            n = n + 1
+        for i in range(0, fileCount) : 
+            phidArray.insert(0, phid - i)
         
         # 리퀘스트 바디로부터 이미지 저장 
         index = -1 # phid 배열 접근하기 위한 인덱스
