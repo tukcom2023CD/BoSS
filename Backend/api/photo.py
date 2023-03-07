@@ -7,6 +7,14 @@ from AI import yolov5
 import celery_test
 from threading import Thread
 
+# 빈 url photo 레코드 생성 함수
+def createPhotoRecord(uid, pid) :
+    # 빈 url 을 가진 photo 레코드 생성
+    sql = f"insert into photo (uid, pid) values ({uid}, {pid})"
+    conn = connect.ConnectDB(sql) # DB와 연결합니다.
+    conn.execute() # sql문 수행합니다.
+    del conn # DB와 연결을 해제합니다.
+    
 # 이미지 저장 함수
 def downloadImages(file, phidArray, index) :
     # 파일이름 설정
@@ -50,32 +58,29 @@ class CreatePhoto(Resource):
         # 바디에 포함된 파일들을 가져옴
         file_objects = request.files
         
-        # phid 저장할 배열
-        phidArray = []
-        
-        # 각 파일들에 접근
+        # 사진 개수 만큼 빈 url을 가지는 photo 레코드 생성
         for field_name in file_objects : 
+            thread = Thread(target = createPhotoRecord, args=(uid, pid,))
+            thread.start()
+            thread.join()
             
-            # 빈 url 을 가진 photo 레코드 생성
-            sql = f"insert into photo (uid, pid) values ({uid}, {pid})"
-            conn = connect.ConnectDB(sql) # DB와 연결합니다.
-            conn.execute() # sql문 수행합니다.
-            del conn # DB와 연결을 해제합니다.
+        # 해당 uid, pid 를 가지는 photo 레코드들중 가장 큰 phid 값을 리턴
+        sql = f"select MAX(phid) from photo where uid = {uid} and pid = {pid}"
+        conn = connect.ConnectDB(sql) # DB와 연결합니다.
+        conn.execute() # sql문 수행합니다.
+        data = conn.fetch() # 쿼리문 결과 데이터를 가져옵니다.
+        phid = (data[0]['MAX(phid)']) # 리스트안의 딕셔너리의 키 MAX(phid)로 값을 가져옴
+        del conn # DB와 연결을 해제합니다.
         
-            # 해당 uid, pid 를 가지는 photo 레코드들중 가장 큰 phid 값을 리턴
-            sql = f"select MAX(phid) from photo where uid = {uid} and pid = {pid}"
-            conn = connect.ConnectDB(sql) # DB와 연결합니다.
-            conn.execute() # sql문 수행합니다.
-            data = conn.fetch() # 쿼리문 결과 데이터를 가져옵니다.
-            phid = (data[0]['MAX(phid)']) # 리스트안의 딕셔너리의 키 MAX(phid)로 값을 가져옴
-            del conn # DB와 연결을 해제합니다.
-            
-            phidArray.append(phid)
+        # 가장 phid값 부터 사진 수 만큼 -1 하면서 phid배열 설정
+        phidArray = [] # phid 저장할 배열
+        n = 0
+        for field_name in file_objects : 
+            phidArray.insert(0, phid - n)
+            n = n + 1
         
-        # phid 배열 접근하기 위한 인덱스
-        index = -1 
-        
-        # 이미지 저장 
+        # 리퀘스트 바디로부터 이미지 저장 
+        index = -1 # phid 배열 접근하기 위한 인덱스
         for field_name in file_objects : 
             index += 1 # 1증가
             # 필드이름으로 각 파일을 받음
@@ -94,19 +99,14 @@ class CreatePhoto(Resource):
             
         # 객체 탐지
         for phid in phidArray :
-            
             # 이미지 경로 설정
             save_image_dir = f"/app/images/{phid}.jpg"
-            
             # s3 객체 생성
             s3 = sc.s3_connection() 
-            
             # s3 이미지 이름
             s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpg"
-            
             # 이미지 url 값 받아오기
             url = sc.s3_get_image_url(s3, s3_file_name)
-            
             # 객체 탐지 함수 호출 
             celery_test.working.delay(save_image_dir, phid, url)
         
