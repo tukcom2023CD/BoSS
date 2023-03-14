@@ -1,18 +1,18 @@
 # 트래블로그 - Travelog
 
-여행자를 위한 OCR 기반 여행 기록 어플리케이션
+OCR과 객체 탐지 기술을 이용한 여행 기록 어플리케이션
 
 ## 목차
   - [1. 소개](#1-소개)
   - [2. 아키텍처](#2-아키텍처)
   - [3. 규칙](#3-규칙)
-  - [4. 기술 스택](#4-기술-스택)
-  - [5. 기타 링크](#5-기타-링크)
-  - [6. 팀원](#6-팀원)
+  - [4. 기타 링크](#4-기타-링크)
+  - [5. 팀원](#5-팀원)
 
 ## 1. 소개
 
 ## 2. 아키텍처
+![123123](https://user-images.githubusercontent.com/87902884/225015225-16d36976-b62b-4e6b-a29d-3bcf0499a144.jpeg)
 
 ## 3. 규칙
 
@@ -53,21 +53,19 @@
 ### 3.3 Swift 코딩 스타일
 [Apple Developer Academy에서 사용하는 Swift 코딩 스타일](https://github.com/DeveloperAcademy-POSTECH/swift-style-guide)
 
-## 4. 기술 스택
-
 <!--
 <img src="https://img.shields.io/badge/Swift-F05138?style=for-the-badge&logo=Swift&logoColor=white"> <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"> <br>
 <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=Flask&logoColor=white"> <img src="https://img.shields.io/badge/Mysql-4479A1?style=for-the-badge&logo=Mysql&logoColor=white"> <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=white"> <br>
 <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"> <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"> <img src="https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white"> <br>  <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white"> <img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white"> -->
 
-## 5. 기타 링크
+## 4. 기타 링크
 
 [<img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white">](https://boss-tuk.atlassian.net/jira/software/projects/BC/boards/2)
 [<img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">](https://www.figma.com/file/UR4AclBJLUuO94v4Q3Srtz/TraveLog-prototype?node-id=15%3A571&t=Bt78joOQTb0oOTTF-1)
 
-## 6. 팀원 
+## 5. 팀원 
 | 이름 | 이승현 | 이정동 | 박준희 | 박다미 |
 | --- | --- | --- | --- | --- |
 | GitHub | [@hyuuuun](https://github.com/hyuuuun) | [@ljdongz](https://github.com/ljdongz) | [@junhxx](https://github.com/junhxx) | [@dami0806](https://github.com/dami0806) |
-| 역할 | - | - | - | - |
+| 역할 | 데이터학습, UI/UX 디자인 | iOS, Server, DevOps | iOS, Server, DevOps | iOS, UI/UX 디자인 |
 
