@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		36D32DEEF1C5607FA325D100 /* Pods_iOS_iOSUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */; };
 		370DCB0629A0DD4C007B4FDD /* GetpriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370DCB0529A0DD4C007B4FDD /* GetpriceTableViewCell.swift */; };
-		372183B4299A1F7600373F9C /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B3299A1F7600373F9C /* Diary.swift */; };
 		372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B7299A201100373F9C /* WritingEditPageViewController.swift */; };
 		3742356F299F3C390049DFA1 /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742356E299F3C390049DFA1 /* ReceiptViewController.swift */; };
 		37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37423570299F41FE0049DFA1 /* EditTableViewCell.swift */; };
@@ -114,8 +113,6 @@
 		207460B44357D9F4D787BFC5 /* Pods-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.release.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		34A3E75F0EC9355F20B34FF4 /* Pods-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS.debug.xcconfig"; path = "Target Support Files/Pods-iOS/Pods-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		370DCB0529A0DD4C007B4FDD /* GetpriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetpriceTableViewCell.swift; sourceTree = "<group>"; };
-		372183B3299A1F7600373F9C /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
-		372183B5299A1F8900373F9C /* DiaryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryManager.swift; sourceTree = "<group>"; };
 		372183B7299A201100373F9C /* WritingEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPageViewController.swift; sourceTree = "<group>"; };
 		3742356E299F3C390049DFA1 /* ReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
 		37423570299F41FE0049DFA1 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
@@ -151,9 +148,9 @@
 		570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		5719B579298BA302008572CF /* UserNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetManager.swift; sourceTree = "<group>"; };
 		571BD16E29879136000A7F34 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Schedule.swift; path = Models/DBTables/Schedule.swift; sourceTree = "<group>"; };
-		571FF69B29A3C787005E54F6 /* Spending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spending.swift; sourceTree = "<group>"; };
+		571FF69B29A3C787005E54F6 /* Spending.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Spending.swift; path = Models/DBTables/Spending.swift; sourceTree = "<group>"; };
 		571FF69D29A3C88F005E54F6 /* SpendingNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingNetManager.swift; sourceTree = "<group>"; };
-		571FF69F29A3CFF7005E54F6 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		571FF69F29A3CFF7005E54F6 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Photo.swift; path = Models/DBTables/Photo.swift; sourceTree = "<group>"; };
 		571FF6A129A3D0A0005E54F6 /* PhotoNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoNetManager.swift; sourceTree = "<group>"; };
 		573941A8297ED1E900E69D8F /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		573941AB2980E57000E69D8F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -196,7 +193,7 @@
 		BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageScheduleViewController.swift; sourceTree = "<group>"; };
 		BF8AD681299BB4AF00071565 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
 		BFD0F2E029A69B1E0063EEEF /* CategoryNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryNetManager.swift; sourceTree = "<group>"; };
-		BFD0F2E229A69B5C0063EEEF /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		BFD0F2E229A69B5C0063EEEF /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Models/DBTables/Category.swift; sourceTree = "<group>"; };
 		BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		BFE0022C29A8B12700194E58 /* AlbumImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImageCacheManager.swift; sourceTree = "<group>"; };
 		BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
@@ -354,8 +351,6 @@
 				577B8F7C297A7E6500FBD1EB /* OCRResult.swift */,
 				37ECD62129866358005E21D4 /* Region.swift */,
 				37ECD6232986649D005E21D4 /* RegionDataManager.swift */,
-				372183B3299A1F7600373F9C /* Diary.swift */,
-				372183B5299A1F8900373F9C /* DiaryManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -841,7 +836,6 @@
 				3764F667297B980800014FFE /* SecondTableViewCell.swift in Sources */,
 				5780874C296BEB5500D2BAF8 /* AppDelegate.swift in Sources */,
 				5793B7722988CFAD00649F23 /* ScheduleNetManager.swift in Sources */,
-				372183B4299A1F7600373F9C /* Diary.swift in Sources */,
 				57C399D42982385300F63900 /* Place.swift in Sources */,
 				577B8F7B2979044600FBD1EB /* OCRNetManager.swift in Sources */,
 				3764F663297B97FC00014FFE /* FirstTableViewCell.swift in Sources */,
