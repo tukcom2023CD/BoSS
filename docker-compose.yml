@@ -20,7 +20,8 @@ services:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p password"]
       timeout: 5s
       retries: 10
-  web:
+
+  web: &web
     build:
       context: ./Backend
       dockerfile: Dockerfile
@@ -28,6 +29,7 @@ services:
       - "5001:5001"
     depends_on:
       - db
+      - celery
     networks:
       - network
     restart: on-failure
@@ -36,18 +38,36 @@ services:
       interval: 5s
       timeout: 3s
       retries: 3
-  ai:
-    build:
-      context: ./AI
-      dockerfile: Dockerfile
+
+  # ai:
+  #   build:
+  #     context: ./AI
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5002:5002"
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - network
+  #   restart: on-failure
+
+  rabbitmq:
+    image: rabbitmq
     ports:
-      - "5002:5002"
-    depends_on:
-      - db
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
     networks:
       - network
-    restart: on-failure
-      
+
+  celery:
+    <<: *web
+    command: celery -A celery_test.celery worker --loglevel=INFO
+    depends_on:
+      - rabbitmq
+    ports: []
+
 networks:
   network:
     driver: bridge
