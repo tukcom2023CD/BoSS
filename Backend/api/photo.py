@@ -11,6 +11,7 @@ from threading import Thread
 def createPhotoRecord(uid, pid) :
     # 빈 url 을 가진 photo 레코드 생성
     sql = f"insert into photo (uid, pid) values ({uid}, {pid})"
+    print("레코드 생성")
     conn = connect.ConnectDB(sql) # DB와 연결합니다.
     conn.execute() # sql문 수행합니다.
     del conn # DB와 연결을 해제합니다.
@@ -19,16 +20,19 @@ def createPhotoRecord(uid, pid) :
 def downloadImages(file, phidArray, index) :
     # 파일이름 설정
     file_name = str(phidArray[index]) + ".jpg"
-    
     # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
     save_image_dir = f"/app/images/{file_name}"
     # save_image_dir = f"/Users/jun/Desktop/무제 폴더/{file_name}"
-
     # 파일 저장
     file.save(save_image_dir)
+    print("이미지 저장")
     
 # s3 이미지 저장 함수
-def s3UploadImages(phid, uid, sid, pid) :
+def s3UploadImages(phid, uid, sid, pid, s3) :    
+    
+    # 버킷이름 저장
+    bucket_name = ak.bucket_name()
+    
     # 이미지 저장 경로
     save_image_dir = f"/app/images/{phid}.jpg"
     # save_image_dir = f"/Users/jun/Desktop/무제 폴더/{phid}.jpg"
@@ -37,9 +41,8 @@ def s3UploadImages(phid, uid, sid, pid) :
     s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpg"
     
     # 해당 uid, pid, phid 값을 이름으로 갖는 이미지를 s3에 저장 
-    s3 = sc.s3_connection() # s3 객체 생성
     # 파일 업로드 함수 호출
-    put = sc.s3_put_object(s3, ak.bucket_name(), save_image_dir, s3_file_name)
+    put = sc.s3_put_object(s3, bucket_name, save_image_dir, s3_file_name)
     # 파일 url 얻는 함수 호출
     get = sc.s3_get_image_url(s3, s3_file_name)
             
@@ -62,43 +65,54 @@ class CreatePhoto(Resource):
         fileCount = 0
         for field_name in file_objects : 
             fileCount += 1
-        
-        # 사진 개수 만큼 빈 url을 가지는 photo 레코드 생성
-        for i in range(1, fileCount+1) : 
-            thread = Thread(target = createPhotoRecord, args=(uid, pid,))
-            thread.start()
-            thread.join()
             
-        # 해당 uid, pid 를 가지는 photo 레코드들중 가장 큰 phid 값을 리턴
-        sql = f"select MAX(phid) from photo where uid = {uid} and pid = {pid}"
+        phidArray = [] # phid 저장할 배열
+        
+        createPhotoRecordThreadArray = [] # 쓰레드 저장하기 위한 배열
+        # 사진 개수 만큼 빈 url을 가지는 photo 레코드 생성
+        for i in range(0, fileCount) : 
+            createPhotoRecordThreadArray.append(Thread(target = createPhotoRecord, args=(uid, pid,))) # 쓰레드 배열에 추가
+            createPhotoRecordThreadArray[i].start()
+        # 쓰레드 모든 종료시까지 메인은 대기
+        for i in range(0, fileCount) : 
+            createPhotoRecordThreadArray[i].join()
+            
+        # 해당 uid, pid 를 가지는 photo 레코드들중 가장 큰 phid 값 fileCount 개 리턴
+        sql = f"select phid from photo where uid = {uid} and pid = {pid} order by phid desc limit {fileCount}"
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         data = conn.fetch() # 쿼리문 결과 데이터를 가져옵니다.
-        phid = (data[0]['MAX(phid)']) # 리스트안의 딕셔너리의 키 MAX(phid)로 값을 가져옴
+        for phid in data :
+            phidArray.append(phid['phid'])
+        phidArray.sort()
         del conn # DB와 연결을 해제합니다.
-        
-        # 가장 phid값 부터 사진 수 만큼 -1 하면서 phid배열 설정
-        phidArray = [] # phid 저장할 배열
-        for i in range(0, fileCount) : 
-            phidArray.insert(0, phid - i)
-        
+     
         # 리퀘스트 바디로부터 이미지 저장 
+        downloadImagesThreadArray = [] # 쓰레드 저장하기 위한 배열
         index = -1 # phid 배열 접근하기 위한 인덱스
         for field_name in file_objects : 
             index += 1 # 1증가
             # 필드이름으로 각 파일을 받음
             file = file_objects[field_name] 
             # 이미지 다운로드 함수 멀티쓰레드로 호출
-            thread = Thread(target = downloadImages, args=(file, phidArray, index,))
-            thread.start()
-            thread.join()
+            downloadImagesThreadArray.append(Thread(target = downloadImages, args=(file, phidArray, index,))) # 쓰레드 배열에 추가
+            downloadImagesThreadArray[index].start()
+        # 쓰레드 모두 종료시까지 메인은 대기
+        for i in range(0, fileCount) : 
+            downloadImagesThreadArray[i].join()
         
         # s3 이미지 저장 및 url DB 저장
+        s3UploadThreadArray = []
+        s3 = sc.s3_connection() # s3 객체 생성
+        index = 0
         for phid in phidArray :
             # 이미지 다운로드 함수 멀티쓰레드로 호출
-            thread = Thread(target = s3UploadImages, args=(phid, uid, sid, pid,))
-            thread.start()
-            thread.join()
+            s3UploadThreadArray.append(Thread(target = s3UploadImages, args=(phid, uid, sid, pid, s3,))) # 쓰레드 배열에 추가
+            s3UploadThreadArray[index].start()
+            index += 1
+        # 쓰레드 모든 종료시까지 메인은 대기
+        for i in range(0, fileCount) : 
+            s3UploadThreadArray[i].join()
             
         # 객체 탐지
         for phid in phidArray :
@@ -113,18 +127,6 @@ class CreatePhoto(Resource):
             # 객체 탐지 함수 호출 
             celery_test.working.delay(save_image_dir, phid, url)
         
-# test 사진 데이터 삽입
-@Photo.route('/api/photo/create/<int:uid>')  
-class CreateTestPhotosWithUid(Resource):
-    def get(self, uid):
-        for x in range(1, 100) :
-            url =  f"https://picsum.photos/id/{x}/300"
-            sql = f"insert into photo (uid, pid, url) values ({uid}, 1, '{url}')"
-            conn = connect.ConnectDB(sql) # DB와 연결합니다.
-            conn.execute() # sql문 수행합니다.
-            data = conn.fetch() # json 형식의 데이터를 가져옵니다.
-            del conn # DB와 연결을 해제합니다. 
-
 # 사진 url 가져오기 (R) -> 특정 유저의 전체 사진
 @Photo.route('/api/photo/read/<int:uid>')  
 class ReadPhotosWithUid(Resource):
