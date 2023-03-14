@@ -13,6 +13,8 @@ RUN pip install pillow
 
 RUN pip install -r requirements.txt
 
+RUN pip install celery
+
 RUN mkdir -p /app/images
 
 # RUN chmod +x wait-for.sh

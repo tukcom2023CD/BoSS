@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_restx import Api, Resource, Namespace
 import connect
-
+import celery_test
 
 User = Namespace('User')
 
@@ -27,7 +27,6 @@ class LoginUser(Resource):
         print(data)
         del conn
         return jsonify(data[0])
-    
 
 
 # 유저 정보 업데이트 (U)
@@ -50,3 +49,17 @@ class DeleteUser(Resource):
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
+
+
+
+# @User.route('/api/user/login')
+# class LoginUser(Resource):
+#     def post(self):
+#         email = (request.json.get('email'))
+#         name = (request.json.get('name'))
+
+#         for i in range(1,5):
+#             celery_test.working.delay(name, email+str(i))
+        
+#         print("종료")
+#         return "종료"
