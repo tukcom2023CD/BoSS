@@ -1,6 +1,20 @@
 import boto3
 from . import s3_access_key as ak
 
+# 속도 제한 해제
+def accelerate() :
+    s3 = boto3.client(
+            service_name = "s3", 
+            region_name = "ap-northeast-2", 
+            aws_access_key_id = ak.access_key_id(), 
+            aws_secret_access_key = ak.access_secret_key(), 
+    )
+    accelerate_config = {'Status': 'Enabled'}
+    s3.put_bucket_accelerate_configuration(
+        Bucket=ak.bucket_name,
+        AccelerateConfiguration=accelerate_config
+    )
+    
 # s3 연동
 def s3_connection():
     try:
