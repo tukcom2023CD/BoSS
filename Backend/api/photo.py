@@ -51,6 +51,26 @@ def s3UploadImages(phid, uid, sid, pid, s3) :
     conn = connect.ConnectDB(sql) # DB와 연결합니다.
     conn.execute() # sql문 수행합니다.
     del conn # DB와 연결을 해제합니다.
+    
+# 객체 탐지 함수
+def detectObjects(phid) :
+    # 사진 경로
+    # save_image_dir = f"/Users/jun/Desktop/무제 폴더/{phid}.jpg"
+    save_image_dir = f"/app/images/{phid}.jpg"
+    # 사진에대한 객체탐지후 DB 저장
+    categoryArray = [] # 탐지된 카테고리 저장 배열
+    categoryArray = yolov5.model(save_image_dir) # yolov5 모델로 해당 사진의 객체 탐지후 저장
+            
+    # 탐지된 객체가 없는 경우
+    if categoryArray == [] :
+        categoryArray.append("기타")
+            
+    # 각 카테고리 DB 저장
+    for category_name in categoryArray :
+        sql = f"insert into category (phid, category_name) values ({phid}, '{category_name}')"
+        conn = connect.ConnectDB(sql) # DB와 연결합니다.
+        conn.execute() # sql문 수행합니다.
+        del conn # DB와 연결을 해제합니다.
 
 Photo = Namespace('Photo')
 
@@ -114,7 +134,7 @@ class CreatePhoto(Resource):
         for i in range(0, fileCount) : 
             s3UploadThreadArray[i].join()
             
-        # # 객체 탐지
+        # # 객체 탐지 (celery)
         # for phid in phidArray :
         #     # 이미지 경로 설정
         #     save_image_dir = f"/app/images/{phid}.jpg"
@@ -127,25 +147,14 @@ class CreatePhoto(Resource):
         #     # 객체 탐지 함수 호출 
         #     celery_test.working.delay(save_image_dir, phid, url)
         
-        # 객체 탐지
+        # 객체 탐지 (Thread)
+        detectObjectThreadArray = []
+        index = 0
         for phid in phidArray :
             # 이미지 경로 설정
-            save_image_dir = f"/app/images/{phid}.jpg"
-            
-            # 사진에대한 객체탐지후 DB 저장
-            categoryArray = [] # 탐지된 카테고리 저장 배열
-            categoryArray = yolov5.model(save_image_dir) # yolov5 모델로 해당 사진의 객체 탐지후 저장
-            
-            # 탐지된 객체가 없는 경우
-            if categoryArray == [] :
-                categoryArray.append("기타")
-            
-            # 각 카테고리 DB 저장
-            for category_name in categoryArray :
-                sql = f"insert into category (phid, category_name) values ({phid}, '{category_name}')"
-                conn = connect.ConnectDB(sql) # DB와 연결합니다.
-                conn.execute() # sql문 수행합니다.
-                del conn # DB와 연결을 해제합니다.
+            detectObjectThreadArray.append(Thread(target= detectObjects, args=(phid,)))
+            detectObjectThreadArray[index].start()
+            index += 1
             
 # 사진 url 가져오기 (R) -> 특정 유저의 전체 사진
 @Photo.route('/api/photo/read/<int:uid>')  
