@@ -8,7 +8,6 @@ COPY . .
 RUN apt-get update
 RUN apt-get -y install libgl1-mesa-glx
 
-RUN pip install -r requirements2.txt
 RUN pip install pillow
 
 RUN pip install -r requirements.txt
