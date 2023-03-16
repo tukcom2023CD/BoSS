@@ -29,6 +29,10 @@ class MapViewController: UIViewController {
         requestPlaceData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        requestPlaceData()
+    }
+    
     // 맵 불러오기
     func loadMapView() {
         
@@ -100,10 +104,21 @@ extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
         
-        vc.modalPresentationStyle = .popover
-        // 네트워킹 통신으로 image, spending 데이터 가져오기 (Dispatch Group 사용)
+        //vc.modalPresentationStyle = .popover
+    
+        let place = marker.userData as! Place
+        vc.place = place
         
-        present(vc, animated: true)
+        SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+            
+            vc.spendings = spendings
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(vc, animated: true)
+                //self.present(vc, animated: true)
+            }
+        }
+        
+        
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
