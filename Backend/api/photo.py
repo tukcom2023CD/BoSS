@@ -133,7 +133,8 @@ class CreatePhoto(Resource):
         # 쓰레드 모든 종료시까지 메인은 대기
         for i in range(0, fileCount) : 
             s3UploadThreadArray[i].join()
-            
+        
+        count = 1
         # 객체 탐지 (celery)
         for phid in phidArray :
             # 이미지 경로 설정
@@ -145,7 +146,8 @@ class CreatePhoto(Resource):
             # 이미지 url 값 받아오기
             url = sc.s3_get_image_url(s3, s3_file_name)
             # 객체 탐지 함수 호출 
-            celery_test.working.delay(path, phid, url)
+            celery_test.working.delay(path, phid, url, count)
+            count += 1
         
         # # 객체 탐지 (Thread)
         # detectObjectThreadArray = []
