@@ -8,10 +8,10 @@ import urllib.request
 celery = Celery('tasks', broker='amqp://user:password@rabbitmq:5672//', backend='rpc://')
 
 @celery.task
-def working(path, phid, get):
+def working(path, phid, url):
     
     # 이미지 다운로드
-    urllib.request.urlretrieve(get, path)
+    urllib.request.urlretrieve(url, path)
     
     # 사진에대한 객체탐지후 DB 저장
     categoryArray = [] # 탐지된 카테고리 저장 배열

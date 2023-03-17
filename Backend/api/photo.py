@@ -134,27 +134,27 @@ class CreatePhoto(Resource):
         for i in range(0, fileCount) : 
             s3UploadThreadArray[i].join()
             
-        # # 객체 탐지 (celery)
-        # for phid in phidArray :
-        #     # 이미지 경로 설정
-        #     save_image_dir = f"/app/images/{phid}.jpg"
-        #     # s3 객체 생성
-        #     s3 = sc.s3_connection() 
-        #     # s3 이미지 이름
-        #     s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpg"
-        #     # 이미지 url 값 받아오기
-        #     url = sc.s3_get_image_url(s3, s3_file_name)
-        #     # 객체 탐지 함수 호출 
-        #     celery_test.working.delay(save_image_dir, phid, url)
-        
-        # 객체 탐지 (Thread)
-        detectObjectThreadArray = []
-        index = 0
+        # 객체 탐지 (celery)
         for phid in phidArray :
             # 이미지 경로 설정
-            detectObjectThreadArray.append(Thread(target= detectObjects, args=(phid,)))
-            detectObjectThreadArray[index].start()
-            index += 1
+            path = f"/app/images/{phid}.jpg"
+            # s3 객체 생성
+            s3 = sc.s3_connection() 
+            # s3 이미지 이름
+            s3_file_name = f"{uid}/{sid}/{pid}/{phid}.jpg"
+            # 이미지 url 값 받아오기
+            url = sc.s3_get_image_url(s3, s3_file_name)
+            # 객체 탐지 함수 호출 
+            celery_test.working.delay(path, phid, url)
+        
+        # # 객체 탐지 (Thread)
+        # detectObjectThreadArray = []
+        # index = 0
+        # for phid in phidArray :
+        #     # 이미지 경로 설정
+        #     detectObjectThreadArray.append(Thread(target= detectObjects, args=(phid,)))
+        #     detectObjectThreadArray[index].start()
+        #     index += 1
             
 # 사진 url 가져오기 (R) -> 특정 유저의 전체 사진
 @Photo.route('/api/photo/read/<int:uid>')  
