@@ -14,8 +14,8 @@ services:
     networks:
       - network
     volumes:
-      - ./Backend/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./Backend/my.cnf:/etc/mysql/my.cnf
+      - ./Backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./Backend/db/my.cnf:/etc/mysql/my.cnf
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p password"]
       timeout: 5s
