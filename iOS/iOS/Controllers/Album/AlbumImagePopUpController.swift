@@ -78,6 +78,10 @@ class AlbumImagePopUpController: UIViewController {
             PhotoNetManager.shared.delete(imageName: self.imageName) {
                 print("이미지 삭제")
             }
+            
+            CategoryNetManager.shared.delete(imageName: self.imageName) {
+                print("카테고리 삭제")
+            }
             self.dismiss(animated: true)
         }
         
