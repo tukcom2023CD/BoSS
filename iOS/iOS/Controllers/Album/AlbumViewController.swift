@@ -135,6 +135,17 @@ class AlbumViewController: UIViewController {
             }
         }
     }
+    
+    // 문자 추출 함수
+    func extractValues(from url: String) -> (x: String?, y: String?, w: String?, z: String?) {
+        let components = url.components(separatedBy: "/")
+        let count = components.count
+        let w = components[count - 1] // "w.jpg"
+        let z = components[count - 2] // "z.jpg"
+        let y = components[count - 3] // "y.jpg"
+        let x = components[count - 4] // "x.jpg"
+        return (x,y,z,w)
+    }
 }
 
 extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -157,7 +168,10 @@ extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UI
         
         // 이미지 설정
         if imageScope == "total" { // scope이 total 일때
-                        
+             
+            // 이미지 이름 추출
+            cell.imageName = extractValues(from : self.totalImageUrlArray[indexPath.row])
+            
             // URL배열에서 URL 하나씩 가져옴
             let url = URL(string: self.totalImageUrlArray[indexPath.row])
             
@@ -184,6 +198,10 @@ extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UI
             }
             return cell
         } else {
+            
+            // 이미지 이름 추출
+            cell.imageName = extractValues(from : self.totalImageUrlArray[indexPath.row])
+
             // URL배열에서 URL 하나씩 가져옴
             let url = URL(string: self.categoryImageUrlArray[indexPath.row])
             
@@ -244,13 +262,20 @@ extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UI
         // 이미지 넘겨주기
         guard let currentCellImage = currentCell.imageView.image else {return}
         popupVC.image = currentCellImage
+        popupVC.imageName = currentCell.imageName
         
-        // 화면 전환
-        self.present(popupVC, animated: true)
+        // 화면 전환 (화면 종료 이휴 앨범 새로고침)
+        self.present(popupVC, animated: true, completion: {
+            if self.imageScope == "total" {
+                self.requestAllPhotoData()
+            }
+            else {self.requestPhotoDataWithCategory()}
+        })
     }
 }
 
 // 컬렉션 뷰 셀 클래스
 class AlbumCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
+    var imageName : (String?, String?, String?, String?)
 }
