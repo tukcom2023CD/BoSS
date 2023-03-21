@@ -9,6 +9,14 @@ import UIKit
 
 class ResultTableController : UITableViewController {
     
+    // 초기 카테고리값 저장 여부
+    var saveCategoryBool : Bool = false {
+        didSet {
+            // 값이 변경되면 호출되는 함수
+            print("saveCategoryBool 값 변경")
+            NotificationCenter.default.post(name: NSNotification.Name("ChangedCategory!"), object: self)
+        }
+    }
     // 현재 스콥 상태
     var scopeState = ""
     // 현재 스콥 배열
@@ -36,7 +44,6 @@ class ResultTableController : UITableViewController {
     // 카테고리 종류 불러오는 함수
     func requestCaegoryTypeData() {
         CategoryNetManager.shared.read() { categoryTypes in
-            print(categoryTypes)
             for categoryType in categoryTypes {
                 self.categoryArray.append(categoryType.category_name!)
             }
@@ -44,6 +51,9 @@ class ResultTableController : UITableViewController {
             DispatchQueue.main.async {
                 self.currentScope = self.categoryArray // 받아온 카테고리를 현재 스콥 카테고리 배열로
                 self.userCheckedCategory = self.categoryArray // 모든 카테고리를 선택됨으로
+                if self.saveCategoryBool == false {
+                    self.saveCategoryBool = true
+                }
                 self.tableView.reloadData()
             }
         }
