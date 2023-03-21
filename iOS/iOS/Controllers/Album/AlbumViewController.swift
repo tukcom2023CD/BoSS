@@ -17,7 +17,6 @@ class AlbumViewController: UIViewController {
     var categoryImageUrlArray : [String] = []
     // 현재 선택된 이미지의 url
     var currentImageUrl = ""
-    
     // 서치 리설트 컨트롤러
     var resultTC : ResultTableController!
     // 서치 컨트롤러
@@ -124,6 +123,7 @@ class AlbumViewController: UIViewController {
             self.categoryImageCount -= 1
             let index = self.categoryImageUrlArray.firstIndex(of: currentImageUrl)
             self.categoryImageUrlArray.remove(at: index!)
+            self.navigationItem.title = "사진 \(self.categoryImageCount) 장"
             self.collectionView.reloadData()
     }
     
