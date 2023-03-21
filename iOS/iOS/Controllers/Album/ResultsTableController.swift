@@ -41,11 +41,28 @@ class ResultTableController : UITableViewController {
         requestCaegoryTypeData() // 모든 카테고리 불러옴
     }
     
+    // 카테고리 종류 다시 불러오는 함수
+    func reloadCategories() {
+        CategoryNetManager.shared.read() { categoryTypes in
+            self.categoryArray = []
+            for categoryType in categoryTypes {
+                self.categoryArray.append(categoryType.category_name!)
+            }
+            
+            DispatchQueue.main.async {
+                self.currentScope = self.categoryArray // 받아온 카테고리를 현재 스콥 카테고리 배열로
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     // 카테고리 종류 불러오는 함수
     func requestCaegoryTypeData() {
         CategoryNetManager.shared.read() { categoryTypes in
             for categoryType in categoryTypes {
-                self.categoryArray.append(categoryType.category_name!)
+                if !self.categoryArray.contains(categoryType.category_name!) {
+                    self.categoryArray.append(categoryType.category_name!)
+                }
             }
             
             DispatchQueue.main.async {
@@ -66,6 +83,7 @@ class ResultTableController : UITableViewController {
             return self.searchedCategoryArray.count
             
         } else { // 나머지인경우 = searchedCategoryArray에 카테고리가 없다면
+            print()
             return self.currentScope.count
         }
     }

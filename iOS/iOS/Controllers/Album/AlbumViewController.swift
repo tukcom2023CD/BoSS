@@ -77,6 +77,7 @@ class AlbumViewController: UIViewController {
     // 텍스트가 수정될 때
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.searchController.searchBar.showsScopeBar = true // ScopeBar를 항상 표시할지 여부
+        resultTC.reloadCategories()
     }
     
     // 텍스트 수정이 완료될 때
@@ -210,6 +211,8 @@ extension AlbumViewController : UISearchResultsUpdating, UISearchBarDelegate, UI
         
         // 선택된 이미지 url 값 저장
         self.currentImageUrl = currentCell.url
+        
+        print(self.currentImageUrl)
         
         // 자세히 보기 화면 전환
         guard let popupVC = self.storyboard?.instantiateViewController(identifier: "popupVC") as? AlbumImagePopUpController else {return}
