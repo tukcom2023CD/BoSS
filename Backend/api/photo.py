@@ -192,16 +192,16 @@ class ReadPhotosWithUidAndCategory(Resource):
         return jsonify({"url": data}) # josn 형식의 데이터를 반환합니다.
     
 # 사직 삭제 (D) -> 특정 사진만 삭제
-@Photo.route('/api/photo/delete/<int:uid>/<int:pid>/<int:phid>')  
+@Photo.route('/api/photo/delete/<int:uid>/<int:sid>/<int:pid>/<int:phid>')  
 class DeletePhotoOne(Resource):
-    def get(self, uid, pid, phid):
-        sql = f"delete from photo where pid = {phid}"
+    def get(self, uid, sid, pid, phid):
+        sql = f"delete from photo where phid = {phid}"
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
         s3 = sc.s3_connection() # s3 객체 생성
         # s3 에서 이미지 삭제
-        delete = sc.s3_delete_file(s3, ak.bucket_name(), f"{uid}/{pid}/{phid}.png")
+        delete = sc.s3_delete_file(s3, ak.bucket_name(), f"{uid}/{sid}/{pid}/{phid}.jpg")
         
 # 사직 삭제 (D) -> 해당 장소의 모든 사진 삭제
 @Photo.route('/api/photo/delete/<int:uid>/<int:pid>')  
