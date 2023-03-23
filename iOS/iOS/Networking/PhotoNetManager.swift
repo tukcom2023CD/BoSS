@@ -18,19 +18,19 @@ class PhotoNetManager {
         let url = "\(urlKey)/api/photo/create/\(uid)/\(sid)/\(pid)"
         
         let headers: HTTPHeaders = [ "Content-Type" : "multipart/form-data" ]
-
+        
         let file = image.pngData()!
         
         // 멀티파트 통신
         AF.upload(multipartFormData: { (multipartFormData) in
-
+            
             multipartFormData.append(file, withName: "file", fileName: "test.png", mimeType: "multipart/form-data")
-
+            
         }, to: url, method: .post, headers: headers).responseJSON { (response) in
-
+            
             guard let statusCode = response.response?.statusCode else { return }
             
-
+            
             guard statusCode == 200 else {
                 print(statusCode)
                 return
@@ -54,7 +54,7 @@ class PhotoNetManager {
                 print(err)
                 return
             }
-
+            
             // HTTP 200번대 정상코드인 경우만 다음 코드로 넘어감
             guard let response = res as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
                 print("Error: HTTP request failed")
@@ -88,7 +88,7 @@ class PhotoNetManager {
                 print(err)
                 return
             }
-
+            
             // HTTP 200번대 정상코드인 경우만 다음 코드로 넘어감
             guard let response = res as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
                 print("Error: HTTP request failed")
@@ -124,7 +124,7 @@ class PhotoNetManager {
                 print(err)
                 return
             }
-
+            
             // HTTP 200번대 정상코드인 경우만 다음 코드로 넘어감
             guard let response = res as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
                 print("Error: HTTP request failed")
@@ -140,6 +140,36 @@ class PhotoNetManager {
                     print("Decode Error")
                 }
             }
+        }.resume()
+    }
+    
+    // 특정 유저의 특정 사진 삭제
+    func delete(imageName: (String?, String?, String?, String?), completion: @escaping ()->()) {
+        
+        let fileName = imageName.3
+        let xValue = fileName!.split(separator: ".")[0]
+        
+        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/photo/delete/\(imageName.0!)/\(imageName.1!)/\(imageName.2!)/\(xValue)") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { data, res, err in
+            
+            guard err == nil else {
+                print("Error: error calling POST")
+                print(err)
+                return
+            }
+            
+            // HTTP 200번대 정상코드인 경우만 다음 코드로 넘어감
+            guard let response = res as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                print("Error: HTTP request failed")
+                return
+            }
+            
+            completion()
+        
         }.resume()
     }
 }

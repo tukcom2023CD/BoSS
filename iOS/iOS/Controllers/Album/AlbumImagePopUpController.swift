@@ -12,9 +12,17 @@ class AlbumImagePopUpController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
-
+    
+    // 삭제 함수를 실행할지 여부
+    var saveCategoryBool : Bool = false {
+        didSet {
+            NotificationCenter.default.post(name: NSNotification.Name("deletePhoto!"), object: self)
+        }
+    }
+    
     // 이미지 저장 변수
     var image : UIImage = UIImage(named: "noImage.png")!
+    var imageName : (String?, String?, String?, String?)
     
     // 확대 축소 기능을 위한 변수
     var recognizerScale: CGFloat = 1.0
@@ -35,7 +43,7 @@ class AlbumImagePopUpController: UIViewController {
         tapGR.numberOfTouchesRequired = 2
         // 탭 제스쳐 등록
         self.view.addGestureRecognizer(tapGR)
-        
+            
         // UI 설정 함수 호출
         setUpUI()
     }
@@ -66,6 +74,32 @@ class AlbumImagePopUpController: UIViewController {
     
     // 삭제 버튼 동작
     @IBAction func deleteButtonPressed(_ sender: UIButton) {
+        
+        // 이미지 삭제에 대한 알림
+        let alertController = UIAlertController(title: "삭제", message: "삭제하시겠습니까?", preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { (action) in
+            PhotoNetManager.shared.delete(imageName: self.imageName) {
+                print("이미지 삭제")
+            }
+            CategoryNetManager.shared.delete(imageName: self.imageName) {
+                print("카테고리 삭제")
+            }
+            
+            self.saveCategoryBool = true
+            
+            // 이미지 팝업창 닫기
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alertController.addAction(cancelAction) // 액션 추가
+        alertController.addAction(deleteAction) // 액션 추가
+
+        present(alertController, animated: true, completion: nil)
     }
 }
 

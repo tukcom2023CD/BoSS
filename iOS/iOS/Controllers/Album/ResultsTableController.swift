@@ -9,6 +9,14 @@ import UIKit
 
 class ResultTableController : UITableViewController {
     
+    // 초기 카테고리값 저장 여부
+    var saveCategoryBool : Bool = false {
+        didSet {
+            // 값이 변경되면 호출되는 함수
+            print("saveCategoryBool 값 변경")
+            NotificationCenter.default.post(name: NSNotification.Name("ChangedCategory!"), object: self)
+        }
+    }
     // 현재 스콥 상태
     var scopeState = ""
     // 현재 스콥 배열
@@ -33,17 +41,36 @@ class ResultTableController : UITableViewController {
         requestCaegoryTypeData() // 모든 카테고리 불러옴
     }
     
-    // 카테고리 종류 불러오는 함수
-    func requestCaegoryTypeData() {
+    // 카테고리 종류 다시 불러오는 함수
+    func reloadCategories() {
         CategoryNetManager.shared.read() { categoryTypes in
-            print(categoryTypes)
+            self.categoryArray = []
             for categoryType in categoryTypes {
                 self.categoryArray.append(categoryType.category_name!)
             }
             
             DispatchQueue.main.async {
                 self.currentScope = self.categoryArray // 받아온 카테고리를 현재 스콥 카테고리 배열로
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    // 카테고리 종류 불러오는 함수
+    func requestCaegoryTypeData() {
+        CategoryNetManager.shared.read() { categoryTypes in
+            for categoryType in categoryTypes {
+                if !self.categoryArray.contains(categoryType.category_name!) {
+                    self.categoryArray.append(categoryType.category_name!)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.currentScope = self.categoryArray // 받아온 카테고리를 현재 스콥 카테고리 배열로
                 self.userCheckedCategory = self.categoryArray // 모든 카테고리를 선택됨으로
+                if self.saveCategoryBool == false {
+                    self.saveCategoryBool = true
+                }
                 self.tableView.reloadData()
             }
         }
@@ -56,6 +83,7 @@ class ResultTableController : UITableViewController {
             return self.searchedCategoryArray.count
             
         } else { // 나머지인경우 = searchedCategoryArray에 카테고리가 없다면
+            print()
             return self.currentScope.count
         }
     }
