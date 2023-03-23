@@ -15,8 +15,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     func sendData(receiptData: [Spending]) {
         spendings = receiptData
         total_subPriceCal()
-        
-        
     }
     
     //MARK: - Properties
@@ -32,10 +30,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     
     // 새로 추가한 변수
     var place: Place!
-    
     var spendings: [Spending]!
-    
-    
     var imagePickerStatus = false // 이미지 피커 상태 (false: 여행 사진 선택, true: 영수증 OCR)
     
     let textViewPlaceHolder = "텍스트를 입력하세요"
@@ -47,7 +42,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         total_subPriceCal()
-        
     }
     
     // MARK: - viewDidLoad
@@ -226,6 +220,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
         place.diary = contents.text
+        place.totalSpending = totalPrice
         let image = imageCard.image
         
         DispatchQueue.global().async {
@@ -246,6 +241,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
             SpendingNetManager.shared.create(spendings: self.spendings) {
                 dispatchGroup.leave()
             }
+            
+            
             
             dispatchGroup.notify(queue: .main) {
                 guard let vcStack =
