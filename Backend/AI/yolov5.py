@@ -2,13 +2,15 @@ import torch
 import json
 from glob import glob
 
-def model(path):
+def model(path, count):
 
-  # model = torch.hub.load('ultralytics/yolov5', 'yolov5s', trust_repo=True)
-  #model = torch.hub.load('ultralytics/yolov5', 'yolov5s', trust_repo=True, force_reload=True)
-  model = torch.hub.load('ultralytics/yolov5', 'custom', path='./AI/best.pt', force_reload=False)
-
-  with open('./AI/tags_ko.json', encoding= "UTF8") as f:
+  # 캐시 경로 설정
+  torch.hub.set_dir(f'/app/yolo/{count}/cache')
+    
+  # 모델 다운로드
+  yolo_model = torch.hub.load('ultralytics/yolov5', 'custom', path='./ai/best.pt', trust_repo=True)
+  
+  with open('./ai/tags_ko.json', encoding= "UTF8") as f:
     tags_ko = json.load(f)
 
   img_list = glob(path)
@@ -16,7 +18,7 @@ def model(path):
   categoryArray = [] # 카테고리 저장 배열
   
   for img_path in img_list:
-      results = model(img_path);
+      results = yolo_model(img_path);
     
       for pred in results.pred[0]:
           tag = tags_ko[int(pred[-1])]
