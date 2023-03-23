@@ -2,7 +2,7 @@ import time
 import random
 import connect
 from celery import Celery
-from ai import yolov5
+from AI import yolov5
 import urllib.request
 
 celery = Celery('tasks', broker='amqp://user:password@rabbitmq:5672//', backend='rpc://')

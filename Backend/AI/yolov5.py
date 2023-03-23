@@ -8,9 +8,9 @@ def model(path, count):
   torch.hub.set_dir(f'/app/yolo/{count}/cache')
     
   # 모델 다운로드
-  yolo_model = torch.hub.load('ultralytics/yolov5', 'custom', path='./ai/best.pt', trust_repo=True)
+  yolo_model = torch.hub.load('ultralytics/yolov5', 'custom', path='./AI/best.pt', trust_repo=True)
   
-  with open('./ai/tags_ko.json', encoding= "UTF8") as f:
+  with open('./AI/tags_ko.json', encoding= "UTF8") as f:
     tags_ko = json.load(f)
 
   img_list = glob(path)
