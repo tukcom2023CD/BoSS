@@ -63,7 +63,7 @@ services:
 
   celery:
     <<: *web
-    command: celery -A celery_test.celery worker --loglevel=INFO
+    command: celery -A celery_task.celery worker --loglevel=INFO
     depends_on:
       - rabbitmq
     ports: []

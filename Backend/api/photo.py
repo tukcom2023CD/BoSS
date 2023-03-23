@@ -3,8 +3,8 @@ from flask_restx import Api, Resource, Namespace
 from s3 import s3_access_key as ak
 from s3 import s3_connect as sc
 import connect
-from AI import yolov5
-import celery_test
+from ai import yolov5
+import celery_task
 from threading import Thread
 
 # 빈 url photo 레코드 생성 함수
@@ -146,7 +146,7 @@ class CreatePhoto(Resource):
             # 이미지 url 값 받아오기
             url = sc.s3_get_image_url(s3, s3_file_name)
             # 객체 탐지 함수 호출 
-            celery_test.working.delay(path, phid, url, count)
+            celery_task.working.delay(path, phid, url, count)
             count += 1
         
         # # 객체 탐지 (Thread)
