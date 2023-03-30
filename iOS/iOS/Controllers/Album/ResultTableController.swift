@@ -14,7 +14,7 @@ class ResultTableController : UITableViewController {
         didSet {
             // 값이 변경되면 호출되는 함수
             print("saveCategoryBool 값 변경")
-            NotificationCenter.default.post(name: NSNotification.Name("ChangedCategory!"), object: self)
+            NotificationCenter.default.post(name: NSNotification.Name("CategoryLoadComplete"), object: self)
         }
     }
     // 현재 스콥 상태

@@ -16,7 +16,7 @@ class AlbumImagePopUpController: UIViewController {
     // 삭제 함수를 실행할지 여부
     var saveCategoryBool : Bool = false {
         didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("deletePhoto!"), object: self)
+            NotificationCenter.default.post(name: NSNotification.Name("ImageDeleteButtonPressed"), object: self)
         }
     }
     
