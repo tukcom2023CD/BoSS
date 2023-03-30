@@ -13,13 +13,6 @@ class AlbumImagePopUpController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     
-    // 삭제 함수를 실행할지 여부
-    var saveCategoryBool : Bool = false {
-        didSet {
-            NotificationCenter.default.post(name: NSNotification.Name("ImageDeleteButtonPressed"), object: self)
-        }
-    }
-    
     // 이미지 저장 변수
     var image : UIImage = UIImage(named: "noImage.png")!
     var imageName : (String?, String?, String?, String?)
@@ -51,17 +44,18 @@ class AlbumImagePopUpController: UIViewController {
     // UI 설정
     func setUpUI() {
         // 뒷배경 불투명 처리
-        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        self.view.backgroundColor = UIColor.black.withAlphaComponent(0.85)
         
         // 이미지 설정
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         
-        // 버튼 설정
+        // 닫기 버튼 설정
         closeButton.layer.borderWidth = 1
         closeButton.layer.borderColor = UIColor.systemBlue.cgColor
         closeButton.layer.cornerRadius = 15
         
+        // 삭제 버튼 설정
         deleteButton.layer.borderWidth = 1
         deleteButton.layer.borderColor = UIColor.red.cgColor
         deleteButton.layer.cornerRadius = 15
@@ -90,15 +84,14 @@ class AlbumImagePopUpController: UIViewController {
                 print("카테고리 삭제")
             }
             
-            self.saveCategoryBool = true
+            // 사진 삭제 버튼이 눌림을 알림
+            NotificationCenter.default.post(name: NSNotification.Name("ImageDeleteButtonPressed"), object: self)
             
             // 이미지 팝업창 닫기
             self.dismiss(animated: true, completion: nil)
         }
-        
         alertController.addAction(cancelAction) // 액션 추가
         alertController.addAction(deleteAction) // 액션 추가
-
         present(alertController, animated: true, completion: nil)
     }
 }
