@@ -56,21 +56,29 @@ class AlbumViewController: UIViewController {
     // 검색창의 내용이 변경될때마다 호출되는 검색 결과 업데이트 함수
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return } // 문자열을 가져옴
-        self.resultTC.searchedCategoryArray = self.resultTC.currentScope.filter
-        {$0.localizedCaseInsensitiveContains(text)} // categoryArray 배열에서 해당 문자열로 검색하여 searchedCategoryArray저장
-        dump(self.resultTC.searchedCategoryArray) // searchedCategoryArray 출력
-        self.resultTC.tableView.reloadData() // 테이블뷰 다시 로드
+        
+        if resultTC.currentScope == "total" {
+            self.resultTC.searchedCategoryArray = self.resultTC.totalCategoryArray.filter
+            {$0.localizedCaseInsensitiveContains(text)} // categoryArray 배열에서 해당 문자열로 검색하여 searchedCategoryArray저장
+            dump(self.resultTC.searchedCategoryArray) // searchedCategoryArray 출력
+            self.resultTC.tableView.reloadData() // 테이블뷰 다시 로드
+        } else {
+            self.resultTC.searchedCategoryArray = self.resultTC.userSelectedCategory.filter
+            {$0.localizedCaseInsensitiveContains(text)} // categoryArray 배열에서 해당 문자열로 검색하여 searchedCategoryArray저장
+            dump(self.resultTC.searchedCategoryArray) // searchedCategoryArray 출력
+            self.resultTC.tableView.reloadData() // 테이블뷰 다시 로드
+        }
+        
+        
     }
     
     // 스콥 버튼 클릭시 실행되는 함수
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         if selectedScope == 0 {
-            resultTC.scopeState = "total" // 스콥 상태 전체로 설정
-            resultTC.currentScope = resultTC.categoryArray // 스콥 배열을 전체로 설정
+            resultTC.currentScope = "total" // 스콥 상태 전체로 설정
         } else {
-            resultTC.scopeState = "check" // 스콥 상태 선택됨으로 설정
-            resultTC.currentScope = resultTC.userCheckedCategory // 스콥 배열을 선택됨으로 설정
-            resultTC.userSavedCheckedCategory = resultTC.userCheckedCategory // 사용자 선택 카테고리 임시 저장
+            resultTC.currentScope = "select" // 스콥 상태 선택됨으로 설정
+            resultTC.userSavedCheckedCategory = resultTC.userSelectedCategory // 사용자 선택 카테고리 임시 저장
         }
         self.resultTC.tableView.reloadData()
     }
@@ -97,7 +105,7 @@ class AlbumViewController: UIViewController {
     @objc func loadImagesWithCategory() {
         let user = UserDefaults.standard.getLoginUser()! // 유저 정보 불러오기
         // 어떠한 카테고리도 선택되어 있지 않은 경우
-        if resultTC.userCheckedCategory == [] {
+        if resultTC.userSelectedCategory == [] {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
                 self.navigationItem.title = "사진 \(self.imageCount) 장"
@@ -106,7 +114,7 @@ class AlbumViewController: UIViewController {
         // 카테고리가 존재하는 경우
         else {
             // 선택한 카테고리 별로 사진을 가져옴
-            for selectedCategory in resultTC.userCheckedCategory {
+            for selectedCategory in resultTC.userSelectedCategory {
                 PhotoNetManager.shared.read(uid: user.uid!, category: selectedCategory) { photos in
                     for photo in photos {
                         if !(self.imageUrlArray.contains(photo.imageUrl)) {
