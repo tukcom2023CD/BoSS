@@ -8,68 +8,59 @@ import UIKit
 
 class MyPageViewController: UIViewController {
     
-    @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var userEmail: UILabel!
-    @IBOutlet weak var userDataView: UIView!
-    @IBOutlet weak var userScheduleView: UIView!
-    @IBOutlet weak var userScheduleLabel: UILabel!
-    @IBOutlet weak var userSpendingView: UIView!
-    @IBOutlet weak var userSpendingLabel: UILabel!
-    @IBOutlet weak var settingButton: UIButton!
-    @IBOutlet weak var userTableView: UITableView!
+    @IBOutlet weak var userDataView: UIView! // 유저 정보를 포함하는 뷰
+    @IBOutlet weak var userImage: UIImageView! // 유저 이미지
+    @IBOutlet weak var userName: UILabel! // 유저 이름
+    @IBOutlet weak var userEmail: UILabel! // 유저 이메일
+
+    @IBOutlet weak var userScheduleView: UIView! // 유저 스케줄 표시 뷰
+    @IBOutlet weak var userScheduleLabel: UILabel!  // 유저 스케줄 라벨
     
-    // 사용자 일정 수
-    var userSchedule : Int = 0
-    // 사용자 지출 금액
-    var totalSpending : Int = 0
+    @IBOutlet weak var userSpendingView: UIView! // 유저 지출 표시 뷰
+    @IBOutlet weak var userSpendingLabel: UILabel! // 유저 지출 라벨
+
+    @IBOutlet weak var settingButton: UIButton! // 설정 버튼
+    @IBOutlet weak var menuTableView: UITableView! // 메뉴 테이블 뷰
     
-    // 테이블 정보
+    // 테이블 뷰 표시 정보
     let titleArray = ["여행일정", "지출내역"]
-    let contentArray = ["나의 여행 일정을 확인하세요", "여행동안의 지출내역을 확인하세요"]
+    let contentArray = ["여행 일정을 확인하세요", "여행동안의 지출내역을 확인하세요"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // UI 설정
-        serUI()
-        // 설정 메뉴 설정
-        setupMenuButton()
+        setUpUI() // UI 설정
+        settingButtonSetUp() // 설정 메뉴 설정
+        
         // 그림자 설정
         setShadow(view: userDataView)
         setShadow(view: userScheduleView)
         setShadow(view: userSpendingView)
         
-        // 일정 데이터 불러오기
-        requestScheduleData()
-        // 총지출  불러오기
-        requestSpendingData()
+        requestScheduleData() // 일정 데이터 불러오기
+        requestSpendingData() // 총지출  불러오기
     }
     
-    func serUI() {
-        // 이미지 설정
-        userImage.image = UIImage(named: "user.png")
-        userImage.layer.cornerRadius = 50
+    // UI 설정 함수
+    func setUpUI() {
         // 유저 정보 표시 뷰 설정
         userDataView.layer.cornerRadius = 40
-        // 유저 여행 일정 표시 뷰 설정
+        // 유저 이미지 설정
+        userImage.image = UIImage(named: "user.png")
+        userImage.layer.cornerRadius = 50
+        
+        // 유저 스케줄 표시 뷰 설정
         userScheduleView.layer.cornerRadius = 25
-        // 유저 지출금액 표시 뷰 설정
+        // 유저 스케줄 기본값으로 표시
+        userScheduleLabel.text = "0"
+        
+        // 유저 지출 표시 뷰 설정
         userSpendingView.layer.cornerRadius = 25
-        // 유저 여행 일정수 표시
-        userScheduleLabel.text = String(userSchedule)
-        // 유저 지출금액 표시
-        userSpendingLabel.text = numberFormatter(number: totalSpending)
-    }
-    
-    // 금액 콤마 표기 함수
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
+        // 유저 지출 기본값으로 표시
+        userSpendingLabel.text = numberFormatter(number: 0)
     }
     
     // 버튼 설정 함수
-    func setupMenuButton() {
+    func settingButtonSetUp() {
         // 회원탈퇴 메뉴
         let menuList : [UIAction] = [
             UIAction(title: "로그아웃", image: UIImage(named: "logout.png"), handler: { _ in print("로그아웃") }),
@@ -88,35 +79,35 @@ class MyPageViewController: UIViewController {
         view.layer.shadowOpacity = 0.3 // alpha 값
     }
     
+    // 금액에 콤마를 포함하여 표기 함수
+    func numberFormatter(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: number))!
+    }
+
     // 여행 일정 수 불러오기
-    /// - parameter uid : 로그인 유저 ID
     func requestScheduleData() {
         let user = UserDefaults.standard.getLoginUser()!
-        
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
-            // 여행 일정 수 변경
-            self.userSchedule = schedules.count
             DispatchQueue.main.async {
-                self.userScheduleLabel.text = String(self.userSchedule)
+                self.userScheduleLabel.text = String(schedules.count)
             }
         }
     }
 
     // 총 지출 내역 불러오기
-    /// - parameter pid : 여행 장소 ID
     func requestSpendingData() {
         let user = UserDefaults.standard.getLoginUser()!
-        
-        // 유저의 모든 여행장소 정보 가져와 pid값 저장
         PlaceNetManager.shared.read(uid: user.uid!) { places in
+            var userTotalSpending = 0
             for place in places {
                 SpendingNetManager.shared.read(pid: place.pid!) { spendings in
-                    // 지출 내역 수
                     for spending in spendings {
-                        self.totalSpending += Int(spending.price!)
+                        userTotalSpending += Int(spending.price!)
                     }
                     DispatchQueue.main.async {
-                        self.userSpendingLabel.text = self.numberFormatter(number: self.totalSpending)
+                        self.userSpendingLabel.text = self.numberFormatter(number: userTotalSpending)
                     }
                 }
             }
