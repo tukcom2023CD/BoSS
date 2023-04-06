@@ -10,40 +10,25 @@ import UIKit
 
 class MyPageSpendingViewController: UIViewController {
     
-    
     @IBOutlet weak var collectionView: UICollectionView!
     
-    // 지출내역 수
-    var spendingCount = 0
-    
-    // 지출내역 구조체
-    struct spendingData {
-        var name : String?
-        var quantiy : Int?
-        var price : Int?
-        var pid : Int?
-    }
-    
-    let spendingImage = #imageLiteral(resourceName: "cash")
-    // 각 지출내역에 대한 여행장소 배열
-    var PlaceArray :[String] = []
-    // 지출내역 구조체 배열
-    var spendingArray : [Spending] = []
+    var spendingCount = 0 // 지출내역 수
+    let spendingImage = #imageLiteral(resourceName: "cash") // 지출내역 샘플 이미지
+    var PlaceArray :[String] = [] // 각 지출내역에 대한 여행장소 배열
+    var spendingArray : [Spending] = [] // 지출내역 구조체 배열
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 지출 내역 가져오기
-        requestSpendingData()
+        requestSpendingData() // 사용자 지출 내역 가져오기
     }
     
     // 그림자 설정 함수
     func setShadow(cell : UICollectionViewCell) {
         cell.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
         cell.layer.masksToBounds = false // 그림자 잘림 방지
-        cell.layer.shadowOffset = CGSize(width: 0, height: 4) // 그림자 위치
-        cell.layer.shadowRadius = 5 // 그림자 반경
-        cell.layer.shadowOpacity = 0.25 // alpha 값
+        cell.layer.shadowOffset = CGSize(width: 3, height: 3) // 그림자 위치
+        cell.layer.shadowRadius = 3 // 그림자 반경
+        cell.layer.shadowOpacity = 0.3 // alpha 값
     }
     
     // 금액 콤마 표기 함수
@@ -54,17 +39,12 @@ class MyPageSpendingViewController: UIViewController {
     }
     
     // 지출내역 불러오기
-    /// - parameter pid : 여행 장소 ID
     func requestSpendingData() {
         let user = UserDefaults.standard.getLoginUser()!
-        
-        // 유저의 모든 여행장소 정보 가져와 pid값 저장
         PlaceNetManager.shared.read(uid: user.uid!) { places in
             for place in places {
-
                 SpendingNetManager.shared.read(pid: place.pid!) { spendings in
-                    // 지출 내역 수
-                    self.spendingCount += spendings.count
+                    self.spendingCount += spendings.count // 지출 내역 수 저장
 
                     // 지출내역 배열 저장
                     for x in 0..<spendings.count {
@@ -96,7 +76,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
         }
         
         // cell UI 설정
-        spendingCell.layer.cornerRadius = 30 // 모서리
+        spendingCell.layer.cornerRadius = 15 // 모서리
         setShadow(cell : spendingCell) // 그림자
         
         // cell 내용 설정
