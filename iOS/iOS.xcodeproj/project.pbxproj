@@ -81,7 +81,7 @@
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
 		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
 		BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */; };
-		BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD681299BB4AF00071565 /* ResultsTableController.swift */; };
+		BF8AD682299BB4AF00071565 /* ResultTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD681299BB4AF00071565 /* ResultTableController.swift */; };
 		BFD0F2E129A69B1E0063EEEF /* CategoryNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD0F2E029A69B1E0063EEEF /* CategoryNetManager.swift */; };
 		BFD0F2E329A69B5C0063EEEF /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD0F2E229A69B5C0063EEEF /* Category.swift */; };
 		BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */; };
@@ -191,7 +191,7 @@
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagePopUpController.swift; sourceTree = "<group>"; };
 		BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageScheduleViewController.swift; sourceTree = "<group>"; };
-		BF8AD681299BB4AF00071565 /* ResultsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsTableController.swift; sourceTree = "<group>"; };
+		BF8AD681299BB4AF00071565 /* ResultTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableController.swift; sourceTree = "<group>"; };
 		BFD0F2E029A69B1E0063EEEF /* CategoryNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryNetManager.swift; sourceTree = "<group>"; };
 		BFD0F2E229A69B5C0063EEEF /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Models/DBTables/Category.swift; sourceTree = "<group>"; };
 		BFD1F9BC29920D2D00D06496 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -474,7 +474,7 @@
 			children = (
 				BFEF3F302999ECEC00DF39FE /* AlbumViewController.swift */,
 				BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */,
-				BF8AD681299BB4AF00071565 /* ResultsTableController.swift */,
+				BF8AD681299BB4AF00071565 /* ResultTableController.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -817,7 +817,7 @@
 				3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */,
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
-				BF8AD682299BB4AF00071565 /* ResultsTableController.swift in Sources */,
+				BF8AD682299BB4AF00071565 /* ResultTableController.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
 				571FF6A029A3CFF7005E54F6 /* Photo.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
