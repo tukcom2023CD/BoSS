@@ -13,6 +13,7 @@ target 'iOS' do
   pod 'FSCalendar'
   pod 'CalendarDateRangePicker'
   pod 'GoogleSignIn'
+  pod 'lottie-ios'
 
   target 'iOSTests' do
     inherit! :search_paths
