@@ -32,9 +32,7 @@ class MyPageViewController: UIViewController {
         setUpUI() // UI 설정
         settingButtonSetUp() // 설정 메뉴 설정
         
-        setUserEmail() // 이메일 표시
-        setUserName() // 이름 표시
-        setUserPhoto() // 사진 표시
+        setUserProfile() // 프로필 표시
         
         // 그림자 설정
         setShadow(view: userDataView)
@@ -43,6 +41,8 @@ class MyPageViewController: UIViewController {
         
         requestScheduleData() // 일정 데이터 불러오기
         requestSpendingData() // 총지출  불러오기
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setUserProfile), name: NSNotification.Name("ProfileChanged"), object: nil)
     }
     
     // UI 설정 함수
@@ -128,7 +128,7 @@ class MyPageViewController: UIViewController {
     }
     
     // 유저 사진 표시 함수
-    func setUserPhoto() {
+    func setUserImage() {
     
         // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
         guard let userImage = UserDefaults.standard.data(forKey: "userImage") else {
@@ -140,6 +140,12 @@ class MyPageViewController: UIViewController {
             return
         }
         self.userImage.image = UIImage(data: userImage)
+    }
+    
+    @objc func setUserProfile() {
+        setUserEmail()
+        setUserName()
+        setUserImage()
     }
     
     
