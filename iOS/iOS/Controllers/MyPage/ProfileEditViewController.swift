@@ -8,7 +8,7 @@
 import UIKit
 import GoogleSignIn
 
-class ProfileEdirViewController : UIViewController, UITextFieldDelegate {
+class ProfileEdirViewController : UIViewController {
      
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
@@ -17,6 +17,9 @@ class ProfileEdirViewController : UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var setDefaultImageButton: UIButton!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,18 +38,11 @@ class ProfileEdirViewController : UIViewController, UITextFieldDelegate {
     func serUI() {
         self.cancelButton.layer.cornerRadius = 20
         self.applyButton.layer.cornerRadius = 20
+        self.userImageView.layer.cornerRadius = 75
+        self.userImageView.contentMode = .scaleAspectFill
         self.selectImageButton.layer.cornerRadius = 25
+        self.setDefaultImageButton.layer.cornerRadius = 10
     }
-    
-    // 글자수 제한 함수
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            // 글자 수를 제한하는 코드
-            let maxLength = 10
-            let currentString: NSString = textField.text! as NSString
-            let newString: NSString =
-                currentString.replacingCharacters(in: range, with: string) as NSString
-            return newString.length <= maxLength
-        }
     
     // 유저 이메일 표시 함수
     func setUserEmail() {
@@ -87,6 +83,13 @@ class ProfileEdirViewController : UIViewController, UITextFieldDelegate {
         }
     }
     
+    
+    
+    // 기본 이미지 버튼 클릭시
+    @IBAction func setDefaultImageButtonTapped(_ sender: UIButton) {
+        self.userImageView.image = UIImage(named: "user")
+    }
+
     // 취소 버튼 클릭시
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -98,6 +101,38 @@ class ProfileEdirViewController : UIViewController, UITextFieldDelegate {
         NotificationCenter.default.post(name: NSNotification.Name("ProfileChanged"), object: self)
         dismiss(animated: true, completion: nil)
     }
+    
+    // 이미지 선택 버튼 클릭시
+    @IBAction func imageSelectButtonTapped(_ sender: UIButton) {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
 }
 
 
+extension ProfileEdirViewController : UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    // 글자수 제한 함수
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            // 글자 수를 제한하는 코드
+            let maxLength = 10
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString =
+                currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            guard let image = info[.originalImage] as? UIImage else {
+                return
+            }
+            userImageView.image = image
+            dismiss(animated: true, completion: nil)
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            dismiss(animated: true, completion: nil)
+        }
+}

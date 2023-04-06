@@ -50,7 +50,8 @@ class MyPageViewController: UIViewController {
         // 유저 정보 표시 뷰 설정
         userDataView.layer.cornerRadius = 40
         // 유저 이미지 모서리 설정
-        userImage.layer.cornerRadius = 50
+        userImage.layer.cornerRadius = 75
+        userImage.contentMode = .scaleAspectFill
         
         // 유저 스케줄 표시 뷰 설정
         userScheduleView.layer.cornerRadius = 25
