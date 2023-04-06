@@ -11,8 +11,8 @@ class ConnectDB:
     def __init__(self, sql):
         self.sql= sql # 인스턴스 변수 sql값을 설정합니다.
         self.data = None 
-        # self.conn= pymysql.connect(host='db', user='boss', password='password', db='Boss', charset='utf8', autocommit=True) # DB와 연결합니다.
-        self.conn= pymysql.connect(host='localhost', user='root', password='password', db='Boss', charset='utf8', autocommit=True) # DB와 연결합니다.
+        self.conn= pymysql.connect(host='db', user='boss', password='password', db='Boss', charset='utf8', autocommit=True) # DB와 연결합니다.
+        # self.conn= pymysql.connect(host='localhost', user='root', password='password', db='Boss', charset='utf8', autocommit=True) # DB와 연결합니다.
         self.curs= self.conn.cursor(pymysql.cursors.DictCursor) # sql문 수행을 위해 cursor 객체를 생성합니다.
     
     # sql문 실행  
