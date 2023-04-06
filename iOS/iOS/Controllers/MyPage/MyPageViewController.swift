@@ -5,6 +5,7 @@
 //  Created by JunHee on 2023/02/07.
 //
 import UIKit
+import GoogleSignIn
 
 class MyPageViewController: UIViewController {
     
@@ -31,6 +32,10 @@ class MyPageViewController: UIViewController {
         setUpUI() // UI 설정
         settingButtonSetUp() // 설정 메뉴 설정
         
+        setUserEmail() // 이메일 표시
+        setUserName() // 이름 표시
+        setUserPhoto() // 사진 표시
+        
         // 그림자 설정
         setShadow(view: userDataView)
         setShadow(view: userScheduleView)
@@ -44,8 +49,7 @@ class MyPageViewController: UIViewController {
     func setUpUI() {
         // 유저 정보 표시 뷰 설정
         userDataView.layer.cornerRadius = 40
-        // 유저 이미지 설정
-        userImage.image = UIImage(named: "user.png")
+        // 유저 이미지 모서리 설정
         userImage.layer.cornerRadius = 50
         
         // 유저 스케줄 표시 뷰 설정
@@ -63,12 +67,120 @@ class MyPageViewController: UIViewController {
     func settingButtonSetUp() {
         // 회원탈퇴 메뉴
         let menuList : [UIAction] = [
-            UIAction(title: "로그아웃", image: UIImage(named: "logout.png"), handler: { _ in print("로그아웃") }),
-            UIAction(title: "회원탈퇴", image: UIImage(named: "cancel.png"), attributes: .destructive, handler: { _ in print("회원탈퇴") })
+            UIAction(title: "프로필 편집", image: UIImage(systemName: "pencil.line"), handler: { _ in self.moveEditProfileScreen()}),
+            UIAction(title: "로그아웃", image: UIImage(named: "logout.png"), handler: { _ in self.logOutAlert() }),
+            UIAction(title: "회원탈퇴", image: UIImage(named: "cancel.png"), attributes: .destructive, handler: { _ in self.withdrawMembership() })
         ]
         settingButton.menu = UIMenu(identifier: nil, options: .displayInline, children: menuList)
         settingButton.showsMenuAsPrimaryAction = true
     }
+    
+    // 현재 구글 로그인한 사용자의 이메일 주소 가져오기
+    func getGoogleUserEmail() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if let email = user.profile?.email {
+                return (email)
+            } else {
+                return ("Unknown")
+            }
+        } else {
+            return ("Guest")
+        }
+    }
+    
+    // 현재 구글 로그인한 사용자의 이름 가져오기
+    func getGoogleUserName() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if let name = user.profile?.name {
+                return (name)
+            } else {
+                return ("Unknown")
+            }
+        } else {
+            return ("Guest")
+        }
+    }
+    
+    // 유저 이메일 표시 함수
+    func setUserEmail() {
+        
+        // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
+        guard let userEmail = UserDefaults.standard.string(forKey: "userEmail") else {
+            let userEmail = getGoogleUserEmail()
+            UserDefaults.standard.set(userEmail, forKey: "userEmail")
+            self.userEmail.text = userEmail
+            return
+        }
+        self.userEmail.text = userEmail
+    }
+    
+    // 유저 이름 표시 함수
+    func setUserName() {
+        
+        // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
+        guard let userName = UserDefaults.standard.string(forKey: "userName") else {
+            let userName = getGoogleUserName()
+            UserDefaults.standard.set(userName, forKey: "userName")
+            self.userName.text = userName
+            return
+        }
+        self.userName.text = userName
+    }
+    
+    // 유저 사진 표시 함수
+    func setUserPhoto() {
+        
+//        // 이미지를 Data로 변환하여 UserDefaults에 저장
+//        if let imageData = image.pngData() {
+//            UserDefaults.standard.set(imageData, forKey: "savedImage")
+//        }
+
+        // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
+        guard let userImage = UserDefaults.standard.data(forKey: "userImage") else {
+            self.userImage.image = UIImage(named: "user")
+            return
+        }
+        self.userImage.image = UIImage(data: userImage)
+    }
+    
+    
+    // 프로필 편집화면으로 이동하는 함수
+    func moveEditProfileScreen() {
+        print("프로필 편집 화면으로 이동")
+        
+        guard let profileEditVC = self.storyboard?.instantiateViewController(identifier: "profileEditVC") as? ProfileEdirViewController else {return}
+        profileEditVC.modalPresentationStyle = .fullScreen
+        profileEditVC.modalTransitionStyle = .coverVertical
+        
+        self.present(profileEditVC, animated: true)
+    }
+    
+    // 로그아웃 알림창을 띄우는 함수
+    func logOutAlert() {
+        // 로그아웃에 대한 알림
+        let alertController = UIAlertController(title: "로그아웃", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
+            print("취소")
+            alertController.dismiss(animated: true, completion: nil)
+        }
+
+        let logOutAction = UIAlertAction(title: "로그아웃", style: .destructive) { (action) in
+            print("로그아웃")
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(cancelAction) // 액션 추가
+        alertController.addAction(logOutAction) // 액션 추가
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    // 회원탈퇴 화면으로 이동하는 함수
+    func withdrawMembership() {
+        print("회원탈퇴 화면으로 이동")
+    }
+    
+    
+    
     
     // 그림자 설정 함수
     func setShadow(view : UIView) {
