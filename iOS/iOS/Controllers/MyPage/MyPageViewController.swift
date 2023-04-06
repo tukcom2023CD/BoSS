@@ -129,15 +129,14 @@ class MyPageViewController: UIViewController {
     
     // 유저 사진 표시 함수
     func setUserPhoto() {
-        
-//        // 이미지를 Data로 변환하여 UserDefaults에 저장
-//        if let imageData = image.pngData() {
-//            UserDefaults.standard.set(imageData, forKey: "savedImage")
-//        }
-
+    
         // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
         guard let userImage = UserDefaults.standard.data(forKey: "userImage") else {
             self.userImage.image = UIImage(named: "user")
+            // 이미지를 Data로 변환하여 UserDefaults에 저장
+            if let imageData = self.userImage.image!.pngData() {
+                UserDefaults.standard.set(imageData, forKey: "userImage")
+            }
             return
         }
         self.userImage.image = UIImage(data: userImage)
