@@ -43,8 +43,6 @@ class MyPageViewController: UIViewController {
         requestSpendingData() // 총지출  불러오기
         
         NotificationCenter.default.addObserver(self, selector: #selector(setUserProfile), name: NSNotification.Name("ProfileChanged"), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(closeViewController), name: NSNotification.Name("WithDraw"), object: nil)
     }
     
     // UI 설정 함수
@@ -186,11 +184,6 @@ class MyPageViewController: UIViewController {
         withDrawVC.modalTransitionStyle = .coverVertical
         
         self.present(withDrawVC, animated: true)
-    }
-    
-    // 화면 닫는 함수
-    @objc func closeViewController() {
-        dismiss(animated: true, completion: nil)
     }
     
     // 그림자 설정 함수
