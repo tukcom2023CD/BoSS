@@ -5,6 +5,8 @@
 //  Created by JunHee on 2023/02/07.
 //
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 import GoogleSignIn
 
 class MyPageViewController: UIViewController {
@@ -170,11 +172,35 @@ class MyPageViewController: UIViewController {
 
         let logOutAction = UIAlertAction(title: "로그아웃", style: .destructive) { (action) in
             print("로그아웃")
-            alertController.dismiss(animated: true, completion: nil)
+            alertController.dismiss(animated: true){
+                self.signOut()
+                self.loginVC()
+            }
         }
         alertController.addAction(cancelAction) // 액션 추가
         alertController.addAction(logOutAction) // 액션 추가
         present(alertController, animated: true, completion: nil)
+    }
+    
+    // 로그아웃
+    func signOut() {
+        print("로그아웃")
+        do {
+            try Auth.auth().signOut()
+            GIDSignIn.sharedInstance.signOut()
+            // 로그아웃 성공적으로 수행
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+    }
+    
+    // 초기화면(로그인) 화면으로 이동
+    func loginVC() {
+        print("로그인 화면 열기")
+        guard let LoginVC = self.storyboard?.instantiateViewController(identifier: "LoginVC") as? LoginViewController else {return}
+        LoginVC.modalPresentationStyle = .fullScreen
+        LoginVC.modalTransitionStyle = .coverVertical
+        UIApplication.shared.keyWindow?.rootViewController = LoginVC
     }
     
     // 회원탈퇴 화면으로 이동하는 함수
