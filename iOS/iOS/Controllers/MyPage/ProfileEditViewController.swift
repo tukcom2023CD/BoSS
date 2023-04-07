@@ -12,6 +12,7 @@ class ProfileEdirViewController : UIViewController {
      
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
+    
     @IBOutlet weak var selectImageButton: UIButton!
     @IBOutlet weak var userImageView: UIImageView!
     
@@ -83,8 +84,6 @@ class ProfileEdirViewController : UIViewController {
         }
     }
     
-    
-    
     // 기본 이미지 버튼 클릭시
     @IBAction func setDefaultImageButtonTapped(_ sender: UIButton) {
         self.userImageView.image = UIImage(named: "user")
@@ -110,7 +109,6 @@ class ProfileEdirViewController : UIViewController {
         present(imagePickerController, animated: true, completion: nil)
     }
 }
-
 
 extension ProfileEdirViewController : UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     

@@ -43,6 +43,8 @@ class MyPageViewController: UIViewController {
         requestSpendingData() // 총지출  불러오기
         
         NotificationCenter.default.addObserver(self, selector: #selector(setUserProfile), name: NSNotification.Name("ProfileChanged"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(closeViewController), name: NSNotification.Name("WithDraw"), object: nil)
     }
     
     // UI 설정 함수
@@ -131,7 +133,6 @@ class MyPageViewController: UIViewController {
     // 유저 사진 표시 함수
     func setUserImage() {
     
-        // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
         guard let userImage = UserDefaults.standard.data(forKey: "userImage") else {
             self.userImage.image = UIImage(named: "user")
             // 이미지를 Data로 변환하여 UserDefaults에 저장
@@ -143,17 +144,15 @@ class MyPageViewController: UIViewController {
         self.userImage.image = UIImage(data: userImage)
     }
     
+    // 유저 프로필 표시 함수
     @objc func setUserProfile() {
         setUserEmail()
         setUserName()
         setUserImage()
     }
     
-    
     // 프로필 편집화면으로 이동하는 함수
     func moveEditProfileScreen() {
-        print("프로필 편집 화면으로 이동")
-        
         guard let profileEditVC = self.storyboard?.instantiateViewController(identifier: "profileEditVC") as? ProfileEdirViewController else {return}
         profileEditVC.modalPresentationStyle = .fullScreen
         profileEditVC.modalTransitionStyle = .coverVertical
@@ -182,11 +181,17 @@ class MyPageViewController: UIViewController {
     
     // 회원탈퇴 화면으로 이동하는 함수
     func withdrawMembership() {
-        print("회원탈퇴 화면으로 이동")
+        guard let withDrawVC = self.storyboard?.instantiateViewController(identifier: "withDrawVC") as? WithDrawMembershipViewController else {return}
+        withDrawVC.modalPresentationStyle = .fullScreen
+        withDrawVC.modalTransitionStyle = .coverVertical
+        
+        self.present(withDrawVC, animated: true)
     }
     
-    
-    
+    // 화면 닫는 함수
+    @objc func closeViewController() {
+        dismiss(animated: true, completion: nil)
+    }
     
     // 그림자 설정 함수
     func setShadow(view : UIView) {

@@ -1245,6 +1245,234 @@
             </objects>
             <point key="canvasLocation" x="4788.5496183206105" y="1238.7323943661972"/>
         </scene>
+        <!--With Draw Membership View Controller-->
+        <scene sceneID="NC8-Sm-WiC">
+            <objects>
+                <viewController storyboardIdentifier="withDrawVC" id="Mqj-HK-aP8" customClass="WithDrawMembershipViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Gc3-aO-ePT">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회원탈퇴" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRW-qx-Wd5">
+                                <rect key="frame" x="153.33333333333334" y="84" width="86.666666666666657" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="hP9-le-Ez2">
+                                <rect key="frame" x="46.666666666666657" y="698" width="300" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dst-vi-puK">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="40"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="Lrw-aL-WM7"/>
+                                            <constraint firstAttribute="width" constant="125" id="R1N-2B-4Kt"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="취소">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="EYW-kl-OvX" eventType="touchUpInside" id="TFu-hU-U64"/>
+                                            <action selector="cancelButtonTapped:" destination="Mqj-HK-aP8" eventType="touchUpInside" id="sXm-bv-a6W"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="im8-d2-8HP">
+                                        <rect key="frame" x="175" y="0.0" width="125" height="40"/>
+                                        <color key="backgroundColor" systemColor="systemPinkColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="탈퇴">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="applyButtonTapped:" destination="EYW-kl-OvX" eventType="touchUpInside" id="tmW-hQ-262"/>
+                                            <action selector="withDrawButtonTapped:" destination="Mqj-HK-aP8" eventType="touchUpInside" id="E9H-qf-z2t"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="sez-2z-Tzo">
+                                <rect key="frame" x="59" y="225.66666666666663" width="275" height="385"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="zyE-1i-RXJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="275" height="45"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Z2P-ca-A12">
+                                                <rect key="frame" x="0.0" y="1" width="45" height="43.666666666666671"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="64F-l4-TZH"/>
+                                                    <constraint firstAttribute="width" constant="45" id="ptG-8p-ra4"/>
+                                                </constraints>
+                                                <imageReference key="image" image="checkmark.circle" catalog="system" renderingMode="hierarchical-single">
+                                                    <hierarchicalColors>
+                                                        <color systemColor="systemRedColor"/>
+                                                        <color systemColor="secondaryLabelColor"/>
+                                                        <color systemColor="tertiaryLabelColor"/>
+                                                    </hierarchicalColors>
+                                                </imageReference>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사용자의 모든 일정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="17W-v8-iBD">
+                                                <rect key="frame" x="75" y="0.0" width="200" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="KIr-bW-ivr"/>
+                                                    <constraint firstAttribute="width" constant="200" id="dPG-aE-PNW"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="GVk-HD-Vrg">
+                                        <rect key="frame" x="0.0" y="85.000000000000028" width="275" height="45"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eUz-Cs-zTj">
+                                                <rect key="frame" x="0.0" y="1" width="45" height="43.666666666666671"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="1CR-Oi-Ves"/>
+                                                    <constraint firstAttribute="height" constant="45" id="8nB-wI-neF"/>
+                                                </constraints>
+                                                <imageReference key="image" image="checkmark.circle" catalog="system" renderingMode="hierarchical-single">
+                                                    <hierarchicalColors>
+                                                        <color systemColor="systemRedColor"/>
+                                                        <color systemColor="secondaryLabelColor"/>
+                                                        <color systemColor="tertiaryLabelColor"/>
+                                                    </hierarchicalColors>
+                                                </imageReference>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사용자의 모든 여행 장소" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I7j-mf-yNj">
+                                                <rect key="frame" x="75" y="0.0" width="200" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="D4o-mk-O0U"/>
+                                                    <constraint firstAttribute="width" constant="200" id="dXy-lL-Qef"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="0Us-Gx-VFP">
+                                        <rect key="frame" x="0.0" y="170.00000000000003" width="275" height="45"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Be-2n-73W">
+                                                <rect key="frame" x="0.0" y="1" width="45" height="43.666666666666671"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="Xsm-3f-23H"/>
+                                                    <constraint firstAttribute="height" constant="45" id="uKr-Qi-b11"/>
+                                                </constraints>
+                                                <imageReference key="image" image="checkmark.circle" catalog="system" renderingMode="hierarchical-single">
+                                                    <hierarchicalColors>
+                                                        <color systemColor="systemRedColor"/>
+                                                        <color systemColor="secondaryLabelColor"/>
+                                                        <color systemColor="tertiaryLabelColor"/>
+                                                    </hierarchicalColors>
+                                                </imageReference>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사용자의 모든 일지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liP-Sw-PU7">
+                                                <rect key="frame" x="75" y="0.0" width="200" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="cbE-5t-TVb"/>
+                                                    <constraint firstAttribute="height" constant="45" id="eiB-tf-Aj6"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="hqR-Ox-oCp">
+                                        <rect key="frame" x="0.0" y="255" width="275" height="45"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iWf-hi-Nml">
+                                                <rect key="frame" x="0.0" y="1" width="45" height="43.666666666666671"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="bBI-ue-Pco"/>
+                                                    <constraint firstAttribute="height" constant="45" id="cXF-ac-Yg0"/>
+                                                </constraints>
+                                                <imageReference key="image" image="checkmark.circle" catalog="system" renderingMode="hierarchical-single">
+                                                    <hierarchicalColors>
+                                                        <color systemColor="systemRedColor"/>
+                                                        <color systemColor="secondaryLabelColor"/>
+                                                        <color systemColor="tertiaryLabelColor"/>
+                                                    </hierarchicalColors>
+                                                </imageReference>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사용자의 모든 지출내역" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oha-fl-np9">
+                                                <rect key="frame" x="75" y="0.0" width="200" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="nGT-bc-TJ3"/>
+                                                    <constraint firstAttribute="width" constant="200" id="vFy-cH-Htv"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ZgS-pB-ONw">
+                                        <rect key="frame" x="0.0" y="340" width="275" height="45"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J0L-aC-fEo">
+                                                <rect key="frame" x="0.0" y="1" width="45" height="43.666666666666671"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="2QU-e0-BfA"/>
+                                                    <constraint firstAttribute="height" constant="45" id="92W-9u-67N"/>
+                                                </constraints>
+                                                <imageReference key="image" image="checkmark.circle" catalog="system" renderingMode="hierarchical-single">
+                                                    <hierarchicalColors>
+                                                        <color systemColor="systemRedColor"/>
+                                                        <color systemColor="secondaryLabelColor"/>
+                                                        <color systemColor="tertiaryLabelColor"/>
+                                                    </hierarchicalColors>
+                                                </imageReference>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사용자의 모든 사진" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycQ-qk-PfS">
+                                                <rect key="frame" x="75" y="0.0" width="200" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="fsz-W5-H4x"/>
+                                                    <constraint firstAttribute="height" constant="45" id="x2e-QZ-37f"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아래와 같은 사용자의 데이터가 모두 삭제됩니다" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gov-T5-qaH">
+                                <rect key="frame" x="30.333333333333343" y="154" width="332.33333333333326" height="21.666666666666657"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XIq-Qu-uQs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sez-2z-Tzo" firstAttribute="centerX" secondItem="Gc3-aO-ePT" secondAttribute="centerX" id="0Nn-46-atS"/>
+                            <constraint firstItem="iRW-qx-Wd5" firstAttribute="centerX" secondItem="Gc3-aO-ePT" secondAttribute="centerX" id="0rZ-FW-XW9"/>
+                            <constraint firstItem="hP9-le-Ez2" firstAttribute="centerX" secondItem="Gc3-aO-ePT" secondAttribute="centerX" id="Kh7-0W-LXE"/>
+                            <constraint firstItem="gov-T5-qaH" firstAttribute="top" secondItem="iRW-qx-Wd5" secondAttribute="bottom" constant="40" id="U4i-2t-1uB"/>
+                            <constraint firstItem="iRW-qx-Wd5" firstAttribute="top" secondItem="XIq-Qu-uQs" secondAttribute="top" constant="25" id="e0F-qI-xI0"/>
+                            <constraint firstItem="XIq-Qu-uQs" firstAttribute="bottom" secondItem="hP9-le-Ez2" secondAttribute="bottom" constant="80" id="g4o-Z3-J2z"/>
+                            <constraint firstItem="gov-T5-qaH" firstAttribute="centerX" secondItem="Gc3-aO-ePT" secondAttribute="centerX" id="hZF-Xr-msq"/>
+                            <constraint firstItem="sez-2z-Tzo" firstAttribute="top" secondItem="gov-T5-qaH" secondAttribute="bottom" constant="50" id="rHd-l3-NdX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="Dst-vi-puK" id="sgK-Ms-rfg"/>
+                        <outlet property="withDrawButton" destination="im8-d2-8HP" id="IXi-ur-N6U"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4PH-WR-SGi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3864.8854961832058" y="2180.9859154929577"/>
+        </scene>
         <!--My Page Spending View Controller-->
         <scene sceneID="MJJ-t6-3ej">
             <objects>
@@ -2014,6 +2242,7 @@
         <image name="bell" catalog="system" width="125" height="128"/>
         <image name="camera" catalog="system" width="128" height="93"/>
         <image name="cash" width="256" height="256"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="google" width="32" height="32"/>
@@ -2034,6 +2263,9 @@
         </systemColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2058,6 +2290,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
