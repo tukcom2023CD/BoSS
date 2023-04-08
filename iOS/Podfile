@@ -14,6 +14,7 @@ target 'iOS' do
   pod 'CalendarDateRangePicker'
   pod 'GoogleSignIn'
   pod 'lottie-ios'
+  pod 'CollectionViewPagingLayout'
 
   target 'iOSTests' do
     inherit! :search_paths

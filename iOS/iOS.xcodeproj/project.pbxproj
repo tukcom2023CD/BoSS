@@ -22,6 +22,11 @@
 		3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F666297B980800014FFE /* SecondTableViewCell.xib */; };
 		3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F669297BB04800014FFE /* CalendarTableViewCell.swift */; };
 		3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */; };
+		3785E3EB29E1932B001535C0 /* HomeTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785E3EA29E1932B001535C0 /* HomeTravelCollectionViewCell.swift */; };
+		3785E3EE29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785E3EC29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift */; };
+		3785E3EF29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3785E3ED29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib */; };
+		3785E3F229E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785E3F029E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift */; };
+		3785E3F329E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3785E3F129E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib */; };
 		37B7BE88298564F900786A1F /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B7BE87298564F900786A1F /* SlideView.swift */; };
 		37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */; };
 		37ECD62229866358005E21D4 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD62129866358005E21D4 /* Region.swift */; };
@@ -128,6 +133,11 @@
 		3764F666297B980800014FFE /* SecondTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondTableViewCell.xib; sourceTree = "<group>"; };
 		3764F669297BB04800014FFE /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
+		3785E3EA29E1932B001535C0 /* HomeTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTravelCollectionViewCell.swift; sourceTree = "<group>"; };
+		3785E3EC29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHomeTravelCollectionViewCell.swift; sourceTree = "<group>"; };
+		3785E3ED29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtensionHomeTravelCollectionViewCell.xib; sourceTree = "<group>"; };
+		3785E3F029E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoExHomeTravelCollectionViewCell.swift; sourceTree = "<group>"; };
+		3785E3F129E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoExHomeTravelCollectionViewCell.xib; sourceTree = "<group>"; };
 		37B7BE87298564F900786A1F /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
 		37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanViewController.swift; sourceTree = "<group>"; };
 		37ECD62129866358005E21D4 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Region.swift; path = Models/Region.swift; sourceTree = "<group>"; };
@@ -261,6 +271,11 @@
 				3764F666297B980800014FFE /* SecondTableViewCell.xib */,
 				3764F669297BB04800014FFE /* CalendarTableViewCell.swift */,
 				3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */,
+				3785E3EA29E1932B001535C0 /* HomeTravelCollectionViewCell.swift */,
+				3785E3EC29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift */,
+				3785E3ED29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib */,
+				3785E3F029E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift */,
+				3785E3F129E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -619,6 +634,7 @@
 				570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */,
 				3764F65C297B97A900014FFE /* SecondCollectionViewCell.xib in Resources */,
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
+				3785E3EF29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib in Resources */,
 				3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
 				570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */,
@@ -632,6 +648,7 @@
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
 				576B64C4299970FA002609FA /* MainPlanTableViewCell.xib in Resources */,
 				570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */,
+				3785E3F329E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -813,6 +830,7 @@
 				37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */,
 				570AAB7329917850006CB64C /* PlacePhotosTableViewCell.swift in Sources */,
 				576B64C3299970FA002609FA /* MainPlanTableViewCell.swift in Sources */,
+				3785E3EE29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift in Sources */,
 				576B64C82999737F002609FA /* MainPlanFooterView.swift in Sources */,
 				577B8F7D297A7E6500FBD1EB /* OCRResult.swift in Sources */,
 				57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */,
@@ -824,6 +842,7 @@
 				576B64C029996F1A002609FA /* MainPlanHeaderView.swift in Sources */,
 				3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */,
 				37F18C4B29856B2C003C8EF2 /* PlanningViewController.swift in Sources */,
+				3785E3F229E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
 				BF8AD682299BB4AF00071565 /* ResultTableController.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
@@ -833,6 +852,7 @@
 				BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */,
 				5719B57A298BA302008572CF /* UserNetManager.swift in Sources */,
 				BFD0F2E129A69B1E0063EEEF /* CategoryNetManager.swift in Sources */,
+				3785E3EB29E1932B001535C0 /* HomeTravelCollectionViewCell.swift in Sources */,
 				573941A9297ED1E900E69D8F /* Constants.swift in Sources */,
 				576B64CA299A0895002609FA /* WritingPageViewController.swift in Sources */,
 				571FF69E29A3C88F005E54F6 /* SpendingNetManager.swift in Sources */,

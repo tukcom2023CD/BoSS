@@ -7,11 +7,15 @@
 
 import UIKit
 import CalendarDateRangePicker
-
+import CollectionViewPagingLayout
 
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var isExpanded = false
     
     var upcomingSchedules: [Schedule] = []
     var previousSchedules: [Schedule] = []
@@ -20,15 +24,21 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
-//        navigationController?.navigationBar.prefersLargeTitles = true
-        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(ExtensionHomeTravelCollectionViewCell.self, forCellWithReuseIdentifier: "ExtensionHomeTravelCollectionViewCell")
+        collectionView.register(NoExHomeTravelCollectionViewCell.self, forCellWithReuseIdentifier: "NoExHomeTravelCollectionViewCell")
         setupTableView()
         requestScheduleData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
     }
+    
+ 
+
     
     // 여행 일정 불러오기
     /// - parameter uid : 로그인 유저 ID
@@ -101,6 +111,46 @@ class HomeViewController: UIViewController {
     }
     
 }
+extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+           if isExpanded {
+               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExtensionHomeTravelCollectionViewCell", for: indexPath) as! ExtensionHomeTravelCollectionViewCell
+             
+               // 확장된 셀
+               return cell
+           } else {
+               let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeTravelCollectionViewCell", for: indexPath) as! HomeTravelCollectionViewCell
+               // 기본 셀
+               return cell
+           }
+        
+
+    }
+
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            // 각 셀의 크기를 지정
+            var cgSize = CGSize(width: 128, height: 128)
+            if isExpanded == true {
+                cgSize = CGSize(width: 128, height: 200)
+            }
+            if isExpanded == false {
+                cgSize = CGSize(width: 128, height: 128)
+            }
+            return cgSize
+        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if isExpanded == true {
+            isExpanded = false
+        }else{
+            isExpanded = true}
+        
+          collectionView.reloadData()
+      }
+    }
+
 
 extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
     
