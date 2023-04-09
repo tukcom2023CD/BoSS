@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var googleLoginButton: GIDSignInButton!
     @IBOutlet weak var appleLoginButton: UIButton!
+    @IBOutlet weak var guestLoginButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,10 @@ class LoginViewController: UIViewController {
         googleLoginButton.layer.cornerRadius = 20
         googleLoginButton.layer.borderWidth = 1
         googleLoginButton.layer.borderColor = UIColor.gray.cgColor
+        
         appleLoginButton.layer.cornerRadius = 20
+        
+        guestLoginButton.layer.cornerRadius = 20
     }
     
     
@@ -76,7 +80,7 @@ class LoginViewController: UIViewController {
     
     
     // 테스트용 로그인 버튼
-    @IBAction func testLoginButtonTapped(_ sender: UIButton) {
+    @IBAction func guestLoginButtonTapped(_ sender: UIButton) {
         print(#function)
         
         let user = User(email: "lee@naver.com", name: "lee")

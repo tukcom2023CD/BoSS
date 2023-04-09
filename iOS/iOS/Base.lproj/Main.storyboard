@@ -19,14 +19,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku0-cd-dNK">
-                                <rect key="frame" x="150" y="733.66666666666663" width="93" height="34.333333333333371"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                <connections>
-                                    <action selector="testLoginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hDa-xB-xT4"/>
-                                </connections>
-                            </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travelog" translatesAutoresizingMaskIntoConstraints="NO" id="X4F-Wa-9LB">
                                 <rect key="frame" x="46.666666666666657" y="134" width="300" height="150"/>
                                 <constraints>
@@ -35,7 +27,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="3Zs-bd-nPb">
-                                <rect key="frame" x="46.666666666666657" y="534" width="300" height="115"/>
+                                <rect key="frame" x="46.666666666666657" y="534" width="300" height="180"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-2c-FLC">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -63,17 +55,31 @@
                                             <action selector="googleLoginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bB8-f6-u7K"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ku0-cd-dNK">
+                                        <rect key="frame" x="0.0" y="130" width="300" height="50"/>
+                                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="OOP-di-cdw"/>
+                                            <constraint firstAttribute="width" constant="300" id="dOD-Ch-tdg"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="-110" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="게스트 로그인" image="person.fill" catalog="system">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="25" scale="large"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="guestLoginButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NDm-JJ-SVY"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ku0-cd-dNK" secondAttribute="bottom" constant="50" id="5Q7-Dr-Mw9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ku0-cd-dNK" secondAttribute="trailing" constant="150" id="6VQ-o7-d8m"/>
                             <constraint firstItem="X4F-Wa-9LB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="75" id="91r-xd-vQm"/>
                             <constraint firstItem="X4F-Wa-9LB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SSc-d7-0Y5"/>
-                            <constraint firstItem="ku0-cd-dNK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="150" id="aGp-OO-tBI"/>
                             <constraint firstItem="3Zs-bd-nPb" firstAttribute="top" secondItem="X4F-Wa-9LB" secondAttribute="bottom" constant="250" id="hUJ-oJ-AfM"/>
                             <constraint firstItem="3Zs-bd-nPb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ppE-Dq-rUr"/>
                         </constraints>
@@ -81,6 +87,7 @@
                     <connections>
                         <outlet property="appleLoginButton" destination="HYt-2c-FLC" id="cZH-8R-jpb"/>
                         <outlet property="googleLoginButton" destination="I38-qC-X32" id="I9C-eR-LSZ"/>
+                        <outlet property="guestLoginButton" destination="ku0-cd-dNK" id="kxw-4Y-Zsl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1780,13 +1787,13 @@
                                                                 <rect key="frame" x="10" y="478" width="333" height="19.333333333333314"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="품명" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s32-2d-WpQ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="175.33333333333334" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="19.333333333333332"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수량" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCw-T3-sB6">
-                                                                        <rect key="frame" x="180.33333333333334" y="0.0" width="40" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="188" y="0.0" width="40" height="19.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="Fs2-Wq-nHq"/>
                                                                         </constraints>
@@ -1795,7 +1802,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47b-A8-1Mm">
-                                                                        <rect key="frame" x="225.33333333333334" y="0.0" width="107.66666666666666" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="233" y="0.0" width="100" height="19.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="100" id="69D-eW-HTs"/>
                                                                         </constraints>
@@ -2327,6 +2334,7 @@
         <image name="map" catalog="system" width="128" height="112"/>
         <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="photo.circle.fill" catalog="system" width="128" height="123"/>
         <image name="photo.stack" catalog="system" width="128" height="122"/>
         <image name="plus" catalog="system" width="128" height="113"/>
