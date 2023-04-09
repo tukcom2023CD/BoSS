@@ -10,33 +10,33 @@ import GoogleSignIn
 
 class ProfileEdirViewController : UIViewController {
      
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var applyButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton! // 취소 버튼
+    @IBOutlet weak var applyButton: UIButton! // 적용 버튼
     
-    @IBOutlet weak var selectImageButton: UIButton!
-    @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var selectImageButton: UIButton! // 이미지 선택 버튼
+    @IBOutlet weak var userImageView: UIImageView! // 유저 이미지 뷰
     
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var setDefaultImageButton: UIButton!
-    
-    
+    @IBOutlet weak var emailTextField: UITextField! // 이메일 텍스트 필드
+    @IBOutlet weak var nameTextField: UITextField! // 이름 텍스트 필드
+    @IBOutlet weak var setDefaultImageButton: UIButton! // 기본 이미지 설정 버튼
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        serUI()
+        setUI() // UI설정
         
         emailTextField.delegate = self
         nameTextField.delegate = self
         
+        // 유저 정보 설정
         setUserEmail()
         setUserName()
         setUserImage()
         
+        // 이메일 수정 못하도록 설정
         emailTextField.isEnabled = false // 이메일 수정 못하도록 설정
     }
     
-    func serUI() {
+    func setUI() {
         self.cancelButton.layer.cornerRadius = 20
         self.applyButton.layer.cornerRadius = 20
         self.userImageView.layer.cornerRadius = 75

@@ -12,16 +12,16 @@ import GoogleSignIn
 
 class WithDrawMembershipViewController : UIViewController {
     
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var withDrawButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton! // 취소 버튼
+    @IBOutlet weak var withDrawButton: UIButton! // 탈퇴 버튼
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        serUI()
+        setUI() // UI 설정
     }
     
     // UI 설정
-    func serUI() {
+    func setUI() {
         self.cancelButton.layer.cornerRadius = 20
         self.withDrawButton.layer.cornerRadius = 20
     }
@@ -70,10 +70,9 @@ class WithDrawMembershipViewController : UIViewController {
     }
     
     @IBAction func withDrawButtonTapped(_ sender: UIButton) {
-        // 유저의 로컬 데이터 삭제
-        deleteUserDataFromLocal()
-        // DB에 저장되어있는 유저 데이터 삭제
-        deleteUserDataFromDB ()
+        deleteUserDataFromLocal() // 유저의 로컬 데이터 삭제
+        deleteUserDataFromDB () // DB에 저장되어있는 유저 데이터 삭제
+        
         // 현재 화면 닫기
         dismiss(animated: true) {
             self.signOut()

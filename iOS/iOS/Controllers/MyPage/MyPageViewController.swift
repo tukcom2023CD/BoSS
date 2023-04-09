@@ -279,7 +279,7 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             guard let scheduleVC = self.storyboard?.instantiateViewController(identifier: "scheduleVC") as? MyPageScheduleViewController else {return}
-            scheduleVC.modalPresentationStyle = .automatic
+            scheduleVC.modalPresentationStyle = .fullScreen
             scheduleVC.modalTransitionStyle = .coverVertical
             
             self.present(scheduleVC, animated: true)

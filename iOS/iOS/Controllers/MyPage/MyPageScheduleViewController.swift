@@ -12,9 +12,10 @@ class MyPageScheduleViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var scheduleCount = 0 // 스케줄 개수
+    var sidArray : [Int] = [] // sid 배열
     var scheduleArray : [Schedule] = [] // 스케줄 배열
     var scheduleStausArray : [String] = [] // 스케줄 상태 배열
-    let exampleScheduleImage = #imageLiteral(resourceName: "tripimg") // 예시 스케줄 사진
+    let exampleScheduleImage = #imageLiteral(resourceName: "여행사진 1") // 예시 스케줄 사진
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,6 @@ class MyPageScheduleViewController: UIViewController {
     func requestScheduleData() {
         let user = UserDefaults.standard.getLoginUser()!
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
-            
             self.scheduleCount = schedules.count // 스케줄 개수 저장
             self.scheduleArray = schedules // 스케줄 저장
             self.discriminationScheduleData(schedules: self.scheduleArray) // 일정 상태 구분
@@ -54,16 +54,23 @@ class MyPageScheduleViewController: UIViewController {
     
     // cell UI 설정함수
     func setUpCellUI(cell : CustomScheduleCollecionCell) {
-        cell.layer.cornerRadius = 20 // 둥근 모서리
-        cell.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
-        cell.layer.masksToBounds = false // 그림자 잘림 방지
-        cell.layer.shadowOffset = CGSize(width: 0, height: 4) // 그림자 위치
-        cell.layer.shadowRadius = 5 // 그림자 반경
-        cell.layer.shadowOpacity = 0.3 // alpha값
         
-        // 스케줄 상태표시 라벨 설정
-        cell.statusLabel.layer.cornerRadius = 30
-        cell.statusLabel.layer.borderWidth = 2
+        // cell 자체 설정
+        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        cell.layer.cornerRadius = 20 // 둥근 모서리
+        cell.layer.masksToBounds = false
+        
+        // cell 그림자 설정
+        cell.layer.shadowColor = UIColor.black.cgColor
+        cell.layer.shadowOpacity = 0.25
+        cell.layer.shadowOffset = CGSize(width: 0, height: 5)
+        cell.layer.shadowRadius = 10
+        
+        // cell 내부 이미지 설정
+        cell.scheduleImage.image = self.exampleScheduleImage
+        cell.scheduleImage.contentMode = .scaleAspectFill
+        cell.scheduleImage.layer.cornerRadius = 15 // 둥근 모서리
+        cell.scheduleImage.layer.masksToBounds = true // 둥근 모서리에 맞게 자름
     }
     
     func setColor(text : String) -> UIColor {
@@ -75,6 +82,43 @@ class MyPageScheduleViewController: UIViewController {
             return #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         }
     }
+    
+    // 금액에 콤마를 포함하여 표기 함수
+    func numberFormatter(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: number))!
+    }
+    
+    // 총 지출 내역 불러오기
+    func loadSpendingData(sid : Int, spendingLabel : UILabel) {
+        var scheduleTotalSpending = 0
+        PlaceNetManager.shared.read(sid: sid) { places in
+            for place in places {
+                SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                    for spending in spendings {
+                        scheduleTotalSpending += Int(spending.price!)
+                    }
+                    DispatchQueue.main.async {
+                        spendingLabel.text = self.numberFormatter(number: scheduleTotalSpending)
+                    }
+                }
+            }
+        }
+        if scheduleTotalSpending == 0 {
+            DispatchQueue.main.async {
+                spendingLabel.text = self.numberFormatter(number: scheduleTotalSpending)
+            }
+        }
+    }
+    
+    
+    // 화면 닫기
+    @IBAction func closeButton(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
+    
 }
 
 extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectionViewDelegate {
@@ -98,24 +142,30 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         cell.startLabel.text = scheduleArray[indexPath.row].start
         cell.stopLabel.text = scheduleArray[indexPath.row].stop
         cell.statusLabel.text = scheduleStausArray[indexPath.row]
-        cell.statusLabel.textColor = setColor(text: cell.statusLabel.text!)
-        cell.statusLabel.layer.borderColor = setColor(text: cell.statusLabel.text!).cgColor
         
-        // cell 내부 이미지 설정
-        cell.scheduleImage.image = self.exampleScheduleImage
-        cell.scheduleImage.layer.cornerRadius = 30
-        cell.scheduleImage.clipsToBounds = true
+        // 스케줄 상태표시 라벨 설정
+        cell.statusLabel.textColor = setColor(text: cell.statusLabel.text!)
+        cell.statusImage.tintColor = setColor(text: cell.statusLabel.text!)
+        
+        // 금액 표시
+        self.loadSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
         
         return cell
     }
 }
 
-// cell
+// 셀 설정
 class CustomScheduleCollecionCell : UICollectionViewCell {
     @IBOutlet weak var scheduleTitle: UILabel! // 스케줄 이름
     @IBOutlet weak var scheduleImage: UIImageView! // 스케줄 이미지
     @IBOutlet weak var regionLabel: UILabel! // 스케줄 지역
+    @IBOutlet weak var statusImage: UIImageView!
     @IBOutlet weak var startLabel: UILabel! // 스케줄 시작 날짜
     @IBOutlet weak var stopLabel: UILabel! // 스케줄 종료 날짜
     @IBOutlet weak var statusLabel: UILabel! // 스케줄 상태
+    @IBOutlet weak var totalSpending: UILabel! // 지출 금액
 }
+
+// 구현할 기능 :
+// 일정 삭제
+
