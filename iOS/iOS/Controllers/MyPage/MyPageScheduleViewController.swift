@@ -62,9 +62,9 @@ class MyPageScheduleViewController: UIViewController {
         
         // cell 그림자 설정
         cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.25
-        cell.layer.shadowOffset = CGSize(width: 0, height: 5)
-        cell.layer.shadowRadius = 10
+        cell.layer.shadowOpacity = 0.3
+        cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+        cell.layer.shadowRadius = 5
         
         // cell 내부 이미지 설정
         cell.scheduleImage.image = self.exampleScheduleImage
