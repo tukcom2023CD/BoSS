@@ -13,7 +13,7 @@ class CalendarTableViewCell: UITableViewCell {
     @IBOutlet weak var calendar: FSCalendar!
     
     var eventDates: [String] = []
-    
+    var schedules: [Schedule]?
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
@@ -43,9 +43,25 @@ class CalendarTableViewCell: UITableViewCell {
         calendar.appearance.headerDateFormat = "YYYY년 MM월" // 헤더 날짜 포멧
         calendar.appearance.headerMinimumDissolvedAlpha = 0.5 // 헤더 양 옆(이전, 이후 달) 글씨 투명도
         calendar.allowsMultipleSelection = false // 다중 선택 불가
+        // 달력의 평일 날짜 색깔
+        calendar.appearance.titleDefaultColor = .black
+
+        // 달력의 토,일 날짜 색깔
+        calendar.appearance.titleWeekendColor = .red
+
+        // 달력의 맨 위의 년도, 월의 색깔
+        calendar.appearance.headerTitleColor = .black
+        calendar.appearance.headerTitleFont = UIFont(name: "Marker Felt", size: 20)!
+        calendar.appearance.weekdayFont = UIFont(name: "Marker Felt", size: 16)!
         
+
+        // 달력의 요일 글자 색깔
+        calendar.appearance.weekdayTextColor = .darkGray
+      
+     
         
     }
+    
 }
 
 //MARK: - CalendarDelegate, DataSource, DelegateAppearance

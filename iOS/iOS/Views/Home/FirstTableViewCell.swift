@@ -52,6 +52,7 @@ class FirstTableViewCell: UITableViewCell {
 
 
 extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return schedules?.count ?? 0
     }

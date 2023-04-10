@@ -21,7 +21,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccp-XY-aUf">
                         <rect key="frame" x="0.0" y="0.0" width="94" height="113"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cnf-mh-3ue">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SyE-md-7dp">
+                                <rect key="frame" x="0.0" y="0.0" width="94" height="113"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XgY-SD-sm4">
                                 <rect key="frame" x="26" y="46" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -30,8 +33,12 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Cnf-mh-3ue" firstAttribute="centerY" secondItem="ccp-XY-aUf" secondAttribute="centerY" id="rdP-Uq-B8t"/>
-                            <constraint firstItem="Cnf-mh-3ue" firstAttribute="centerX" secondItem="ccp-XY-aUf" secondAttribute="centerX" id="xyh-R9-7g0"/>
+                            <constraint firstAttribute="bottom" secondItem="SyE-md-7dp" secondAttribute="bottom" id="ErF-dU-pXc"/>
+                            <constraint firstItem="SyE-md-7dp" firstAttribute="top" secondItem="ccp-XY-aUf" secondAttribute="top" id="N9L-Xx-LUA"/>
+                            <constraint firstItem="SyE-md-7dp" firstAttribute="leading" secondItem="ccp-XY-aUf" secondAttribute="leading" id="SXB-oD-TTi"/>
+                            <constraint firstAttribute="trailing" secondItem="SyE-md-7dp" secondAttribute="trailing" id="eKy-bV-EDy"/>
+                            <constraint firstItem="XgY-SD-sm4" firstAttribute="centerX" secondItem="ccp-XY-aUf" secondAttribute="centerX" id="f2d-mp-vuC"/>
+                            <constraint firstItem="XgY-SD-sm4" firstAttribute="centerY" secondItem="ccp-XY-aUf" secondAttribute="centerY" id="pOO-bg-enU"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -45,7 +52,8 @@
             </constraints>
             <size key="customSize" width="94" height="113"/>
             <connections>
-                <outlet property="labelText" destination="Cnf-mh-3ue" id="cSq-bD-jpc"/>
+                <outlet property="images" destination="SyE-md-7dp" id="fVl-MN-YEr"/>
+                <outlet property="labelText" destination="XgY-SD-sm4" id="EmJ-QW-frg"/>
                 <outlet property="uiView" destination="ccp-XY-aUf" id="n5K-K3-ASY"/>
             </connections>
             <point key="canvasLocation" x="44.274809160305338" y="-10.211267605633804"/>

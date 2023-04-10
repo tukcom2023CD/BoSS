@@ -12,15 +12,26 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="NoExHomeTravelCollectionViewCell" reuseIdentifier="NoExHomeTravelCollectionViewCell" id="gTV-IL-0wX" customClass="NoExHomeTravelCollectionViewCell" customModule="iOS" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="500" height="300"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="500" height="300"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X22-Td-mEh">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="300"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xkW-hd-Vww">
+                                <rect key="frame" x="0.0" y="0.0" width="500" height="300"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xkW-hd-Vww" firstAttribute="leading" secondItem="X22-Td-mEh" secondAttribute="leading" id="9fz-eW-chA"/>
+                            <constraint firstItem="xkW-hd-Vww" firstAttribute="top" secondItem="X22-Td-mEh" secondAttribute="top" id="NUU-IW-KNM"/>
+                            <constraint firstAttribute="bottom" secondItem="xkW-hd-Vww" secondAttribute="bottom" id="hAN-Zd-qaZ"/>
+                            <constraint firstAttribute="trailing" secondItem="xkW-hd-Vww" secondAttribute="trailing" id="oZa-yf-uDK"/>
+                        </constraints>
                     </view>
                 </subviews>
             </view>
@@ -31,7 +42,11 @@
                 <constraint firstItem="X22-Td-mEh" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Mg2-53-2OW"/>
                 <constraint firstAttribute="trailing" secondItem="X22-Td-mEh" secondAttribute="trailing" id="srY-DF-9OZ"/>
             </constraints>
-            <point key="canvasLocation" x="24" y="-32"/>
+            <size key="customSize" width="126" height="159"/>
+            <connections>
+                <outlet property="images" destination="xkW-hd-Vww" id="nnx-y5-zhe"/>
+            </connections>
+            <point key="canvasLocation" x="80.916030534351137" y="5.9859154929577469"/>
         </collectionViewCell>
     </objects>
     <resources>

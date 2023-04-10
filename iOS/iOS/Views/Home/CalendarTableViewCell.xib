@@ -19,15 +19,27 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cqu-j7-U6g" customClass="FSCalendar">
-                        <rect key="frame" x="25" y="21" width="271" height="305"/>
+                        <rect key="frame" x="25" y="84" width="271" height="242"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="tintColor" systemColor="tintColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="300" id="GUy-Wu-3Wa"/>
+                        </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행일정 달력보기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvm-Se-RT5">
+                        <rect key="frame" x="10" y="30" width="143" height="24"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Cqu-j7-U6g" firstAttribute="top" secondItem="wvm-Se-RT5" secondAttribute="bottom" constant="30" id="5S5-Lf-HzY"/>
+                    <constraint firstItem="wvm-Se-RT5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="9Hz-Qf-oAN"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Cqu-j7-U6g" secondAttribute="trailing" constant="5" id="FtA-My-4Ki"/>
+                    <constraint firstItem="wvm-Se-RT5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="MET-Sl-yUW"/>
                     <constraint firstItem="Cqu-j7-U6g" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="NcG-Ea-VUO"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Cqu-j7-U6g" secondAttribute="bottom" constant="10" id="qlI-ve-ap9"/>
-                    <constraint firstItem="Cqu-j7-U6g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="zp3-zp-Wfc"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -40,6 +52,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
