@@ -19,6 +19,22 @@ class MyPageScheduleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 스크롤 방향 설정
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+
+        // 시트 설정
+        if #available(iOS 15.0, *) {
+            if let sheetPresentationController = sheetPresentationController {
+                sheetPresentationController.detents = [.medium()]
+                sheetPresentationController.preferredCornerRadius = 20
+                sheetPresentationController.prefersGrabberVisible = true
+            }
+        } else {
+            // Fallback on earlier versions
+        }
         requestScheduleData()
     }
     
@@ -111,14 +127,6 @@ class MyPageScheduleViewController: UIViewController {
             }
         }
     }
-    
-    
-    // 화면 닫기
-    @IBAction func closeButton(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
-    
-    
 }
 
 extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectionViewDelegate {
@@ -131,8 +139,8 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell", for: indexPath) as?
                 CustomScheduleCollecionCell else {
-                return UICollectionViewCell()
-            }
+            return UICollectionViewCell()
+        }
         
         self.setUpCellUI(cell: cell) // 셀 UI 설정
         

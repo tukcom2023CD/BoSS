@@ -279,18 +279,12 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             guard let scheduleVC = self.storyboard?.instantiateViewController(identifier: "scheduleVC") as? MyPageScheduleViewController else {return}
-            scheduleVC.modalPresentationStyle = .fullScreen
-            scheduleVC.modalTransitionStyle = .coverVertical
-            
             self.present(scheduleVC, animated: true)
-            // self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
         case 1:
             guard let spendingVC = self.storyboard?.instantiateViewController(identifier: "spendingVC") as? MyPageSpendingViewController else {return}
             spendingVC.modalPresentationStyle = .automatic
             spendingVC.modalTransitionStyle = .coverVertical
-            
             self.present(spendingVC, animated: true)
-            // self.performSegue(withIdentifier: "ShowSpending", sender: nil)
         default:
             return
         }

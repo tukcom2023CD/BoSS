@@ -543,7 +543,7 @@
         <!--My Page View Controller-->
         <scene sceneID="mhz-xe-ZoF">
             <objects>
-                <viewController storyboardIdentifier="MyPageViewController" id="6Cm-fd-61a" customClass="MyPageViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyPageViewController" modalPresentationStyle="formSheet" id="6Cm-fd-61a" customClass="MyPageViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ngi-ww-CbZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1127,23 +1127,23 @@
         <!--My Page Schedule View Controller-->
         <scene sceneID="hvX-YG-SXK">
             <objects>
-                <viewController storyboardIdentifier="scheduleVC" id="jdH-bn-Fsc" customClass="MyPageScheduleViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="scheduleVC" modalPresentationStyle="formSheet" id="jdH-bn-Fsc" customClass="MyPageScheduleViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UpP-mV-fkW">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HtD-oA-q1T">
-                                <rect key="frame" x="0.0" y="120" width="393" height="732"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="25" minimumInteritemSpacing="0.0" id="Tfl-RK-7sG">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="Tfl-RK-7sG">
                                     <size key="itemSize" width="340" height="350"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CustomScheduleCollecionCell" id="vkj-qK-lm3" customClass="CustomScheduleCollecionCell" customModule="iOS" customModuleProvider="target">
-                                        <rect key="frame" x="26.666666666666668" y="20" width="340" height="350"/>
+                                        <rect key="frame" x="36.666666666666664" y="0.0" width="340" height="350"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yi6-RM-15I">
                                             <rect key="frame" x="0.0" y="0.0" width="340" height="350"/>
@@ -1292,36 +1292,14 @@
                                     <outlet property="delegate" destination="jdH-bn-Fsc" id="ubq-Sl-PPX"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행 일정" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y2C-Se-54g">
-                                <rect key="frame" x="150.66666666666666" y="69" width="92" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5w-Yb-TCg">
-                                <rect key="frame" x="25" y="69" width="21.666666666666671" height="30"/>
-                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="chevron.backward" catalog="system" symbolScale="large"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="23"/>
-                                </state>
-                                <connections>
-                                    <action selector="closeButton:" destination="jdH-bn-Fsc" eventType="touchUpInside" id="poS-NQ-tdW"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tzQ-FS-s38"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="h5w-Yb-TCg" firstAttribute="leading" secondItem="tzQ-FS-s38" secondAttribute="leading" constant="25" id="3Od-TJ-RZJ"/>
-                            <constraint firstItem="y2C-Se-54g" firstAttribute="top" secondItem="tzQ-FS-s38" secondAttribute="top" constant="10" id="54R-Ks-56o"/>
                             <constraint firstItem="tzQ-FS-s38" firstAttribute="trailing" secondItem="HtD-oA-q1T" secondAttribute="trailing" id="5TI-WO-PxJ"/>
                             <constraint firstAttribute="bottom" secondItem="HtD-oA-q1T" secondAttribute="bottom" id="IRt-7X-59E"/>
                             <constraint firstItem="HtD-oA-q1T" firstAttribute="leading" secondItem="tzQ-FS-s38" secondAttribute="leading" id="LG4-sg-fVn"/>
-                            <constraint firstItem="y2C-Se-54g" firstAttribute="centerX" secondItem="UpP-mV-fkW" secondAttribute="centerX" id="aCI-VS-iPb"/>
-                            <constraint firstItem="h5w-Yb-TCg" firstAttribute="top" secondItem="tzQ-FS-s38" secondAttribute="top" constant="10" id="bU9-gy-EJK"/>
-                            <constraint firstItem="HtD-oA-q1T" firstAttribute="top" secondItem="UpP-mV-fkW" secondAttribute="top" constant="120" id="oih-O0-QiW"/>
+                            <constraint firstItem="HtD-oA-q1T" firstAttribute="top" secondItem="UpP-mV-fkW" secondAttribute="top" id="oih-O0-QiW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bxL-7X-URa"/>
@@ -2331,7 +2309,6 @@
         <image name="camera" catalog="system" width="128" height="93"/>
         <image name="cash" width="256" height="256"/>
         <image name="checkmark.circle" catalog="system" width="128" height="123"/>
-        <image name="chevron.backward" catalog="system" width="97" height="128"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="figure.run" catalog="system" width="115" height="128"/>
