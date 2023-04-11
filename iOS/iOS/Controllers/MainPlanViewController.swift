@@ -186,11 +186,20 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         // 3. 두 네트워킹 종료 후 화면 이동
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "삭제") { _, _, completion in
+            
+            let place = self.sections[indexPath.section].rows.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            PlaceNetManager.shared.delete(place.pid!) {
+                completion(true)
+            }
+        }
         
-        
-        
-        
-        
+        return UISwipeActionsConfiguration(actions: [delete])
     }
     
 }
