@@ -195,7 +195,11 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             self.loadSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
         
             // 메뉴 설정
-            let menuItems : [UIAction] = [UIAction(title: "일정 삭제", image: UIImage(systemName: "trash"), attributes: .destructive){ _ in
+            let menuItems : [UIAction] = [
+                UIAction(title: "일정 편집", image: UIImage(systemName: "square.and.pencil")){ _ in
+                self.currentCellSid = cell.sid
+                self.moveEditScehduleScreen()
+            }, UIAction(title: "일정 삭제", image: UIImage(systemName: "trash"), attributes: .destructive){ _ in
                 self.currentCellSid = cell.sid
                 self.arletDeleteSchedule()
             }] // 메뉴 아이템 생성
@@ -224,6 +228,30 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         alertController.addAction(cancelAction) // 액션 추가
         alertController.addAction(deleteAction) // 액션 추가
         present(alertController, animated: true, completion: nil)
+    }
+
+    // 일정 편집 화면으로 이동하는 함수
+    func moveEditScehduleScreen() {
+        guard let scheduleEditVC = self.storyboard?.instantiateViewController(identifier: "scheduleEditVC") as? ScheduleEditViewController else {return}
+        scheduleEditVC.modalPresentationStyle = .fullScreen
+        scheduleEditVC.modalTransitionStyle = .coverVertical
+        
+        if let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})  {
+            if let title = self.scheduleArray[index].title  {
+                scheduleEditVC.scheduletTitle = title
+            }
+            if let start = self.scheduleArray[index].start  {
+                scheduleEditVC.scheduletStart = start
+            }
+            if let stop = self.scheduleArray[index].stop  {
+                scheduleEditVC.scheduletStop = stop
+            }
+            if let region = self.scheduleArray[index].region  {
+                scheduleEditVC.regionTitle = region
+            }
+        }
+        
+        self.present(scheduleEditVC, animated: true)
     }
 }
 

@@ -82,6 +82,7 @@
 		BF0CCB2429DF128300720875 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CCB2329DF128300720875 /* ProfileEditViewController.swift */; };
 		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
 		BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */; };
+		BF7D3F8929E5760F008F81E9 /* ScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7D3F8829E5760F008F81E9 /* ScheduleEditViewController.swift */; };
 		BF8AD682299BB4AF00071565 /* ResultTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD681299BB4AF00071565 /* ResultTableController.swift */; };
 		BFA24D9029DFD4570084E417 /* WithDrawMembershipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA24D8F29DFD4570084E417 /* WithDrawMembershipViewController.swift */; };
 		BFD0F2E129A69B1E0063EEEF /* CategoryNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD0F2E029A69B1E0063EEEF /* CategoryNetManager.swift */; };
@@ -194,6 +195,7 @@
 		BF0CCB2329DF128300720875 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagePopUpController.swift; sourceTree = "<group>"; };
 		BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageScheduleViewController.swift; sourceTree = "<group>"; };
+		BF7D3F8829E5760F008F81E9 /* ScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEditViewController.swift; sourceTree = "<group>"; };
 		BF8AD681299BB4AF00071565 /* ResultTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableController.swift; sourceTree = "<group>"; };
 		BFA24D8F29DFD4570084E417 /* WithDrawMembershipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawMembershipViewController.swift; sourceTree = "<group>"; };
 		BFD0F2E029A69B1E0063EEEF /* CategoryNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryNetManager.swift; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 				BFF8583F2994B98F00C7F289 /* MyPageSpendingViewController.swift */,
 				BF0CCB2329DF128300720875 /* ProfileEditViewController.swift */,
 				BFA24D8F29DFD4570084E417 /* WithDrawMembershipViewController.swift */,
+				BF7D3F8829E5760F008F81E9 /* ScheduleEditViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -828,6 +831,7 @@
 				BF8AD682299BB4AF00071565 /* ResultTableController.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
 				571FF6A029A3CFF7005E54F6 /* Photo.swift in Sources */,
+				BF7D3F8929E5760F008F81E9 /* ScheduleEditViewController.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
 				571FF6A229A3D0A0005E54F6 /* PhotoNetManager.swift in Sources */,
 				BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */,
