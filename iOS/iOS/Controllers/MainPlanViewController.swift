@@ -234,20 +234,11 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UI
         
         let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
         present(alert, animated: true)
-        let dispatchGroup = DispatchGroup()
         
-        dispatchGroup.enter()
-        PlaceNetManager.shared.create(place: cell) {
-            dispatchGroup.leave()
-        }
-        
-        dispatchGroup.enter()
-        PlaceNetManager.shared.delete(cell.pid!) {
-            dispatchGroup.leave()
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            alert.dismiss(animated: true)
+        PlaceNetManager.shared.update(place: cell) {
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true)
+            }
         }
     }
 }
