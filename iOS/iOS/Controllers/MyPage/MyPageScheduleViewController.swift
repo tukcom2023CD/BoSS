@@ -11,6 +11,7 @@ class MyPageScheduleViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var hasSchedule : Bool = false // 스케줄 존재 여부
     var currentCellSid : Int? // 현재 셀 sid
     var scheduleCount = 0 // 스케줄 개수
     var scheduleArray : [Schedule] = [] // 스케줄 배열
@@ -43,6 +44,9 @@ class MyPageScheduleViewController: UIViewController {
         let user = UserDefaults.standard.getLoginUser()!
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
             self.scheduleCount = schedules.count // 스케줄 개수 저장
+            if schedules.count > 0 { // 스케줄 개수가 0보다 크면
+                self.hasSchedule = true
+            }
             self.scheduleArray = schedules // 스케줄 저장
             self.discriminationScheduleData(schedules: self.scheduleArray) // 일정 상태 구분
             
@@ -60,6 +64,9 @@ class MyPageScheduleViewController: UIViewController {
     
     func reloadAfterDeleteSchedule() {
         self.scheduleCount -= 1
+        if self.scheduleCount == 0 {
+            self.hasSchedule = false
+        }
         let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})
         self.scheduleArray.remove(at: index!)
         self.scheduleStausArray.remove(at: index!)
@@ -149,43 +156,55 @@ class MyPageScheduleViewController: UIViewController {
 extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     // 컬렉션 뷰 cell 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.scheduleCount
+        if self.hasSchedule == false {
+            return 1
+        } else {
+            return self.scheduleCount
+        }
     }
 
     // 컬렉션 뷰 cell 내용 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell", for: indexPath) as?
-                CustomScheduleCollecionCell else {
-            return UICollectionViewCell()
-        }
-        
-        self.setUpCellUI(cell: cell) // 셀 UI 설정
+        if self.hasSchedule == false {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell_2", for: indexPath) as?
+                    CustomScheduleCollecionCell_2 else {
+                return UICollectionViewCell()
+            }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell", for: indexPath) as?
+                    CustomScheduleCollecionCell else {
+                return UICollectionViewCell()
+            }
+            
+            self.setUpCellUI(cell: cell) // 셀 UI 설정
 
-        // cell 내용 설정
-        cell.sid = scheduleArray[indexPath.row].sid
-        cell.scheduleTitle.text = scheduleArray[indexPath.row].title
-        cell.regionLabel.text = scheduleArray[indexPath.row].region
-        cell.startLabel.text = scheduleArray[indexPath.row].start
-        cell.stopLabel.text = scheduleArray[indexPath.row].stop
-        cell.statusLabel.text = scheduleStausArray[indexPath.row]
+            // cell 내용 설정
+            cell.sid = scheduleArray[indexPath.row].sid
+            cell.scheduleTitle.text = scheduleArray[indexPath.row].title
+            cell.regionLabel.text = scheduleArray[indexPath.row].region
+            cell.startLabel.text = scheduleArray[indexPath.row].start
+            cell.stopLabel.text = scheduleArray[indexPath.row].stop
+            cell.statusLabel.text = scheduleStausArray[indexPath.row]
+            
+            // 스케줄 상태표시 라벨 설정
+            cell.statusLabel.textColor = setColor(text: cell.statusLabel.text!)
+            cell.statusImage.tintColor = setColor(text: cell.statusLabel.text!)
+            
+            // 금액 표시
+            self.loadSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
         
-        // 스케줄 상태표시 라벨 설정
-        cell.statusLabel.textColor = setColor(text: cell.statusLabel.text!)
-        cell.statusImage.tintColor = setColor(text: cell.statusLabel.text!)
-        
-        // 금액 표시
-        self.loadSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
-    
-        // 메뉴 설정
-        let menuItems : [UIAction] = [UIAction(title: "일정 삭제", image: UIImage(systemName: "trash"), attributes: .destructive){ _ in
-            self.currentCellSid = cell.sid
-            self.arletDeleteSchedule()
-        }] // 메뉴 아이템 생성
-        let UIMenu = UIMenu(title : "일정 설정 메뉴", children : menuItems) // 메뉴 생성
-        cell.cellSettingButton.menu = UIMenu // 버튼에 메뉴 등록
-        cell.cellSettingButton.showsMenuAsPrimaryAction = true // 클릭시 즉시 메뉴 표시
-        
-        return cell
+            // 메뉴 설정
+            let menuItems : [UIAction] = [UIAction(title: "일정 삭제", image: UIImage(systemName: "trash"), attributes: .destructive){ _ in
+                self.currentCellSid = cell.sid
+                self.arletDeleteSchedule()
+            }] // 메뉴 아이템 생성
+            let UIMenu = UIMenu(title : "일정 설정 메뉴", children : menuItems) // 메뉴 생성
+            cell.cellSettingButton.menu = UIMenu // 버튼에 메뉴 등록
+            cell.cellSettingButton.showsMenuAsPrimaryAction = true // 클릭시 즉시 메뉴 표시
+            
+            return cell
+        }
     }
     
     // 일정 삭제 선택시 알림
@@ -220,4 +239,8 @@ class CustomScheduleCollecionCell : UICollectionViewCell {
     @IBOutlet weak var statusLabel: UILabel! // 스케줄 상태
     @IBOutlet weak var totalSpending: UILabel! // 지출 금액
     @IBOutlet weak var cellSettingButton: UIButton! // 설정 버튼
+}
+
+
+class CustomScheduleCollecionCell_2 : UICollectionViewCell {
 }
