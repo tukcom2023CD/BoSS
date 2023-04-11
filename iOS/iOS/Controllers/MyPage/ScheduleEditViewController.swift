@@ -8,8 +8,12 @@
 import UIKit
 import CalendarDateRangePicker
 
+// Delegate 프로토콜 정의
+protocol MyDelegate: AnyObject {
+    func didChangeValue(value: String)
+}
+
 class ScheduleEditViewController : UIViewController {
-    
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var scheduleNameTextField: UITextField!
@@ -26,6 +30,7 @@ class ScheduleEditViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         scheduleNameTextField.delegate = self
         
         scheduleNameTextField.text = scheduletTitle
@@ -55,8 +60,8 @@ class ScheduleEditViewController : UIViewController {
     
     
     
+    // 날짜 변경 버튼 클릭시 동작
     @IBAction func dataChangeButtonTapped(_ sender: UIButton) {
-        //datepicker 보이기
         let dateRangePickerViewController = CalendarDateRangePickerViewController(collectionViewLayout: UICollectionViewFlowLayout())
         dateRangePickerViewController.delegate = self
         dateRangePickerViewController.minimumDate = Date()
@@ -73,12 +78,29 @@ class ScheduleEditViewController : UIViewController {
         self.present(navigationController, animated: true, completion: nil)
     }
     
-    
+    // 지역 변경 버튼 클릭시 동작
     @IBAction func regionChangeButtonTapped(_ sender: UIButton) {
-       
+        
+        // 1. 지역 선택화면으로 이동 (컬렉션 뷰)
+        guard let selectRegionVC = self.storyboard?.instantiateViewController(identifier: "selectRegionVC") as? SelectRegionViewController else {return}
+        selectRegionVC.modalPresentationStyle = .fullScreen
+        selectRegionVC.modalTransitionStyle = .coverVertical
+        selectRegionVC.delegate = self
+        self.present(selectRegionVC, animated: true)
+        
+        // 2. 지역 선택후 완료 버튼 or 취소 버튼 클릭후 컬렉션 뷰 닫음
+        
+        
+        // 3. 선택한 지역으로 변경
     }
 }
 
+extension ScheduleEditViewController : MyDelegate {
+    func didChangeValue(value : String) {
+        print(value)
+        self.regionTextField.text = value
+    }
+}
 
 extension ScheduleEditViewController : UITextFieldDelegate {
     // 글자수 제한 함수

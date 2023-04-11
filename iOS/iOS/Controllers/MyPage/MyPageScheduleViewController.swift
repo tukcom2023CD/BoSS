@@ -250,7 +250,6 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
                 scheduleEditVC.regionTitle = region
             }
         }
-        
         self.present(scheduleEditVC, animated: true)
     }
 }

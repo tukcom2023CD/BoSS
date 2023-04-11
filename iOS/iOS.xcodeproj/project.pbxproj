@@ -81,6 +81,7 @@
 		688F1AADEE7FB49C8C09102A /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
 		BF0CCB2429DF128300720875 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CCB2329DF128300720875 /* ProfileEditViewController.swift */; };
 		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
+		BF678DBA29E5A75900AB9597 /* SelectRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF678DB929E5A75900AB9597 /* SelectRegionViewController.swift */; };
 		BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */; };
 		BF7D3F8929E5760F008F81E9 /* ScheduleEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7D3F8829E5760F008F81E9 /* ScheduleEditViewController.swift */; };
 		BF8AD682299BB4AF00071565 /* ResultTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8AD681299BB4AF00071565 /* ResultTableController.swift */; };
@@ -194,6 +195,7 @@
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		BF0CCB2329DF128300720875 /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
 		BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumImagePopUpController.swift; sourceTree = "<group>"; };
+		BF678DB929E5A75900AB9597 /* SelectRegionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRegionViewController.swift; sourceTree = "<group>"; };
 		BF6A5F3A2994AFB3008B76B6 /* MyPageScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageScheduleViewController.swift; sourceTree = "<group>"; };
 		BF7D3F8829E5760F008F81E9 /* ScheduleEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleEditViewController.swift; sourceTree = "<group>"; };
 		BF8AD681299BB4AF00071565 /* ResultTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableController.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				BF0CCB2329DF128300720875 /* ProfileEditViewController.swift */,
 				BFA24D8F29DFD4570084E417 /* WithDrawMembershipViewController.swift */,
 				BF7D3F8829E5760F008F81E9 /* ScheduleEditViewController.swift */,
+				BF678DB929E5A75900AB9597 /* SelectRegionViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				BFEF3F312999ECEC00DF39FE /* AlbumViewController.swift in Sources */,
 				37F18C4E29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift in Sources */,
 				37ECD62229866358005E21D4 /* Region.swift in Sources */,
+				BF678DBA29E5A75900AB9597 /* SelectRegionViewController.swift in Sources */,
 				37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */,
 				576C0DBC298A327100485AD5 /* User.swift in Sources */,
 				570AAB6B29916044006CB64C /* PlaceInfoTableViewCell.swift in Sources */,
