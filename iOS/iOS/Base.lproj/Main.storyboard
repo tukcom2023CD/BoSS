@@ -1449,6 +1449,9 @@
                                                 <state key="normal" title="기간 변경">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="dataChangeButtonTapped:" destination="DZq-ba-duj" eventType="touchUpInside" id="2Cj-2K-wkM"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -1483,6 +1486,9 @@
                                                 <state key="normal" title="지역 변경">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="regionChangeButtonTapped:" destination="DZq-ba-duj" eventType="touchUpInside" id="g7X-a3-VeV"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
