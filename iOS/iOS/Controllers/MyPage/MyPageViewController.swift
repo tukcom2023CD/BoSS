@@ -74,7 +74,7 @@ class MyPageViewController: UIViewController {
             UIAction(title: "로그아웃", image: UIImage(named: "logout.png"), handler: { _ in self.logOutAlert() }),
             UIAction(title: "회원탈퇴", image: UIImage(named: "cancel.png"), attributes: .destructive, handler: { _ in self.withdrawMembership() })
         ]
-        settingButton.menu = UIMenu(identifier: nil, options: .displayInline, children: menuList)
+        settingButton.menu = UIMenu(title : "설정", identifier: nil, options: .displayInline, children: menuList)
         settingButton.showsMenuAsPrimaryAction = true
     }
     

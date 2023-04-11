@@ -1265,6 +1265,15 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5PN-v3-5gP">
+                                                    <rect key="frame" x="294.66666666666669" y="304.66666666666669" width="30.333333333333314" height="30.333333333333314"/>
+                                                    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal">
+                                                        <imageReference key="image" image="ellipsis.circle" catalog="system" symbolScale="large"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="FKC-d5-bQl" firstAttribute="top" secondItem="YFL-Sj-OOy" secondAttribute="bottom" constant="15" id="4Kl-Zo-aqO"/>
@@ -1273,9 +1282,12 @@
                                                 <constraint firstItem="FKC-d5-bQl" firstAttribute="leading" secondItem="yi6-RM-15I" secondAttribute="leading" constant="15" id="Opk-Js-F8W"/>
                                                 <constraint firstItem="YFL-Sj-OOy" firstAttribute="leading" secondItem="yi6-RM-15I" secondAttribute="leading" constant="15" id="YSk-Tv-qjb"/>
                                                 <constraint firstAttribute="trailing" secondItem="YFL-Sj-OOy" secondAttribute="trailing" constant="15" id="ZZp-av-teg"/>
+                                                <constraint firstAttribute="bottom" secondItem="5PN-v3-5gP" secondAttribute="bottom" constant="15" id="fxT-RR-hGa"/>
+                                                <constraint firstAttribute="trailing" secondItem="5PN-v3-5gP" secondAttribute="trailing" constant="15" id="tLO-fE-hiS"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
+                                            <outlet property="cellSettingButton" destination="5PN-v3-5gP" id="hyw-BO-qQL"/>
                                             <outlet property="regionLabel" destination="bap-9i-Vib" id="dIB-lh-I0X"/>
                                             <outlet property="scheduleImage" destination="YFL-Sj-OOy" id="QRK-LH-a0E"/>
                                             <outlet property="scheduleTitle" destination="XGW-YN-Iiy" id="Aqk-MV-sk3"/>
@@ -1773,13 +1785,13 @@
                                                                 <rect key="frame" x="10" y="478" width="333" height="19.333333333333314"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="품명" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s32-2d-WpQ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="175.33333333333334" height="19.333333333333332"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수량" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCw-T3-sB6">
-                                                                        <rect key="frame" x="188" y="0.0" width="40" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="180.33333333333334" y="0.0" width="40" height="19.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="Fs2-Wq-nHq"/>
                                                                         </constraints>
@@ -1788,7 +1800,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47b-A8-1Mm">
-                                                                        <rect key="frame" x="233" y="0.0" width="100" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="225.33333333333334" y="0.0" width="107.66666666666666" height="19.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="100" id="69D-eW-HTs"/>
                                                                         </constraints>
@@ -2311,6 +2323,7 @@
         <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="123"/>
         <image name="figure.run" catalog="system" width="115" height="128"/>
         <image name="google" width="32" height="32"/>
         <image name="house" catalog="system" width="128" height="104"/>

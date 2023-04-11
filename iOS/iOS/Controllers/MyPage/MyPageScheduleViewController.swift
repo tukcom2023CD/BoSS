@@ -11,8 +11,8 @@ class MyPageScheduleViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var currentCellSid : Int? // 현재 셀 sid
     var scheduleCount = 0 // 스케줄 개수
-    var sidArray : [Int] = [] // sid 배열
     var scheduleArray : [Schedule] = [] // 스케줄 배열
     var scheduleStausArray : [String] = [] // 스케줄 상태 배열
     let exampleScheduleImage = #imageLiteral(resourceName: "여행사진 1") // 예시 스케줄 사진
@@ -52,6 +52,20 @@ class MyPageScheduleViewController: UIViewController {
         }
     }
     
+    // DB 일정 삭제 함수
+    func deleteScheduleFromDB() {
+        ScheduleNetManager.shared.delete(sid : self.currentCellSid!) {
+        }
+    }
+    
+    func reloadAfterDeleteSchedule() {
+        self.scheduleCount -= 1
+        let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})
+        self.scheduleArray.remove(at: index!)
+        self.scheduleStausArray.remove(at: index!)
+        self.collectionView.reloadData()
+    }
+    
     // 스케줄 상태(완료, 진행중, 예정) 구분
     func discriminationScheduleData(schedules: [Schedule]) {
         let formatter = DateFormatter()
@@ -87,15 +101,18 @@ class MyPageScheduleViewController: UIViewController {
         cell.scheduleImage.contentMode = .scaleAspectFill
         cell.scheduleImage.layer.cornerRadius = 15 // 둥근 모서리
         cell.scheduleImage.layer.masksToBounds = true // 둥근 모서리에 맞게 자름
+        
+        // 셀 설정 버튼 설정
+        cell.cellSettingButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
     }
     
     func setColor(text : String) -> UIColor {
         if text == "완료" {
-            return #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+            return #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         } else if text == "진행중" {
-            return #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+            return #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
         } else {
-            return #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+            return #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
         }
     }
     
@@ -143,8 +160,9 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         }
         
         self.setUpCellUI(cell: cell) // 셀 UI 설정
-        
+
         // cell 내용 설정
+        cell.sid = scheduleArray[indexPath.row].sid
         cell.scheduleTitle.text = scheduleArray[indexPath.row].title
         cell.regionLabel.text = scheduleArray[indexPath.row].region
         cell.startLabel.text = scheduleArray[indexPath.row].start
@@ -157,13 +175,42 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         
         // 금액 표시
         self.loadSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
+    
+        // 메뉴 설정
+        let menuItems : [UIAction] = [UIAction(title: "일정 삭제", image: UIImage(systemName: "trash"), attributes: .destructive){ _ in
+            self.currentCellSid = cell.sid
+            self.arletDeleteSchedule()
+        }] // 메뉴 아이템 생성
+        let UIMenu = UIMenu(title : "일정 설정 메뉴", children : menuItems) // 메뉴 생성
+        cell.cellSettingButton.menu = UIMenu // 버튼에 메뉴 등록
+        cell.cellSettingButton.showsMenuAsPrimaryAction = true // 클릭시 즉시 메뉴 표시
         
         return cell
+    }
+    
+    // 일정 삭제 선택시 알림
+    @objc func arletDeleteSchedule() {
+        // 로그아웃에 대한 알림
+        let alertController = UIAlertController(title: "일정 삭제", message: "일정에 대한 모든 데이터가 삭제됩니다.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
+            print("취소")
+            alertController.dismiss(animated: true, completion: nil)
+        }
+        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { (action) in
+            print("삭제")
+            self.reloadAfterDeleteSchedule() // 스케줄 삭제후 화면 다시 표시
+            self.deleteScheduleFromDB() // 스케줄 DB에서 삭제
+            alertController.dismiss(animated: true){}
+        }
+        alertController.addAction(cancelAction) // 액션 추가
+        alertController.addAction(deleteAction) // 액션 추가
+        present(alertController, animated: true, completion: nil)
     }
 }
 
 // 셀 설정
 class CustomScheduleCollecionCell : UICollectionViewCell {
+    var sid : Int? // sid
     @IBOutlet weak var scheduleTitle: UILabel! // 스케줄 이름
     @IBOutlet weak var scheduleImage: UIImageView! // 스케줄 이미지
     @IBOutlet weak var regionLabel: UILabel! // 스케줄 지역
@@ -172,8 +219,5 @@ class CustomScheduleCollecionCell : UICollectionViewCell {
     @IBOutlet weak var stopLabel: UILabel! // 스케줄 종료 날짜
     @IBOutlet weak var statusLabel: UILabel! // 스케줄 상태
     @IBOutlet weak var totalSpending: UILabel! // 지출 금액
+    @IBOutlet weak var cellSettingButton: UIButton! // 설정 버튼
 }
-
-// 구현할 기능 :
-// 일정 삭제
-
