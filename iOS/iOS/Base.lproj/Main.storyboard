@@ -1777,13 +1777,13 @@
                                                                 <rect key="frame" x="10" y="478" width="333" height="19.333333333333314"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="품명" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s32-2d-WpQ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="175.33333333333334" height="19.333333333333332"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수량" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCw-T3-sB6">
-                                                                        <rect key="frame" x="188" y="0.0" width="40" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="180.33333333333334" y="0.0" width="40" height="19.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="Fs2-Wq-nHq"/>
                                                                         </constraints>
@@ -1792,7 +1792,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47b-A8-1Mm">
-                                                                        <rect key="frame" x="233" y="0.0" width="100" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="225.33333333333334" y="0.0" width="107.66666666666666" height="19.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="100" id="69D-eW-HTs"/>
                                                                         </constraints>
@@ -1922,10 +1922,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eyE-4A-nxk">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1200"/>
                                         <subviews>
+                                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H7q-qo-bZ4">
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="200" id="J5f-qi-F0N"/>
+                                                </constraints>
+                                                <connections>
+                                                    <segue destination="w4J-cs-tsQ" kind="embed" id="fAi-ao-quT"/>
+                                                </connections>
+                                            </containerView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YuB-Mm-dw2">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
+                                                <rect key="frame" x="0.0" y="200" width="393" height="1000"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6po-br-iHP">
                                                         <rect key="frame" x="20" y="20" width="353" height="960"/>
@@ -1976,7 +1985,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 비용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jrC-S2-hxa">
-                                                                        <rect key="frame" x="10.000000000000004" y="14.333333333333316" width="51.333333333333343" height="21.666666666666671"/>
+                                                                        <rect key="frame" x="10.000000000000004" y="14.333333333333373" width="51.333333333333343" height="21.666666666666671"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
@@ -2078,7 +2087,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKL-Lp-7vJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7303" y="-1489"/>
+            <point key="canvasLocation" x="7301.5267175572517" y="-1489.4366197183099"/>
         </scene>
         <!--Title-->
         <scene sceneID="jje-2N-FgO">
@@ -2304,9 +2313,110 @@
             </objects>
             <point key="canvasLocation" x="2904.5801526717555" y="-718.30985915492965"/>
         </scene>
+        <!--Write Edit Photo View Controller-->
+        <scene sceneID="IMH-ne-ya1">
+            <objects>
+                <viewController storyboardIdentifier="WriteEditPhotoViewController" id="w4J-cs-tsQ" customClass="WriteEditPhotoViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8Q1-i7-6Im">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ezT-zh-l6A">
+                                <rect key="frame" x="10" y="69" width="383" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ib8-Qc-VeA">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="K7b-8x-ncg"/>
+                                            <constraint firstAttribute="width" constant="100" id="ldh-QS-mKr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="addImage"/>
+                                        <connections>
+                                            <action selector="addImageTapped:" destination="w4J-cs-tsQ" eventType="touchUpInside" id="xDf-K6-lgJ"/>
+                                        </connections>
+                                    </button>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1Ai-dV-HtF">
+                                        <rect key="frame" x="120" y="0.0" width="263" height="100"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="DS5-dm-lfC"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mul-TW-08f">
+                                            <size key="itemSize" width="80" height="80"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="WritingEditPhotoCollectionViewCell" reuseIdentifier="WritingEditPhotoCollectionViewCell" id="Wsa-sr-rIP" customClass="WritingEditPhotoCollectionViewCell" customModule="iOS" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="10" width="80" height="80"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7FI-Xo-t5n">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eRD-Rg-e6j">
+                                                            <rect key="frame" x="0.0" y="8" width="79" height="73"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="75" id="8hl-jt-WYF"/>
+                                                                <constraint firstAttribute="height" constant="75" id="JDg-u2-rjk"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j81-K0-xDN">
+                                                            <rect key="frame" x="53" y="15" width="20" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="F6l-dp-PC6"/>
+                                                                <constraint firstAttribute="width" constant="20" id="hEl-KC-T8O"/>
+                                                            </constraints>
+                                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                            <state key="normal" image="deletebutton"/>
+                                                            <connections>
+                                                                <action selector="deleteImageTapped:" destination="w4J-cs-tsQ" eventType="touchUpInside" id="XkZ-p5-cs5"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="j81-K0-xDN" secondAttribute="trailing" id="Mjb-sh-hzK"/>
+                                                        <constraint firstItem="eRD-Rg-e6j" firstAttribute="leading" secondItem="7FI-Xo-t5n" secondAttribute="leading" id="Rm9-bR-Bnq"/>
+                                                        <constraint firstItem="eRD-Rg-e6j" firstAttribute="top" secondItem="7FI-Xo-t5n" secondAttribute="top" constant="5" id="X7o-d3-Rrv"/>
+                                                        <constraint firstAttribute="trailing" secondItem="eRD-Rg-e6j" secondAttribute="trailing" constant="5" id="oZr-4k-eas"/>
+                                                        <constraint firstAttribute="bottom" secondItem="eRD-Rg-e6j" secondAttribute="bottom" id="wkd-Qb-BQZ"/>
+                                                        <constraint firstItem="j81-K0-xDN" firstAttribute="top" secondItem="7FI-Xo-t5n" secondAttribute="top" id="xca-be-Nkd"/>
+                                                    </constraints>
+                                                </collectionViewCellContentView>
+                                                <size key="customSize" width="80" height="80"/>
+                                                <connections>
+                                                    <outlet property="deleteButton" destination="j81-K0-xDN" id="TOH-RH-0nJ"/>
+                                                    <outlet property="photoCell" destination="eRD-Rg-e6j" id="uL6-HD-sWl"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="M6s-HS-UfN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ezT-zh-l6A" firstAttribute="trailing" secondItem="M6s-HS-UfN" secondAttribute="trailing" id="4hA-yb-xqe"/>
+                            <constraint firstItem="ezT-zh-l6A" firstAttribute="top" secondItem="M6s-HS-UfN" secondAttribute="top" constant="10" id="ncG-FA-CMh"/>
+                            <constraint firstItem="ezT-zh-l6A" firstAttribute="leading" secondItem="M6s-HS-UfN" secondAttribute="leading" constant="10" id="scQ-PJ-32E"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="1Ai-dV-HtF" id="AoN-We-3cH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FDf-Oq-eDN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7530.5343511450383" y="-2394.3661971830988"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Travelog" width="876" height="319"/>
+        <image name="addImage" width="143" height="143"/>
         <image name="apple" width="26" height="32"/>
         <image name="arrow" width="256" height="256"/>
         <image name="bell" catalog="system" width="125" height="128"/>
@@ -2315,6 +2425,7 @@
         <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="chevron.left" catalog="system" width="97" height="128"/>
+        <image name="deletebutton" width="147" height="147"/>
         <image name="google" width="32" height="32"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="line.horizontal.3" catalog="system" width="128" height="65"/>

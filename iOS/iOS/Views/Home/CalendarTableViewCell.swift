@@ -45,20 +45,20 @@ class CalendarTableViewCell: UITableViewCell {
         calendar.allowsMultipleSelection = false // 다중 선택 불가
         // 달력의 평일 날짜 색깔
         calendar.appearance.titleDefaultColor = .black
-
+        
         // 달력의 토,일 날짜 색깔
         calendar.appearance.titleWeekendColor = .red
-
+        
         // 달력의 맨 위의 년도, 월의 색깔
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerTitleFont = UIFont(name: "Marker Felt", size: 20)!
         calendar.appearance.weekdayFont = UIFont(name: "Marker Felt", size: 16)!
         
-
+        
         // 달력의 요일 글자 색깔
         calendar.appearance.weekdayTextColor = .darkGray
-      
-     
+        
+        
         
     }
     
@@ -68,10 +68,37 @@ class CalendarTableViewCell: UITableViewCell {
 extension CalendarTableViewCell: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     
     // 날짜 선택 시
+//    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+//        //print(eventDates)
+//
+//        let day = dateFormatter.string(from: date)// 선택한 날짜
+//
+//
+//        // 캘린더의 표시된 날짜가 이벤트 날짜에 포함되지 않은 경우
+//        if !eventDates.contains(day) { return  }
+//        else {
+//            //이곳에 해당 day를 가진 여행 schedules정보 바
+//            print(day)
+//
+//        }
+//
+//    }
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let selectedDate = dateFormatter.string(from: date)
         
+
+        if let matchingSchedule = schedules?.first(where: { schedule in
+            if let startDateString = schedule.start, let startDate = dateFormatter.date(from: startDateString),
+               let stopDateString = schedule.stop, let stopDate = dateFormatter.date(from: stopDateString) {
+                return selectedDate >= dateFormatter.string(from: startDate) && selectedDate <= dateFormatter.string(from: stopDate)
+            }
+            return false
+        }) {
+            if let title = matchingSchedule.title {
+                print("Selected date has a schedule titled: \(title)")
+                            }
+        }
     }
-    
     // 날짜 선택 해제 시
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         

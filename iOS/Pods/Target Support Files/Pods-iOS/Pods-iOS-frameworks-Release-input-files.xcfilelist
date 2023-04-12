@@ -1,6 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-iOS/Pods-iOS-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework
+${BUILT_PRODUCTS_DIR}/BSImagePicker/BSImagePicker.framework
 ${BUILT_PRODUCTS_DIR}/CalendarDateRangePicker/CalendarDateRangePicker.framework
 ${BUILT_PRODUCTS_DIR}/CollectionViewPagingLayout/CollectionViewPagingLayout.framework
 ${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework
