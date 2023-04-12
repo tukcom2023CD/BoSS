@@ -22,11 +22,12 @@ class ScheduleEditViewController : UIViewController {
     @IBOutlet weak var regionTextField: UITextField!
     @IBOutlet weak var regionChangeButton: UIButton!
     
-    
+    var scheduleSID : Int?
     var scheduletTitle : String = ""
     var scheduletStart : String = ""
     var scheduletStop : String = ""
     var regionTitle : String = ""
+    var uid : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,34 @@ class ScheduleEditViewController : UIViewController {
     }
 
     @IBAction func applyButtonTapped(_ sender: UIButton) {
+        
+        // 제목 받아오기
+        if let text = self.scheduleNameTextField.text {
+            self.scheduletTitle = text
+        } else {
+            self.scheduletTitle = ""
+        }
+        
+        // 지역 받아오기
+        if let region = self.regionTextField.text {
+            self.regionTitle = region
+        }
+        
+        // 변경된 내용 DB 저장
+        let schedule = Schedule (
+            sid : self.scheduleSID,
+            title : self.scheduletTitle,
+            region : self.regionTitle,
+            start : self.scheduletStart,
+            stop : self.scheduletStop,
+            uid : UserDefaults.standard.getLoginUser()!.uid )
+        
+        ScheduleNetManager.shared.update(schedule: schedule) {
+            print("일정 업데이트")
+            NotificationCenter.default.post(name: NSNotification.Name("ScheduleUpdated"), object: self)
+        }
+        
+        dismiss(animated: true)
     }
     
     
@@ -81,17 +110,12 @@ class ScheduleEditViewController : UIViewController {
     // 지역 변경 버튼 클릭시 동작
     @IBAction func regionChangeButtonTapped(_ sender: UIButton) {
         
-        // 1. 지역 선택화면으로 이동 (컬렉션 뷰)
+        // 지역 선택화면으로 이동 (컬렉션 뷰)
         guard let selectRegionVC = self.storyboard?.instantiateViewController(identifier: "selectRegionVC") as? SelectRegionViewController else {return}
         selectRegionVC.modalPresentationStyle = .fullScreen
         selectRegionVC.modalTransitionStyle = .coverVertical
         selectRegionVC.delegate = self
         self.present(selectRegionVC, animated: true)
-        
-        // 2. 지역 선택후 완료 버튼 or 취소 버튼 클릭후 컬렉션 뷰 닫음
-        
-        
-        // 3. 선택한 지역으로 변경
     }
 }
 

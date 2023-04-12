@@ -21,6 +21,9 @@ class MyPageScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 스케줄 업데이트 신호를 받아 컬렉션 뷰 셀 리로드
+        NotificationCenter.default.addObserver(self, selector: #selector(requestScheduleData), name: NSNotification.Name("ScheduleUpdated"), object: nil)
+        
         // 스크롤 방향 설정
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
@@ -40,9 +43,11 @@ class MyPageScheduleViewController: UIViewController {
     }
     
     // 여행 일정 불러오기
-    func requestScheduleData() {
+    @objc func requestScheduleData() {
+        print("일정 불러옴")
         let user = UserDefaults.standard.getLoginUser()!
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            self.scheduleStausArray = []
             self.scheduleCount = schedules.count // 스케줄 개수 저장
             if schedules.count > 0 { // 스케줄 개수가 0보다 크면
                 self.hasSchedule = true
@@ -117,7 +122,7 @@ class MyPageScheduleViewController: UIViewController {
         if text == "완료" {
             return #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         } else if text == "진행중" {
-            return #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+            return #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
         } else {
             return #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
         }
@@ -237,6 +242,9 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         scheduleEditVC.modalTransitionStyle = .coverVertical
         
         if let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})  {
+            if let sid = self.scheduleArray[index].sid  {
+                scheduleEditVC.scheduleSID = sid
+            }
             if let title = self.scheduleArray[index].title  {
                 scheduleEditVC.scheduletTitle = title
             }
