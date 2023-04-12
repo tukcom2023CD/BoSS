@@ -83,7 +83,7 @@ class LoginViewController: UIViewController {
     @IBAction func guestLoginButtonTapped(_ sender: UIButton) {
         print(#function)
         
-        let user = User(email: "lee@naver.com", name: "lee")
+        let user = User(email: "@Guest", name: "Guest")
         
         UserNetManager.shared.loginUser(user: user) { user in
             UserDefaults.standard.setLoginUser(user: user)

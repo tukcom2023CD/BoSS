@@ -25,6 +25,9 @@ class MyPageViewController: UIViewController {
     @IBOutlet weak var settingButton: UIButton! // 설정 버튼
     @IBOutlet weak var menuTableView: UITableView! // 메뉴 테이블 뷰
     
+    // 사용자 로그인 종류 구분
+    var userLoginType : String?
+    
     // 테이블 뷰 표시 정보
     let titleArray = ["여행일정", "지출내역"]
     let contentArray = ["여행 일정을 확인하세요", "여행동안의 지출내역을 확인하세요"]
@@ -64,6 +67,9 @@ class MyPageViewController: UIViewController {
         userSpendingView.layer.cornerRadius = 25
         // 유저 지출 기본값으로 표시
         userSpendingLabel.text = numberFormatter(number: 0)
+        
+        // 로그인 타입 확인
+        self.userLoginType = checkLoginType()
     }
     
     // 버튼 설정 함수
@@ -78,6 +84,19 @@ class MyPageViewController: UIViewController {
         settingButton.showsMenuAsPrimaryAction = true
     }
     
+    // 로그인 타입 확인
+    func checkLoginType() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if ((user.profile?.email) != nil) {
+                return ("Google")
+            } else {
+                return ("Google")
+            }
+        } else {
+            return ("Guest")
+        }
+    }
+    
     // 현재 구글 로그인한 사용자의 이메일 주소 가져오기
     func getGoogleUserEmail() -> String {
         if let user = GIDSignIn.sharedInstance.currentUser {
@@ -87,7 +106,7 @@ class MyPageViewController: UIViewController {
                 return ("Unknown")
             }
         } else {
-            return ("Guest")
+            return ("@Guest")
         }
     }
     
@@ -103,31 +122,52 @@ class MyPageViewController: UIViewController {
             return ("Guest")
         }
     }
+
     
     // 유저 이메일 표시 함수
     func setUserEmail() {
-        
-        // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
-        guard let userEmail = UserDefaults.standard.string(forKey: "userEmail") else {
-            let userEmail = getGoogleUserEmail()
-            UserDefaults.standard.set(userEmail, forKey: "userEmail")
+        if self.userLoginType == "Google" {
+            // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
+            guard let userEmail = UserDefaults.standard.string(forKey: "userGoogleEmail") else {
+                let userEmail = getGoogleUserEmail()
+                UserDefaults.standard.set(userEmail, forKey: "userGoogleEmail")
+                self.userEmail.text = userEmail
+                return
+            }
             self.userEmail.text = userEmail
-            return
+        } else {
+            // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
+            guard let userEmail = UserDefaults.standard.string(forKey: "userGuestEmail") else {
+                let userEmail = getGoogleUserEmail()
+                UserDefaults.standard.set(userEmail, forKey: "userGuestEmail")
+                self.userEmail.text = userEmail
+                return
+            }
+            self.userEmail.text = userEmail
         }
-        self.userEmail.text = userEmail
     }
     
     // 유저 이름 표시 함수
     func setUserName() {
-        
-        // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
-        guard let userName = UserDefaults.standard.string(forKey: "userName") else {
-            let userName = getGoogleUserName()
-            UserDefaults.standard.set(userName, forKey: "userName")
+        if self.userLoginType == "Google" {
+            // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
+            guard let userName = UserDefaults.standard.string(forKey: "userGoogleName") else {
+                let userName = getGoogleUserName()
+                UserDefaults.standard.set(userName, forKey: "userGoogleName")
+                self.userName.text = userName
+                return
+            }
             self.userName.text = userName
-            return
+        } else {
+            // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
+            guard let userName = UserDefaults.standard.string(forKey: "userGuestName") else {
+                let userName = getGoogleUserName()
+                UserDefaults.standard.set(userName, forKey: "userGuestName")
+                self.userName.text = userName
+                return
+            }
+            self.userName.text = userName
         }
-        self.userName.text = userName
     }
     
     // 유저 사진 표시 함수
