@@ -208,7 +208,7 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
                 
                 self.navigationController?.pushViewController(mainPlanVC, animated: true)
             }
-            
+            cell.collectionView.reloadData()
             return cell
             
         case 1:
@@ -232,7 +232,7 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
                 
                 self.navigationController?.pushViewController(mainPlanVC, animated: true)
             }
-            
+            cell.collectionView.reloadData()
             return cell
             
         default:

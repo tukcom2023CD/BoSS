@@ -10,9 +10,12 @@ Spending = Namespace('Spending')
 @Spending.route('/api/spending/create')
 class CreateSpending(Resource):
     def post(self):
-        spendings = (request.json.get('spendings'))
 
-        sql = f"delete from spending where pid={spendings[0]['pid']}"
+        pid = (request.json.get('pid'))
+        spendings = (request.json.get('spendings'))
+        
+        sql = f"delete from spending where pid={pid}"
+    
         conn = connect.ConnectDB(sql)
         conn.execute()
 
@@ -25,8 +28,9 @@ class CreateSpending(Resource):
             sql = f"insert into spending(name, quantity, price, pid) values('{name}', {quantity}, {price}, {pid})"
             conn = connect.ConnectDB(sql)
             conn.execute()
-
+        
         del conn
+        
 
 # 지출 내역 읽기 (R)
 @Spending.route('/api/spending/read/<int:pid>')

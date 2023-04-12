@@ -8,6 +8,7 @@
 import Foundation
 
 struct SpendingData: Codable {
+    var pid: Int?
     var spendings: [Spending]
 }
 
