@@ -20,12 +20,17 @@ class ProfileEdirViewController : UIViewController {
     @IBOutlet weak var nameTextField: UITextField! // 이름 텍스트 필드
     @IBOutlet weak var setDefaultImageButton: UIButton! // 기본 이미지 설정 버튼
     
+    // 사용자 로그인 종류 구분
+    var userLoginType : String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI() // UI설정
         
         emailTextField.delegate = self
         nameTextField.delegate = self
+        
+        self.userLoginType = checkLoginType()
         
         // 유저 정보 설정
         setUserEmail()
@@ -45,42 +50,91 @@ class ProfileEdirViewController : UIViewController {
         self.setDefaultImageButton.layer.cornerRadius = 10
     }
     
+    // 로그인 타입 확인
+    func checkLoginType() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if ((user.profile?.email) != nil) {
+                return ("Google")
+            } else {
+                return ("Google")
+            }
+        } else {
+            return ("Guest")
+        }
+    }
+    
     // 유저 이메일 표시 함수
     func setUserEmail() {
-        guard let userEmail = UserDefaults.standard.string(forKey: "userEmail") else {
-            return
+        if self.userLoginType == "Google"{
+            guard let userEmail = UserDefaults.standard.string(forKey: "userGoogleEmail") else {
+                return
+            }
+            self.emailTextField.text = userEmail
+        } else {
+                guard let userEmail = UserDefaults.standard.string(forKey: "userGuestEmail") else {
+                    return
+                }
+                self.emailTextField.text = userEmail
         }
-        self.emailTextField.text = userEmail
+       
     }
     
     // 유저 이름 표시 함수
     func setUserName() {
-        guard let userName = UserDefaults.standard.string(forKey: "userName") else {
-            return
+        if self.userLoginType == "Google"{
+            guard let userName = UserDefaults.standard.string(forKey: "userGoogleName") else {
+                return
+            }
+            self.nameTextField.text = userName
+        } else {
+            guard let userName = UserDefaults.standard.string(forKey: "userGuestName") else {
+                return
+            }
+            self.nameTextField.text = userName
         }
-        self.nameTextField.text = userName
     }
     
     // 유저 사진 표시 함수
     func setUserImage() {
-        guard let userImage = UserDefaults.standard.data(forKey: "userImage") else {
-            return
+        if self.userLoginType == "Google"{
+            guard let userImage = UserDefaults.standard.data(forKey: "userGoogleImage") else {
+                return
+            }
+            self.userImageView.image = UIImage(data: userImage)
+        } else {
+            guard let userImage = UserDefaults.standard.data(forKey: "userGuestImage") else {
+                return
+            }
+            self.userImageView.image = UIImage(data: userImage)
         }
-        self.userImageView.image = UIImage(data: userImage)
     }
     
     // 변경사항 적용 함수
     func applyEditChanges() {
-        if let email = self.emailTextField.text{
-            UserDefaults.standard.set(email, forKey: "userEmail")
-        }
-        
-        if let name = self.nameTextField.text{
-            UserDefaults.standard.set(name, forKey: "userName")
-        }
-        
-        if let imageData = self.userImageView.image!.pngData() {
-            UserDefaults.standard.set(imageData, forKey: "userImage")
+        if self.userLoginType == "Google" {
+            if let email = self.emailTextField.text{
+                UserDefaults.standard.set(email, forKey: "userGoogleEmail")
+            }
+            
+            if let name = self.nameTextField.text{
+                UserDefaults.standard.set(name, forKey: "userGoogleName")
+            }
+            
+            if let imageData = self.userImageView.image!.pngData() {
+                UserDefaults.standard.set(imageData, forKey: "userGoogleImage")
+            }
+        } else {
+            if let email = self.emailTextField.text{
+                UserDefaults.standard.set(email, forKey: "userGuestEmail")
+            }
+            
+            if let name = self.nameTextField.text{
+                UserDefaults.standard.set(name, forKey: "userGuestName")
+            }
+            
+            if let imageData = self.userImageView.image!.pngData() {
+                UserDefaults.standard.set(imageData, forKey: "userGuestImage")
+            }
         }
     }
     

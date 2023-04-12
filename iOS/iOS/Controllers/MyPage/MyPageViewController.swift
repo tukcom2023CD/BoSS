@@ -172,16 +172,27 @@ class MyPageViewController: UIViewController {
     
     // 유저 사진 표시 함수
     func setUserImage() {
-    
-        guard let userImage = UserDefaults.standard.data(forKey: "userImage") else {
-            self.userImage.image = UIImage(named: "user")
-            // 이미지를 Data로 변환하여 UserDefaults에 저장
-            if let imageData = self.userImage.image!.pngData() {
-                UserDefaults.standard.set(imageData, forKey: "userImage")
+        if self.userLoginType == "Google"{
+            guard let userImage = UserDefaults.standard.data(forKey: "userGoogleImage") else {
+                self.userImage.image = UIImage(named: "user")
+                // 이미지를 Data로 변환하여 UserDefaults에 저장
+                if let imageData = self.userImage.image!.pngData() {
+                    UserDefaults.standard.set(imageData, forKey: "userGoogleImage")
+                }
+                return
             }
-            return
+            self.userImage.image = UIImage(data: userImage)
+        } else {
+            guard let userImage = UserDefaults.standard.data(forKey: "userGuestImage") else {
+                self.userImage.image = UIImage(named: "user")
+                // 이미지를 Data로 변환하여 UserDefaults에 저장
+                if let imageData = self.userImage.image!.pngData() {
+                    UserDefaults.standard.set(imageData, forKey: "userGuestImage")
+                }
+                return
+            }
+            self.userImage.image = UIImage(data: userImage)
         }
-        self.userImage.image = UIImage(data: userImage)
     }
     
     // 유저 프로필 표시 함수
