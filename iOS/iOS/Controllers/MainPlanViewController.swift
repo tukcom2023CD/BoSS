@@ -49,6 +49,7 @@ class MainPlanViewController: UIViewController {
                 .strokeWidth: -3.0
             ]
         )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(barButtonTapped))
     }
     
     func setupTableView() {
@@ -108,6 +109,12 @@ class MainPlanViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc func barButtonTapped() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "scheduleEditVC") as! ScheduleEditViewController
+        vc.schedule = schedule
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -23,6 +23,7 @@ class ScheduleEditViewController : UIViewController {
     @IBOutlet weak var regionTextField: UITextField!
     @IBOutlet weak var regionChangeButton: UIButton!
     
+    var schedule: Schedule!
     var scheduleSID : Int?
     var scheduletTitle : String = ""
     var scheduletStart : String = ""
