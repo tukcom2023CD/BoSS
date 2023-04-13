@@ -199,4 +199,26 @@ class PlaceNetManager {
             completion()
         }.resume()
     }
+    
+    func delete(_ pid: Int, completion: @escaping ()->()) {
+        guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/place/delete/\(pid)") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { data, res, err in
+            if err != nil {
+                print("Place Net Error")
+                return
+            }
+            
+            guard let response = res as? HTTPURLResponse, (200 ..< 299) ~=
+                    response.statusCode else {
+                print("Error: HTTP request failed")
+                return
+            }
+            
+            completion()
+        }.resume()
+    }
 }

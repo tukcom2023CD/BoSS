@@ -49,12 +49,16 @@ class MainPlanViewController: UIViewController {
                 .strokeWidth: -3.0
             ]
         )
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(barButtonTapped))
     }
     
     func setupTableView() {
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.dragInteractionEnabled = true
+        tableView.dragDelegate = self
+        tableView.dropDelegate = self
         
         tableView.register(UINib(nibName: "MainPlanHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "MainPlanHeaderView")
         tableView.register(UINib(nibName: "MainPlanTableViewCell", bundle: nil), forCellReuseIdentifier: "MainPlanTableViewCell")
@@ -106,10 +110,17 @@ class MainPlanViewController: UIViewController {
             }
         }
     }
+    
+    @objc func barButtonTapped() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "scheduleEditVC") as! ScheduleEditViewController
+        vc.schedule = schedule
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 // MARK: - TableViewDataSource, Delegate
-extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
+extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDragDelegate, UITableViewDropDelegate {
+    
     // 섹션 개수
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
@@ -186,11 +197,55 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         // 3. 두 네트워킹 종료 후 화면 이동
+    }
+    
+    // 셀 스와이프
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "삭제") { _, _, completion in
+            
+            let place = self.sections[indexPath.section].rows.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            PlaceNetManager.shared.delete(place.pid!) {
+                completion(true)
+            }
+        }
         
-        
-        
-        
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        return [UIDragItem(itemProvider: NSItemProvider())]
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        if session.localDragSession != nil {
+            return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+        }
+        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         
     }
     
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        var cell = sections[sourceIndexPath.section].rows[sourceIndexPath.row]
+        cell.visitDate = sections[destinationIndexPath.section].date
+        
+        
+        sections[sourceIndexPath.section].rows.remove(at: sourceIndexPath.row)
+        sections[destinationIndexPath.section].rows.insert(cell, at: destinationIndexPath.row)
+        
+        
+        let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
+        present(alert, animated: true)
+        
+        PlaceNetManager.shared.update(place: cell) {
+            DispatchQueue.main.async {
+                alert.dismiss(animated: true)
+            }
+        }
+    }
 }

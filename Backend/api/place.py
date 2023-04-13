@@ -21,6 +21,7 @@ class CreatePlace(Resource):
         sql = f"insert into place(name, address, latitude, longitude, visit_date, category, sid, uid) values('{name}', '{address}', {latitude}, {longitude}, '{visit_date}', '{category}', {sid}, {uid})"
         conn = connect.ConnectDB(sql)
         conn.execute()
+
         del conn
         
 # 여행지 조회 (R)
@@ -64,9 +65,10 @@ class UpdatePlace(Resource):
         pid = (request.json.get('pid'))
         diary = (request.json.get('diary'))
         total_spending = (request.json.get('total_spending'))
+        visit_date = (request.json.get('visit_date'))
         status = (request.json.get('status'))
 
-        sql = f"update place set diary='{diary}', total_spending={total_spending}, status={status} where pid={pid}"
+        sql = f"update place set diary='{diary}', total_spending={total_spending}, status={status}, visit_date='{visit_date}' where pid={pid}"
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
