@@ -5,7 +5,11 @@
 //  Created by JunHee on 2023/02/07.
 //
 import UIKit
+import FirebaseCore
+import FirebaseAuth
+import GoogleSignIn
 
+// 내 정보 (마이페이지) 화면
 class MyPageViewController: UIViewController {
     
     @IBOutlet weak var userDataView: UIView! // 유저 정보를 포함하는 뷰
@@ -22,6 +26,9 @@ class MyPageViewController: UIViewController {
     @IBOutlet weak var settingButton: UIButton! // 설정 버튼
     @IBOutlet weak var menuTableView: UITableView! // 메뉴 테이블 뷰
     
+    // 사용자 로그인 종류 구분
+    var userLoginType : String?
+    
     // 테이블 뷰 표시 정보
     let titleArray = ["여행일정", "지출내역"]
     let contentArray = ["여행 일정을 확인하세요", "여행동안의 지출내역을 확인하세요"]
@@ -31,6 +38,8 @@ class MyPageViewController: UIViewController {
         setUpUI() // UI 설정
         settingButtonSetUp() // 설정 메뉴 설정
         
+        setUserProfile() // 프로필 표시
+        
         // 그림자 설정
         setShadow(view: userDataView)
         setShadow(view: userScheduleView)
@@ -38,15 +47,17 @@ class MyPageViewController: UIViewController {
         
         requestScheduleData() // 일정 데이터 불러오기
         requestSpendingData() // 총지출  불러오기
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setUserProfile), name: NSNotification.Name("ProfileChanged"), object: nil)
     }
     
     // UI 설정 함수
     func setUpUI() {
         // 유저 정보 표시 뷰 설정
         userDataView.layer.cornerRadius = 40
-        // 유저 이미지 설정
-        userImage.image = UIImage(named: "user.png")
-        userImage.layer.cornerRadius = 50
+        // 유저 이미지 모서리 설정
+        userImage.layer.cornerRadius = 75
+        userImage.contentMode = .scaleAspectFill
         
         // 유저 스케줄 표시 뷰 설정
         userScheduleView.layer.cornerRadius = 25
@@ -57,17 +68,200 @@ class MyPageViewController: UIViewController {
         userSpendingView.layer.cornerRadius = 25
         // 유저 지출 기본값으로 표시
         userSpendingLabel.text = numberFormatter(number: 0)
+        
+        // 로그인 타입 확인
+        self.userLoginType = checkLoginType()
     }
     
     // 버튼 설정 함수
     func settingButtonSetUp() {
         // 회원탈퇴 메뉴
         let menuList : [UIAction] = [
-            UIAction(title: "로그아웃", image: UIImage(named: "logout.png"), handler: { _ in print("로그아웃") }),
-            UIAction(title: "회원탈퇴", image: UIImage(named: "cancel.png"), attributes: .destructive, handler: { _ in print("회원탈퇴") })
+            UIAction(title: "프로필 편집", image: UIImage(systemName: "pencil.line"), handler: { _ in self.moveEditProfileScreen()}),
+            UIAction(title: "로그아웃", image: UIImage(named: "logout.png"), handler: { _ in self.logOutAlert() }),
+            UIAction(title: "회원탈퇴", image: UIImage(named: "cancel.png"), attributes: .destructive, handler: { _ in self.withdrawMembership() })
         ]
-        settingButton.menu = UIMenu(identifier: nil, options: .displayInline, children: menuList)
+        settingButton.menu = UIMenu(title : "설정", identifier: nil, options: .displayInline, children: menuList)
         settingButton.showsMenuAsPrimaryAction = true
+    }
+    
+    // 로그인 타입 확인
+    func checkLoginType() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if ((user.profile?.email) != nil) {
+                return ("Google")
+            } else {
+                return ("Google")
+            }
+        } else {
+            return ("Guest")
+        }
+    }
+    
+    // 현재 구글 로그인한 사용자의 이메일 주소 가져오기
+    func getGoogleUserEmail() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if let email = user.profile?.email {
+                return (email)
+            } else {
+                return ("Unknown")
+            }
+        } else {
+            return ("@Guest")
+        }
+    }
+    
+    // 현재 구글 로그인한 사용자의 이름 가져오기
+    func getGoogleUserName() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if let name = user.profile?.name {
+                return (name)
+            } else {
+                return ("Unknown")
+            }
+        } else {
+            return ("Guest")
+        }
+    }
+
+    
+    // 유저 이메일 표시 함수
+    func setUserEmail() {
+        if self.userLoginType == "Google" {
+            // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
+            guard let userEmail = UserDefaults.standard.string(forKey: "userGoogleEmail") else {
+                let userEmail = getGoogleUserEmail()
+                UserDefaults.standard.set(userEmail, forKey: "userGoogleEmail")
+                self.userEmail.text = userEmail
+                return
+            }
+            self.userEmail.text = userEmail
+        } else {
+            // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
+            guard let userEmail = UserDefaults.standard.string(forKey: "userGuestEmail") else {
+                let userEmail = getGoogleUserEmail()
+                UserDefaults.standard.set(userEmail, forKey: "userGuestEmail")
+                self.userEmail.text = userEmail
+                return
+            }
+            self.userEmail.text = userEmail
+        }
+    }
+    
+    // 유저 이름 표시 함수
+    func setUserName() {
+        if self.userLoginType == "Google" {
+            // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
+            guard let userName = UserDefaults.standard.string(forKey: "userGoogleName") else {
+                let userName = getGoogleUserName()
+                UserDefaults.standard.set(userName, forKey: "userGoogleName")
+                self.userName.text = userName
+                return
+            }
+            self.userName.text = userName
+        } else {
+            // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
+            guard let userName = UserDefaults.standard.string(forKey: "userGuestName") else {
+                let userName = getGoogleUserName()
+                UserDefaults.standard.set(userName, forKey: "userGuestName")
+                self.userName.text = userName
+                return
+            }
+            self.userName.text = userName
+        }
+    }
+    
+    // 유저 사진 표시 함수
+    func setUserImage() {
+        if self.userLoginType == "Google"{
+            guard let userImage = UserDefaults.standard.data(forKey: "userGoogleImage") else {
+                self.userImage.image = UIImage(named: "user")
+                // 이미지를 Data로 변환하여 UserDefaults에 저장
+                if let imageData = self.userImage.image!.pngData() {
+                    UserDefaults.standard.set(imageData, forKey: "userGoogleImage")
+                }
+                return
+            }
+            self.userImage.image = UIImage(data: userImage)
+        } else {
+            guard let userImage = UserDefaults.standard.data(forKey: "userGuestImage") else {
+                self.userImage.image = UIImage(named: "user")
+                // 이미지를 Data로 변환하여 UserDefaults에 저장
+                if let imageData = self.userImage.image!.pngData() {
+                    UserDefaults.standard.set(imageData, forKey: "userGuestImage")
+                }
+                return
+            }
+            self.userImage.image = UIImage(data: userImage)
+        }
+    }
+    
+    // 유저 프로필 표시 함수
+    @objc func setUserProfile() {
+        setUserEmail()
+        setUserName()
+        setUserImage()
+    }
+    
+    // 프로필 편집화면으로 이동하는 함수
+    func moveEditProfileScreen() {
+        guard let profileEditVC = self.storyboard?.instantiateViewController(identifier: "profileEditVC") as? ProfileEdirViewController else {return}
+        profileEditVC.modalPresentationStyle = .fullScreen
+        profileEditVC.modalTransitionStyle = .coverVertical
+        
+        self.present(profileEditVC, animated: true)
+    }
+    
+    // 로그아웃 알림창을 띄우는 함수
+    func logOutAlert() {
+        // 로그아웃에 대한 알림
+        let alertController = UIAlertController(title: "로그아웃", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { (action) in
+            print("취소")
+            alertController.dismiss(animated: true, completion: nil)
+        }
+
+        let logOutAction = UIAlertAction(title: "로그아웃", style: .destructive) { (action) in
+            print("로그아웃")
+            alertController.dismiss(animated: true){
+                self.signOut()
+                self.loginVC()
+            }
+        }
+        alertController.addAction(cancelAction) // 액션 추가
+        alertController.addAction(logOutAction) // 액션 추가
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    // 로그아웃
+    func signOut() {
+        print("로그아웃")
+        do {
+            try Auth.auth().signOut()
+            GIDSignIn.sharedInstance.signOut()
+            // 로그아웃 성공적으로 수행
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
+    }
+    
+    // 초기화면(로그인) 화면으로 이동
+    func loginVC() {
+        print("로그인 화면 열기")
+        guard let LoginVC = self.storyboard?.instantiateViewController(identifier: "LoginVC") as? LoginViewController else {return}
+        LoginVC.modalPresentationStyle = .fullScreen
+        LoginVC.modalTransitionStyle = .coverVertical
+        UIApplication.shared.keyWindow?.rootViewController = LoginVC
+    }
+    
+    // 회원탈퇴 화면으로 이동하는 함수
+    func withdrawMembership() {
+        guard let withDrawVC = self.storyboard?.instantiateViewController(identifier: "withDrawVC") as? WithDrawMembershipViewController else {return}
+        withDrawVC.modalPresentationStyle = .fullScreen
+        withDrawVC.modalTransitionStyle = .coverVertical
+        
+        self.present(withDrawVC, animated: true)
     }
     
     // 그림자 설정 함수
@@ -137,18 +331,12 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             guard let scheduleVC = self.storyboard?.instantiateViewController(identifier: "scheduleVC") as? MyPageScheduleViewController else {return}
-            scheduleVC.modalPresentationStyle = .automatic
-            scheduleVC.modalTransitionStyle = .coverVertical
-            
             self.present(scheduleVC, animated: true)
-            // self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
         case 1:
             guard let spendingVC = self.storyboard?.instantiateViewController(identifier: "spendingVC") as? MyPageSpendingViewController else {return}
             spendingVC.modalPresentationStyle = .automatic
             spendingVC.modalTransitionStyle = .coverVertical
-            
             self.present(spendingVC, animated: true)
-            // self.performSegue(withIdentifier: "ShowSpending", sender: nil)
         default:
             return
         }
