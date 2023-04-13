@@ -221,6 +221,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         
         place.diary = contents.text
         place.totalSpending = totalPrice
+        let spendingData = SpendingData(pid: place.pid!, spendings: spendings)
         let image = imageCard.image
         
         DispatchQueue.global().async {
@@ -238,7 +239,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
             
             // 상세 지출 내역 네트워킹 코드 추가
             dispatchGroup.enter()
-            SpendingNetManager.shared.create(spendings: self.spendings) {
+            SpendingNetManager.shared.create(spendings: spendingData) {
                 dispatchGroup.leave()
             }
             
