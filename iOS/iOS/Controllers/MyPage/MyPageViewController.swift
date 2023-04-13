@@ -9,6 +9,7 @@ import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 
+// 내 정보 (마이페이지) 화면
 class MyPageViewController: UIViewController {
     
     @IBOutlet weak var userDataView: UIView! // 유저 정보를 포함하는 뷰

@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 여행 지역 선택 화면
 class SelectRegionViewController : UIViewController {
     
     // Delegate 프로토콜 채택

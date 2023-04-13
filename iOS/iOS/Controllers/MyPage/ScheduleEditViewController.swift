@@ -13,6 +13,7 @@ protocol MyDelegate: AnyObject {
     func didChangeValue(value: String)
 }
 
+// 여행 일정 편집 화면
 class ScheduleEditViewController : UIViewController {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!

@@ -8,6 +8,7 @@
 import UIKit
 import GoogleSignIn
 
+// 사용자 프로필 편집 화면
 class ProfileEdirViewController : UIViewController {
      
     @IBOutlet weak var cancelButton: UIButton! // 취소 버튼

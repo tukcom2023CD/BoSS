@@ -7,14 +7,14 @@
 
 import UIKit
 
-
+// 사용자 지출내역 화면
 class MyPageSpendingViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
     var spendingCount = 0 // 지출내역 수
     let spendingImage = #imageLiteral(resourceName: "cash") // 지출내역 샘플 이미지
-    var PlaceArray :[String] = [] // 각 지출내역에 대한 여행장소 배열
+    var PlaceArray : [String] = [] // 각 지출내역에 대한 여행장소 배열
     var spendingArray : [Spending] = [] // 지출내역 구조체 배열
     
     override func viewDidLoad() {
@@ -48,8 +48,8 @@ class MyPageSpendingViewController: UIViewController {
 
                     // 지출내역 배열 저장
                     for x in 0..<spendings.count {
-                        self.spendingArray.append(spendings[x])
                         self.PlaceArray.append(place.name!)
+                        self.spendingArray.append(spendings[x])
                     }
 
                     DispatchQueue.main.async {

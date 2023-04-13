@@ -7,6 +7,7 @@
 
 import UIKit
 
+// 사용자 여행 일정 화면
 class MyPageScheduleViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
