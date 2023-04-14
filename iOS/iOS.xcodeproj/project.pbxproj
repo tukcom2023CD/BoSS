@@ -30,6 +30,7 @@
 		3785E3F229E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785E3F029E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift */; };
 		3785E3F329E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3785E3F129E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib */; };
 		37B7BE88298564F900786A1F /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B7BE87298564F900786A1F /* SlideView.swift */; };
+		37B7E32129E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B7E32029E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift */; };
 		37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */; };
 		37ECD62229866358005E21D4 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD62129866358005E21D4 /* Region.swift */; };
 		37ECD6242986649D005E21D4 /* RegionDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD6232986649D005E21D4 /* RegionDataManager.swift */; };
@@ -143,6 +144,7 @@
 		3785E3F029E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoExHomeTravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		3785E3F129E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoExHomeTravelCollectionViewCell.xib; sourceTree = "<group>"; };
 		37B7BE87298564F900786A1F /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
+		37B7E32029E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanViewController.swift; sourceTree = "<group>"; };
 		37ECD62129866358005E21D4 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Region.swift; path = Models/Region.swift; sourceTree = "<group>"; };
 		37ECD6232986649D005E21D4 /* RegionDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegionDataManager.swift; path = Models/RegionDataManager.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				37F18C4C29856CFD003C8EF2 /* SearchPlaceTableViewCell.swift */,
 				37F18C4D29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib */,
 				370DCB0529A0DD4C007B4FDD /* GetpriceTableViewCell.swift */,
+				37B7E32029E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -852,6 +855,7 @@
 				3785E3F229E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift in Sources */,
 				37ECD626298676C8005E21D4 /* UIView+Ext.swift in Sources */,
 				BF8AD682299BB4AF00071565 /* ResultTableController.swift in Sources */,
+				37B7E32129E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
 				571FF6A029A3CFF7005E54F6 /* Photo.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
