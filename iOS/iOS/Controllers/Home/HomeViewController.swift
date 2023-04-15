@@ -20,8 +20,8 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     var currentCellIndex = 0
-  
-  //  var isExpanded = false
+    
+    //  var isExpanded = false
     
     var upcomingSchedules: [Schedule] = []
     var previousSchedules: [Schedule] = []
@@ -32,9 +32,15 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
     //외국 감성 물씬 나는 국내 여행지 BEST7,
     var websites = [
         "ktourtop10.kr", "expedia.co.kr", "kr.trip.com", "korean.visitkorea.or.kr","verygoodtour.com"] //5개 생각중
-
+    
     var websitesImages = [
-       UIImage(named: "테마10선"),UIImage(named: "트릿닷컴"),UIImage(named: "대한민국구석구석"),UIImage(named: "트릿닷컴"),UIImage(named: "트릿닷컴")]
+        UIImage(named: "테마10선"),UIImage(named: "트릿닷컴"),UIImage(named: "대한민국구석구석"),UIImage(named: "트릿닷컴"),UIImage(named: "트릿닷컴")]
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tabBarController?.tabBar.isHidden = false
+        hideNavigation()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
@@ -46,22 +52,29 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
         pageControl.numberOfPages = 5//linkImages.count
         collectionView.register(UINib(nibName:"ExtensionHomeTravelCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "ExtensionHomeTravelCollectionViewCell")
         collectionView.register(UINib(nibName:"NoExHomeTravelCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "NoExHomeTravelCollectionViewCell")
-   
+        
         setupTableView()
         requestScheduleData()
         startTimer()
         
+        
+    }
+    @IBAction func addTripButtonTapped(_ sender: UIButton) {
+        let planningVC = storyboard?.instantiateViewController(withIdentifier: "PlanningVC") as! PlanningViewController
+        
+        navigationController?.pushViewController(planningVC, animated: true)
+        tabBarController?.tabBar.isHidden = true
+        
+    }
+    
+    
+    func hideNavigation(){
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationItem.setHidesBackButton(true, animated: true)
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         self.navigationItem.rightBarButtonItem?.tintColor = .clear
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        tabBarController?.tabBar.isHidden = false
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         //스크롤 위치
@@ -75,27 +88,27 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
             stickyView.frame.origin.y = newStickyViewYPosition
             
             // 그림자를
-           
-
+            
+            
             let alphaValue = max(0, min(positionDifference / 100, 1.0))
-        
+            
             // 투명도  조절
-//               if stickyView.alpha != alphaValue {
-//                   stickyView.alpha = alphaValue
-//               }
-        
+            //               if stickyView.alpha != alphaValue {
+            //                   stickyView.alpha = alphaValue
+            //               }
+            
             // Set the shadow color, opacity, and radius
             stickyView.layer.shadowColor = UIColor.gray.cgColor
             stickyView.layer.shadowOpacity = Float(alphaValue)
             stickyView.layer.shadowRadius = alphaValue*5
-         //   print(alphaValue)
+            //   print(alphaValue)
             print(positionDifference)
             print(newStickyViewYPosition)
         }
-       // print(alphaValue)
-       
-       // print(yOffset)
-
+        // print(alphaValue)
+        
+        // print(yOffset)
+        
         
     }
     func startTimer(){
@@ -172,29 +185,21 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
         self.tableView.dataSource = self
         
     }
-    
-    @IBAction func createScheduleBarButtonTapped(_ sender: UIBarButtonItem) {
-        
-        let planningVC = storyboard?.instantiateViewController(withIdentifier: "PlanningVC") as! PlanningViewController
-        
-        navigationController?.pushViewController(planningVC, animated: true)
-        tabBarController?.tabBar.isHidden = true
-    }
-    
 }
-extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-
  
-
+extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-      
+        
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExtensionHomeTravelCollectionViewCell", for: indexPath) as! ExtensionHomeTravelCollectionViewCell
-      //  cell.labelText.text = String(currentCellIndex)
+        //  cell.labelText.text = String(currentCellIndex)
         cell.images.image = websitesImages[indexPath.row]
         
         return cell
@@ -225,7 +230,7 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
         vc.websites = websites
         vc.currentWebsite = indexPath.row
         navigationController?.pushViewController(vc, animated: true)
-  
+        
     }
     
     

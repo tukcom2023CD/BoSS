@@ -208,8 +208,38 @@
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usc-zy-7hC">
                                                 <rect key="frame" x="0.0" y="250" width="393" height="100"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="DKK-Ns-POh">
+                                                        <rect key="frame" x="15" y="55.666666666666686" width="249" height="34.333333333333343"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPx-2L-guR">
+                                                                <rect key="frame" x="0.0" y="0.0" width="63" height="34.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="여행추가">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <connections>
+                                                                    <action selector="addTripButtonTapped:" destination="3m2-jw-HGR" eventType="touchUpInside" id="ELi-eb-LCf"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-fR-71u">
+                                                                <rect key="frame" x="81" y="0.0" width="75" height="34.333333333333336"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzl-Yb-A0R">
+                                                                <rect key="frame" x="174" y="0.0" width="75" height="34.333333333333336"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="DKK-Ns-POh" secondAttribute="bottom" constant="10" id="6qt-Ph-vtb"/>
+                                                    <constraint firstItem="DKK-Ns-POh" firstAttribute="leading" secondItem="usc-zy-7hC" secondAttribute="leading" constant="15" id="SWq-lm-Wdb"/>
                                                     <constraint firstAttribute="height" constant="100" id="aTO-8V-8bx"/>
                                                 </constraints>
                                             </view>
@@ -250,11 +280,7 @@
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="line.horizontal.3" catalog="system" id="YZo-6k-Sjr"/>
                             <barButtonItem title="Item" image="bell" catalog="system" id="vwi-jR-EI3"/>
-                            <barButtonItem title="Item" image="plus" catalog="system" id="6c8-Dz-ZUi">
-                                <connections>
-                                    <action selector="createScheduleBarButtonTapped:" destination="3m2-jw-HGR" id="oKz-he-ors"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem title="Item" image="plus" catalog="system" id="6c8-Dz-ZUi"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
