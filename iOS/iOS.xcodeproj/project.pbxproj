@@ -12,6 +12,7 @@
 		371DC5A229E58DB700EFD154 /* WritingEditPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DC5A129E58DB700EFD154 /* WritingEditPhotoCollectionViewCell.swift */; };
 		371DC5A429E58E5000EFD154 /* WriteEditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DC5A329E58E5000EFD154 /* WriteEditPhotoViewController.swift */; };
 		372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B7299A201100373F9C /* WritingEditPageViewController.swift */; };
+		373A081C29E9A3AA00D228A9 /* WebsiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373A081B29E9A3AA00D228A9 /* WebsiteViewController.swift */; };
 		3742356F299F3C390049DFA1 /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742356E299F3C390049DFA1 /* ReceiptViewController.swift */; };
 		37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37423570299F41FE0049DFA1 /* EditTableViewCell.swift */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
@@ -126,6 +127,7 @@
 		371DC5A129E58DB700EFD154 /* WritingEditPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		371DC5A329E58E5000EFD154 /* WriteEditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteEditPhotoViewController.swift; sourceTree = "<group>"; };
 		372183B7299A201100373F9C /* WritingEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPageViewController.swift; sourceTree = "<group>"; };
+		373A081B29E9A3AA00D228A9 /* WebsiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteViewController.swift; sourceTree = "<group>"; };
 		3742356E299F3C390049DFA1 /* ReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
 		37423570299F41FE0049DFA1 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 			children = (
 				5775975C2976541F008CB199 /* HomeViewController.swift */,
 				37F18C4A29856B2C003C8EF2 /* PlanningViewController.swift */,
+				373A081B29E9A3AA00D228A9 /* WebsiteViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -860,6 +863,7 @@
 				571FF6A029A3CFF7005E54F6 /* Photo.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
 				571FF6A229A3D0A0005E54F6 /* PhotoNetManager.swift in Sources */,
+				373A081C29E9A3AA00D228A9 /* WebsiteViewController.swift in Sources */,
 				BF6A5F3B2994AFB3008B76B6 /* MyPageScheduleViewController.swift in Sources */,
 				5719B57A298BA302008572CF /* UserNetManager.swift in Sources */,
 				BFD0F2E129A69B1E0063EEEF /* CategoryNetManager.swift in Sources */,

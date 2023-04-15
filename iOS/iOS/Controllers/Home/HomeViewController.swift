@@ -9,6 +9,8 @@ import UIKit
 import CalendarDateRangePicker
 import CollectionViewPagingLayout
 
+
+
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -22,6 +24,14 @@ class HomeViewController: UIViewController {
     var previousSchedules: [Schedule] = []
     var eventDates: [String] = []
     var timer : Timer?
+    
+    //웹사이트나열  --> 다음화면에 넘겨주기 (현재화면이랑, 배열전체)
+    //외국 감성 물씬 나는 국내 여행지 BEST7,
+    var websites = [
+        "ktourtop10.kr", "expedia.co.kr", "kr.trip.com", "korean.visitkorea.or.kr","verygoodtour.com"] //5개 생각중
+
+    var websitesImages = [
+       UIImage(named: "테마10선"),UIImage(named: "트릿닷컴"),UIImage(named: "대한민국구석구석"),UIImage(named: "트릿닷컴"),UIImage(named: "트릿닷컴")]
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
@@ -129,19 +139,9 @@ class HomeViewController: UIViewController {
     
 }
 extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let collectionView = scrollView as! UICollectionView
-        let visibleCells = collectionView.visibleCells
-        let visibleWidth = collectionView.bounds.width - 100
-        
-        for cell in visibleCells {
-            let x = cell.frame.origin.x - collectionView.contentOffset.x
-            let distance = abs(x - visibleWidth / 5)
-            let scale = max(0, 1 - distance / visibleWidth)
-            cell.transform = CGAffineTransform(scaleX: scale, y: scale)
-        }
-        
-    }
+
+ 
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
@@ -150,7 +150,9 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
       
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExtensionHomeTravelCollectionViewCell", for: indexPath) as! ExtensionHomeTravelCollectionViewCell
-        cell.labelText.text = String(currentCellIndex)
+      //  cell.labelText.text = String(currentCellIndex)
+        cell.images.image = websitesImages[indexPath.row]
+        
         return cell
         //        if isExpanded {
         //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExtensionHomeTravelCollectionViewCell", for: indexPath) as! ExtensionHomeTravelCollectionViewCell
@@ -171,16 +173,15 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 각 셀의 크기를 지정
-        var cgSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height-20)
+        var cgSize = CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         return cgSize
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //        if isExpanded == true {
-        //            isExpanded = false
-        //        }else{
-        //            isExpanded = true}
-        
-        //  collectionView.reloadData()
+        let vc = storyboard?.instantiateViewController(withIdentifier: "WebsiteViewController") as! WebsiteViewController
+        vc.websites = websites
+        vc.currentWebsite = indexPath.row
+        navigationController?.pushViewController(vc, animated: true)
+  
     }
     
     

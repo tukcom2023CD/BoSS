@@ -192,15 +192,14 @@ extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         pageControl.currentPage = indexPath.row
     }
-//    private func setPageControlSelectedPage(currentPage:Int) {
-//        pageControl.currentPage = currentPage
-//    }
-//
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let value = scrollView.contentOffset.x/scrollView.frame.size.width
-//        setPageControlSelectedPage(currentPage: Int(round(value)))
-//    }
-
+  
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // 각 셀의 크기를 지정
+        var cgSize = CGSize(width: 386, height: collectionView.frame.height)
+        return cgSize
+    }
+       
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.photoArray.count
@@ -216,9 +215,7 @@ extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewD
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.size.width, height: view.frame.size.height - 30 )
-    }
+
     
 }
     
