@@ -98,6 +98,56 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        // 누른 셀이 이미 선택되어 있던 셀인 경우
+        if selectedCellIndex == indexPath {
+            selectedCellIndex = nil
+            if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
+                cell.contentView.alpha = 0.8
+            }
+        }
+        
+        // 누른 셀이 선택되어 있던 셀이 아닌 경우
+        else if selectedCellIndex != indexPath {
+            // 다른 셀이 선택되어 있던 경우
+            if let index = self.selectedCellIndex {
+                if let cell = collectionView.cellForItem(at: index) as? scheduleSpendingCell {
+                    cell.contentView.alpha = 0.8
+                }
+            }
+            
+            // 선택된 셀이 없던 경우
+            self.selectedCellIndex = indexPath
+            if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
+                cell.contentView.alpha = 1
+            }
+        }
+        
+        // 변경된 셀을 를 애니메이션 효과를 적용하여 갱신
+        UIView.animate(withDuration: 0.3) {
+            collectionView.performBatchUpdates(nil, completion: nil)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        // 만약 해당 셀이 선택된 셀이라면
+        if self.selectedCellIndex == indexPath {
+            let width : CGFloat = 350
+            let height: CGFloat = 200
+            let cgSize =  CGSize(width: width, height: height)
+            return cgSize
+        }
+        // 만약 해당 셀이 선택된 셀이 아니라면
+        else  {
+            let width : CGFloat = 350
+            let height: CGFloat = 100
+            let cgSize =  CGSize(width: width, height: height)
+            return cgSize
+        }
+    }
 }
 
 class scheduleSpendingCell : UICollectionViewCell {
