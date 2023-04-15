@@ -12,14 +12,51 @@ class MyPageSpendingViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var spendingCount = 0 // 지출내역 수
-    let spendingImage = #imageLiteral(resourceName: "cash") // 지출내역 샘플 이미지
-    var PlaceArray : [String] = [] // 각 지출내역에 대한 여행장소 배열
-    var spendingArray : [Spending] = [] // 지출내역 구조체 배열
+    var uid = UserDefaults.standard.getLoginUser()!.uid // 사용자 uid
     
+    var scheduleCount = 0 // 일정 수
+    var scheduleTitleArray : [String] = [] // 일정 제목 배열
+    var spendingOfScheduleArray : [Int] = [] // 일정의 지츨내역
+    var spendingDict : [Int : Spending] = [:] // 각 일정의 세부 지출내역 딕셔너리 (키 : 값 = sid : Spending)
+    
+    var selectedCellIndex : IndexPath?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestSpendingData() // 사용자 지출 내역 가져오기
+        requestScheduleData() // 사용자 지출 내역 가져오기
+    }
+    
+    // 일정, 지출내역 불러오기
+    func requestScheduleData() {
+        let user = UserDefaults.standard.getLoginUser()!
+        var SpendingOfEachSchedule = 0 // 총지출
+        ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            self.scheduleCount = schedules.count // 일정 개수 저장
+            // 각 일정에 접근
+            for schedule in schedules {
+                SpendingOfEachSchedule = 0
+                self.scheduleTitleArray.append(schedule.title!) // 일정 이름 저장
+                PlaceNetManager.shared.read(sid: schedule.sid!) { places in
+                    // 각 장소애 접근
+                    for place in places {
+                        SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                            // 각 지출에 접근
+                            for spending in spendings {
+                                self.spendingDict[schedule.sid!] = spending // 일정에 속한 지출내역 저장
+                                SpendingOfEachSchedule += spending.price! // 각 일정의 지출금액에 추가
+                            }
+                            self.spendingOfScheduleArray.append(SpendingOfEachSchedule)
+                        }
+                    }
+                }
+                if SpendingOfEachSchedule == 0 {
+                    self.spendingOfScheduleArray.append(SpendingOfEachSchedule)
+                }
+            }
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
     
     // 그림자 설정 함수
@@ -37,63 +74,35 @@ class MyPageSpendingViewController: UIViewController {
         numberFormatter.numberStyle = .decimal
         return numberFormatter.string(from: NSNumber(value: number))!
     }
-    
-    // 지출내역 불러오기
-    func requestSpendingData() {
-        let user = UserDefaults.standard.getLoginUser()!
-        PlaceNetManager.shared.read(uid: user.uid!) { places in
-            for place in places {
-                SpendingNetManager.shared.read(pid: place.pid!) { spendings in
-                    self.spendingCount += spendings.count // 지출 내역 수 저장
-
-                    // 지출내역 배열 저장
-                    for x in 0..<spendings.count {
-                        self.PlaceArray.append(place.name!)
-                        self.spendingArray.append(spendings[x])
-                    }
-
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
-                }
-            }
-
-        }
-    }
 }
 
-extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    // cell 개수 지정
+extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.spendingCount
+        return self.scheduleCount
     }
     
-    // cell 구성
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let spendingCell = collectionView.dequeueReusableCell(withReuseIdentifier: "spendingCollectionViewCell", for: indexPath) as? spendingCollectionViewCell else {
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "scheduleSpendingCell", for: indexPath) as? scheduleSpendingCell else {
             return UICollectionViewCell()
         }
         
-        // cell UI 설정
-        spendingCell.layer.cornerRadius = 15 // 모서리
-        setShadow(cell : spendingCell) // 그림자
-        
         // cell 내용 설정
-        spendingCell.spendingImage.image = self.spendingImage
-        spendingCell.spendingName.text = spendingArray[indexPath.row].name
-        spendingCell.spendingPlace.text = PlaceArray[indexPath.row]
-        spendingCell.spendingPrice.text = numberFormatter(number:(spendingArray[indexPath.row].price!))
+        cell.scheduleTitleLabel.text = self.scheduleTitleArray[indexPath.row]
+        cell.spendingOfScheduleLabel.text = String(self.spendingOfScheduleArray[indexPath.row])
         
-        return spendingCell
+        // cell UI 설정
+        cell.contentView.alpha = 0.8
+        cell.layer.cornerRadius = 15 // 모서리 설정
+        setShadow(cell : cell) // 그림자 설정
+        
+        return cell
     }
 }
 
-class spendingCollectionViewCell : UICollectionViewCell {
-    @IBOutlet weak var spendingImage: UIImageView!
-    @IBOutlet weak var spendingName: UILabel!
-    @IBOutlet weak var spendingPlace: UILabel!
-    @IBOutlet weak var spendingPrice: UILabel!
+class scheduleSpendingCell : UICollectionViewCell {
+    @IBOutlet weak var scheduleTitleLabel: UILabel! // 일정 이름
+    @IBOutlet weak var spendingOfScheduleLabel: UILabel! // 일정의 총 지출액
 }
 
 
