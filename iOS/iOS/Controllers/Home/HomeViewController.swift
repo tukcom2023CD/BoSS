@@ -11,8 +11,11 @@ import CollectionViewPagingLayout
 
 
 
-class HomeViewController: UIViewController {
-    
+class HomeViewController: UIViewController,UIScrollViewDelegate {
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var stickyView: UIView!
+    var initialStickyViewYPosition: CGFloat = 250
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
@@ -35,7 +38,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Travelog"
-        
+        scrollView.delegate = self
+        stickyView.frame.origin.y = initialStickyViewYPosition
         
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -47,13 +51,53 @@ class HomeViewController: UIViewController {
         requestScheduleData()
         startTimer()
         
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        self.navigationItem.rightBarButtonItem?.tintColor = .clear
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
     }
     
-    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        //스크롤 위치
+        let yOffset = scrollView.contentOffset.y
+        
+        // 현재위치 :스크롤위치와 스티키 뷰의 초기 위치인 y중 더 큰값
+        let newStickyViewYPosition = max(yOffset, initialStickyViewYPosition)
+        let positionDifference = newStickyViewYPosition - initialStickyViewYPosition
+        // 스티키 뷰를 더 큰값으로 갱신
+        if stickyView.frame.origin.y != newStickyViewYPosition {
+            stickyView.frame.origin.y = newStickyViewYPosition
+            
+            // 그림자를
+           
+
+            let alphaValue = max(0, min(positionDifference / 100, 1.0))
+        
+            // 투명도  조절
+//               if stickyView.alpha != alphaValue {
+//                   stickyView.alpha = alphaValue
+//               }
+        
+            // Set the shadow color, opacity, and radius
+            stickyView.layer.shadowColor = UIColor.gray.cgColor
+            stickyView.layer.shadowOpacity = Float(alphaValue)
+            stickyView.layer.shadowRadius = alphaValue*5
+         //   print(alphaValue)
+            print(positionDifference)
+            print(newStickyViewYPosition)
+        }
+       // print(alphaValue)
+       
+       // print(yOffset)
+
+        
+    }
     func startTimer(){
         timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextIndex), userInfo: nil, repeats: true)
     }
