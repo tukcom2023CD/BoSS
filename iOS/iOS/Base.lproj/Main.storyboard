@@ -1699,8 +1699,8 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="386" height="234"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h8g-Yx-GkO">
-                                                                            <rect key="frame" x="8" y="8" width="370" height="218"/>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8g-Yx-GkO">
+                                                                            <rect key="frame" x="8" y="8" width="370" height="198"/>
                                                                         </imageView>
                                                                     </subviews>
                                                                 </view>
@@ -1717,24 +1717,53 @@
                                                         </cells>
                                                     </collectionView>
                                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="4c3-Jg-FMc">
-                                                        <rect key="frame" x="0.0" y="274" width="393" height="26"/>
+                                                        <rect key="frame" x="138.66666666666666" y="274" width="115.66666666666666" height="26"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <action selector="pageControlValueChanged:" destination="hVD-WG-O5W" eventType="valueChanged" id="dI9-aO-IP9"/>
                                                         </connections>
                                                     </pageControl>
+                                                    <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jkx-E2-4ym">
+                                                        <rect key="frame" x="343" y="15" width="40" height="20"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0N-wU-zE8">
+                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="20"/>
+                                                                <attributedString key="attributedText">
+                                                                    <fragment content="Label">
+                                                                        <attributes>
+                                                                            <color key="NSColor" red="0.9738596907" green="0.9738596907" blue="0.9738596907" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                            <font key="NSFont" size="14" name="BMJUAOTF"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                        </attributes>
+                                                                    </fragment>
+                                                                </attributedString>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="z0N-wU-zE8" firstAttribute="leading" secondItem="Jkx-E2-4ym" secondAttribute="leading" id="8Ej-8Q-vQa"/>
+                                                            <constraint firstAttribute="width" constant="40" id="Nth-vd-Cqo"/>
+                                                            <constraint firstAttribute="bottom" secondItem="z0N-wU-zE8" secondAttribute="bottom" id="P6p-wM-BLP"/>
+                                                            <constraint firstAttribute="trailing" secondItem="z0N-wU-zE8" secondAttribute="trailing" id="Tdc-n3-5Po"/>
+                                                            <constraint firstAttribute="height" constant="20" id="UcF-G9-31z"/>
+                                                            <constraint firstItem="z0N-wU-zE8" firstAttribute="top" secondItem="Jkx-E2-4ym" secondAttribute="top" id="W1X-Rz-a2F"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Jkx-E2-4ym" secondAttribute="trailing" constant="10" id="0l9-sx-9nJ"/>
                                                     <constraint firstItem="syZ-pq-aXO" firstAttribute="leading" secondItem="hsu-eh-rBu" secondAttribute="leading" id="4Nk-Tu-YtV"/>
                                                     <constraint firstAttribute="height" constant="300" id="4qu-Le-eXO"/>
                                                     <constraint firstAttribute="bottom" secondItem="syZ-pq-aXO" secondAttribute="bottom" id="7Un-MY-ghr"/>
                                                     <constraint firstItem="syZ-pq-aXO" firstAttribute="top" secondItem="hsu-eh-rBu" secondAttribute="top" id="8xn-7a-MUM"/>
-                                                    <constraint firstAttribute="trailing" secondItem="4c3-Jg-FMc" secondAttribute="trailing" id="AgG-Ye-mn5"/>
-                                                    <constraint firstItem="4c3-Jg-FMc" firstAttribute="leading" secondItem="hsu-eh-rBu" secondAttribute="leading" id="Gi0-J5-QOe"/>
+                                                    <constraint firstItem="4c3-Jg-FMc" firstAttribute="centerX" secondItem="hsu-eh-rBu" secondAttribute="centerX" id="IAG-v6-FzF"/>
                                                     <constraint firstAttribute="trailing" secondItem="syZ-pq-aXO" secondAttribute="trailing" id="R4Z-uN-B84"/>
                                                     <constraint firstAttribute="bottom" secondItem="4c3-Jg-FMc" secondAttribute="bottom" id="gWv-5f-vIq"/>
+                                                    <constraint firstItem="Jkx-E2-4ym" firstAttribute="top" secondItem="hsu-eh-rBu" secondAttribute="top" constant="15" id="mYx-nC-7fT"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZjG-iv-FIi">
@@ -1973,6 +2002,8 @@
                         <outlet property="costView" destination="4xs-lr-xOk" id="vh2-pc-uTs"/>
                         <outlet property="imageCard" destination="NgL-wg-4dq" id="Rdk-UI-3ki"/>
                         <outlet property="imageView" destination="tLG-nT-nxg" id="7u0-Ra-dQf"/>
+                        <outlet property="indexBackView" destination="Jkx-E2-4ym" id="XbB-Dl-APJ"/>
+                        <outlet property="indexLabel" destination="z0N-wU-zE8" id="ZgU-Mj-7HN"/>
                         <outlet property="labelView" destination="6Sp-RO-Eq2" id="B9h-SA-6Om"/>
                         <outlet property="pageControl" destination="4c3-Jg-FMc" id="xgu-yZ-rC8"/>
                         <outlet property="scrollView" destination="pTj-W0-Qjt" id="YVT-tw-eez"/>

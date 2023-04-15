@@ -11,7 +11,9 @@ class FirstTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    // UITableViewCell에서 ViewController의 NavigationController를 사용하기 위한 클로저 변수
+    
+    @IBOutlet weak var indexLabel: UILabel!
+ 
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
     
     var schedules: [Schedule]?
@@ -26,7 +28,6 @@ class FirstTableViewCell: UITableViewCell {
         self.collectionView.dataSource = self
         //collectionCell register
         collectionView.register(UINib(nibName:"FirstCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "FirstCollectionViewCell")
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -52,7 +53,12 @@ class FirstTableViewCell: UITableViewCell {
 
 
 extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
-
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let count = schedules?.count {
+            indexLabel.text = "\(indexPath.item + 1)/\(count)"
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return schedules?.count ?? 0
     }

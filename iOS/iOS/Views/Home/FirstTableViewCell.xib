@@ -34,12 +34,20 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdI-1r-GyZ">
+                        <rect key="frame" x="138.66666666666666" y="30" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="oLh-FW-MRt" secondAttribute="trailing" constant="10" id="O9J-wh-I0c"/>
+                    <constraint firstItem="MdI-1r-GyZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="Q0o-Mz-lmv"/>
                     <constraint firstItem="AU6-cj-Otn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="SbU-sx-oyR"/>
                     <constraint firstItem="oLh-FW-MRt" firstAttribute="top" secondItem="AU6-cj-Otn" secondAttribute="bottom" constant="20" id="UyU-qQ-vmh"/>
                     <constraint firstAttribute="bottom" secondItem="oLh-FW-MRt" secondAttribute="bottom" id="ZUu-H8-KaI"/>
+                    <constraint firstItem="MdI-1r-GyZ" firstAttribute="leading" secondItem="AU6-cj-Otn" secondAttribute="trailing" constant="20" id="cih-jL-OPm"/>
                     <constraint firstItem="oLh-FW-MRt" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="gYd-t5-dLM"/>
                     <constraint firstItem="AU6-cj-Otn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="hfl-lB-r6w"/>
                     <constraint firstItem="oLh-FW-MRt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="rqg-33-DL0"/>
@@ -49,6 +57,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="collectionView" destination="oLh-FW-MRt" id="ZAo-Xz-T61"/>
+                <outlet property="indexLabel" destination="MdI-1r-GyZ" id="WZK-KF-5wm"/>
             </connections>
             <point key="canvasLocation" x="109.16030534351144" y="69.366197183098592"/>
         </tableViewCell>

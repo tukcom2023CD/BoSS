@@ -33,13 +33,30 @@ class WebsiteViewController: UIViewController, WKNavigationDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        let barButtonAppearance = UIBarButtonItem.appearance()
+        let attributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)
+        ]
+        barButtonAppearance.setTitleTextAttributes(attributes, for: .normal)
+        
+        let boldAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
+
+        navigationController?.navigationBar.titleTextAttributes = boldAttributes
+
+        
+        let button = UIBarButtonItem(
+            title: "다른 사이트", style: .plain, target: self, action: #selector(openTapped))
+        button.setTitleTextAttributes(attributes, for: .normal)
+        navigationItem.rightBarButtonItem = button
+        
         
         let url = URL(string: "https://" + websites[currentWebsite])!
             webView.load(URLRequest(url: url))
             webView.allowsBackForwardNavigationGestures = true
+
+       
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-title: "다른 추천 사이트 보기", style: .plain, target: self, action: #selector(openTapped))
         progressView = UIProgressView(progressViewStyle: .default)
             progressView.sizeToFit()
         
@@ -49,8 +66,8 @@ title: "다른 추천 사이트 보기", style: .plain, target: self, action: #s
          .flexibleSpace, target: nil, action: nil)
                 let refresh = UIBarButtonItem(barButtonSystemItem:
          .refresh, target: webView, action: #selector(webView.reload))
-        let goBack = UIBarButtonItem(title: "뒤로", style: .plain, target: webView, action: #selector(webView.goBack))
-        let goForward = UIBarButtonItem(title: "앞으로", style: .plain, target: webView, action: #selector(webView.goForward))
+        let goBack = UIBarButtonItem(title: ">", style: .plain, target: webView, action: #selector(webView.goBack))
+        let goForward = UIBarButtonItem(title: "<", style: .plain, target: webView, action: #selector(webView.goForward))
         
         
                 toolbarItems = [progressButton, spacer, refresh, goBack,goForward]
@@ -61,7 +78,7 @@ title: "다른 추천 사이트 보기", style: .plain, target: self, action: #s
             }
 
             @objc func openTapped() {
-                let ac = UIAlertController(title: "페이지 로딩중", message: nil,
+                let ac = UIAlertController(title: "추천 페이지 이동 ", message: nil,
          preferredStyle: .actionSheet)
 
                 for website in websites {
