@@ -1682,7 +1682,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsu-eh-rBu">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
                                                 <subviews>
-                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="syZ-pq-aXO">
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="syZ-pq-aXO">
                                                         <rect key="frame" x="0.0" y="0.0" width="393" height="300"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="6hu-Qk-hKz">
@@ -1699,14 +1699,12 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="386" height="234"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h8g-Yx-GkO">
-                                                                            <rect key="frame" x="8" y="8" width="386" height="218"/>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h8g-Yx-GkO">
+                                                                            <rect key="frame" x="8" y="8" width="370" height="218"/>
                                                                         </imageView>
                                                                     </subviews>
                                                                 </view>
                                                                 <constraints>
-                                                                    <constraint firstItem="h8g-Yx-GkO" firstAttribute="centerY" secondItem="DaK-JX-RzZ" secondAttribute="centerY" id="KiM-ws-si1"/>
-                                                                    <constraint firstItem="h8g-Yx-GkO" firstAttribute="centerX" secondItem="DaK-JX-RzZ" secondAttribute="centerX" id="O11-bi-RlL"/>
                                                                     <constraint firstItem="h8g-Yx-GkO" firstAttribute="bottom" secondItem="DaK-JX-RzZ" secondAttribute="bottomMargin" id="Qa0-fm-JKC"/>
                                                                     <constraint firstItem="h8g-Yx-GkO" firstAttribute="trailing" secondItem="DaK-JX-RzZ" secondAttribute="trailingMargin" id="mjL-tU-XGA"/>
                                                                     <constraint firstItem="h8g-Yx-GkO" firstAttribute="top" secondItem="DaK-JX-RzZ" secondAttribute="topMargin" id="pBj-Hf-rcf"/>
@@ -1722,6 +1720,9 @@
                                                         <rect key="frame" x="0.0" y="274" width="393" height="26"/>
                                                         <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <connections>
+                                                            <action selector="pageControlValueChanged:" destination="hVD-WG-O5W" eventType="valueChanged" id="dI9-aO-IP9"/>
+                                                        </connections>
                                                     </pageControl>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
