@@ -271,10 +271,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         DispatchQueue.global().async {
             let dispatchGroup = DispatchGroup()
             
-            dispatchGroup.enter()
-            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: image!) {
-                dispatchGroup.leave()
-            }
+//            dispatchGroup.enter()
+//            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: image!) {
+//                dispatchGroup.leave()
+//            }
             
             dispatchGroup.enter()
             PlaceNetManager.shared.update(place: self.place) {
@@ -294,10 +294,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                         self.navigationController?.viewControllers else { return }
                 for vc in vcStack {
                     if let view = vc as? WritingPageViewController {
-                        view.imageCardData = self.imageCard.image
+                       // view.imageCardData = self.imageCard.image
                         view.spendings = self.spendings
                         view.place = self.place
-                        view.imageCard.image = self.imageCard.image
+                        //view.imageCard.image = self.imageCard.image
                         view.photoArray = self.photoArray
                         self.navigationController?.popToViewController(view, animated: true)
                     }

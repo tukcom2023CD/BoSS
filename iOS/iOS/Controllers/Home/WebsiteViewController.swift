@@ -66,8 +66,8 @@ class WebsiteViewController: UIViewController, WKNavigationDelegate {
          .flexibleSpace, target: nil, action: nil)
                 let refresh = UIBarButtonItem(barButtonSystemItem:
          .refresh, target: webView, action: #selector(webView.reload))
-        let goBack = UIBarButtonItem(title: ">", style: .plain, target: webView, action: #selector(webView.goBack))
-        let goForward = UIBarButtonItem(title: "<", style: .plain, target: webView, action: #selector(webView.goForward))
+        let goBack = UIBarButtonItem(title: "<", style: .plain, target: webView, action: #selector(webView.goBack))
+        let goForward = UIBarButtonItem(title: ">", style: .plain, target: webView, action: #selector(webView.goForward))
         
         
                 toolbarItems = [progressButton, spacer, refresh, goBack,goForward]
