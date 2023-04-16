@@ -207,16 +207,17 @@
                                                 </constraints>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usc-zy-7hC">
-                                                <rect key="frame" x="0.0" y="250" width="393" height="100"/>
+                                                <rect key="frame" x="0.0" y="250" width="393" height="60"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="DKK-Ns-POh">
-                                                        <rect key="frame" x="15" y="55.666666666666686" width="249" height="34.333333333333343"/>
+                                                        <rect key="frame" x="15" y="23.333333333333314" width="249" height="26.666666666666671"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MPx-2L-guR">
-                                                                <rect key="frame" x="0.0" y="0.0" width="63" height="34.333333333333336"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="81" height="26.666666666666668"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                <state key="normal" title="여행추가">
+                                                                <state key="normal" title="여행추가" image="plus" catalog="system">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                                 <connections>
@@ -224,14 +225,22 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6yf-fR-71u">
-                                                                <rect key="frame" x="81" y="0.0" width="75" height="34.333333333333336"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                <rect key="frame" x="99" y="0.0" width="57" height="26.666666666666668"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="알림" image="bell" catalog="system">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mzl-Yb-A0R">
-                                                                <rect key="frame" x="174" y="0.0" width="75" height="34.333333333333336"/>
-                                                                <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                                                <rect key="frame" x="174" y="0.0" width="75" height="26.666666666666668"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                                <state key="normal" title="스크랩" image="star" catalog="system">
+                                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -240,7 +249,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="DKK-Ns-POh" secondAttribute="bottom" constant="10" id="6qt-Ph-vtb"/>
                                                     <constraint firstItem="DKK-Ns-POh" firstAttribute="leading" secondItem="usc-zy-7hC" secondAttribute="leading" constant="15" id="SWq-lm-Wdb"/>
-                                                    <constraint firstAttribute="height" constant="100" id="aTO-8V-8bx"/>
+                                                    <constraint firstAttribute="height" constant="60" id="aTO-8V-8bx"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -266,6 +275,13 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="Y7G-qP-ovk"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="GNv-oi-pWl"/>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mEA-VE-gTb">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="nA0-BX-ieu"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="OtS-8M-ahO"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -274,6 +290,9 @@
                             <constraint firstItem="qdC-Hv-PgI" firstAttribute="top" secondItem="f0b-df-sfo" secondAttribute="top" id="Hdb-RQ-ks2"/>
                             <constraint firstItem="qdC-Hv-PgI" firstAttribute="leading" secondItem="OtS-8M-ahO" secondAttribute="leading" id="M4n-OT-Mpj"/>
                             <constraint firstAttribute="bottom" secondItem="qdC-Hv-PgI" secondAttribute="bottom" id="QPc-Zs-CUO"/>
+                            <constraint firstItem="mEA-VE-gTb" firstAttribute="top" secondItem="f0b-df-sfo" secondAttribute="top" id="ebc-Iz-PZZ"/>
+                            <constraint firstAttribute="trailing" secondItem="mEA-VE-gTb" secondAttribute="trailing" id="v07-Mz-0j9"/>
+                            <constraint firstItem="mEA-VE-gTb" firstAttribute="leading" secondItem="f0b-df-sfo" secondAttribute="leading" id="wLh-gf-3Zb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qIv-w1-agK">
@@ -283,6 +302,7 @@
                             <barButtonItem title="Item" image="plus" catalog="system" id="6c8-Dz-ZUi"/>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="ygg-Jf-vtv" id="i9Y-V5-Fka"/>
                         <outlet property="pageControl" destination="QZk-1K-kft" id="j3T-El-dUa"/>
@@ -1933,13 +1953,13 @@
                                                                 <rect key="frame" x="10" y="478" width="333" height="19.333333333333314"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="품명" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s32-2d-WpQ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="183" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="175.33333333333334" height="19.333333333333332"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수량" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCw-T3-sB6">
-                                                                        <rect key="frame" x="188" y="0.0" width="40" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="180.33333333333334" y="0.0" width="40" height="19.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="40" id="Fs2-Wq-nHq"/>
                                                                         </constraints>
@@ -1948,7 +1968,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47b-A8-1Mm">
-                                                                        <rect key="frame" x="233" y="0.0" width="100" height="19.333333333333332"/>
+                                                                        <rect key="frame" x="225.33333333333334" y="0.0" width="107.66666666666666" height="19.333333333333332"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="100" id="69D-eW-HTs"/>
                                                                         </constraints>
@@ -2600,6 +2620,7 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="schedule" width="256" height="256"/>
         <image name="setting" width="256" height="256"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <image name="tripimg" width="137.5" height="91.5"/>
         <image name="여행사진 1" width="322" height="194"/>
         <systemColor name="labelColor">

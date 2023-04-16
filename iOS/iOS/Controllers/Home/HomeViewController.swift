@@ -38,12 +38,12 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
-        hideNavigation()
+      hideNavigation()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Travelog"
+        //title = "Travelog"
         scrollView.delegate = self
         stickyView.frame.origin.y = initialStickyViewYPosition
         
@@ -73,12 +73,12 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationItem.setHidesBackButton(true, animated: true)
         self.navigationItem.rightBarButtonItem?.isEnabled = false
-        self.navigationItem.rightBarButtonItem?.tintColor = .clear
+       // self.navigationItem.rightBarButtonItem?.tintColor = .clear
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         //스크롤 위치
-        let yOffset = scrollView.contentOffset.y
+        let yOffset = scrollView.contentOffset.y + 60
         
         // 현재위치 :스크롤위치와 스티키 뷰의 초기 위치인 y중 더 큰값
         let newStickyViewYPosition = max(yOffset, initialStickyViewYPosition)
@@ -87,27 +87,14 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
         if stickyView.frame.origin.y != newStickyViewYPosition {
             stickyView.frame.origin.y = newStickyViewYPosition
             
-            // 그림자를
-            
-            
+            //
             let alphaValue = max(0, min(positionDifference / 100, 1.0))
             
-            // 투명도  조절
-            //               if stickyView.alpha != alphaValue {
-            //                   stickyView.alpha = alphaValue
-            //               }
-            
-            // Set the shadow color, opacity, and radius
+         
             stickyView.layer.shadowColor = UIColor.gray.cgColor
             stickyView.layer.shadowOpacity = Float(alphaValue)
             stickyView.layer.shadowRadius = alphaValue*5
-            //   print(alphaValue)
-            print(positionDifference)
-            print(newStickyViewYPosition)
         }
-        // print(alphaValue)
-        
-        // print(yOffset)
         
         
     }
