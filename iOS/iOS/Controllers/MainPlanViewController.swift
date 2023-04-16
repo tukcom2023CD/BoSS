@@ -39,6 +39,14 @@ class MainPlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         requestPlaceData()
+        seeNavigation()
+    }
+    func seeNavigation(){
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationItem.setHidesBackButton(false, animated: true)
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
     }
     
     func setupTopView() {

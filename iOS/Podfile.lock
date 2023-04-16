@@ -6,7 +6,9 @@ PODS:
   - AppAuth/Core (1.6.0)
   - AppAuth/ExternalUserAgent (1.6.0):
     - AppAuth/Core
+  - BSImagePicker (3.3.1)
   - CalendarDateRangePicker (2.0)
+  - CollectionViewPagingLayout (1.1.0)
   - FirebaseAuth (10.3.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
@@ -53,7 +55,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.5)
+  - BSImagePicker (~> 3.1)
   - CalendarDateRangePicker
+  - CollectionViewPagingLayout
   - FirebaseAuth
   - FSCalendar
   - GoogleMaps
@@ -65,7 +69,9 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - AppAuth
+    - BSImagePicker
     - CalendarDateRangePicker
+    - CollectionViewPagingLayout
     - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreInternal
@@ -82,7 +88,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
+  BSImagePicker: 0fe04b574d4d6b81093785d2af6c26227efc8428
   CalendarDateRangePicker: fa5f660023cf896180c04fe5c7687106734a54e4
+  CollectionViewPagingLayout: 2f8d50683bae57ca88f47fa4ab0195c9079582cf
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
   FirebaseCoreInternal: 29b76f784d607df8b2a1259d73c3f04f1210137b
@@ -96,6 +104,6 @@ SPEC CHECKSUMS:
   lottie-ios: d0954d3150061f662ed0adf96ef98d7421864c47
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
-PODFILE CHECKSUM: 4a0cf8eb6e36ab14c00db43038f7ec7bd0cf6e9c
+PODFILE CHECKSUM: eb2afc680c7bde258b5bca0f14fb8af9ec69e6fc
 
 COCOAPODS: 1.11.3

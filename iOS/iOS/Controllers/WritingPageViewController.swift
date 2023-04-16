@@ -7,19 +7,25 @@
 
 import UIKit
 
-
+//받는 프ㄹ
 class WritingPageViewController: UIViewController {
     
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var uiView: UIView!
-    @IBOutlet weak var imageCard: UIImageView!
+    @IBOutlet weak var imageCard: UIImageView! //지울거 -> 임시로 isHidden사용
     @IBOutlet weak var contents: UILabel!
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var costView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableLabel: UIStackView!
     @IBOutlet weak var labelView: UIView!
+    var photoArray: [UIImage] = []
     
+    @IBOutlet weak var indexBackView: UIView!
+    
+    @IBOutlet weak var indexLabel: UILabel!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     // MARK: 이미지 터치기능을 위한 didset
     @IBOutlet var imageView: UIImageView!{
@@ -35,35 +41,8 @@ class WritingPageViewController: UIViewController {
     // 새로 추가한 변수
     var place: Place!
     var spendings: [Spending] = []
+    var currentPage : Int = 0
     
-    // MARK: - viewDidLoad
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        changeTitleMode()
-        imageCardSetting()
-        uiViewSetting()
-        costViewSetting()
-        tableView.isHidden = true
-        tableLabel.isHidden = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
-        imageView.addGestureRecognizer(tapGestureRecognizer)
-        uploadImageCard()
-    }
-    
-    @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
-        onTapped = !onTapped
-        if onTapped == true{
-            tableView.isHidden = true
-            tableLabel.isHidden = true
-            imageView.image = UIImage(systemName: "chevron.down")
-        }
-        else {
-            tableView.isHidden = false
-            tableLabel.isHidden = false
-            imageView.image = UIImage(systemName: "chevron.up")
-        }
-    }
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
@@ -82,28 +61,90 @@ class WritingPageViewController: UIViewController {
         }
         contents.translatesAutoresizingMaskIntoConstraints = false
         tableView.reloadData()
+        collectionView.reloadData()
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = photoArray.count
         labelViewSetting()
+        
+        
+        indexBackView.layer.cornerRadius = 10
+        pageControl.layer.cornerRadius = 10
+        //선택 이미지가 없을때
+        if collectionView.numberOfItems(inSection: 0) == 0 {
+           
+            indexBackView.isHidden = true
+        } else {
+            //
+            indexBackView.isHidden = false
+        }
+        imageCard.isHidden = true
     }
+    
+    
+    // MARK: - viewDidLoad
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        changeTitleMode()
+        costViewSetting()
+        tableView.isHidden = true
+        tableLabel.isHidden = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
+        imageView.addGestureRecognizer(tapGestureRecognizer)
+        uploadImageCard()
+        
+        
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0 // 셀 사이의 수평 간격
+        
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // 콜렉션 뷰 경계선으로부터 셀까지의 여백
+        collectionView.collectionViewLayout = layout
+        
+    }
+    
+    @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
+        onTapped = !onTapped
+        if onTapped == true{
+            tableView.isHidden = true
+            tableLabel.isHidden = true
+            imageView.image = UIImage(systemName: "chevron.down")
+        }
+        else {
+            tableView.isHidden = false
+            tableLabel.isHidden = false
+            imageView.image = UIImage(systemName: "chevron.up")
+        }
+    }
+    
     
     // MARK: - uploadImageCard
     // 여행지 사진 네트워킹
     func uploadImageCard() {
-        PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
-            
-            // 여행지에 추가한 여러 사진들을 적용
-            for photo in photos {
-                guard let url = URL(string: photo.imageUrl) else { return }
-                guard let data = try? Data(contentsOf: url) else { return }
-                
-                DispatchQueue.main.async {
-                    // 이후에 이미지 슬라이드를 통해 여러 사진 적용할 수 있도록 수정
-                    self.imageCard.image = UIImage(data: data)
-                }
-            }
-        }
+        
+        
+        
+        //        PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
+        //
+        //            // 여행지에 추가한 여러 사진들을 적용
+        //            for photo in photos {
+        //                guard let url = URL(string: photo.imageUrl) else { return }
+        //                guard let data = try? Data(contentsOf: url) else { return }
+        //
+        //                DispatchQueue.main.async {
+        //                    // 이후에 이미지 슬라이드를 통해 여러 사진 적용할 수 있도록 수정
+        //                    self.imageCard.image = UIImage(data: data)
+        //                }
+        //            }
+        //        }
     }
     
     
@@ -116,20 +157,20 @@ class WritingPageViewController: UIViewController {
         
     }
     // MARK: - uiViewSetting() :UI세팅
-    func uiViewSetting(){
-        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-        self.uiView.layer.borderWidth = 0.3
-        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
-        self.uiView.layer.cornerRadius = 10
-    }
-    
-    // MARK: -imageCardSetting() :UI세팅
-    func imageCardSetting(){
-        self.imageCard.layer.borderWidth = 0.3
-        self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
-        self.imageCard.layer.cornerRadius = 10
-        
-    }
+//    func uiViewSetting(){
+//        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
+//        self.uiView.layer.borderWidth = 0.3
+//        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
+//        self.uiView.layer.cornerRadius = 10
+//    }
+//
+//    // MARK: -imageCardSetting() :UI세팅
+//    func imageCardSetting(){
+//        self.imageCard.layer.borderWidth = 0.3
+//        self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
+//        self.imageCard.layer.cornerRadius = 10
+//
+//    }
     // MARK: -costViewSetting() :UI세팅
     func costViewSetting(){
         costView.layer.cornerRadius = 10
@@ -148,6 +189,11 @@ class WritingPageViewController: UIViewController {
         }
     }
     
+    @IBAction func pageControlValueChanged(_ sender: UIPageControl) {
+        let currentPage = sender.currentPage
+        let indexPath = IndexPath(item: currentPage, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    }
     
     // MARK: - backButtonTapped
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
@@ -162,10 +208,49 @@ class WritingPageViewController: UIViewController {
         
         vc.place = place // Place 데이터 전달 (diary, total_spending)
         vc.spendings = spendings // spendings(상세 지출) 데이터 전달
+        vc.photoArray = self.photoArray
         
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
+extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        pageControl.currentPage = indexPath.row
+        let count = photoArray.count
+        
+        indexLabel.text = "\(indexPath.row + 1) / \(count)"
+        
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.frame.width
+        let height = collectionView.frame.height - 26
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.photoArray.count
+    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WritingEditPhotosCollectionViewCell", for: indexPath) as? WritingEditPhotosCollectionViewCell else { return UICollectionViewCell() }
+        cell.photos.image =
+        self.photoArray[indexPath.row]
+        return cell
+        
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+        pageControl.currentPage = currentPage
+    }
+    
+}
+
+
 
 //MARK: - WriringPageVieController
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{

@@ -43,9 +43,15 @@ class PlanningViewController: UIViewController{
         setupTableView()
         nextButton.isHidden = true
         nextButton.layer.cornerRadius = 10
+        seeNavigation()
+    }
+    func seeNavigation(){
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationItem.setHidesBackButton(false, animated: true)
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
         
     }
-    
     // 테이블 뷰 세팅
     func setupTableView() {
         tableView.register(UINib(nibName: "SearchPlaceTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchPlaceTableViewCell")

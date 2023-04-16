@@ -10,7 +10,40 @@ import UIKit
 import PhotosUI
 
 
-class WritingEditPageViewController: UIViewController, SendProtocol{
+
+
+
+protocol PhotoArrayProtocol: AnyObject {
+    func updatePhotoArray(_ photoArray: [UIImage])
+}
+class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayProtocol{
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+           if let sendingVC = segue.destination as? WriteEditPhotoViewController {
+               sendingVC.delegate = self
+               sendingVC.photoArray = self.photoArray
+           }
+       }
+
+    // Container View segue가 실행될 때 호출되는 함수
+//       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//           if segue.identifier == "WritingEditPageVC" {
+//               // Container View 안의 ViewController를 가져옴
+//               let childViewController = segue.destination as! WriteEditPhotoViewController
+//
+//               // 데이터 전달
+//               childViewController.photoArray = self.photoArray
+//           }
+//       }
+    
+       func updatePhotoArray(_ photoArray: [UIImage]) {
+           self.photoArray = photoArray
+           print("받는쪽 사진 배열은 \(photoArray.count) items")
+       }
+
+    func didUpdatePhotoArray(_ photoArray: [UIImage]) {
+        self.photoArray = photoArray
+    }
+    
     
     func sendData(receiptData: [Spending]) {
         spendings = receiptData
@@ -20,6 +53,11 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     //MARK: - Properties
     var subTotalData: [Int] = [] //delete를 위한 각 행의 가격 데이터
     var getImageCard : UIImage?
+    var photoArray : [UIImage] = []
+
+    
+    var writeEditPhotoViewController: WriteEditPhotoViewController?
+
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -42,6 +80,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         total_subPriceCal()
+
+         
     }
     
     // MARK: - viewDidLoad
@@ -65,6 +105,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         
         contents.text = place.diary
         
+
+
     }
     // MARK: - total_subPriceCal : 총가격과 행마다의 가격계산함수
     func total_subPriceCal(){
@@ -104,6 +146,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         print("이미지뷰 터치")
         imagePickerStatus = false
         setupImagePicker()
+        
+       
     }
     
     // MARK: - setupImagePicker
@@ -223,14 +267,14 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
         place.totalSpending = totalPrice
         let spendingData = SpendingData(pid: place.pid!, spendings: spendings)
         let image = imageCard.image
-        
+     
         DispatchQueue.global().async {
             let dispatchGroup = DispatchGroup()
             
-            dispatchGroup.enter()
-            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: image!) {
-                dispatchGroup.leave()
-            }
+//            dispatchGroup.enter()
+//            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: image!) {
+//                dispatchGroup.leave()
+//            }
             
             dispatchGroup.enter()
             PlaceNetManager.shared.update(place: self.place) {
@@ -250,11 +294,11 @@ class WritingEditPageViewController: UIViewController, SendProtocol{
                         self.navigationController?.viewControllers else { return }
                 for vc in vcStack {
                     if let view = vc as? WritingPageViewController {
-                        view.imageCardData = self.imageCard.image
+                       // view.imageCardData = self.imageCard.image
                         view.spendings = self.spendings
                         view.place = self.place
-                        view.imageCard.image = self.imageCard.image
-                        
+                        //view.imageCard.image = self.imageCard.image
+                        view.photoArray = self.photoArray
                         self.navigationController?.popToViewController(view, animated: true)
                     }
                 }
@@ -310,6 +354,12 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
             print("이미지 못 불러옴")
         }
     }
+    // WriteEditPhotoViewController 인스턴스 생성 및 photoArray 접근
+       func addImage() {
+           let writeEditPhotoViewController = WriteEditPhotoViewController()
+           photoArray = writeEditPhotoViewController.photoArray
+           navigationController?.pushViewController(writeEditPhotoViewController, animated: true)
+       }
 }
 
 // MARK: - ImagePickerControllerDelegate
@@ -355,6 +405,7 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
         
         picker.dismiss(animated: true)
     }
+   
 }
 
 // MARK: - UITextFieldDelegate
