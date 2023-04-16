@@ -372,7 +372,8 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
         
         let alert = UIAlertController(title: "처리 중...", message: "잠시만 기다려주세요.", preferredStyle: .alert)
         
-        picker.present(alert, animated: true) {
+        present(alert, animated: true)
+        //picker.present(alert, animated: true) {
             OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
                 if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
                     let name = receiptData.storeInfo.name.formatted.value
@@ -393,9 +394,9 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
                     }
                 }
                 alert.dismiss(animated: true)
-                picker.dismiss(animated: true)
+                //picker.dismiss(animated: true)
             }
-        }
+        //}
         
         
     }

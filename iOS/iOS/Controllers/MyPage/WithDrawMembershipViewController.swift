@@ -10,30 +10,58 @@ import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 
+// 회원 탈퇴 화면
 class WithDrawMembershipViewController : UIViewController {
     
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var withDrawButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton! // 취소 버튼
+    @IBOutlet weak var withDrawButton: UIButton! // 탈퇴 버튼
+    
+    // 사용자 로그인 종류 구분
+    var userLoginType : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        serUI()
+        setUI() // UI 설정
     }
     
     // UI 설정
-    func serUI() {
+    func setUI() {
         self.cancelButton.layer.cornerRadius = 20
         self.withDrawButton.layer.cornerRadius = 20
     }
     
+    // 로그인 타입 확인
+    func checkLoginType() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if ((user.profile?.email) != nil) {
+                return ("Google")
+            } else {
+                return ("Google")
+            }
+        } else {
+            return ("Guest")
+        }
+    }
+    
     // 유저의 로컬 데이터 삭제
     func deleteUserDataFromLocal() {
+        
+        self.userLoginType = checkLoginType()
+        
         print("로컬 데이터 삭제")
-        // 로컬에 저장되어 있는 유저 데이터 삭제
-        UserDefaults.standard.removeObject(forKey: "userName")
-        UserDefaults.standard.removeObject(forKey: "userEmail")
-        UserDefaults.standard.removeObject(forKey: "userImage")
+        if userLoginType == "Google" {
+            // 로컬에 저장되어 있는 유저 데이터 삭제
+            UserDefaults.standard.removeObject(forKey: "userGoogleName")
+            UserDefaults.standard.removeObject(forKey: "userGoogleEmail")
+            UserDefaults.standard.removeObject(forKey: "userGoogleImage")
+        } else {
+            // 로컬에 저장되어 있는 유저 데이터 삭제
+            UserDefaults.standard.removeObject(forKey: "userGuestName")
+            UserDefaults.standard.removeObject(forKey: "userGuestEmail")
+            UserDefaults.standard.removeObject(forKey: "userGuestImage")
+        }
     }
+       
     
     // DB에 저장되어있는 데이터 삭제
     func deleteUserDataFromDB() {
@@ -70,10 +98,9 @@ class WithDrawMembershipViewController : UIViewController {
     }
     
     @IBAction func withDrawButtonTapped(_ sender: UIButton) {
-        // 유저의 로컬 데이터 삭제
-        deleteUserDataFromLocal()
-        // DB에 저장되어있는 유저 데이터 삭제
-        deleteUserDataFromDB ()
+        deleteUserDataFromLocal() // 유저의 로컬 데이터 삭제
+        deleteUserDataFromDB () // DB에 저장되어있는 유저 데이터 삭제
+        
         // 현재 화면 닫기
         dismiss(animated: true) {
             self.signOut()

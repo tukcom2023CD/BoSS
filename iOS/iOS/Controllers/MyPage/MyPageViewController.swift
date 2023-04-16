@@ -9,6 +9,7 @@ import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
 
+// 내 정보 (마이페이지) 화면
 class MyPageViewController: UIViewController {
     
     @IBOutlet weak var userDataView: UIView! // 유저 정보를 포함하는 뷰
@@ -24,6 +25,9 @@ class MyPageViewController: UIViewController {
 
     @IBOutlet weak var settingButton: UIButton! // 설정 버튼
     @IBOutlet weak var menuTableView: UITableView! // 메뉴 테이블 뷰
+    
+    // 사용자 로그인 종류 구분
+    var userLoginType : String?
     
     // 테이블 뷰 표시 정보
     let titleArray = ["여행일정", "지출내역"]
@@ -64,6 +68,9 @@ class MyPageViewController: UIViewController {
         userSpendingView.layer.cornerRadius = 25
         // 유저 지출 기본값으로 표시
         userSpendingLabel.text = numberFormatter(number: 0)
+        
+        // 로그인 타입 확인
+        self.userLoginType = checkLoginType()
     }
     
     // 버튼 설정 함수
@@ -74,8 +81,21 @@ class MyPageViewController: UIViewController {
             UIAction(title: "로그아웃", image: UIImage(named: "logout.png"), handler: { _ in self.logOutAlert() }),
             UIAction(title: "회원탈퇴", image: UIImage(named: "cancel.png"), attributes: .destructive, handler: { _ in self.withdrawMembership() })
         ]
-        settingButton.menu = UIMenu(identifier: nil, options: .displayInline, children: menuList)
+        settingButton.menu = UIMenu(title : "설정", identifier: nil, options: .displayInline, children: menuList)
         settingButton.showsMenuAsPrimaryAction = true
+    }
+    
+    // 로그인 타입 확인
+    func checkLoginType() -> String {
+        if let user = GIDSignIn.sharedInstance.currentUser {
+            if ((user.profile?.email) != nil) {
+                return ("Google")
+            } else {
+                return ("Google")
+            }
+        } else {
+            return ("Guest")
+        }
     }
     
     // 현재 구글 로그인한 사용자의 이메일 주소 가져오기
@@ -87,7 +107,7 @@ class MyPageViewController: UIViewController {
                 return ("Unknown")
             }
         } else {
-            return ("Guest")
+            return ("@Guest")
         }
     }
     
@@ -103,45 +123,77 @@ class MyPageViewController: UIViewController {
             return ("Guest")
         }
     }
+
     
     // 유저 이메일 표시 함수
     func setUserEmail() {
-        
-        // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
-        guard let userEmail = UserDefaults.standard.string(forKey: "userEmail") else {
-            let userEmail = getGoogleUserEmail()
-            UserDefaults.standard.set(userEmail, forKey: "userEmail")
+        if self.userLoginType == "Google" {
+            // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
+            guard let userEmail = UserDefaults.standard.string(forKey: "userGoogleEmail") else {
+                let userEmail = getGoogleUserEmail()
+                UserDefaults.standard.set(userEmail, forKey: "userGoogleEmail")
+                self.userEmail.text = userEmail
+                return
+            }
             self.userEmail.text = userEmail
-            return
+        } else {
+            // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
+            guard let userEmail = UserDefaults.standard.string(forKey: "userGuestEmail") else {
+                let userEmail = getGoogleUserEmail()
+                UserDefaults.standard.set(userEmail, forKey: "userGuestEmail")
+                self.userEmail.text = userEmail
+                return
+            }
+            self.userEmail.text = userEmail
         }
-        self.userEmail.text = userEmail
     }
     
     // 유저 이름 표시 함수
     func setUserName() {
-        
-        // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
-        guard let userName = UserDefaults.standard.string(forKey: "userName") else {
-            let userName = getGoogleUserName()
-            UserDefaults.standard.set(userName, forKey: "userName")
+        if self.userLoginType == "Google" {
+            // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
+            guard let userName = UserDefaults.standard.string(forKey: "userGoogleName") else {
+                let userName = getGoogleUserName()
+                UserDefaults.standard.set(userName, forKey: "userGoogleName")
+                self.userName.text = userName
+                return
+            }
             self.userName.text = userName
-            return
+        } else {
+            // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
+            guard let userName = UserDefaults.standard.string(forKey: "userGuestName") else {
+                let userName = getGoogleUserName()
+                UserDefaults.standard.set(userName, forKey: "userGuestName")
+                self.userName.text = userName
+                return
+            }
+            self.userName.text = userName
         }
-        self.userName.text = userName
     }
     
     // 유저 사진 표시 함수
     func setUserImage() {
-    
-        guard let userImage = UserDefaults.standard.data(forKey: "userImage") else {
-            self.userImage.image = UIImage(named: "user")
-            // 이미지를 Data로 변환하여 UserDefaults에 저장
-            if let imageData = self.userImage.image!.pngData() {
-                UserDefaults.standard.set(imageData, forKey: "userImage")
+        if self.userLoginType == "Google"{
+            guard let userImage = UserDefaults.standard.data(forKey: "userGoogleImage") else {
+                self.userImage.image = UIImage(named: "user")
+                // 이미지를 Data로 변환하여 UserDefaults에 저장
+                if let imageData = self.userImage.image!.pngData() {
+                    UserDefaults.standard.set(imageData, forKey: "userGoogleImage")
+                }
+                return
             }
-            return
+            self.userImage.image = UIImage(data: userImage)
+        } else {
+            guard let userImage = UserDefaults.standard.data(forKey: "userGuestImage") else {
+                self.userImage.image = UIImage(named: "user")
+                // 이미지를 Data로 변환하여 UserDefaults에 저장
+                if let imageData = self.userImage.image!.pngData() {
+                    UserDefaults.standard.set(imageData, forKey: "userGuestImage")
+                }
+                return
+            }
+            self.userImage.image = UIImage(data: userImage)
         }
-        self.userImage.image = UIImage(data: userImage)
     }
     
     // 유저 프로필 표시 함수
@@ -279,18 +331,12 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
         switch indexPath.row {
         case 0:
             guard let scheduleVC = self.storyboard?.instantiateViewController(identifier: "scheduleVC") as? MyPageScheduleViewController else {return}
-            scheduleVC.modalPresentationStyle = .automatic
-            scheduleVC.modalTransitionStyle = .coverVertical
-            
             self.present(scheduleVC, animated: true)
-            // self.performSegue(withIdentifier: "ShowSchedule", sender: nil)
         case 1:
             guard let spendingVC = self.storyboard?.instantiateViewController(identifier: "spendingVC") as? MyPageSpendingViewController else {return}
             spendingVC.modalPresentationStyle = .automatic
             spendingVC.modalTransitionStyle = .coverVertical
-            
             self.present(spendingVC, animated: true)
-            // self.performSegue(withIdentifier: "ShowSpending", sender: nil)
         default:
             return
         }
