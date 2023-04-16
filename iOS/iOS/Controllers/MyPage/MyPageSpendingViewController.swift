@@ -150,34 +150,18 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // 딜레이 값
+        let delay : Double = (Double(indexPath.item) * (0.1))
         
-        if indexPath.item == 0 {
-            // 셀의 초기 투명도와 위치 설정
-            cell.alpha = 0
-            cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
-            
-            
-            // 투명도를 1, 원래 위치로 이동
-            UIView.animate(withDuration: 0.7, delay: 0.0, options: [.curveEaseInOut], animations: {
-                cell.alpha = 1
-                cell.transform = CGAffineTransform.identity
-            }, completion: nil)
-        }
+        // 셀의 초기 투명도와 위치 설정
+        cell.alpha = 0
+        cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
         
-        else {
-            // 딜레이 값
-            let delay : Double = (Double(indexPath.item) * (0.1))
-            
-            // 셀의 초기 투명도와 위치 설정
-            cell.alpha = 0
-            cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
-            
-            // 투명도를 1, 원래 위치로 이동
-            UIView.animate(withDuration: 0.7, delay: delay, options: [.curveEaseInOut], animations: {
-                cell.alpha = 1
-                cell.transform = CGAffineTransform.identity
-            }, completion: nil)
-        }
+        // 투명도를 1, 원래 위치로 이동
+        UIView.animate(withDuration: 0.7, delay: delay, options: [.curveEaseInOut], animations: {
+            cell.alpha = 1
+            cell.transform = CGAffineTransform.identity
+        }, completion: nil)
     }
 }
 
