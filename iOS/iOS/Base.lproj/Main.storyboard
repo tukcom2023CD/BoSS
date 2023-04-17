@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -613,13 +613,21 @@
                     <view key="view" contentMode="scaleToFill" id="Ify-Wq-02q">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wij-yr-e2w">
+                                <rect key="frame" x="16" y="16" width="75" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="XRM-JP-Wfw"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4no-YT-jwC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4592" y="-1022"/>
+            <point key="canvasLocation" x="3465" y="-2194"/>
         </scene>
         <!--Album View Controller-->
         <scene sceneID="AAx-jg-2lu">
@@ -2254,8 +2262,11 @@
                                                         </cells>
                                                     </collectionView>
                                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="4c3-Jg-FMc">
-                                                        <rect key="frame" x="138.66666666666666" y="274" width="115.66666666666666" height="26"/>
+                                                        <rect key="frame" x="116.66666666666669" y="274" width="160" height="26"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="160" id="Gfo-Cg-Y3T"/>
+                                                        </constraints>
                                                         <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="currentPageIndicatorTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
@@ -2964,14 +2975,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ezT-zh-l6A">
-                                <rect key="frame" x="10" y="69" width="383" height="100"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ezT-zh-l6A">
+                                <rect key="frame" x="15" y="69" width="378" height="100"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ib8-Qc-VeA">
-                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                        <rect key="frame" x="0.0" y="20" width="60" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="K7b-8x-ncg"/>
-                                            <constraint firstAttribute="width" constant="80" id="ldh-QS-mKr"/>
+                                            <constraint firstAttribute="height" constant="60" id="K7b-8x-ncg"/>
+                                            <constraint firstAttribute="width" constant="60" id="ldh-QS-mKr"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -2981,7 +2992,7 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="1Ai-dV-HtF">
-                                        <rect key="frame" x="100" y="0.0" width="283" height="100"/>
+                                        <rect key="frame" x="80" y="0.0" width="298" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="DS5-dm-lfC"/>
@@ -3048,7 +3059,7 @@
                         <constraints>
                             <constraint firstItem="ezT-zh-l6A" firstAttribute="trailing" secondItem="M6s-HS-UfN" secondAttribute="trailing" id="4hA-yb-xqe"/>
                             <constraint firstItem="ezT-zh-l6A" firstAttribute="top" secondItem="M6s-HS-UfN" secondAttribute="top" constant="10" id="ncG-FA-CMh"/>
-                            <constraint firstItem="ezT-zh-l6A" firstAttribute="leading" secondItem="M6s-HS-UfN" secondAttribute="leading" constant="10" id="scQ-PJ-32E"/>
+                            <constraint firstItem="ezT-zh-l6A" firstAttribute="leading" secondItem="M6s-HS-UfN" secondAttribute="leading" constant="15" id="scQ-PJ-32E"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3090,8 +3101,8 @@
         <image name="setting" width="256" height="256"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="tripimg" width="137.5" height="91.5"/>
-        <image name="여행사진 1" width="322" height="194"/>
         <image name="여행사진 1" width="322" height="194"/>
+        <image name="여행사진 1" width="322" height="194"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
