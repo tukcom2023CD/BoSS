@@ -13,13 +13,23 @@ class MyPageSpendingViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var uid = UserDefaults.standard.getLoginUser()!.uid // 사용자 uid
-    
-    var userTotalSpending = 0 // 사용자의 총지출
-    var scheduleCount = 0 // 여행일정 수
-    var scheduleTitleArray : [String] = [] // 일정 제목 배열
-    var spendingOfScheduleArray : [Int] = [] // 일정의 지츨내역 배열
-    
     var selectedCellIndex : IndexPath? // 선택된 셀 index
+    
+    var userTotalSpending : Int = 0 // 사용자의 총지출
+    
+    var scheduleCount : Int = 0  // 여행일정 수
+    
+    var sidArray : [Int] = [] // sid 배열
+    
+    // 지출 금액 표시 셀에 대한 구조체
+    struct spendingOfEachSchedule {
+        var title : String? // 일정 이름
+        var region : String? // 일정 지역
+        var spending : Int? // 일정 지출 금액
+        var stausColor : UIColor? // 일정 상태에 따른 색
+    }
+    
+    var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:] // 일정 구조체 딕셔너리
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +40,14 @@ class MyPageSpendingViewController: UIViewController {
     // 사용자 총지출 불러오기
     func loadUserTotalSpending() {
         var userTotalSpending = 0 // 사용자 총지출
+        var scheduleCount = 0 // 일정 수
+        var sidArray : [Int] = [] // sid 배열
         let group = DispatchGroup() // 비동기 함수 그룹
         group.enter() // 그룹에 추가
         ScheduleNetManager.shared.read(uid: self.uid!) { schedules in
+            scheduleCount = schedules.count // 일정 수 저장
             for schedule in schedules {
+                sidArray.append(schedule.sid!)
                 group.enter() // 그룹에 추가
                 PlaceNetManager.shared.read(sid: schedule.sid!) { places in
                     for place in places {
@@ -52,45 +66,37 @@ class MyPageSpendingViewController: UIViewController {
         }
         group.notify(queue: .main) {
             self.userTotalSpending = userTotalSpending // 사용자 총지출 설정
+            self.scheduleCount = scheduleCount // 일정 수 저장
+            self.sidArray = sidArray // sid 배열 저장
             self.collectionView.reloadData()
         }
     }
     
     // 사용자 일정수, 일정이름, 일정당지출  불러오기
     func loadSpendingOfSchedule() {
+        var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:]// 일정 구조체 딕셔너리
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
         ScheduleNetManager.shared.read(uid: self.uid!) { schedules in
-            let scheduleCount = schedules.count // 일정 개수
-            var scheduleTitleArray : [String] = [] // 일정 제목 배열
-            var spendingOfScheduleArray : [Int] = [] // 일정의 지츨내역 배열
-            var scheduleTotalSpending = 0 // 일정당 총 지출
-            let group = DispatchGroup() // 비동기 함수 그룹 생성
-            let group_2 = DispatchGroup()
             for schedule in schedules {
-                scheduleTitleArray.append(schedule.title!) // 여행 일정 제목 저장
+                let spendingOfEachSchedule = spendingOfEachSchedule(title: schedule.title!, region: schedule.region!, spending : 0, stausColor: self.discriminationScheduleData(schedule: schedule)) // 일정 구조체
+                spendingOfEachScheduleDict[schedule.sid!] = spendingOfEachSchedule // sid를 키값으로 저장
                 group.enter() // 그룹에 추가
                 PlaceNetManager.shared.read(sid: schedule.sid!) { places in
                     for place in places {
                         group.enter() // 그룹에 추가
-                        group_2.enter() // 그웁에 추가
                         SpendingNetManager.shared.read(pid: place.pid!) { spendings in
                             for spending in spendings {
-                                scheduleTotalSpending += (spending.quantity! * spending.price!)
+                                spendingOfEachScheduleDict[schedule.sid!]?.spending! += (spending.price! * spending.quantity!)
                             }
                             group.leave() // 그룹에서 제외
-                            group_2.leave() // 그룹에서 제외
                         }
-                    }
-                    group_2.notify(queue: .main) {
-                        spendingOfScheduleArray.append(scheduleTotalSpending)
-                        self.spendingOfScheduleArray = spendingOfScheduleArray // 일정당 총 지출 배열 설정
-                        scheduleTotalSpending = 0
                     }
                     group.leave() // 그룹에서 제외
                 }
                 group.notify(queue: .main) {
-                    self.scheduleCount = scheduleCount // 일정 개수 설정
-                    self.scheduleTitleArray = scheduleTitleArray // 일정 제목 배열 설정
-                    self.collectionView.reloadData()
+                    self.spendingOfEachScheduleDict = spendingOfEachScheduleDict
+                    print(spendingOfEachScheduleDict)
+                    self.collectionView.reloadData() // 새로고침
                 }
             }
         }
@@ -98,11 +104,11 @@ class MyPageSpendingViewController: UIViewController {
     
     // 그림자 설정 함수
     func setShadow(cell : UICollectionViewCell) {
-        cell.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
         cell.layer.masksToBounds = false // 그림자 잘림 방지
+        cell.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
+        cell.layer.shadowOpacity = 0.5 // alpha 값
         cell.layer.shadowOffset = CGSize(width: 3, height: 3) // 그림자 위치
         cell.layer.shadowRadius = 5 // 그림자 반경
-        cell.layer.shadowOpacity = 0.5 // alpha 값
     }
     
     // 금액 콤마 표기 함수
@@ -111,13 +117,39 @@ class MyPageSpendingViewController: UIViewController {
         numberFormatter.numberStyle = .decimal
         return numberFormatter.string(from: NSNumber(value: number))!
     }
+    
+    // 스케줄 상태에 따른 색 구분
+    func discriminationScheduleData(schedule: Schedule) -> UIColor {
+        var status = ""
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let currentDate = formatter.string(from: Date())
+        if currentDate > schedule.stop! {
+            status = "완료"
+        } else if (currentDate >= schedule.start! && currentDate <= schedule.stop!) {
+            status = "진행중"
+        } else {
+            status = "예정"
+        }
+           
+        if status == "완료" {
+            return #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        } else if status == "진행중" {
+            return #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        } else if status == "예정" {
+            return #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+        } else {
+            return #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        }
+    }
 }
 
 extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // 셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  self.scheduleCount + 1 //  일정수 + 충지출 셀 1개
+        return  self.scheduleCount + 1
+        //
        
     }
     
@@ -130,7 +162,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             }
             
             cell.contentView.alpha = 1
-            cell.layer.cornerRadius = 40 // 모서리 설정
+            cell.layer.cornerRadius = 20 // 모서리 설정
             setShadow(cell : cell) // 그림자 설정
             cell.userTotalSpendingLabel.text = numberFormatter(number: self.userTotalSpending)
             
@@ -142,13 +174,38 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 return UICollectionViewCell()
             }
             
+            let sid = self.sidArray[indexPath.item - 1]
+            
             // cell 내용 설정
-            cell.scheduleTitleLabel.text = self.scheduleTitleArray[indexPath.item - 1]
-            cell.spendingOfScheduleLabel.text = numberFormatter(number : self.spendingOfScheduleArray[indexPath.item - 1])
+            if let title =  self.spendingOfEachScheduleDict[sid]?.title {
+                cell.scheduleTitleLabel.text = title
+            } else {
+                cell.scheduleTitleLabel.text = "???"
+            }
+            
+            if let region =  self.spendingOfEachScheduleDict[sid]?.region {
+                cell.scheduleRegionLabel.text = region
+            } else {
+                cell.scheduleTitleLabel.text = "???"
+            }
+            
+            if let color =  self.spendingOfEachScheduleDict[sid]?.stausColor {
+                cell.scheduleStatusLabel.backgroundColor = color
+            } else {
+                cell.scheduleTitleLabel.text = "???"
+            }
+            
+            if let spending = self.spendingOfEachScheduleDict[sid]?.spending {
+                cell.spendingOfScheduleLabel.text = numberFormatter(number : spending)
+            } else {
+                cell.spendingOfScheduleLabel.text = "???"
+            }
             
             // cell UI 설정
-            cell.contentView.alpha = 1
-            cell.layer.cornerRadius = 15 // 모서리 설정
+            cell.contentView.alpha = 0.8
+            cell.layer.cornerRadius = 20 // 모서리 설정
+            cell.scheduleStatusLabel.layer.masksToBounds = true
+            cell.scheduleStatusLabel.layer.cornerRadius = 3
             setShadow(cell : cell) // 그림자 설정
             
             return cell
@@ -165,7 +222,6 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                     cell.contentView.alpha = 0.8
                 }
             }
-            
             // 누른 셀이 선택되어 있던 셀이 아닌 경우
             else if selectedCellIndex != indexPath {
                 // 다른 셀이 선택되어 있던 경우
@@ -174,18 +230,16 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                         cell.contentView.alpha = 0.8
                     }
                 }
-                
                 // 선택된 셀이 없던 경우
                 self.selectedCellIndex = indexPath
                 if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
                     cell.contentView.alpha = 1
                 }
             }
-            
-            // 변경된 셀을 를 애니메이션 효과를 적용하여 갱신
-            UIView.animate(withDuration: 0.3) {
-                collectionView.performBatchUpdates(nil, completion: nil)
-            }
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            collectionView.performBatchUpdates(nil, completion: nil)
         }
     }
     
@@ -209,7 +263,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             }
         } else {
             let width : CGFloat = 350
-            let height: CGFloat = 150
+            let height: CGFloat = 100
             let cgSize =  CGSize(width: width, height: height)
             return cgSize
         }
@@ -240,6 +294,8 @@ class userTotalSpendingCell : UICollectionViewCell {
 class scheduleSpendingCell : UICollectionViewCell {
     @IBOutlet weak var scheduleTitleLabel: UILabel! // 일정 이름
     @IBOutlet weak var spendingOfScheduleLabel: UILabel! // 일정의 총 지출액
+    @IBOutlet weak var scheduleRegionLabel: UILabel! // 일정 지역 이름
+    @IBOutlet weak var scheduleStatusLabel: UILabel! // 일정 상태 라벨
 }
 
 
