@@ -14,47 +14,84 @@ class MyPageSpendingViewController: UIViewController {
     
     var uid = UserDefaults.standard.getLoginUser()!.uid // 사용자 uid
     
-    var scheduleCount = 0 // 일정 수
+    var userTotalSpending = 0 // 사용자의 총지출
+    var scheduleCount = 0 // 여행일정 수
     var scheduleTitleArray : [String] = [] // 일정 제목 배열
-    var spendingOfScheduleArray : [Int] = [] // 일정의 지츨내역
-    var spendingDict : [Int : Spending] = [:] // 각 일정의 세부 지출내역 딕셔너리 (키 : 값 = sid : Spending)
+    var spendingOfScheduleArray : [Int] = [] // 일정의 지츨내역 배열
     
-    var selectedCellIndex : IndexPath?
+    var selectedCellIndex : IndexPath? // 선택된 셀 index
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestScheduleData() // 사용자 지출 내역 가져오기
+        loadUserTotalSpending()
+        loadSpendingOfSchedule()
     }
     
-    // 일정, 지출내역 불러오기
-    func requestScheduleData() {
-        let user = UserDefaults.standard.getLoginUser()!
-        var SpendingOfEachSchedule = 0 // 총지출
-        ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
-            self.scheduleCount = schedules.count // 일정 개수 저장
-            // 각 일정에 접근
+    // 사용자 총지출 불러오기
+    func loadUserTotalSpending() {
+        var userTotalSpending = 0 // 사용자 총지출
+        let group = DispatchGroup() // 비동기 함수 그룹
+        group.enter() // 그룹에 추가
+        ScheduleNetManager.shared.read(uid: self.uid!) { schedules in
             for schedule in schedules {
-                SpendingOfEachSchedule = 0
-                self.scheduleTitleArray.append(schedule.title!) // 일정 이름 저장
+                group.enter() // 그룹에 추가
                 PlaceNetManager.shared.read(sid: schedule.sid!) { places in
-                    // 각 장소애 접근
                     for place in places {
+                        group.enter() // 그룹에 추가
                         SpendingNetManager.shared.read(pid: place.pid!) { spendings in
-                            // 각 지출에 접근
                             for spending in spendings {
-                                self.spendingDict[schedule.sid!] = spending // 일정에 속한 지출내역 저장
-                                SpendingOfEachSchedule += spending.price! // 각 일정의 지출금액에 추가
+                                userTotalSpending += (spending.quantity! * spending.price!)
                             }
-                            self.spendingOfScheduleArray.append(SpendingOfEachSchedule)
+                            group.leave() // 그룹에서 제외
                         }
                     }
-                }
-                if SpendingOfEachSchedule == 0 {
-                    self.spendingOfScheduleArray.append(SpendingOfEachSchedule)
+                    group.leave() // 그룹에서 제외
                 }
             }
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            group.leave() // 그룹에서 제외
+        }
+        group.notify(queue: .main) {
+            self.userTotalSpending = userTotalSpending // 사용자 총지출 설정
+            self.collectionView.reloadData()
+        }
+    }
+    
+    // 사용자 일정수, 일정이름, 일정당지출  불러오기
+    func loadSpendingOfSchedule() {
+        ScheduleNetManager.shared.read(uid: self.uid!) { schedules in
+            let scheduleCount = schedules.count // 일정 개수
+            var scheduleTitleArray : [String] = [] // 일정 제목 배열
+            var spendingOfScheduleArray : [Int] = [] // 일정의 지츨내역 배열
+            var scheduleTotalSpending = 0 // 일정당 총 지출
+            let group = DispatchGroup() // 비동기 함수 그룹 생성
+            let group_2 = DispatchGroup()
+            for schedule in schedules {
+                scheduleTitleArray.append(schedule.title!) // 여행 일정 제목 저장
+                group.enter() // 그룹에 추가
+                PlaceNetManager.shared.read(sid: schedule.sid!) { places in
+                    for place in places {
+                        group.enter() // 그룹에 추가
+                        group_2.enter() // 그웁에 추가
+                        SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                            for spending in spendings {
+                                scheduleTotalSpending += (spending.quantity! * spending.price!)
+                            }
+                            group.leave() // 그룹에서 제외
+                            group_2.leave() // 그룹에서 제외
+                        }
+                    }
+                    group_2.notify(queue: .main) {
+                        spendingOfScheduleArray.append(scheduleTotalSpending)
+                        self.spendingOfScheduleArray = spendingOfScheduleArray // 일정당 총 지출 배열 설정
+                        scheduleTotalSpending = 0
+                    }
+                    group.leave() // 그룹에서 제외
+                }
+                group.notify(queue: .main) {
+                    self.scheduleCount = scheduleCount // 일정 개수 설정
+                    self.scheduleTitleArray = scheduleTitleArray // 일정 제목 배열 설정
+                    self.collectionView.reloadData()
+                }
             }
         }
     }
@@ -64,8 +101,8 @@ class MyPageSpendingViewController: UIViewController {
         cell.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
         cell.layer.masksToBounds = false // 그림자 잘림 방지
         cell.layer.shadowOffset = CGSize(width: 3, height: 3) // 그림자 위치
-        cell.layer.shadowRadius = 3 // 그림자 반경
-        cell.layer.shadowOpacity = 0.3 // alpha 값
+        cell.layer.shadowRadius = 5 // 그림자 반경
+        cell.layer.shadowOpacity = 0.5 // alpha 값
     }
     
     // 금액 콤마 표기 함수
@@ -77,78 +114,108 @@ class MyPageSpendingViewController: UIViewController {
 }
 
 extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    // 셀 수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.scheduleCount
+        return  self.scheduleCount + 1 //  일정수 + 충지출 셀 1개
+       
     }
     
+    // 셀 설정 함수
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "scheduleSpendingCell", for: indexPath) as? scheduleSpendingCell else {
-            return UICollectionViewCell()
+        if indexPath.item == 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userTotalSpendingCell", for: indexPath) as? userTotalSpendingCell else {
+                return UICollectionViewCell()
+            }
+            
+            cell.contentView.alpha = 1
+            cell.layer.cornerRadius = 40 // 모서리 설정
+            setShadow(cell : cell) // 그림자 설정
+            cell.userTotalSpendingLabel.text = numberFormatter(number: self.userTotalSpending)
+            
+            return cell
         }
         
-        // cell 내용 설정
-        cell.scheduleTitleLabel.text = self.scheduleTitleArray[indexPath.row]
-        cell.spendingOfScheduleLabel.text = String(self.spendingOfScheduleArray[indexPath.row])
-        
-        // cell UI 설정
-        cell.contentView.alpha = 0.8
-        cell.layer.cornerRadius = 15 // 모서리 설정
-        setShadow(cell : cell) // 그림자 설정
-        
-        return cell
+        else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "scheduleSpendingCell", for: indexPath) as? scheduleSpendingCell else {
+                return UICollectionViewCell()
+            }
+            
+            // cell 내용 설정
+            cell.scheduleTitleLabel.text = self.scheduleTitleArray[indexPath.item - 1]
+            cell.spendingOfScheduleLabel.text = numberFormatter(number : self.spendingOfScheduleArray[indexPath.item - 1])
+            
+            // cell UI 설정
+            cell.contentView.alpha = 1
+            cell.layer.cornerRadius = 15 // 모서리 설정
+            setShadow(cell : cell) // 그림자 설정
+            
+            return cell
+        }
     }
     
+    // 셀 선택 됐을 때
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        // 누른 셀이 이미 선택되어 있던 셀인 경우
-        if selectedCellIndex == indexPath {
-            selectedCellIndex = nil
-            if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
-                cell.contentView.alpha = 0.8
-            }
-        }
-        
-        // 누른 셀이 선택되어 있던 셀이 아닌 경우
-        else if selectedCellIndex != indexPath {
-            // 다른 셀이 선택되어 있던 경우
-            if let index = self.selectedCellIndex {
-                if let cell = collectionView.cellForItem(at: index) as? scheduleSpendingCell {
+        if indexPath.row != 0 {
+            // 누른 셀이 이미 선택되어 있던 셀인 경우
+            if selectedCellIndex == indexPath {
+                selectedCellIndex = nil
+                if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
                     cell.contentView.alpha = 0.8
                 }
             }
             
-            // 선택된 셀이 없던 경우
-            self.selectedCellIndex = indexPath
-            if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
-                cell.contentView.alpha = 1
+            // 누른 셀이 선택되어 있던 셀이 아닌 경우
+            else if selectedCellIndex != indexPath {
+                // 다른 셀이 선택되어 있던 경우
+                if let index = self.selectedCellIndex {
+                    if let cell = collectionView.cellForItem(at: index) as? scheduleSpendingCell {
+                        cell.contentView.alpha = 0.8
+                    }
+                }
+                
+                // 선택된 셀이 없던 경우
+                self.selectedCellIndex = indexPath
+                if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
+                    cell.contentView.alpha = 1
+                }
+            }
+            
+            // 변경된 셀을 를 애니메이션 효과를 적용하여 갱신
+            UIView.animate(withDuration: 0.3) {
+                collectionView.performBatchUpdates(nil, completion: nil)
             }
         }
-        
-        // 변경된 셀을 를 애니메이션 효과를 적용하여 갱신
-        UIView.animate(withDuration: 0.3) {
-            collectionView.performBatchUpdates(nil, completion: nil)
-        }
     }
     
+    // 셀 사이즈 결정 함수
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        // 만약 해당 셀이 선택된 셀이라면
-        if self.selectedCellIndex == indexPath {
+        if indexPath.item != 0 {
+            // 만약 해당 셀이 선택된 셀이라면
+            if self.selectedCellIndex == indexPath {
+                let width : CGFloat = 350
+                let height: CGFloat = 200
+                let cgSize =  CGSize(width: width, height: height)
+                return cgSize
+            }
+            // 만약 해당 셀이 선택된 셀이 아니라면
+            else  {
+                let width : CGFloat = 350
+                let height: CGFloat = 100
+                let cgSize =  CGSize(width: width, height: height)
+                return cgSize
+            }
+        } else {
             let width : CGFloat = 350
-            let height: CGFloat = 200
-            let cgSize =  CGSize(width: width, height: height)
-            return cgSize
-        }
-        // 만약 해당 셀이 선택된 셀이 아니라면
-        else  {
-            let width : CGFloat = 350
-            let height: CGFloat = 100
+            let height: CGFloat = 150
             let cgSize =  CGSize(width: width, height: height)
             return cgSize
         }
     }
     
+    // 셀표시 할떄 함수
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // 딜레이 값
         let delay : Double = (Double(indexPath.item) * (0.1))
@@ -163,6 +230,11 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             cell.transform = CGAffineTransform.identity
         }, completion: nil)
     }
+}
+
+
+class userTotalSpendingCell : UICollectionViewCell {
+    @IBOutlet weak var userTotalSpendingLabel: UILabel!
 }
 
 class scheduleSpendingCell : UICollectionViewCell {
