@@ -178,8 +178,6 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             
             cell.sid = sid // sid 설정
             
-            cell.loadEachSpending()
-            
             // cell 내용 설정
             if let title =  self.spendingOfEachScheduleDict[sid]?.title {
                 cell.scheduleTitleLabel.text = title
@@ -224,6 +222,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 selectedCellIndex = nil
                 if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
                     cell.contentView.alpha = 0.8
+                    cell.loadEachSpending()
                 }
             }
             // 누른 셀이 선택되어 있던 셀이 아닌 경우
@@ -232,12 +231,14 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 if let index = self.selectedCellIndex {
                     if let cell = collectionView.cellForItem(at: index) as? scheduleSpendingCell {
                         cell.contentView.alpha = 0.8
+                        cell.loadEachSpending()
                     }
                 }
                 // 선택된 셀이 없던 경우
                 self.selectedCellIndex = indexPath
                 if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
                     cell.contentView.alpha = 1
+                    cell.loadEachSpending()
                 }
             }
         }
@@ -258,7 +259,10 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 // 만약 해당 일정에 지출내역이 존재하면
                 let sid = self.sidArray[indexPath.item - 1] // sid 가져옴
                 if let spendingCount = self.spendingOfEachScheduleDict[sid]?.spendingCount {
-                    height += CGFloat(100 * spendingCount)
+                    if spendingCount > 0 {
+                        height += 30
+                    }
+                    height += CGFloat(90 * spendingCount)
                 }
                 
                 let width : CGFloat = 350
@@ -298,10 +302,12 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
 }
 
 
+// 총 지출 금액 표시 셀
 class userTotalSpendingCell : UICollectionViewCell {
     @IBOutlet weak var userTotalSpendingLabel: UILabel!
 }
 
+// 각 일정당 지출 금액 표시 셀
 class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   
     @IBOutlet weak var collectionView: UICollectionView!
@@ -317,6 +323,7 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
         var title : String? // 지출 이름
         var region : String? // 지출 지역
         var spending : Int? // 지출 금액
+        var date : String? // 지출 날짜
     }
     
     var spendingDict : [Int : spendingForCell] = [:] // 일정 구조체 딕셔너리
@@ -339,7 +346,7 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
                     for spending in spendings {
                         spendingCount += 1
                         spidArray.append(spending.spid!)
-                        var spendingFC = spendingForCell(title: spending.name!, region: place.name!, spending : (spending.price! * spending.quantity!))
+                        let spendingFC = spendingForCell(title: spending.name!, region: place.name!, spending : (spending.price! * spending.quantity!), date: place.visitDate!)
                         
                         spendingDict[spending.spid!] = spendingFC
                     }
@@ -372,10 +379,12 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
         return numberFormatter.string(from: NSNumber(value: number))!
     }
     
+    // 셀 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return spendingCount
     }
     
+    // 셀 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailedCell", for: indexPath) as? detailedSpendingCell else {
             return UICollectionViewCell()
@@ -406,6 +415,14 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
         } else {
             cell.spendingLabel.text = "???"
         }
+        
+        // 지출 날짜 설정
+        if let date = self.spendingDict[spid]?.date {
+            cell.spendingDateLabel.text = date
+        } else {
+            cell.spendingLabel.text = "???"
+        }
+
 
         return cell
     }
@@ -432,8 +449,10 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
     @IBOutlet weak var scheduleStatusLabel: UILabel! // 일정 상태 라벨
 }
 
+// 세부 지출내역 셀
 class detailedSpendingCell : UICollectionViewCell {
     @IBOutlet weak var spendingTitleLabel: UILabel!
     @IBOutlet weak var spendingRegionLabel: UILabel!
     @IBOutlet weak var spendingLabel: UILabel!
+    @IBOutlet weak var spendingDateLabel: UILabel!
 }
