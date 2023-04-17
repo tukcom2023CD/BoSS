@@ -137,23 +137,22 @@ class MyPageScheduleViewController: UIViewController {
     }
     
     // 총 지출 내역 불러오기
-    func loadSpendingData(sid : Int, spendingLabel : UILabel) {
-        var scheduleTotalSpending = 0
+    func requestSpendingData(sid : Int, spendingLabel : UILabel) {
+        var userTotalSpending = 0
+        // let user = UserDefaults.standard.getLoginUser()!
+        let group = DispatchGroup() // 비동기 함수 그룹
         PlaceNetManager.shared.read(sid: sid) { places in
             for place in places {
+                group.enter()
                 SpendingNetManager.shared.read(pid: place.pid!) { spendings in
                     for spending in spendings {
-                        scheduleTotalSpending += Int(spending.price!)
+                        userTotalSpending += Int(spending.price! * spending.quantity!)
                     }
-                    DispatchQueue.main.async {
-                        spendingLabel.text = self.numberFormatter(number: scheduleTotalSpending)
-                    }
+                    group.leave()
                 }
             }
-        }
-        if scheduleTotalSpending == 0 {
-            DispatchQueue.main.async {
-                spendingLabel.text = self.numberFormatter(number: scheduleTotalSpending)
+            group.notify(queue: .main) {
+                spendingLabel.text = self.numberFormatter(number: userTotalSpending)
             }
         }
     }
@@ -198,7 +197,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             cell.statusImage.tintColor = setColor(text: cell.statusLabel.text!)
             
             // 금액 표시
-            self.loadSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
+            self.requestSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
         
             // 메뉴 설정
             let menuItems : [UIAction] = [

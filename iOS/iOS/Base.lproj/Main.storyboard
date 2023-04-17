@@ -1919,7 +1919,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총지출" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPZ-uM-VBN">
                                                             <rect key="frame" x="13.333333333333343" y="0.0" width="52" height="24"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -1989,7 +1989,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9ix-L9-xG4">
-                                                    <rect key="frame" x="32.999999999999993" y="25" width="85.333333333333314" height="52"/>
+                                                    <rect key="frame" x="29.999999999999993" y="25" width="85.333333333333314" height="52"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일정 이름" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2O-SV-EOA">
                                                             <rect key="frame" x="0.0" y="0.0" width="73.666666666666671" height="24"/>
@@ -2006,17 +2006,17 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryO-4V-nc8">
-                                                    <rect key="frame" x="10" y="20" width="8" height="180"/>
+                                                    <rect key="frame" x="10" y="20" width="5" height="180"/>
                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="8" id="mOV-jI-EUr"/>
+                                                        <constraint firstAttribute="width" constant="5" id="mOV-jI-EUr"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="S8e-XC-BhO">
-                                                    <rect key="frame" x="28" y="100" width="312" height="100"/>
+                                                    <rect key="frame" x="25" y="100" width="315" height="100"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Ygz-4U-cDZ">
                                                         <size key="itemSize" width="300" height="80"/>
@@ -2026,7 +2026,7 @@
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="detailedCell" id="sLz-if-AbN" customClass="detailedSpendingCell" customModule="iOS" customModuleProvider="target">
-                                                            <rect key="frame" x="6" y="10" width="300" height="80"/>
+                                                            <rect key="frame" x="7.666666666666667" y="10" width="300" height="80"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YXy-yb-iaP">
                                                                 <rect key="frame" x="0.0" y="0.0" width="300" height="80"/>
@@ -2824,8 +2824,8 @@
         <image name="schedule" width="256" height="256"/>
         <image name="setting" width="256" height="256"/>
         <image name="tripimg" width="137.5" height="91.5"/>
-        <image name="여행사진 1" width="322" height="194"/>
         <image name="여행사진 1" width="322" height="194"/>
+        <image name="여행사진 1" width="322" height="194"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
