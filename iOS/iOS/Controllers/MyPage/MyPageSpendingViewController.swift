@@ -338,7 +338,6 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
         var spidArray : [Int] = []
         var spendingDict : [Int : spendingForCell] = [:] // 일정 구조체 딕셔너리
         let group = DispatchGroup() // 비동기 함수 그룹 생성
-        group.enter() // 그룹에 추가
         PlaceNetManager.shared.read(sid: self.sid!) { places in
             for place in places {
                 group.enter() // 그룹에 추가
@@ -347,12 +346,10 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
                         spendingCount += 1
                         spidArray.append(spending.spid!)
                         let spendingFC = spendingForCell(title: spending.name!, region: place.name!, spending : (spending.price! * spending.quantity!), date: place.visitDate!)
-                        
                         spendingDict[spending.spid!] = spendingFC
                     }
                     group.leave() // 그룹에서 제외
                 }
-                group.leave() // 그룹에서 제외
             }
             group.notify(queue: .main) {
                 self.spendingCount = spendingCount
