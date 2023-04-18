@@ -241,23 +241,11 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         scheduleEditVC.modalPresentationStyle = .fullScreen
         scheduleEditVC.modalTransitionStyle = .coverVertical
         
+        // 현재 여행 일정의 sid 값을 가지는 일정 구체를 찾아 편집화면으로 전달
         if let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})  {
-            if let sid = self.scheduleArray[index].sid  {
-                scheduleEditVC.scheduleSID = sid
-            }
-            if let title = self.scheduleArray[index].title  {
-                scheduleEditVC.scheduletTitle = title
-            }
-            if let start = self.scheduleArray[index].start  {
-                scheduleEditVC.scheduletStart = start
-            }
-            if let stop = self.scheduleArray[index].stop  {
-                scheduleEditVC.scheduletStop = stop
-            }
-            if let region = self.scheduleArray[index].region  {
-                scheduleEditVC.regionTitle = region
-            }
+            scheduleEditVC.schedule = self.scheduleArray[index]
         }
+        
         self.present(scheduleEditVC, animated: true)
     }
 }
