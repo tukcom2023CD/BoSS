@@ -12,25 +12,104 @@ class MyPageSpendingViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var spendingCount = 0 // 지출내역 수
-    let spendingImage = #imageLiteral(resourceName: "cash") // 지출내역 샘플 이미지
-    var PlaceArray : [String] = [] // 각 지출내역에 대한 여행장소 배열
-    var spendingArray : [Spending] = [] // 지출내역 구조체 배열
+    var uid = UserDefaults.standard.getLoginUser()!.uid // 사용자 uid
+    var selectedCellIndex : IndexPath? // 선택된 일정 셀 index
+    var userTotalSpending : Int = 0 // 사용자의 총지출
+    var scheduleCount : Int = 0  // 여행일정 수
+    var sidArray : [Int] = [] // sid 배열
     
+    // 지출 금액 표시 셀에 대한 구조체
+    struct spendingOfEachSchedule {
+        var title : String? // 일정 이름
+        var region : String? // 일정 지역
+        var spending : Int? // 일정 지출 금액
+        var stausColor : UIColor? // 일정 상태에 따른 색
+        var spendingCount : Int? // 지출내역 수
+    }
+    
+    var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:] // 일정 구조체 딕셔너리
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestSpendingData() // 사용자 지출 내역 가져오기
+        loadUserTotalSpending()
+        loadSpendingOfSchedule()
+    }
+    
+    // 사용자 총지출 불러오기
+    func loadUserTotalSpending() {
+        var userTotalSpending = 0 // 사용자 총지출
+        var scheduleCount = 0 // 일정 수
+        var sidArray : [Int] = [] // sid 배열
+        let group = DispatchGroup() // 비동기 함수 그룹
+        group.enter() // 그룹에 추가
+        ScheduleNetManager.shared.read(uid: self.uid!) { schedules in
+            scheduleCount = schedules.count // 일정 수 저장
+            for schedule in schedules {
+                sidArray.append(schedule.sid!)
+                group.enter() // 그룹에 추가
+                PlaceNetManager.shared.read(sid: schedule.sid!) { places in
+                    for place in places {
+                        group.enter() // 그룹에 추가
+                        SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                            for spending in spendings {
+                                userTotalSpending += (spending.quantity! * spending.price!)
+                            }
+                            group.leave() // 그룹에서 제외
+                        }
+                    }
+                    group.leave() // 그룹에서 제외
+                }
+            }
+            group.leave() // 그룹에서 제외
+        }
+        group.notify(queue: .main) {
+            self.userTotalSpending = userTotalSpending // 사용자 총지출 설정
+            self.scheduleCount = scheduleCount // 일정 수 저장
+            self.sidArray = sidArray // sid 배열 저장
+            self.collectionView.reloadData()
+        }
+    }
+    
+    // 사용자 일정수, 일정이름, 일정당지출  불러오기
+    func loadSpendingOfSchedule() {
+        var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:]// 일정 구조체 딕셔너리
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
+        ScheduleNetManager.shared.read(uid: self.uid!) { schedules in
+            for schedule in schedules {
+                let spendingOfEachSchedule = spendingOfEachSchedule(title: schedule.title!, region: schedule.region!, spending : 0, stausColor: self.discriminationScheduleData(schedule: schedule), spendingCount : 0) // 일정 구조체
+                spendingOfEachScheduleDict[schedule.sid!] = spendingOfEachSchedule // sid를 키값으로 저장
+                group.enter() // 그룹에 추가
+                PlaceNetManager.shared.read(sid: schedule.sid!) { places in
+                    for place in places {
+                        group.enter() // 그룹에 추가
+                        SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                            for spending in spendings {
+                                spendingOfEachScheduleDict[schedule.sid!]?.spending! += (spending.price! * spending.quantity!)
+                                spendingOfEachScheduleDict[schedule.sid!]?.spendingCount! += 1
+                            }
+                            group.leave() // 그룹에서 제외
+                        }
+                    }
+                    group.leave() // 그룹에서 제외
+                }
+                group.notify(queue: .main) {
+                    self.spendingOfEachScheduleDict = spendingOfEachScheduleDict
+                    print(spendingOfEachScheduleDict)
+                    self.collectionView.reloadData() // 새로고침
+                }
+            }
+        }
     }
     
     // 그림자 설정 함수
     func setShadow(cell : UICollectionViewCell) {
-        cell.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
         cell.layer.masksToBounds = false // 그림자 잘림 방지
-        cell.layer.shadowOffset = CGSize(width: 3, height: 3) // 그림자 위치
-        cell.layer.shadowRadius = 3 // 그림자 반경
-        cell.layer.shadowOpacity = 0.3 // alpha 값
+        cell.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
+        cell.layer.shadowOpacity = 0.5 // alpha 값
+        cell.layer.shadowOffset = CGSize(width: 0, height: 0) // 그림자 위치
+        cell.layer.shadowRadius = 5 // 그림자 반경
     }
-    
+
     // 금액 콤마 표기 함수
     func numberFormatter(number: Int) -> String {
         let numberFormatter = NumberFormatter()
@@ -38,62 +117,284 @@ class MyPageSpendingViewController: UIViewController {
         return numberFormatter.string(from: NSNumber(value: number))!
     }
     
-    // 지출내역 불러오기
-    func requestSpendingData() {
-        let user = UserDefaults.standard.getLoginUser()!
-        PlaceNetManager.shared.read(uid: user.uid!) { places in
-            for place in places {
-                SpendingNetManager.shared.read(pid: place.pid!) { spendings in
-                    self.spendingCount += spendings.count // 지출 내역 수 저장
+    // 스케줄 상태에 따른 색 구분
+    func discriminationScheduleData(schedule: Schedule) -> UIColor {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy.MM.dd"
+        let currentDate = formatter.string(from: Date())
+        if currentDate > schedule.stop! {
+            return #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) // 완료된 일정인 경우
+        } else if (currentDate >= schedule.start! && currentDate <= schedule.stop!) {
+            return #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1) // 진행중인 일정인 경우
+        } else {
+            return #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1) // 예정인 일정인 경우
+        }
+    }
+}
 
-                    // 지출내역 배열 저장
-                    for x in 0..<spendings.count {
-                        self.PlaceArray.append(place.name!)
-                        self.spendingArray.append(spendings[x])
-                    }
-
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                    }
+extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return  self.scheduleCount + 1  // 셀 수
+    }
+    
+    // 셀 설정 함수
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    
+        if indexPath.item == 0 { // 첫번째 셀 : 총지출 표시 셀인 경우
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userTotalSpendingCell", for: indexPath) as? userTotalSpendingCell else {
+                return UICollectionViewCell()
+            }
+            cell.layer.cornerRadius = 15 // 모서리 설정
+            setShadow(cell : cell) // 그림자 설정
+            cell.userTotalSpendingLabel.text = numberFormatter(number: self.userTotalSpending) // 총지출
+            return cell
+        }
+        
+        else { // 나머지 셀 : 일정당 지출금액 표시 셀인 경우
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "scheduleSpendingCell", for: indexPath) as? scheduleSpendingCell else {
+                return UICollectionViewCell()
+            }
+            
+            let sid = self.sidArray[indexPath.item - 1] // sid 배열에서 첫번째 sid 가져옴
+            cell.sid = sid // cell의 sid 설정
+            
+            // cell 내용 설정
+            if let title =  self.spendingOfEachScheduleDict[sid]?.title {
+                cell.scheduleTitleLabel.text = title // 일정 이름
+            }
+            if let region =  self.spendingOfEachScheduleDict[sid]?.region {
+                cell.scheduleRegionLabel.text = region // 여행 지역
+            }
+            if let color =  self.spendingOfEachScheduleDict[sid]?.stausColor {
+                cell.scheduleStatusLabel.backgroundColor = color // 일정 상태에 대한 색
+            }
+            if let spending = self.spendingOfEachScheduleDict[sid]?.spending {
+                cell.spendingOfScheduleLabel.text = numberFormatter(number : spending) // 지출 금액
+            }
+            
+            // cell UI 설정
+            cell.layer.cornerRadius = 15 // 모서리 설정
+            cell.contentView.alpha = 0.8
+            cell.scheduleStatusLabel.layer.masksToBounds = true // 상태 표시 라벨 설정
+            cell.scheduleStatusLabel.layer.cornerRadius = 3 // 상태 표시 라벨 설정ㄴ
+            setShadow(cell : cell) // 그림자 설정
+            return cell
+        }
+    }
+    
+    // 셀 선택 됐을 때
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row != 0 {
+            // 누른 셀이 이미 선택되어있던 셀인 경우
+            if selectedCellIndex == indexPath {
+                selectedCellIndex = nil
+                if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
+                    cell.contentView.alpha = 0.8
                 }
             }
-
+            // 누른 셀이 선택되어 있던 셀이 아닌 경우
+            else if selectedCellIndex != indexPath {
+                // 다른 셀이 선택되어 있던 경우
+                if let index = self.selectedCellIndex {
+                    if let cell = collectionView.cellForItem(at: index) as? scheduleSpendingCell {
+                        cell.contentView.alpha = 0.8
+                    }
+                }
+                // 선택된 셀이 없던 경우
+                self.selectedCellIndex = indexPath
+                if let cell = collectionView.cellForItem(at: indexPath) as? scheduleSpendingCell {
+                    cell.contentView.alpha = 1
+                    cell.loadEachSpending() // 상세 지출내역 데이터 불러옴
+                }
+            }
         }
+        
+        UIView.animate(withDuration: 0.5) { // 애니메이션 적용하여 셀 업데이트
+            collectionView.performBatchUpdates(nil, completion: nil)
+        }
+    }
+    
+    // 셀 사이즈 결정 함수
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        if indexPath.item != 0 {
+            // 만약 해당 셀이 선택된 셀이라면
+            if self.selectedCellIndex == indexPath {
+                var height: CGFloat = 100
+                // 만약 해당 일정에 지출내역이 존재하면
+                let sid = self.sidArray[indexPath.item - 1] // sid 가져옴
+                if let spendingCount = self.spendingOfEachScheduleDict[sid]?.spendingCount {
+                    if spendingCount > 0 {
+                        height += 30
+                    }
+                    height += CGFloat(90 * spendingCount)
+                }
+                
+                let width : CGFloat = 360
+                let cgSize =  CGSize(width: width, height: height)
+                return cgSize
+            }
+            // 만약 해당 셀이 선택된 셀이 아니라면
+            else  {
+                let width : CGFloat = 360
+                let height: CGFloat = 100
+                let cgSize =  CGSize(width: width, height: height)
+                return cgSize
+            }
+        } else {
+            let width : CGFloat = 360
+            let height: CGFloat = 100
+            let cgSize =  CGSize(width: width, height: height)
+            return cgSize
+        }
+    }
+    
+    // 셀표시할떄 함수
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // 딜레이 값
+        let delay : Double = (Double(indexPath.item) * (0.1))
+        // 셀의 초기 투명도와 위치 설정
+        cell.alpha = 0
+        cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
+        // 투명도를 1, 원래 위치로 이동
+        UIView.animate(withDuration: 0.5, delay: 0.2 + delay, options: [.curveEaseInOut], animations: {
+            cell.alpha = 1
+            cell.transform = CGAffineTransform.identity
+        }, completion: nil)
     }
 }
 
-extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+// 총 지출 금액 표시 셀
+class userTotalSpendingCell : UICollectionViewCell {
+    @IBOutlet weak var userTotalSpendingLabel: UILabel!
+}
+
+// 각 일정당 지출 금액 표시 셀
+class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+  
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    // cell 개수 지정
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.spendingCount
+    var sid : Int? // sid
+    var spendingCount : Int = 0  // 지출내역수
+    var spidArray : [Int] = []
+    
+    // 지출 금액 표시 셀에 대한 구조체
+    struct spendingForCell {
+        var title : String? // 지출 이름
+        var region : String? // 지출 지역
+        var spending : Int? // 지출 금액
+        var date : String? // 지출 날짜
     }
     
-    // cell 구성
+    var spendingDict : [Int : spendingForCell] = [:] // 일정 구조체 딕셔너리
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    // 지출 내역 정보 불러오기
+    func loadEachSpending() {
+        var spendingCount : Int = 0  // 지출내역수
+        var spidArray : [Int] = []
+        var spendingDict : [Int : spendingForCell] = [:] // 일정 구조체 딕셔너리
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
+        PlaceNetManager.shared.read(sid: self.sid!) { places in
+            for place in places {
+                group.enter() // 그룹에 추가
+                SpendingNetManager.shared.read(pid: place.pid!) { spendings in
+                    for spending in spendings {
+                        spendingCount += 1
+                        spidArray.append(spending.spid!)
+                        let spendingFC = spendingForCell(title: spending.name!, region: place.name!, spending : (spending.price! * spending.quantity!), date: place.visitDate!)
+                        spendingDict[spending.spid!] = spendingFC
+                    }
+                    group.leave() // 그룹에서 제외
+                }
+            }
+            group.notify(queue: .main) {
+                self.spendingCount = spendingCount
+                self.spidArray = spidArray
+                self.spendingDict = spendingDict
+                self.collectionView.reloadData() // 새로고침
+            }
+        }
+    }
+        
+    // 그림자 설정 함수
+    func setShadow(cell : UICollectionViewCell) {
+        cell.layer.masksToBounds = false // 그림자 잘림 방지
+        cell.layer.shadowColor = UIColor.black.cgColor // 그림자 색깔
+        cell.layer.shadowOpacity = 0.5 // alpha 값
+        cell.layer.shadowOffset = CGSize(width: 0, height: 0) // 그림자 위치
+        cell.layer.shadowRadius = 3 // 그림자 반경
+    }
+
+    // 금액 콤마 표기 함수
+    func numberFormatter(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: number))!
+    }
+    
+    // 셀 개수
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return spendingCount
+    }
+    
+    // 셀 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let spendingCell = collectionView.dequeueReusableCell(withReuseIdentifier: "spendingCollectionViewCell", for: indexPath) as? spendingCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailedCell", for: indexPath) as? detailedSpendingCell else {
             return UICollectionViewCell()
         }
+        cell.layer.cornerRadius = 10 // 모서리 설정
+        setShadow(cell : cell) // 그림자 설정
         
-        // cell UI 설정
-        spendingCell.layer.cornerRadius = 15 // 모서리
-        setShadow(cell : spendingCell) // 그림자
+        let spid = self.spidArray[indexPath.item] // spid 가져옴
         
-        // cell 내용 설정
-        spendingCell.spendingImage.image = self.spendingImage
-        spendingCell.spendingName.text = spendingArray[indexPath.row].name
-        spendingCell.spendingPlace.text = PlaceArray[indexPath.row]
-        spendingCell.spendingPrice.text = numberFormatter(number:(spendingArray[indexPath.row].price!))
-        
-        return spendingCell
+        // 지출 내역 이름 설정
+        if let title = self.spendingDict[spid]?.title {
+            cell.spendingTitleLabel.text = title
+        }
+        // 지출 내역 지역 설정
+        if let region = self.spendingDict[spid]?.region {
+            cell.spendingRegionLabel.text = region
+        }
+        // 지출 내역 금액 설정
+        if let spending = self.spendingDict[spid]?.spending {
+            cell.spendingLabel.text = numberFormatter(number : spending)
+        }
+        // 지출 날짜 설정
+        if let date = self.spendingDict[spid]?.date {
+            cell.spendingDateLabel.text = date
+        }
+        return cell
     }
+    
+    // 셀표시 할떄 함수
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        // 딜레이 값
+        let delay : Double = (Double(indexPath.item) * (0.1))
+        // 셀의 초기 투명도와 위치 설정
+        cell.alpha = 0
+        cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
+        
+        // 투명도를 1, 원래 위치로 이동
+        UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: {
+            cell.alpha = 1
+            cell.transform = CGAffineTransform.identity
+        }, completion: nil)
+    }
+    @IBOutlet weak var scheduleTitleLabel: UILabel! // 일정 이름
+    @IBOutlet weak var spendingOfScheduleLabel: UILabel! // 일정의 총 지출액
+    @IBOutlet weak var scheduleRegionLabel: UILabel! // 일정 지역 이름
+    @IBOutlet weak var scheduleStatusLabel: UILabel! // 일정 상태 라벨
 }
 
-class spendingCollectionViewCell : UICollectionViewCell {
-    @IBOutlet weak var spendingImage: UIImageView!
-    @IBOutlet weak var spendingName: UILabel!
-    @IBOutlet weak var spendingPlace: UILabel!
-    @IBOutlet weak var spendingPrice: UILabel!
+// 세부 지출내역 셀
+class detailedSpendingCell : UICollectionViewCell {
+    @IBOutlet weak var spendingTitleLabel: UILabel!
+    @IBOutlet weak var spendingRegionLabel: UILabel!
+    @IBOutlet weak var spendingLabel: UILabel!
+    @IBOutlet weak var spendingDateLabel: UILabel!
 }
-
-

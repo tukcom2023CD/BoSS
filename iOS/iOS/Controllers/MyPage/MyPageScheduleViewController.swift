@@ -137,23 +137,22 @@ class MyPageScheduleViewController: UIViewController {
     }
     
     // 총 지출 내역 불러오기
-    func loadSpendingData(sid : Int, spendingLabel : UILabel) {
-        var scheduleTotalSpending = 0
+    func requestSpendingData(sid : Int, spendingLabel : UILabel) {
+        var userTotalSpending = 0
+        // let user = UserDefaults.standard.getLoginUser()!
+        let group = DispatchGroup() // 비동기 함수 그룹
         PlaceNetManager.shared.read(sid: sid) { places in
             for place in places {
+                group.enter()
                 SpendingNetManager.shared.read(pid: place.pid!) { spendings in
                     for spending in spendings {
-                        scheduleTotalSpending += Int(spending.price!)
+                        userTotalSpending += Int(spending.price! * spending.quantity!)
                     }
-                    DispatchQueue.main.async {
-                        spendingLabel.text = self.numberFormatter(number: scheduleTotalSpending)
-                    }
+                    group.leave()
                 }
             }
-        }
-        if scheduleTotalSpending == 0 {
-            DispatchQueue.main.async {
-                spendingLabel.text = self.numberFormatter(number: scheduleTotalSpending)
+            group.notify(queue: .main) {
+                spendingLabel.text = self.numberFormatter(number: userTotalSpending)
             }
         }
     }
@@ -198,7 +197,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             cell.statusImage.tintColor = setColor(text: cell.statusLabel.text!)
             
             // 금액 표시
-            self.loadSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
+            self.requestSpendingData(sid : scheduleArray[indexPath.row].sid!, spendingLabel : cell.totalSpending)
         
             // 메뉴 설정
             let menuItems : [UIAction] = [
@@ -242,23 +241,11 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         scheduleEditVC.modalPresentationStyle = .fullScreen
         scheduleEditVC.modalTransitionStyle = .coverVertical
         
+        // 현재 여행 일정의 sid 값을 가지는 일정 구체를 찾아 편집화면으로 전달
         if let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})  {
-            if let sid = self.scheduleArray[index].sid  {
-                scheduleEditVC.scheduleSID = sid
-            }
-            if let title = self.scheduleArray[index].title  {
-                scheduleEditVC.scheduletTitle = title
-            }
-            if let start = self.scheduleArray[index].start  {
-                scheduleEditVC.scheduletStart = start
-            }
-            if let stop = self.scheduleArray[index].stop  {
-                scheduleEditVC.scheduletStop = stop
-            }
-            if let region = self.scheduleArray[index].region  {
-                scheduleEditVC.regionTitle = region
-            }
+            scheduleEditVC.schedule = self.scheduleArray[index]
         }
+        
         self.present(scheduleEditVC, animated: true)
     }
 }
