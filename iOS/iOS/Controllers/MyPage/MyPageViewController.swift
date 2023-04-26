@@ -292,18 +292,21 @@ class MyPageViewController: UIViewController {
 
     // 총 지출 내역 불러오기
     func requestSpendingData() {
+        var userTotalSpending = 0
         let user = UserDefaults.standard.getLoginUser()!
+        let group = DispatchGroup() // 비동기 함수 그룹
         PlaceNetManager.shared.read(uid: user.uid!) { places in
-            var userTotalSpending = 0
             for place in places {
+                group.enter()
                 SpendingNetManager.shared.read(pid: place.pid!) { spendings in
                     for spending in spendings {
-                        userTotalSpending += Int(spending.price!)
+                        userTotalSpending += Int(spending.price! * spending.quantity!)
                     }
-                    DispatchQueue.main.async {
-                        self.userSpendingLabel.text = self.numberFormatter(number: userTotalSpending)
-                    }
+                    group.leave()
                 }
+            }
+            group.notify(queue: .main) {
+                self.userSpendingLabel.text = self.numberFormatter(number: userTotalSpending)
             }
         }
     }

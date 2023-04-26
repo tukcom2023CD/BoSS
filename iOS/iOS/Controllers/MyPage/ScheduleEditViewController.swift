@@ -22,28 +22,19 @@ class ScheduleEditViewController : UIViewController {
     @IBOutlet weak var dataChangeButton: UIButton!
     @IBOutlet weak var regionTextField: UITextField!
     @IBOutlet weak var regionChangeButton: UIButton!
-    
-    var schedule: Schedule!
-    var scheduleSID : Int?
-    var scheduletTitle : String = ""
-    var scheduletStart : String = ""
-    var scheduletStop : String = ""
-    var regionTitle : String = ""
-    var uid : Int?
+        
+    var schedule: Schedule! // 일정 데이터 구조체
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        scheduleNameTextField.delegate = self
-        
-        scheduleNameTextField.text = scheduletTitle
-        scheduleDateTextField.text = scheduletStart + " ~ " + scheduletStop
-        regionTextField.text = regionTitle
-        
+        scheduleNameTextField.delegate = self // 델리게이트 설정
+
+        // 텍스트 필드 수정 못하도록 설정
         scheduleDateTextField.isEnabled = false
         regionTextField.isEnabled = false
         
-        setUI()
+        setUI() // UI 설정
+        setScheduleData() // 일정 데이터 표시
     }
     
     func setUI() {
@@ -54,6 +45,13 @@ class ScheduleEditViewController : UIViewController {
         
     }
     
+    func setScheduleData() {
+        // 일정 데이터 표시
+        scheduleNameTextField.text = schedule.title! // 일정 이름 표시
+        regionTextField.text = schedule.region! // 일정 지역 이름 표시
+        scheduleDateTextField.text = schedule.start! + " ~ " + schedule.stop!
+    }
+    
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
         dismiss(animated: true)
     }
@@ -62,30 +60,22 @@ class ScheduleEditViewController : UIViewController {
         
         // 제목 받아오기
         if let text = self.scheduleNameTextField.text {
-            self.scheduletTitle = text
+            self.schedule.title = text
         } else {
-            self.scheduletTitle = ""
+            self.schedule.title = ""
         }
         
         // 지역 받아오기
         if let region = self.regionTextField.text {
-            self.regionTitle = region
+            self.schedule.region = region
         }
         
-        // 변경된 내용 DB 저장
-        let schedule = Schedule (
-            sid : self.scheduleSID,
-            title : self.scheduletTitle,
-            region : self.regionTitle,
-            start : self.scheduletStart,
-            stop : self.scheduletStop,
-            uid : UserDefaults.standard.getLoginUser()!.uid )
+        // 변경된 내용 DB 업데이트
+        self.schedule.uid = UserDefaults.standard.getLoginUser()!.uid // uid값 설정
         
-        ScheduleNetManager.shared.update(schedule: schedule) {
-            print("일정 업데이트")
+        ScheduleNetManager.shared.update(schedule: self.schedule) {
             NotificationCenter.default.post(name: NSNotification.Name("ScheduleUpdated"), object: self)
         }
-        
         dismiss(animated: true)
     }
     
@@ -111,7 +101,6 @@ class ScheduleEditViewController : UIViewController {
     
     // 지역 변경 버튼 클릭시 동작
     @IBAction func regionChangeButtonTapped(_ sender: UIButton) {
-        
         // 지역 선택화면으로 이동 (컬렉션 뷰)
         guard let selectRegionVC = self.storyboard?.instantiateViewController(identifier: "selectRegionVC") as? SelectRegionViewController else {return}
         selectRegionVC.modalPresentationStyle = .fullScreen
@@ -123,8 +112,8 @@ class ScheduleEditViewController : UIViewController {
 
 extension ScheduleEditViewController : MyDelegate {
     func didChangeValue(value : String) {
-        print(value)
-        self.regionTextField.text = value
+        self.schedule.region = value // 지역 이름 저장
+        self.regionTextField.text = self.schedule.region // 지역 이름 표시
     }
 }
 
@@ -147,22 +136,19 @@ extension ScheduleEditViewController : CalendarDateRangePickerViewControllerDele
     }
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
-        self.scheduletStart = CustomDateFormatter.format.string(from: startDate)
-        self.scheduletStop = CustomDateFormatter.format.string(from: endDate)
-        
-        scheduleDateTextField.text = scheduletStart + " ~ " + scheduletStop
+        self.schedule.start = CustomDateFormatter.format.string(from: startDate) // 일정 시작 날짜 저장
+        self.schedule.stop = CustomDateFormatter.format.string(from: endDate) // 일정 종료 날짜 저장
+        scheduleDateTextField.text = self.schedule.start! + " ~ " + self.schedule.stop!
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func didSelectStartDate(startDate: Date!){
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MMM d일 EEEE"
         print(dateFormatter.string(from: startDate))
     }
     
     @objc func didSelectEndDate(endDate: Date!){
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MMM d일 EEEE"
         print(dateFormatter.string(from: endDate))
