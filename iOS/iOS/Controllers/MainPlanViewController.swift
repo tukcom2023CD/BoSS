@@ -30,9 +30,11 @@ class MainPlanViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         
-        setupUI()
+        setupTopView()
         setupTableView()
+        setupNavigationBar()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleData), name: NSNotification.Name("ScheduleUpdated"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,7 +48,8 @@ class MainPlanViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.isEnabled = false
         
     }
-    func setupUI() {
+    
+    func setupTopView() {
         period.text = "\(schedule.start!) ~ \(schedule.stop!)"
         tripTitle.attributedText = NSAttributedString(
             string: schedule.title!,
@@ -56,6 +59,9 @@ class MainPlanViewController: UIViewController {
                 .strokeWidth: -3.0
             ]
         )
+    }
+    
+    func setupNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(barButtonTapped))
     }
     
@@ -122,6 +128,13 @@ class MainPlanViewController: UIViewController {
         let vc = storyboard?.instantiateViewController(withIdentifier: "scheduleEditVC") as! ScheduleEditViewController
         vc.schedule = schedule
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func updateScheduleData() {
+        // 여행일정 업데이트 감지 시
+        // 1. 여행일정 데이터 불러오기 (변경된 일정을 파악하기 위함)
+        // 2. 기존 일정보다 줄었을 시 변경된 마지막 일정을 넘어선 여행지 데이터 모두 삭제
+        // 3. 여행지 데이터 불러오기
     }
 }
 

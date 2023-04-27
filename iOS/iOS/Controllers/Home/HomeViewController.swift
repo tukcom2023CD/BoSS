@@ -7,7 +7,7 @@
 
 import UIKit
 import CalendarDateRangePicker
-import CollectionViewPagingLayout
+//import CollectionViewPagingLayout
 
 
 
@@ -39,17 +39,19 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
       hideNavigation()
+        navigationController?.isToolbarHidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //title = "Travelog"
         scrollView.delegate = self
         stickyView.frame.origin.y = initialStickyViewYPosition
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        pageControl.numberOfPages = 5//linkImages.count
+        pageControl.numberOfPages = 5 //linkImages.count
         collectionView.register(UINib(nibName:"ExtensionHomeTravelCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "ExtensionHomeTravelCollectionViewCell")
         collectionView.register(UINib(nibName:"NoExHomeTravelCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "NoExHomeTravelCollectionViewCell")
         
@@ -190,22 +192,7 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
         cell.images.image = websitesImages[indexPath.row]
         
         return cell
-        //        if isExpanded {
-        //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ExtensionHomeTravelCollectionViewCell", for: indexPath) as! ExtensionHomeTravelCollectionViewCell
-        //            cell.labelText.text = String(currentCellIndex)
-        //
-        //
-        //
-        //            // 확장된 셀
-        //            return cell
-        //        } else {
-        //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NoExHomeTravelCollectionViewCell", for: indexPath) as! NoExHomeTravelCollectionViewCell
-        //            cell.images.image = UIImage(named: linkImages[indexPath.row])
-        //            // 기본 셀
-        //            return cell
-        //        }
-        
-        
+
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 각 셀의 크기를 지정

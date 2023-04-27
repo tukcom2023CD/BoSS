@@ -13,7 +13,6 @@ class WritingPageViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var uiView: UIView!
-    @IBOutlet weak var imageCard: UIImageView! //지울거 -> 임시로 isHidden사용
     @IBOutlet weak var contents: UILabel!
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var costView: UIView!
@@ -83,7 +82,6 @@ class WritingPageViewController: UIViewController {
             //
             indexBackView.isHidden = false
         }
-        imageCard.isHidden = true
     }
     
     

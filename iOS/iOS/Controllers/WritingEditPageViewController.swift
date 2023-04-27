@@ -9,37 +9,34 @@
 import UIKit
 import PhotosUI
 
-
-
-
-
 protocol PhotoArrayProtocol: AnyObject {
     func updatePhotoArray(_ photoArray: [UIImage])
 }
+
 class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayProtocol{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-           if let sendingVC = segue.destination as? WriteEditPhotoViewController {
-               sendingVC.delegate = self
-               sendingVC.photoArray = self.photoArray
-           }
-       }
-
-    // Container View segue가 실행될 때 호출되는 함수
-//       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//           if segue.identifier == "WritingEditPageVC" {
-//               // Container View 안의 ViewController를 가져옴
-//               let childViewController = segue.destination as! WriteEditPhotoViewController
-//
-//               // 데이터 전달
-//               childViewController.photoArray = self.photoArray
-//           }
-//       }
+        if let sendingVC = segue.destination as? WriteEditPhotoViewController {
+            sendingVC.delegate = self
+            sendingVC.photoArray = self.photoArray
+        }
+    }
     
-       func updatePhotoArray(_ photoArray: [UIImage]) {
-           self.photoArray = photoArray
-           print("받는쪽 사진 배열은 \(photoArray.count) items")
-       }
-
+    // Container View segue가 실행될 때 호출되는 함수
+    //       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //           if segue.identifier == "WritingEditPageVC" {
+    //               // Container View 안의 ViewController를 가져옴
+    //               let childViewController = segue.destination as! WriteEditPhotoViewController
+    //
+    //               // 데이터 전달
+    //               childViewController.photoArray = self.photoArray
+    //           }
+    //       }
+    
+    func updatePhotoArray(_ photoArray: [UIImage]) {
+        self.photoArray = photoArray
+        print("받는쪽 사진 배열은 \(photoArray.count) items")
+    }
+    
     func didUpdatePhotoArray(_ photoArray: [UIImage]) {
         self.photoArray = photoArray
     }
@@ -54,15 +51,15 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     var subTotalData: [Int] = [] //delete를 위한 각 행의 가격 데이터
     var getImageCard : UIImage?
     var photoArray : [UIImage] = []
-
+    
     
     var writeEditPhotoViewController: WriteEditPhotoViewController?
-
+    
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var uiView: UIView!
-    @IBOutlet weak var imageCard: UIImageView!
+    
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
     
@@ -80,8 +77,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         total_subPriceCal()
-
-         
+        
+        
     }
     
     // MARK: - viewDidLoad
@@ -89,8 +86,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         super.viewDidLoad()
         
         uiViewSetting()
-        imageCardSetting()
-        setupTapGestures()
+        
         setupCamera()
         contentsSetting()
         
@@ -99,14 +95,11 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         receiptView.layer.cornerRadius = 5
         
         
-        if getImageCard != nil {
-            imageCard.image = getImageCard
-        }
         
         contents.text = place.diary
         
-
-
+        
+        
     }
     // MARK: - total_subPriceCal : 총가격과 행마다의 가격계산함수
     func total_subPriceCal(){
@@ -132,38 +125,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         
     }
     
-    // MARK: - setupTapGestures
-    // 제스쳐 설정 (이미지뷰가 눌리면, 실행)
-    func setupTapGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchUpImageView))
-        imageCard.addGestureRecognizer(tapGesture)
-        imageCard.isUserInteractionEnabled = true
-        print(#function)
-    }
     
-    // MARK: - touchUpImageView
-    @objc func touchUpImageView() {
-        print("이미지뷰 터치")
-        imagePickerStatus = false
-        setupImagePicker()
-        
-       
-    }
     
-    // MARK: - setupImagePicker
-    func setupImagePicker() {
-        // 기본설정 셋팅
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 0
-        configuration.filter = .images
-        
-        // 기본설정을 가지고, 피커뷰컨트롤러 생성
-        let picker = PHPickerViewController(configuration: configuration)
-        // 피커뷰 컨트롤러의 대리자 설정
-        picker.delegate = self
-        // 피커뷰 띄우기
-        self.present(picker, animated: true, completion: nil)
-    }
     
     // MARK: - setupCamera
     func setupCamera() {
@@ -183,13 +146,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         self.uiView.layer.cornerRadius = 10
     }
     
-    // MARK: - imageCardSetting
-    func imageCardSetting(){
-        self.imageCard.layer.borderWidth = 0.3
-        self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
-        self.imageCard.layer.cornerRadius = 10
-        
-    }
+    
+    
     
     // MARK: - changeTitleMode
     func changeTitleMode(){
@@ -248,7 +206,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         }
         let albumSheet = UIAlertAction(title: "앨범", style: .default) { action in
             self.imagePickerStatus = true
-            self.setupImagePicker()
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         
@@ -266,15 +223,15 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         place.diary = contents.text
         place.totalSpending = totalPrice
         let spendingData = SpendingData(pid: place.pid!, spendings: spendings)
-        let image = imageCard.image
-     
+        
+        
         DispatchQueue.global().async {
             let dispatchGroup = DispatchGroup()
             
-//            dispatchGroup.enter()
-//            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: image!) {
-//                dispatchGroup.leave()
-//            }
+            dispatchGroup.enter()
+            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: self.photoArray) {
+                dispatchGroup.leave()
+            }
             
             dispatchGroup.enter()
             PlaceNetManager.shared.update(place: self.place) {
@@ -294,7 +251,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                         self.navigationController?.viewControllers else { return }
                 for vc in vcStack {
                     if let view = vc as? WritingPageViewController {
-                       // view.imageCardData = self.imageCard.image
+                        // view.imageCardData = self.imageCard.image
                         view.spendings = self.spendings
                         view.place = self.place
                         //view.imageCard.image = self.imageCard.image
@@ -329,7 +286,7 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
                             
-                           self.spendings.insert(Spending(name: name, quantity: 1, price:Int(price), pid: self.place.pid!), at: 0)
+                            self.spendings.insert(Spending(name: name, quantity: 1, price:Int(price), pid: self.place.pid!), at: 0)
                             total_subPriceCal()
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
@@ -338,28 +295,24 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                                 let price = item.price.price.formatted.value
                                 
                                 self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price), pid: self.place.pid!), at: 0)
-                               
+                                
                                 total_subPriceCal()
                             }
                         }
                     }
-                } else { // 여행 사진 추가
-                    DispatchQueue.main.async {
-                        // 이미지뷰에 표시
-                        self.imageCard.image = image
-                    }
                 }
+                
             }
         } else {
             print("이미지 못 불러옴")
         }
     }
     // WriteEditPhotoViewController 인스턴스 생성 및 photoArray 접근
-       func addImage() {
-           let writeEditPhotoViewController = WriteEditPhotoViewController()
-           photoArray = writeEditPhotoViewController.photoArray
-           navigationController?.pushViewController(writeEditPhotoViewController, animated: true)
-       }
+    func addImage() {
+        let writeEditPhotoViewController = WriteEditPhotoViewController()
+        photoArray = writeEditPhotoViewController.photoArray
+        navigationController?.pushViewController(writeEditPhotoViewController, animated: true)
+    }
 }
 
 // MARK: - ImagePickerControllerDelegate
@@ -374,28 +327,28 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
         
         present(alert, animated: true)
         //picker.present(alert, animated: true) {
-            OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
-                if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
-                    let name = receiptData.storeInfo.name.formatted.value
-                    let price = receiptData.totalPrice.price.formatted.value
+        OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
+            if receiptData.subResults.isEmpty { // 총 비용만 존재할 때
+                let name = receiptData.storeInfo.name.formatted.value
+                let price = receiptData.totalPrice.price.formatted.value
+                
+                self.spendings.insert(Spending( price:Int(price)), at: 0)
+                
+                
+                
+            } else {  // 상세 지출 내역이 존재할 때
+                for item in receiptData.subResults[0].items {
+                    let name = item.name.formatted.value
+                    let count = item.count.formatted.value
+                    let price = item.price.price.formatted.value
                     
-                    self.spendings.insert(Spending( price:Int(price)), at: 0)
+                    self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price)), at: 0)
                     
-                    
-                    
-                } else {  // 상세 지출 내역이 존재할 때
-                    for item in receiptData.subResults[0].items {
-                        let name = item.name.formatted.value
-                        let count = item.count.formatted.value
-                        let price = item.price.price.formatted.value
-                        
-                        self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price)), at: 0)
-                        
-                    }
                 }
-                alert.dismiss(animated: true)
-                //picker.dismiss(animated: true)
             }
+            alert.dismiss(animated: true)
+            //picker.dismiss(animated: true)
+        }
         //}
         
         
@@ -405,7 +358,7 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
         
         picker.dismiss(animated: true)
     }
-   
+    
 }
 
 // MARK: - UITextFieldDelegate

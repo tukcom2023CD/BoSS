@@ -32,6 +32,17 @@ class ReadSchedule(Resource):
         if len(data) != 0:
             data.sort(key=lambda x: x["start"]) # 여행 시작 날짜순으로 정렬
         return jsonify({"schedules": data}) # josn 형식의 데이터를 반환합니다.
+    
+# 일정 가져오기 (R)
+@Schedule.route('/api/schedule/read/<int:sid>')  
+class ReadSchedule(Resource):
+    def get(self, sid):
+        sql = f"select * from schedule where sid = {sid}" # sql문을 생성합니다.
+        conn = connect.ConnectDB(sql) # DB와 연결합니다.
+        conn.execute() # sql문 수행합니다.
+        data = conn.fetch() # json 형식의 데이터를 가져옵니다.
+        del conn # DB와 연결을 해제합니다.
+        return jsonify(data[0]) # josn 형식의 데이터를 반환합니다.
         
 
 # 일정 업데이트 (U)

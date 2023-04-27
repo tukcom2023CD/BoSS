@@ -13,14 +13,14 @@ import BSImagePicker
 
 
 class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
- 
+    
     
     var photoArray = [UIImage]()
     var pickerController: UIImagePickerController?
-
+    
     weak var delegate: PhotoArrayProtocol?
-
-
+    
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -35,8 +35,8 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
     
     @IBAction func deleteImageTapped(_ sender: UIButton) {
         
-                self.photoArray.remove(at: sender.tag)
-       
+        self.photoArray.remove(at: sender.tag)
+        
         self.collectionView.reloadData()
         self.delegate?.updatePhotoArray(self.photoArray)
         
@@ -45,19 +45,46 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
     
     @IBAction func addImageTapped(_ sender: Any) {
         
+        if photoArray.count == 8 {
+            
+            let alertController = UIAlertController(title: "이미지 업로드 제한", message: "이미지는 최대 8장까지 업로드가 가능합니다.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        
         
         let imagePicker = ImagePickerController()
-               presentImagePicker(imagePicker) { asset in
-               } deselect: { asset in
-               } cancel: { assets in
-               }
-               finish: { assets in
-                   self.convertAssetsToImages(from: assets)
-               }
-           }
-           
+        imagePicker.settings.selection.max = 8 - self.photoArray.count
+        
+        
+        presentImagePicker(imagePicker) { asset in
+            
+        } deselect: { asset in
+        } cancel: { assets in
+        }
+    finish: { assets in
+        self.convertAssetsToImages(from: assets)
+    }
+    }
+    
     
     func convertAssetsToImages(from assets: [PHAsset]) {
+        
+        
+        let totalImagesCount = self.photoArray.count + assets.count
+        
+        if totalImagesCount > 8 {
+            
+            
+            let alertController = UIAlertController(title: "이미지 업로드 제한", message: "이미지는 최대 8장까지 업로드가 가능합니다.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+            return
+            
+        }
         if assets.count != 0 {
             var convertedImages = [UIImage]()
             for i in 0..<assets.count {
@@ -65,7 +92,8 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
                 let option = PHImageRequestOptions()
                 var thumbnail = UIImage()
                 option.isSynchronous = true
-                manager.requestImage(for: assets[i], targetSize: CGSize(width: 100, height: 100), contentMode: PHImageContentMode.aspectFill, options: option, resultHandler: { (result, info) -> Void in
+                //option.deliveryMode = .highQualityFormat
+                manager.requestImage(for: assets[i], targetSize: .zero, contentMode: PHImageContentMode.aspectFill, options: option, resultHandler: { (result, info) -> Void in
                     thumbnail = result!
                 })
                 let data = thumbnail.jpegData(compressionQuality: 0.7)
