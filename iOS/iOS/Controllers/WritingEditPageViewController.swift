@@ -272,7 +272,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
             let dispatchGroup = DispatchGroup()
             
             dispatchGroup.enter()
-            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: self.photoArray[0]) {
+            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: self.photoArray) {
                 dispatchGroup.leave()
             }
             
