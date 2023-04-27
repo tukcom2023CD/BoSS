@@ -65,7 +65,8 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
                 let option = PHImageRequestOptions()
                 var thumbnail = UIImage()
                 option.isSynchronous = true
-                manager.requestImage(for: assets[i], targetSize: CGSize(width: 100, height: 100), contentMode: PHImageContentMode.aspectFill, options: option, resultHandler: { (result, info) -> Void in
+                //option.deliveryMode = .highQualityFormat
+                manager.requestImage(for: assets[i], targetSize: .zero, contentMode: PHImageContentMode.aspectFill, options: option, resultHandler: { (result, info) -> Void in
                     thumbnail = result!
                 })
                 let data = thumbnail.jpegData(compressionQuality: 0.7)
