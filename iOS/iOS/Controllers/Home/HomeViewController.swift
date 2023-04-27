@@ -7,7 +7,7 @@
 
 import UIKit
 import CalendarDateRangePicker
-import CollectionViewPagingLayout
+//import CollectionViewPagingLayout
 
 
 

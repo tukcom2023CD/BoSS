@@ -114,7 +114,9 @@ class AlbumViewController: UIViewController {
         // 카테고리가 존재하는 경우
         else {
             // 선택한 카테고리 별로 사진을 가져옴
+            let group = DispatchGroup() // 비동기 함수 그룹
             for selectedCategory in resultTC.userSelectedCategory {
+                group.enter() // 그룹에 추가
                 PhotoNetManager.shared.read(uid: user.uid!, category: selectedCategory) { photos in
                     for photo in photos {
                         if !(self.imageUrlArray.contains(photo.imageUrl)) {
@@ -122,11 +124,12 @@ class AlbumViewController: UIViewController {
                             self.imageUrlArray.append(photo.imageUrl)
                         }
                     }
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                        self.navigationItem.title = "사진 \(self.imageCount) 장"
-                    }
+                    group.leave() // 그룹 떠남
                 }
+            }
+            group.notify(queue: .main) {
+                self.collectionView.reloadData()
+                self.navigationItem.title = "사진 \(self.imageCount) 장"
             }
         }
     }
