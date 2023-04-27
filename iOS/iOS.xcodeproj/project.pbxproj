@@ -291,7 +291,6 @@
 				3785E3F029E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift */,
 				3785E3F129E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib */,
 				371DC5A129E58DB700EFD154 /* WritingEditPhotoCollectionViewCell.swift */,
-				371DC5A329E58E5000EFD154 /* WriteEditPhotoViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -365,6 +364,7 @@
 		5775975B297653EB008CB199 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				371DC5A329E58E5000EFD154 /* WriteEditPhotoViewController.swift */,
 				BF64B75F299A18F5009C5937 /* Album */,
 				57C3DD9C299BF335009466FA /* Home */,
 				BF6A5F372994AF51008B76B6 /* MyPage */,

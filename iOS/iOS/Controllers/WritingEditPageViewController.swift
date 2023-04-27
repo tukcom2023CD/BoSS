@@ -62,7 +62,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var uiView: UIView!
-    @IBOutlet weak var imageCard: UIImageView!
+
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
     
@@ -89,8 +89,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         super.viewDidLoad()
         
         uiViewSetting()
-        imageCardSetting()
-        setupTapGestures()
+      
         setupCamera()
         contentsSetting()
         
@@ -99,9 +98,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         receiptView.layer.cornerRadius = 5
         
         
-        if getImageCard != nil {
-            imageCard.image = getImageCard
-        }
         
         contents.text = place.diary
         
@@ -132,39 +128,9 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         
     }
     
-    // MARK: - setupTapGestures
-    // 제스쳐 설정 (이미지뷰가 눌리면, 실행)
-    func setupTapGestures() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchUpImageView))
-        imageCard.addGestureRecognizer(tapGesture)
-        imageCard.isUserInteractionEnabled = true
-        print(#function)
-    }
+  
     
-    // MARK: - touchUpImageView
-    @objc func touchUpImageView() {
-        print("이미지뷰 터치")
-        imagePickerStatus = false
-        setupImagePicker()
-        
-       
-    }
-    
-    // MARK: - setupImagePicker
-    func setupImagePicker() {
-        // 기본설정 셋팅
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 0
-        configuration.filter = .images
-        
-        // 기본설정을 가지고, 피커뷰컨트롤러 생성
-        let picker = PHPickerViewController(configuration: configuration)
-        // 피커뷰 컨트롤러의 대리자 설정
-        picker.delegate = self
-        // 피커뷰 띄우기
-        self.present(picker, animated: true, completion: nil)
-    }
-    
+
     // MARK: - setupCamera
     func setupCamera() {
         camera.sourceType = .camera
@@ -183,13 +149,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         self.uiView.layer.cornerRadius = 10
     }
     
-    // MARK: - imageCardSetting
-    func imageCardSetting(){
-        self.imageCard.layer.borderWidth = 0.3
-        self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
-        self.imageCard.layer.cornerRadius = 10
-        
-    }
+
+
     
     // MARK: - changeTitleMode
     func changeTitleMode(){
@@ -248,7 +209,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         }
         let albumSheet = UIAlertAction(title: "앨범", style: .default) { action in
             self.imagePickerStatus = true
-            self.setupImagePicker()
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         
@@ -266,7 +226,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         place.diary = contents.text
         place.totalSpending = totalPrice
         let spendingData = SpendingData(pid: place.pid!, spendings: spendings)
-        let image = imageCard.image
+      
      
         DispatchQueue.global().async {
             let dispatchGroup = DispatchGroup()
@@ -329,7 +289,7 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                             let name = receiptData.storeInfo.name.formatted.value
                             let price = receiptData.totalPrice.price.formatted.value
                             
-                           self.spendings.insert(Spending(name: name, quantity: 1, price:Int(price), pid: self.place.pid!), at: 0)
+                            self.spendings.insert(Spending(name: name, quantity: 1, price:Int(price), pid: self.place.pid!), at: 0)
                             total_subPriceCal()
                         } else {    // 상세 지출 내역이 존재할 때
                             for item in receiptData.subResults[0].items {
@@ -338,17 +298,13 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                                 let price = item.price.price.formatted.value
                                 
                                 self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price), pid: self.place.pid!), at: 0)
-                               
+                                
                                 total_subPriceCal()
                             }
                         }
                     }
-                } else { // 여행 사진 추가
-                    DispatchQueue.main.async {
-                        // 이미지뷰에 표시
-                        self.imageCard.image = image
-                    }
                 }
+                
             }
         } else {
             print("이미지 못 불러옴")
