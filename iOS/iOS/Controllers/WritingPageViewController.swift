@@ -17,7 +17,7 @@ class WritingPageViewController: UIViewController {
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var costView: UIView!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tableLabel: UIStackView!
+   
     @IBOutlet weak var labelView: UIView!
     var photoArray: [UIImage] = []
     
@@ -33,7 +33,6 @@ class WritingPageViewController: UIViewController {
             imageView.image = UIImage(systemName: "chevron.down")
         }
     }
-    var imageCardData : UIImage! = UIImage(named: "여행사진 1")
     var onTapped :Bool = true
     
     
@@ -46,6 +45,7 @@ class WritingPageViewController: UIViewController {
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         var totalPrice : Int = 0
         // 전화면에서 전달받은 데이터들을 통해 셋팅
         contents.text = place.diary
@@ -56,7 +56,7 @@ class WritingPageViewController: UIViewController {
             }
             // costLabel.text = String(totalPrice)
             place.totalSpending! += totalPrice
-            costLabel.text = "\(totalPrice)"
+            costLabel.text = self.numberFormatter(number:totalPrice)//"\(totalPrice)"
         }
         contents.translatesAutoresizingMaskIntoConstraints = false
         tableView.reloadData()
@@ -76,7 +76,7 @@ class WritingPageViewController: UIViewController {
         pageControl.layer.cornerRadius = 10
         //선택 이미지가 없을때
         if collectionView.numberOfItems(inSection: 0) == 0 {
-           
+            
             indexBackView.isHidden = true
         } else {
             //
@@ -92,7 +92,7 @@ class WritingPageViewController: UIViewController {
         changeTitleMode()
         costViewSetting()
         tableView.isHidden = true
-        tableLabel.isHidden = true
+       
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
         uploadImageCard()
@@ -107,23 +107,72 @@ class WritingPageViewController: UIViewController {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // 콜렉션 뷰 경계선으로부터 셀까지의 여백
         collectionView.collectionViewLayout = layout
         
+        //테이블뷰 겉의 선
+        tableView.layer.borderWidth = 2
+           tableView.layer.borderColor = UIColor.lightGray.cgColor
+        tableView.estimatedRowHeight = 100
     }
     
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
         onTapped = !onTapped
-        if onTapped == true{
-            tableView.isHidden = true
-            tableLabel.isHidden = true
-            imageView.image = UIImage(systemName: "chevron.down")
+        
+        UIView.animate(withDuration: 0.3) {
+            if self.onTapped {
+                //                   self.tableView.alpha = 0.0
+                //                   self.tableLabel.alpha = 0.0
+                hideTableView()
+                self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+            } else {
+                //                   self.tableView.alpha = 1.0
+                //                   self.tableLabel.alpha = 1.0
+                self.imageView.transform = CGAffineTransform(rotationAngle: 0)
+            }
+        } completion: { _ in
+            if self.onTapped {
+                self.tableView.isHidden = true
+             
+            } else {
+                self.tableView.isHidden = false
+               
+                showTableView() // showTableView() 메서드를 호출하여 애니메이션 실행
+            }
         }
-        else {
-            tableView.isHidden = false
-            tableLabel.isHidden = false
-            imageView.image = UIImage(systemName: "chevron.up")
+        func hideTableView() {
+            var delayCounter = 0.1
+            let cells = tableView.visibleCells
+            for i in 0..<cells.count {
+                let cell = cells[i]
+                UIView.animate(withDuration: 0.5, delay: delayCounter, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
+                    cell.transform = CGAffineTransform(translationX: 0, y: -self.tableView.bounds.height)
+                }, completion: nil)
+                delayCounter += 0.1
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + delayCounter) {
+                self.tableView.isHidden = true
+               
+            }
+        }
+        
+        func showTableView() {
+            // 첫번째 row보이
+            var delayCounter = 0.1
+            for i in 0..<tableView.visibleCells.count {
+                let cell = tableView.visibleCells[i]
+                cell.transform = CGAffineTransform(translationX: 0, y: -tableView.bounds.height)
+                UIView.animate(withDuration: 0.5, delay: delayCounter, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
+                    cell.transform = CGAffineTransform.identity
+                }, completion: nil)
+                delayCounter += 0.1
+            }
         }
     }
-    
-    
+    // 금액에 콤마를 포함하여 표기 함수
+    func numberFormatter(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: number))!
+    }
+ 
     // MARK: - uploadImageCard
     // 여행지 사진 네트워킹
     func uploadImageCard() {
@@ -155,25 +204,24 @@ class WritingPageViewController: UIViewController {
         
     }
     // MARK: - uiViewSetting() :UI세팅
-//    func uiViewSetting(){
-//        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-//        self.uiView.layer.borderWidth = 0.3
-//        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
-//        self.uiView.layer.cornerRadius = 10
-//    }
-//
-//    // MARK: -imageCardSetting() :UI세팅
-//    func imageCardSetting(){
-//        self.imageCard.layer.borderWidth = 0.3
-//        self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
-//        self.imageCard.layer.cornerRadius = 10
-//
-//    }
+    //    func uiViewSetting(){
+    //        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
+    //        self.uiView.layer.borderWidth = 0.3
+    //        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
+    //        self.uiView.layer.cornerRadius = 10
+    //    }
+    //
+    //    // MARK: -imageCardSetting() :UI세팅
+    //    func imageCardSetting(){
+    //        self.imageCard.layer.borderWidth = 0.3
+    //        self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
+    //        self.imageCard.layer.cornerRadius = 10
+    //
+    //    }
     // MARK: -costViewSetting() :UI세팅
     func costViewSetting(){
         costView.layer.cornerRadius = 10
     }
-    
     
     
     // MARK: 스무스한 타이틀 변경
@@ -254,7 +302,7 @@ extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewD
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        spendings.count
+        spendings.count + 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -263,13 +311,41 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else { return UITableViewCell() }
-        
-        
-        let spending = spendings[indexPath.row] // 상세 지출 내역
-        cell.itemLabel.text = spending.name
-        cell.amountLabel.text = "\(spending.quantity ?? 1)"
-        cell.priceLabel.text = "\(spending.price ?? 0)"
-        
+        if indexPath.row == 0 {
+            // 라벨 폰트와 색상 변경
+                   cell.itemLabel.font = UIFont.boldSystemFont(ofSize: 18)
+                   cell.amountLabel.font = UIFont.boldSystemFont(ofSize: 18)
+                   cell.priceLabel.font = UIFont.boldSystemFont(ofSize: 18)
+                   cell.itemLabel.textColor = UIColor.black
+                   cell.amountLabel.textColor = UIColor.black
+                   cell.priceLabel.textColor = UIColor.black
+                   
+                   // 셀의 테두리 색상 변경
+                   cell.layer.borderWidth = 2
+                   cell.layer.borderColor = UIColor.darkGray.cgColor
+                   
+                   // 셀의 크기 변경
+                   cell.frame.size.height = 100
+                    // 첫 번째 row에 개수 라벨 추가
+                    cell.itemLabel.text = "품명"
+                    cell.amountLabel.text = "수량"
+                    cell.priceLabel.text = "가격"
+                } else {
+                    cell.itemLabel.font = UIFont.systemFont(ofSize: 17)
+                           cell.amountLabel.font = UIFont.systemFont(ofSize: 17)
+                           cell.priceLabel.font = UIFont.systemFont(ofSize: 17)
+                           cell.itemLabel.textColor = UIColor.darkGray
+                           cell.amountLabel.textColor = UIColor.darkGray
+                           cell.priceLabel.textColor = UIColor.darkGray
+                           cell.layer.borderWidth = 0
+                           cell.frame.size.height = 60
+                    
+                    let spending = spendings[indexPath.row-1] // 지출 내역은 첫 번째 row를 제외한 인덱스에 저장
+                    cell.itemLabel.text = spending.name
+                    cell.amountLabel.text = "\(spending.quantity ?? 1)"
+                    cell.priceLabel.text = self.numberFormatter(number:spending.price!)//"\(spending.price ?? 0)"
+                }
+
         return cell
     }
 }
