@@ -17,7 +17,8 @@ class WritingPageViewController: UIViewController {
     @IBOutlet weak var costLabel: UILabel!
     @IBOutlet weak var costView: UIView!
     @IBOutlet weak var tableView: UITableView!
-   
+    
+    @IBOutlet weak var receiptBackImg: UIImageView!
     @IBOutlet weak var labelView: UIView!
     var photoArray: [UIImage] = []
     
@@ -26,6 +27,8 @@ class WritingPageViewController: UIViewController {
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
     
+    @IBOutlet weak var tableViewShapeView: UIView!
+    @IBOutlet weak var noImageView: UIImageView!
     // MARK: 이미지 터치기능을 위한 didset
     @IBOutlet var imageView: UIImageView!{
         didSet {
@@ -58,7 +61,10 @@ class WritingPageViewController: UIViewController {
             place.totalSpending! += totalPrice
             costLabel.text = self.numberFormatter(number:totalPrice)//"\(totalPrice)"
         }
+        
         contents.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         tableView.reloadData()
         collectionView.reloadData()
         
@@ -76,11 +82,14 @@ class WritingPageViewController: UIViewController {
         pageControl.layer.cornerRadius = 10
         //선택 이미지가 없을때
         if collectionView.numberOfItems(inSection: 0) == 0 {
-            
+            noImageView.image = UIImage(named: "빈이미지")
+            noImageView.isHidden = false
             indexBackView.isHidden = true
+            
         } else {
             //
             indexBackView.isHidden = false
+            noImageView.isHidden = true
         }
     }
     
@@ -91,8 +100,9 @@ class WritingPageViewController: UIViewController {
         
         changeTitleMode()
         costViewSetting()
+        
         tableView.isHidden = true
-       
+        receiptBackImg.isHidden = true
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
         uploadImageCard()
@@ -108,9 +118,15 @@ class WritingPageViewController: UIViewController {
         collectionView.collectionViewLayout = layout
         
         //테이블뷰 겉의 선
-        tableView.layer.borderWidth = 2
-           tableView.layer.borderColor = UIColor.lightGray.cgColor
-        tableView.estimatedRowHeight = 100
+        tableView.layer.masksToBounds = true
+        tableView.layer.shadowColor = UIColor.black.cgColor
+        tableView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        tableView.layer.shadowRadius = 4
+        tableView.layer.shadowOpacity = 0.3
+        
+        //        tableView.layer.borderWidth = 2
+        //        tableView.layer.borderColor = UIColor.lightGray.cgColor
+        //        tableView.estimatedRowHeight = 100
     }
     
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
@@ -130,15 +146,19 @@ class WritingPageViewController: UIViewController {
         } completion: { _ in
             if self.onTapped {
                 self.tableView.isHidden = true
-             
+                
             } else {
                 self.tableView.isHidden = false
-               
+                
                 showTableView() // showTableView() 메서드를 호출하여 애니메이션 실행
+                
             }
         }
         func hideTableView() {
+            
+            receiptBackImg.isHidden = true
             var delayCounter = 0.1
+          
             let cells = tableView.visibleCells
             for i in 0..<cells.count {
                 let cell = cells[i]
@@ -149,18 +169,25 @@ class WritingPageViewController: UIViewController {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + delayCounter) {
                 self.tableView.isHidden = true
-               
+                
             }
         }
         
         func showTableView() {
-            // 첫번째 row보이
+            receiptBackImg.isHidden = false
+            // receiptBackImg를 서서히 나타나게 함
+            self.receiptBackImg.alpha = 0.0
+            UIView.animate(withDuration: 0.6, animations: {
+                self.receiptBackImg.alpha = 0.23
+            })
+            // 첫번째 row
             var delayCounter = 0.1
             for i in 0..<tableView.visibleCells.count {
                 let cell = tableView.visibleCells[i]
                 cell.transform = CGAffineTransform(translationX: 0, y: -tableView.bounds.height)
                 UIView.animate(withDuration: 0.5, delay: delayCounter, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
                     cell.transform = CGAffineTransform.identity
+                    
                 }, completion: nil)
                 delayCounter += 0.1
             }
@@ -172,7 +199,7 @@ class WritingPageViewController: UIViewController {
         numberFormatter.numberStyle = .decimal
         return numberFormatter.string(from: NSNumber(value: number))!
     }
- 
+    
     // MARK: - uploadImageCard
     // 여행지 사진 네트워킹
     func uploadImageCard() {
@@ -313,39 +340,39 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else { return UITableViewCell() }
         if indexPath.row == 0 {
             // 라벨 폰트와 색상 변경
-                   cell.itemLabel.font = UIFont.boldSystemFont(ofSize: 18)
-                   cell.amountLabel.font = UIFont.boldSystemFont(ofSize: 18)
-                   cell.priceLabel.font = UIFont.boldSystemFont(ofSize: 18)
-                   cell.itemLabel.textColor = UIColor.black
-                   cell.amountLabel.textColor = UIColor.black
-                   cell.priceLabel.textColor = UIColor.black
-                   
-                   // 셀의 테두리 색상 변경
-                   cell.layer.borderWidth = 2
-                   cell.layer.borderColor = UIColor.darkGray.cgColor
-                   
-                   // 셀의 크기 변경
-                   cell.frame.size.height = 100
-                    // 첫 번째 row에 개수 라벨 추가
-                    cell.itemLabel.text = "품명"
-                    cell.amountLabel.text = "수량"
-                    cell.priceLabel.text = "가격"
-                } else {
-                    cell.itemLabel.font = UIFont.systemFont(ofSize: 17)
-                           cell.amountLabel.font = UIFont.systemFont(ofSize: 17)
-                           cell.priceLabel.font = UIFont.systemFont(ofSize: 17)
-                           cell.itemLabel.textColor = UIColor.darkGray
-                           cell.amountLabel.textColor = UIColor.darkGray
-                           cell.priceLabel.textColor = UIColor.darkGray
-                           cell.layer.borderWidth = 0
-                           cell.frame.size.height = 60
-                    
-                    let spending = spendings[indexPath.row-1] // 지출 내역은 첫 번째 row를 제외한 인덱스에 저장
-                    cell.itemLabel.text = spending.name
-                    cell.amountLabel.text = "\(spending.quantity ?? 1)"
-                    cell.priceLabel.text = self.numberFormatter(number:spending.price!)//"\(spending.price ?? 0)"
-                }
-
+            cell.itemLabel.font = UIFont.boldSystemFont(ofSize: 18)
+            cell.amountLabel.font = UIFont.boldSystemFont(ofSize: 18)
+            cell.priceLabel.font = UIFont.boldSystemFont(ofSize: 18)
+            cell.itemLabel.textColor = UIColor.black
+            cell.amountLabel.textColor = UIColor.black
+            cell.priceLabel.textColor = UIColor.black
+            
+            // 셀의 테두리 색상 변경
+            cell.layer.borderWidth = 2
+            cell.layer.borderColor = UIColor.darkGray.cgColor
+            
+            // 셀의 크기 변경
+            cell.frame.size.height = 100
+            // 첫 번째 row에 개수 라벨 추가
+            cell.itemLabel.text = "품명"
+            cell.amountLabel.text = "수량"
+            cell.priceLabel.text = "가격"
+        } else {
+            cell.itemLabel.font = UIFont.systemFont(ofSize: 17)
+            cell.amountLabel.font = UIFont.systemFont(ofSize: 17)
+            cell.priceLabel.font = UIFont.systemFont(ofSize: 17)
+            cell.itemLabel.textColor = UIColor.darkGray
+            cell.amountLabel.textColor = UIColor.darkGray
+            cell.priceLabel.textColor = UIColor.darkGray
+            cell.layer.borderWidth = 0
+            cell.frame.size.height = 60
+            
+            let spending = spendings[indexPath.row-1] // 지출 내역은 첫 번째 row를 제외한 인덱스에 저장
+            cell.itemLabel.text = spending.name
+            cell.amountLabel.text = "\(spending.quantity ?? 1)"
+            cell.priceLabel.text = self.numberFormatter(number:spending.price!)//"\(spending.price ?? 0)"
+        }
+        
         return cell
     }
 }
