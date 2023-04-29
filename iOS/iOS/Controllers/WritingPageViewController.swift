@@ -63,23 +63,6 @@ class WritingPageViewController: UIViewController {
         }
         
         contents.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        tableView.isHidden = true
-        receiptBackImg.isHidden = true
-        tableView.reloadData()
-        collectionView.reloadData()
-        
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
-        pageControl.currentPage = 0
-        pageControl.numberOfPages = photoArray.count
-        labelViewSetting()
-        
-        
         indexBackView.layer.cornerRadius = 10
         pageControl.layer.cornerRadius = 10
         //선택 이미지가 없을때
@@ -102,8 +85,20 @@ class WritingPageViewController: UIViewController {
         
         changeTitleMode()
         costViewSetting()
+        onTapped = true
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
+        tableView.isHidden = true
+        receiptBackImg.isHidden = true
+       
+        collectionView.reloadData()
         
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = photoArray.count
+        labelViewSetting()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
         uploadImageCard()
@@ -129,7 +124,10 @@ class WritingPageViewController: UIViewController {
         //        tableView.layer.borderColor = UIColor.lightGray.cgColor
         //        tableView.estimatedRowHeight = 100
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tableView.reloadData()
+    }
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
         onTapped = !onTapped
         
@@ -159,9 +157,13 @@ class WritingPageViewController: UIViewController {
                 let cell = cells[i]
                 UIView.animate(withDuration: 0.5, delay: delayCounter, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.1, options: .curveEaseInOut, animations: {
                     cell.transform = CGAffineTransform(translationX: 0, y: -self.tableView.bounds.height)
-                }, completion: nil)
+                }, completion: { _ in
+                    // 셀의 위치를 초기화합니다.
+                    cell.transform = CGAffineTransform.identity
+                })
                 delayCounter += 0.1
             }
+           
         }
         
         func showTableView() {
@@ -221,21 +223,7 @@ class WritingPageViewController: UIViewController {
         
         
     }
-    // MARK: - uiViewSetting() :UI세팅
-    //    func uiViewSetting(){
-    //        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-    //        self.uiView.layer.borderWidth = 0.3
-    //        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
-    //        self.uiView.layer.cornerRadius = 10
-    //    }
-    //
-    //    // MARK: -imageCardSetting() :UI세팅
-    //    func imageCardSetting(){
-    //        self.imageCard.layer.borderWidth = 0.3
-    //        self.imageCard.layer.borderColor = UIColor.lightGray.cgColor
-    //        self.imageCard.layer.cornerRadius = 10
-    //
-    //    }
+
     // MARK: -costViewSetting() :UI세팅
     func costViewSetting(){
         costView.layer.cornerRadius = 10
