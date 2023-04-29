@@ -54,7 +54,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     
     
     var writeEditPhotoViewController: WriteEditPhotoViewController?
-    
+    @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
+
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -97,7 +98,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         
         
         contents.text = place.diary
-        
+        textViewHeightConstraint.constant = contents.intrinsicContentSize.height
         
         
     }
@@ -395,6 +396,7 @@ extension WritingEditPageViewController: UITextViewDelegate {
                 }
             }
         }
+        textViewHeightConstraint.constant = textView.intrinsicContentSize.height
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
