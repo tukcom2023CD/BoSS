@@ -87,7 +87,7 @@ class WebsiteViewController: UIViewController, WKNavigationDelegate {
             style: .plain,
             target: self,
             action: #selector(goBack(_:)))
-        
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
         navigationItem.backBarButtonItem = backButton
        
      
