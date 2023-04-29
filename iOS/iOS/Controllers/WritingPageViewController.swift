@@ -71,19 +71,14 @@ class WritingPageViewController: UIViewController {
         contents.translatesAutoresizingMaskIntoConstraints = false
         indexBackView.layer.cornerRadius = 10
         pageControl.layer.cornerRadius = 10
-        //선택 이미지가 없을때
         
-//        if collectionView.numberOfItems(inSection: 0) == 0 {
-//            noImageView.image = UIImage(named: "빈이미지")
-//            noImageView.isHidden = false
-//            indexBackView.isHidden = true
-//
-//        } else {
-//            //
-//            indexBackView.isHidden = false
-//            noImageView.isHidden = true
-//        }
+        // 테이블 뷰 데이터 설정
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.tableView.reloadData()
     }
+
     
     
     // MARK: - viewDidLoad
@@ -123,13 +118,18 @@ class WritingPageViewController: UIViewController {
         tableView.layer.shadowRadius = 4
         tableView.layer.shadowOpacity = 0.3
         
-        //        tableView.layer.borderWidth = 2
-        //        tableView.layer.borderColor = UIColor.lightGray.cgColor
-        //        tableView.estimatedRowHeight = 100
+        let tableHeight = tableView.contentSize.height
+  
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: tableHeight + uiphotoView.frame.height + uiView.frame.height + 50)
+        uiView.frame.size.height = scrollView.contentSize.height
+        // 테이블 뷰의 높이 증가
+        tableView.frame.size.height = tableHeight
+        //tableView.reloadData()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
+        self.viewDidLayoutSubviews()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -139,6 +139,8 @@ class WritingPageViewController: UIViewController {
         if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
         }
+        
+        
     }
     
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
