@@ -12,6 +12,7 @@ class WritingPageViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var uiphotoView: UIView!
     @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var contents: UILabel!
     @IBOutlet weak var costLabel: UILabel!
@@ -27,7 +28,7 @@ class WritingPageViewController: UIViewController {
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
     
-    @IBOutlet weak var tableViewShapeView: UIView!
+  
     @IBOutlet weak var noImageView: UIImageView!
     // MARK: 이미지 터치기능을 위한 didset
     @IBOutlet var imageView: UIImageView!{
@@ -128,6 +129,16 @@ class WritingPageViewController: UIViewController {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // 스크롤 뷰 컨텐츠 크기 재설정
+        
+        let contentHeight = tableView.contentSize.height + uiphotoView.frame.height + uiView.frame.height + 100
+        if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
+            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
+        }
+    }
+    
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
         onTapped = !onTapped
         
@@ -307,6 +318,23 @@ extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewD
 //MARK: - WriringPageVieController
 extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource{
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let contentHeight = tableView.contentSize.height
+        let tableViewHeight = tableView.frame.size.height
+        if contentHeight > tableViewHeight {
+            // 셀 추가 시 테이블 뷰 높이 추가
+            var frame = tableView.frame
+            frame.size.height += cell.frame.size.height
+            tableView.frame = frame
+            
+            // 스크롤뷰 프레임이랑 컨텐츠 높이 맞춰야함 -> 컨텐츠 높이 재계산 후 스크롤 뷰 컨텐츠 크기 조정
+            let contentHeight = tableView.contentSize.height + uiphotoView.frame.height + uiView.frame.height + 50
+            if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
+                scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
+            }
+        }
+    }
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         spendings.count + 1
     }
