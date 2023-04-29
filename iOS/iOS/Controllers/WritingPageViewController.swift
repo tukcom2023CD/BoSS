@@ -33,7 +33,7 @@ class WritingPageViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!{
         didSet {
             imageView.isUserInteractionEnabled = true
-            imageView.image = UIImage(systemName: "chevron.down")
+            imageView.image = UIImage(systemName: "chevron.up")
         }
     }
     var onTapped :Bool = true
@@ -65,11 +65,13 @@ class WritingPageViewController: UIViewController {
         contents.translatesAutoresizingMaskIntoConstraints = false
         
         
-        tableView.reloadData()
-        collectionView.reloadData()
-        
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        tableView.isHidden = true
+        receiptBackImg.isHidden = true
+        tableView.reloadData()
+        collectionView.reloadData()
         
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
@@ -101,8 +103,7 @@ class WritingPageViewController: UIViewController {
         changeTitleMode()
         costViewSetting()
         
-        tableView.isHidden = true
-        receiptBackImg.isHidden = true
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
         uploadImageCard()
@@ -132,33 +133,27 @@ class WritingPageViewController: UIViewController {
     @objc private func imageButtonTapped(_ sender: UITapGestureRecognizer) {
         onTapped = !onTapped
         
+        //애니메이션 동작할때는 chevron.up이 회전하고 이동작이 끝나면 completion
         UIView.animate(withDuration: 0.3) {
             if self.onTapped {
-                //                   self.tableView.alpha = 0.0
-                //                   self.tableLabel.alpha = 0.0
-                hideTableView()
-                self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-            } else {
-                //                   self.tableView.alpha = 1.0
-                //                   self.tableLabel.alpha = 1.0
                 self.imageView.transform = CGAffineTransform(rotationAngle: 0)
+            } else {
+                self.imageView.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
             }
-        } completion: { _ in
+        } completion: { _ in //테이블 뷰 보이기/숨기기
             if self.onTapped {
-                self.tableView.isHidden = true
+                hideTableView()
                 
             } else {
-                self.tableView.isHidden = false
-                
                 showTableView() // showTableView() 메서드를 호출하여 애니메이션 실행
                 
             }
         }
         func hideTableView() {
-            
+            self.tableView.isHidden = true
             receiptBackImg.isHidden = true
             var delayCounter = 0.1
-          
+            
             let cells = tableView.visibleCells
             for i in 0..<cells.count {
                 let cell = cells[i]
@@ -167,17 +162,13 @@ class WritingPageViewController: UIViewController {
                 }, completion: nil)
                 delayCounter += 0.1
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + delayCounter) {
-                self.tableView.isHidden = true
-                
-            }
         }
         
         func showTableView() {
-            receiptBackImg.isHidden = false
-            // receiptBackImg를 서서히 나타나게 함
+            self.tableView.isHidden = false
+            receiptBackImg.isHidden = false            // receiptBackImg를 서서히 나타나게 함
             self.receiptBackImg.alpha = 0.0
-            UIView.animate(withDuration: 0.6, animations: {
+            UIView.animate(withDuration: 0.8, animations: {
                 self.receiptBackImg.alpha = 0.23
             })
             // 첫번째 row
