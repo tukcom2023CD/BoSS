@@ -62,21 +62,27 @@ class WritingPageViewController: UIViewController {
             place.totalSpending! += totalPrice
             costLabel.text = self.numberFormatter(number:totalPrice)//"\(totalPrice)"
         }
+        collectionView.reloadData()
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        pageControl.currentPage = 0
+        pageControl.numberOfPages = photoArray.count
         
         contents.translatesAutoresizingMaskIntoConstraints = false
         indexBackView.layer.cornerRadius = 10
         pageControl.layer.cornerRadius = 10
         //선택 이미지가 없을때
-        if collectionView.numberOfItems(inSection: 0) == 0 {
-            noImageView.image = UIImage(named: "빈이미지")
-            noImageView.isHidden = false
-            indexBackView.isHidden = true
-            
-        } else {
-            //
-            indexBackView.isHidden = false
-            noImageView.isHidden = true
-        }
+        
+//        if collectionView.numberOfItems(inSection: 0) == 0 {
+//            noImageView.image = UIImage(named: "빈이미지")
+//            noImageView.isHidden = false
+//            indexBackView.isHidden = true
+//
+//        } else {
+//            //
+//            indexBackView.isHidden = false
+//            noImageView.isHidden = true
+//        }
     }
     
     
@@ -93,12 +99,8 @@ class WritingPageViewController: UIViewController {
         tableView.isHidden = true
         receiptBackImg.isHidden = true
        
-        collectionView.reloadData()
-        
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
-        pageControl.currentPage = 0
-        pageControl.numberOfPages = photoArray.count
+     
+   
         labelViewSetting()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
@@ -278,6 +280,7 @@ class WritingPageViewController: UIViewController {
 }
 extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate {
     
+   
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         pageControl.currentPage = indexPath.row
@@ -293,7 +296,17 @@ extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.photoArray.count
+        if photoArray.count == 0 {
+            noImageView.image = UIImage(named: "빈이미지")
+            noImageView.isHidden = false
+            indexBackView.isHidden = true
+            return 0
+        } else {
+            indexBackView.isHidden = false
+            noImageView.isHidden = true
+            return photoArray.count
+        }
+        // return self.photoArray.count
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
