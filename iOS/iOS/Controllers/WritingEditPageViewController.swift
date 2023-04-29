@@ -58,11 +58,11 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var uiView: UIView!
+   // @IBOutlet weak var uiView: UIView!
     
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
-    
+    @IBOutlet weak var outView: UIView!
     // 새로 추가한 변수
     var place: Place!
     var spendings: [Spending]!
@@ -85,7 +85,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        uiViewSetting()
+   //     uiViewSetting()
         
         setupCamera()
         contentsSetting()
@@ -100,6 +100,14 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         
         
         
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // 스크롤 뷰 컨텐츠 크기 재설정
+        let contentHeight = 200 + contents.frame.height + 50 + 100//tableView.contentSize.height + subView1.frame.height
+        if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
+            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
+        }
     }
     // MARK: - 금액 3자리수 마다 , 붙이기
     func numberFormatter(number: Int) -> String {
@@ -144,13 +152,13 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     }
     
     // MARK: - uiViewSetting
-    func uiViewSetting(){
-        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-        
-        self.uiView.layer.borderWidth = 0.3
-        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
-        self.uiView.layer.cornerRadius = 10
-    }
+//    func uiViewSetting(){
+//        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
+//
+//        self.uiView.layer.borderWidth = 0.3
+//        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
+//        self.uiView.layer.cornerRadius = 10
+//    }
     
     
     
@@ -189,7 +197,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     // MARK: - receiptButtonTapped
     @IBAction func receiptButtonTapped(_ sender: UIButton) {
         print(#function)
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
         
@@ -364,6 +371,7 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
         
         picker.dismiss(animated: true)
     }
+    
     
 }
 
