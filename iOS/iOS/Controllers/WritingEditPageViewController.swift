@@ -79,15 +79,22 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         total_subPriceCal()
-        
-        
+        // view가 화면에 보여질 때 contents의 높이를 글자수에 맞춰서 조절
+           let size = CGSize(width: view.frame.width, height: .infinity)
+           let estimatedSize = contents.sizeThatFits(size)
+           contents.constraints.forEach { (constraint) in
+               if constraint.firstAttribute == .height {
+                   constraint.constant = estimatedSize.height
+               }
+           }
+           textViewHeightConstraint.constant = estimatedSize.height
     }
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-   //     uiViewSetting()
+ 
         
         setupCamera()
         contentsSetting()
@@ -96,25 +103,31 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         contents.isScrollEnabled = false
         receiptView.layer.cornerRadius = 5
         
+        // contentInset 속성을 사용하여 여백 설정
+       contents.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         
         if place.diary == "" {
                 contents.text = textViewPlaceHolder
                 contents.textColor = textViewPlaceHolderColor
             }
             else {
+                
                 contents.text = place.diary
                 contents.textColor = .black
+                
+                
             }
-            
-     
-        textViewHeightConstraint.constant = contents.intrinsicContentSize.height
-        
+
+//        textViewHeightConstraint.constant = contents.intrinsicContentSize.height
+//
         
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // 스크롤 뷰 컨텐츠 크기 재설정
-        let contentHeight = 200 + contents.frame.height + 50 + 100//tableView.contentSize.height + subView1.frame.height
+        let contentHeight = 200 + contents.frame.height + 50 + 100 + 120
+        //tableView.contentSize.height + subView1.frame.height
         if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
         }
@@ -389,6 +402,7 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
 
 // MARK: - UITextFieldDelegate
 extension WritingEditPageViewController: UITextViewDelegate {
+    
     // textview 높이 자동조절
     func textViewDidChange(_ textView: UITextView) {
         let size = CGSize(width: view.frame.width, height: .infinity)
@@ -396,15 +410,15 @@ extension WritingEditPageViewController: UITextViewDelegate {
         
         textView.constraints.forEach { (constraint) in
             
-            /// 50 이하일때는 더 이상 줄어들지 않게하기
-            if estimatedSize.height <= 50 {
-                
-            }
-            else {
-                if constraint.firstAttribute == .height {
-                    constraint.constant = estimatedSize.height
-                }
-            }
+//            /// 50 이하일때는 더 이상 줄어들지 않게하기
+//            if estimatedSize.height <= 50 {
+//
+//            }
+//            else {
+//                if constraint.firstAttribute == .height {
+//                    constraint.constant = estimatedSize.height
+//                }
+//            }
         }
         textViewHeightConstraint.constant = textView.intrinsicContentSize.height
     }
@@ -415,7 +429,12 @@ extension WritingEditPageViewController: UITextViewDelegate {
             contents.textColor = .black
         }
     }
-    
+    //글자수를 500자 이내로 제한
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+         guard let oldText = textView.text else { return true }
+         let newText = (oldText as NSString).replacingCharacters(in: range, with: text)
+         return newText.count <= 500
+     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if contents.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             contents.text = textViewPlaceHolder

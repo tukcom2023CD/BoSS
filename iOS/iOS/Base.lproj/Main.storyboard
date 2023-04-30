@@ -2677,19 +2677,70 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5eD-Tf-7zz">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="320"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="440"/>
                                         <subviews>
                                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H7q-qo-bZ4">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="160"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="200" id="J5f-qi-F0N"/>
+                                                    <constraint firstAttribute="height" constant="160" id="J5f-qi-F0N"/>
                                                 </constraints>
                                                 <connections>
                                                     <segue destination="w4J-cs-tsQ" kind="embed" identifier="WritingEditPageVC" id="ci4-Vf-Nd7"/>
                                                 </connections>
                                             </containerView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KVr-aC-yBl">
+                                                <rect key="frame" x="0.0" y="160" width="393" height="150"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▿이미지는 최대 8개까지 넣을수 있습니다" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSC-0g-U78">
+                                                        <rect key="frame" x="10" y="10" width="197.33333333333334" height="14.333333333333336"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▿ 글 작성은  최대 500자입니다. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAW-X0-eq4">
+                                                        <rect key="frame" x="10" y="32.333333333333343" width="161.33333333333334" height="14.333333333333336"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▿ 가계부를 작성하는 방법은 두가지가 있습니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KuY-RM-lgx">
+                                                        <rect key="frame" x="10" y="54.666666666666657" width="227.66666666666666" height="14.333333333333329"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▴ 연필버튼을 클릭해서 직접 제품명과 개 당 가격, 개수를 입력하세요" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQe-dt-a1m">
+                                                        <rect key="frame" x="20" y="74" width="353" height="14.333333333333329"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▴ 카메라 촬영  또는 앨범에있는 영수증사진을 선택하면 영수증에있는 정보들이 자동으로 가계부에 입력됩니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E3a-yA-2TR">
+                                                        <rect key="frame" x="20" y="93.333333333333343" width="353" height="28.666666666666671"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.78026359310053817" green="0.78026359310053817" blue="0.78026359310053817" alpha="0.5045271109271523" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="150" id="0gw-nf-C5S"/>
+                                                    <constraint firstItem="KuY-RM-lgx" firstAttribute="top" secondItem="cAW-X0-eq4" secondAttribute="bottom" constant="8" id="1AA-zd-cdS"/>
+                                                    <constraint firstItem="CQe-dt-a1m" firstAttribute="leading" secondItem="KVr-aC-yBl" secondAttribute="leading" constant="20" id="9VU-2f-pvc"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CQe-dt-a1m" secondAttribute="trailing" constant="20" id="CmI-zS-aLV"/>
+                                                    <constraint firstItem="nSC-0g-U78" firstAttribute="top" secondItem="KVr-aC-yBl" secondAttribute="top" constant="10" id="Fuq-A3-62F"/>
+                                                    <constraint firstItem="nSC-0g-U78" firstAttribute="leading" secondItem="KVr-aC-yBl" secondAttribute="leading" constant="10" id="PF2-0Y-dKO"/>
+                                                    <constraint firstItem="E3a-yA-2TR" firstAttribute="leading" secondItem="KVr-aC-yBl" secondAttribute="leading" constant="20" id="Sw3-Ux-8H8"/>
+                                                    <constraint firstItem="E3a-yA-2TR" firstAttribute="top" secondItem="CQe-dt-a1m" secondAttribute="bottom" constant="5" id="ULV-Pk-RTu"/>
+                                                    <constraint firstItem="KuY-RM-lgx" firstAttribute="leading" secondItem="KVr-aC-yBl" secondAttribute="leading" constant="10" id="VMQ-lW-gSv"/>
+                                                    <constraint firstItem="CQe-dt-a1m" firstAttribute="top" secondItem="KuY-RM-lgx" secondAttribute="bottom" constant="5" id="ad1-RK-lIO"/>
+                                                    <constraint firstItem="cAW-X0-eq4" firstAttribute="leading" secondItem="KVr-aC-yBl" secondAttribute="leading" constant="10" id="kol-ip-gbV"/>
+                                                    <constraint firstItem="cAW-X0-eq4" firstAttribute="top" secondItem="nSC-0g-U78" secondAttribute="bottom" constant="8" id="qjH-KQ-SkS"/>
+                                                    <constraint firstAttribute="trailing" secondItem="E3a-yA-2TR" secondAttribute="trailing" constant="20" id="sAN-9D-ogS"/>
+                                                </constraints>
+                                            </view>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QdI-0f-tOg">
-                                                <rect key="frame" x="45" y="210" width="303" height="50"/>
+                                                <rect key="frame" x="45" y="330" width="303" height="50"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="n5L-Ku-SOL"/>
@@ -2699,7 +2750,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0RO-1w-0eN">
-                                                <rect key="frame" x="60" y="270" width="273" height="50"/>
+                                                <rect key="frame" x="60" y="390" width="273" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Du-oh-r2g">
                                                         <rect key="frame" x="233" y="10" width="30" height="30"/>
@@ -2757,15 +2808,18 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="0RO-1w-0eN" firstAttribute="leading" secondItem="5eD-Tf-7zz" secondAttribute="leading" constant="60" id="6qU-9h-DCV"/>
-                                            <constraint firstItem="QdI-0f-tOg" firstAttribute="top" secondItem="H7q-qo-bZ4" secondAttribute="bottom" constant="10" id="Bhl-9g-1Co"/>
+                                            <constraint firstItem="QdI-0f-tOg" firstAttribute="top" secondItem="KVr-aC-yBl" secondAttribute="bottom" constant="20" id="7o4-Ji-A3V"/>
                                             <constraint firstItem="0RO-1w-0eN" firstAttribute="top" secondItem="QdI-0f-tOg" secondAttribute="bottom" constant="10" id="Dl0-47-rXD"/>
                                             <constraint firstItem="QdI-0f-tOg" firstAttribute="leading" secondItem="5eD-Tf-7zz" secondAttribute="leading" constant="45" id="QHy-1v-Ptc"/>
                                             <constraint firstAttribute="trailing" secondItem="H7q-qo-bZ4" secondAttribute="trailing" id="SV3-vS-OJh"/>
                                             <constraint firstItem="H7q-qo-bZ4" firstAttribute="leading" secondItem="5eD-Tf-7zz" secondAttribute="leading" id="SWk-Nz-W1d"/>
                                             <constraint firstAttribute="bottom" secondItem="QdI-0f-tOg" secondAttribute="bottom" constant="60" id="XgV-Dl-MuZ"/>
                                             <constraint firstItem="H7q-qo-bZ4" firstAttribute="top" secondItem="5eD-Tf-7zz" secondAttribute="top" id="bnm-31-nel"/>
+                                            <constraint firstAttribute="trailing" secondItem="KVr-aC-yBl" secondAttribute="trailing" id="cjf-Nh-dLS"/>
                                             <constraint firstAttribute="trailing" secondItem="QdI-0f-tOg" secondAttribute="trailing" constant="45" id="jJn-m7-pMK"/>
+                                            <constraint firstItem="KVr-aC-yBl" firstAttribute="top" secondItem="H7q-qo-bZ4" secondAttribute="bottom" id="kri-hs-yBG"/>
                                             <constraint firstAttribute="trailing" secondItem="0RO-1w-0eN" secondAttribute="trailing" constant="60" id="mql-uH-jLg"/>
+                                            <constraint firstItem="KVr-aC-yBl" firstAttribute="leading" secondItem="5eD-Tf-7zz" secondAttribute="leading" id="q6G-3N-YuT"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -3050,7 +3104,7 @@
             <objects>
                 <viewController storyboardIdentifier="WriteEditPhotoViewController" id="w4J-cs-tsQ" customClass="WriteEditPhotoViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8Q1-i7-6Im">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="200"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ezT-zh-l6A">
@@ -3146,7 +3200,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FDf-Oq-eDN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8074" y="-1903"/>
+            <point key="canvasLocation" x="8011" y="-1975"/>
         </scene>
     </scenes>
     <resources>
