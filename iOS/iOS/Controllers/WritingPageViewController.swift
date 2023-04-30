@@ -86,16 +86,14 @@ class WritingPageViewController: UIViewController {
         
         let tableHeight = tableView.frame.height
   
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: tableHeight + uiphotoView.frame.height + uiView.frame.height + 50)
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: uiphotoView.frame.height + uiView.frame.height + 50)
         uiView.frame.size.height = scrollView.contentSize.height
         // 테이블 뷰의 높이 증가
         tableView.frame.size.height = tableHeight
         // 테이블 뷰의 높이 증가
     
         tableView.reloadData()
-//        tableView.reloadData()
-//          tableView.layoutIfNeeded()
-//          tableView.frame.size.height = tableView.contentSize.height
+
     }
 
     
@@ -140,7 +138,7 @@ class WritingPageViewController: UIViewController {
         
         let tableHeight = tableView.frame.height
   
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: tableHeight + uiphotoView.frame.height + uiView.frame.height + 50)
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height:  uiphotoView.frame.height + uiView.frame.height + 20)
         uiView.frame.size.height = scrollView.contentSize.height
         // 테이블 뷰의 높이 증가
         tableView.frame.size.height = tableHeight
@@ -160,7 +158,7 @@ class WritingPageViewController: UIViewController {
         super.viewDidLayoutSubviews()
         // 스크롤 뷰 컨텐츠 크기 재설정
         
-        let contentHeight = tableView.contentSize.height + uiphotoView.frame.height + uiView.frame.height + 50
+        let contentHeight = uiphotoView.frame.height + uiView.frame.height + 50
         if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
         }
@@ -368,7 +366,7 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
             tableView.frame = frame
             
             // 스크롤뷰 프레임이랑 컨텐츠 높이 맞춰야함 -> 컨텐츠 높이 재계산 후 스크롤 뷰 컨텐츠 크기 조정
-            let contentHeight = tableView.contentSize.height + uiphotoView.frame.height + uiView.frame.height + 50
+            let contentHeight = uiphotoView.frame.height + uiView.frame.height + 50
             if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
                 scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
             }

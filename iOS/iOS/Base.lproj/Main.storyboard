@@ -2518,7 +2518,7 @@
                                                             </view>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="idA-HI-8Do">
                                                                 <rect key="frame" x="10" y="120" width="333" height="200"/>
-                                                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="200" id="l6h-Z2-pq8"/>
                                                                 </constraints>
@@ -2595,11 +2595,9 @@
                                                                 </constraints>
                                                             </view>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="영수증이미지" translatesAutoresizingMaskIntoConstraints="NO" id="o9M-Xn-uFw">
-                                                                <rect key="frame" x="14.666666666666657" y="95" width="324" height="250"/>
+                                                                <rect key="frame" x="116.66666666666666" y="120" width="120" height="200"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="250" id="FHB-nL-l2u"/>
-                                                                    <constraint firstAttribute="width" constant="324" id="dfV-ts-Rpo"/>
-                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="v62-fd-fFI"/>
+                                                                    <constraint firstAttribute="width" secondItem="o9M-Xn-uFw" secondAttribute="height" multiplier="60:100" id="tsu-Zb-ycu"/>
                                                                 </constraints>
                                                             </imageView>
                                                         </subviews>
@@ -2620,6 +2618,7 @@
                                                             <constraint firstItem="4xs-lr-xOk" firstAttribute="leading" secondItem="PQM-Ms-BT7" secondAttribute="leading" constant="50" id="h8p-te-Snn"/>
                                                             <constraint firstItem="KXb-NS-Heu" firstAttribute="top" secondItem="idA-HI-8Do" secondAttribute="top" id="iuI-1Y-r6w"/>
                                                             <constraint firstItem="idA-HI-8Do" firstAttribute="top" secondItem="4xs-lr-xOk" secondAttribute="bottom" id="kk5-Re-eKl"/>
+                                                            <constraint firstItem="o9M-Xn-uFw" firstAttribute="height" secondItem="idA-HI-8Do" secondAttribute="height" id="oPo-Jm-6Cn"/>
                                                             <constraint firstItem="idA-HI-8Do" firstAttribute="leading" secondItem="PQM-Ms-BT7" secondAttribute="leading" constant="10" id="pWE-aY-dI2"/>
                                                             <constraint firstAttribute="trailing" secondItem="6Sp-RO-Eq2" secondAttribute="trailing" constant="20" id="tkb-Uz-UA5"/>
                                                         </constraints>
@@ -3249,9 +3248,6 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
