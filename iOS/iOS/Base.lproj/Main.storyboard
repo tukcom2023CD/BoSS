@@ -2447,7 +2447,7 @@
                                                         </constraints>
                                                     </view>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="빈이미지" translatesAutoresizingMaskIntoConstraints="NO" id="GIb-oA-wYR">
-                                                        <rect key="frame" x="0.0" y="35" width="393" height="200"/>
+                                                        <rect key="frame" x="0.0" y="65" width="393" height="200"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="200" id="A2S-Rc-umu"/>
                                                         </constraints>
@@ -2463,7 +2463,7 @@
                                                     <constraint firstItem="4c3-Jg-FMc" firstAttribute="centerX" secondItem="hsu-eh-rBu" secondAttribute="centerX" id="IAG-v6-FzF"/>
                                                     <constraint firstAttribute="trailing" secondItem="syZ-pq-aXO" secondAttribute="trailing" id="R4Z-uN-B84"/>
                                                     <constraint firstAttribute="bottom" secondItem="4c3-Jg-FMc" secondAttribute="bottom" id="gWv-5f-vIq"/>
-                                                    <constraint firstItem="GIb-oA-wYR" firstAttribute="top" secondItem="Jkx-E2-4ym" secondAttribute="bottom" id="i1a-jr-sGu"/>
+                                                    <constraint firstItem="GIb-oA-wYR" firstAttribute="top" secondItem="Jkx-E2-4ym" secondAttribute="bottom" constant="30" id="i1a-jr-sGu"/>
                                                     <constraint firstItem="Jkx-E2-4ym" firstAttribute="top" secondItem="hsu-eh-rBu" secondAttribute="top" constant="15" id="mYx-nC-7fT"/>
                                                     <constraint firstAttribute="trailing" secondItem="GIb-oA-wYR" secondAttribute="trailing" id="y86-91-STx"/>
                                                     <constraint firstItem="GIb-oA-wYR" firstAttribute="leading" secondItem="hsu-eh-rBu" secondAttribute="leading" id="zUk-r7-7v9"/>
@@ -2491,13 +2491,13 @@
                                                 <rect key="frame" x="0.0" y="350" width="393" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0원" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGN-xe-ecB">
-                                                        <rect key="frame" x="96.666666666666671" y="14.333333333333316" width="26.666666666666671" height="21.666666666666671"/>
+                                                        <rect key="frame" x="106.66666666666667" y="14.333333333333316" width="26.666666666666671" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 총 비용 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="33X-y7-t7Z">
-                                                        <rect key="frame" x="9.9999999999999964" y="14.333333333333316" width="59.666666666666657" height="21.666666666666671"/>
+                                                        <rect key="frame" x="19.999999999999996" y="14.333333333333316" width="59.666666666666657" height="21.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -2510,15 +2510,8 @@
                                                             <constraint firstAttribute="width" constant="45" id="cdG-BJ-lvk"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="영수증이미지" id="o9M-Xn-uFw">
-                                                        <rect key="frame" x="77" y="-150" width="333" height="200"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="o9M-Xn-uFw" secondAttribute="height" multiplier="60:100" id="tsu-Zb-ycu"/>
-                                                        </constraints>
-                                                    </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="0.57081220751895123" green="0.67880735624508914" blue="1" alpha="0.6508950745033113" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="tLG-nT-nxg" secondAttribute="trailing" constant="5" id="4Zw-A6-HWh"/>
@@ -2527,13 +2520,13 @@
                                                     <constraint firstItem="TGN-xe-ecB" firstAttribute="leading" secondItem="33X-y7-t7Z" secondAttribute="trailing" constant="27" id="Jw4-Pc-SzR"/>
                                                     <constraint firstItem="33X-y7-t7Z" firstAttribute="centerY" secondItem="4xs-lr-xOk" secondAttribute="centerY" id="P3x-JC-njD"/>
                                                     <constraint firstAttribute="height" constant="50" id="ZX5-xi-YWS"/>
-                                                    <constraint firstItem="33X-y7-t7Z" firstAttribute="leading" secondItem="4xs-lr-xOk" secondAttribute="leading" constant="10" id="dF5-rE-udq"/>
+                                                    <constraint firstItem="33X-y7-t7Z" firstAttribute="leading" secondItem="4xs-lr-xOk" secondAttribute="leading" constant="20" id="dF5-rE-udq"/>
                                                     <constraint firstItem="TGN-xe-ecB" firstAttribute="centerY" secondItem="4xs-lr-xOk" secondAttribute="centerY" id="t8R-jE-7hz"/>
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="idA-HI-8Do">
                                                 <rect key="frame" x="30" y="410" width="333" height="200"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="An2-eR-HUT"/>
                                                 </constraints>
@@ -2663,7 +2656,6 @@
                         <outlet property="noImageView" destination="GIb-oA-wYR" id="7mx-Hm-q5U"/>
                         <outlet property="outView" destination="IDK-fQ-23b" id="MMD-TS-DnY"/>
                         <outlet property="pageControl" destination="4c3-Jg-FMc" id="xgu-yZ-rC8"/>
-                        <outlet property="receiptBackImg" destination="o9M-Xn-uFw" id="ely-bM-lxk"/>
                         <outlet property="scrollView" destination="pTj-W0-Qjt" id="YVT-tw-eez"/>
                         <outlet property="tableView" destination="idA-HI-8Do" id="8bX-9O-sw2"/>
                         <outlet property="uiphotoView" destination="hsu-eh-rBu" id="Erh-I2-UHr"/>
@@ -3189,7 +3181,6 @@
         <image name="빈이미지" width="488" height="486"/>
         <image name="여행사진 1" width="322" height="194"/>
         <image name="영수증보기" width="250" height="250"/>
-        <image name="영수증이미지" width="102" height="102"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

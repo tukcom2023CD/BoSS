@@ -19,8 +19,7 @@ class WritingPageViewController: UIViewController {
     @IBOutlet weak var costView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var receiptBackImg: UIImageView!
+    
     @IBOutlet weak var labelView: UIView!
     var photoArray: [UIImage] = []
     
@@ -104,13 +103,13 @@ class WritingPageViewController: UIViewController {
         super.viewDidLoad()
         
         changeTitleMode()
-        costViewSetting()
+      //  costViewSetting()
         onTapped = true
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         tableView.isHidden = true
-        receiptBackImg.isHidden = true
+        
         
         
         
@@ -191,7 +190,7 @@ class WritingPageViewController: UIViewController {
         }
         func hideTableView() {
             self.tableView.isHidden = true
-            receiptBackImg.isHidden = true
+            
             var delayCounter = 0.1
             
             let cells = tableView.visibleCells
@@ -266,11 +265,11 @@ class WritingPageViewController: UIViewController {
         
     }
     
-    // MARK: -costViewSetting() :UI세팅
-    func costViewSetting(){
-        costView.layer.cornerRadius = 10
-    }
-    
+    //    // MARK: -costViewSetting() :UI세팅
+    //    func costViewSetting(){
+    //        costView.layer.cornerRadius = 10
+    //    }
+    //
     
     // MARK: 스무스한 타이틀 변경
     func changeTitleMode() {
@@ -387,6 +386,16 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else { return UITableViewCell() }
+        
+        // 셀의 그림자 설정
+        //           cell.layer.cornerRadius = 8
+        //           cell.layer.shadowColor = UIColor.gray.cgColor
+        //           cell.layer.shadowOffset = CGSize(width: 2, height: 2)
+        //           cell.layer.shadowOpacity = 0.8
+        //           cell.layer.shadowRadius = 4
+        //           cell.layer.masksToBounds = true
+        
+        
         if indexPath.row == 0 {
             // 라벨 폰트와 색상 변경
             cell.itemLabel.font = UIFont.boldSystemFont(ofSize: 18)
@@ -395,7 +404,7 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
             cell.itemLabel.textColor = UIColor.black
             cell.amountLabel.textColor = UIColor.black
             cell.priceLabel.textColor = UIColor.black
-            
+            cell.layer.cornerRadius = 8
             // 셀의 테두리 색상 변경
             cell.layer.borderWidth = 2
             cell.layer.borderColor = UIColor.darkGray.cgColor
@@ -407,6 +416,7 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
             cell.amountLabel.text = "수량"
             cell.priceLabel.text = "가격"
         } else {
+            cell.layer.cornerRadius = 0
             cell.itemLabel.font = UIFont.systemFont(ofSize: 17)
             cell.amountLabel.font = UIFont.systemFont(ofSize: 17)
             cell.priceLabel.font = UIFont.systemFont(ofSize: 17)
