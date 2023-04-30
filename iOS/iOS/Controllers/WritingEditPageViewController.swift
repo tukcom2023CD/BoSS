@@ -51,7 +51,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     var subTotalData: [Int] = [] //delete를 위한 각 행의 가격 데이터
     var getImageCard : UIImage?
     var photoArray : [UIImage] = []
-    
+    let textViewPlaceHolder = "텍스트를 입력하세요"
+    let textViewPlaceHolderColor = UIColor.lightGray
     
     var writeEditPhotoViewController: WriteEditPhotoViewController?
     @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
@@ -69,7 +70,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     var spendings: [Spending]!
     var imagePickerStatus = false // 이미지 피커 상태 (false: 여행 사진 선택, true: 영수증 OCR)
     
-    let textViewPlaceHolder = "텍스트를 입력하세요"
+   
     //WritingPage로 넘길 데이터
     
     let camera = UIImagePickerController() // 카메라 변수
@@ -96,8 +97,16 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         receiptView.layer.cornerRadius = 5
         
         
-        
-        contents.text = place.diary
+        if place.diary == "" {
+                contents.text = textViewPlaceHolder
+                contents.textColor = textViewPlaceHolderColor
+            }
+            else {
+                contents.text = place.diary
+                contents.textColor = .black
+            }
+            
+     
         textViewHeightConstraint.constant = contents.intrinsicContentSize.height
         
         
@@ -233,8 +242,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     // MARK: - saveButtonTapped
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        
-        place.diary = contents.text
+        if contents.text == "텍스트를 입력하세요" {
+            place.diary = ""
+        }else{
+            place.diary = contents.text}
         place.totalSpending = totalPrice
         let spendingData = SpendingData(pid: place.pid!, spendings: spendings)
         
@@ -380,7 +391,6 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
 extension WritingEditPageViewController: UITextViewDelegate {
     // textview 높이 자동조절
     func textViewDidChange(_ textView: UITextView) {
-        
         let size = CGSize(width: view.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
         
@@ -401,7 +411,7 @@ extension WritingEditPageViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if contents.text == textViewPlaceHolder {
-            contents.text = nil
+            contents.text = ""
             contents.textColor = .black
         }
     }
@@ -409,7 +419,8 @@ extension WritingEditPageViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if contents.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             contents.text = textViewPlaceHolder
-            contents.textColor = .lightGray
+            contents.textColor = textViewPlaceHolderColor
+            
         }
     }
 }

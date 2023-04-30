@@ -52,7 +52,15 @@ class WritingPageViewController: UIViewController {
         
         var totalPrice : Int = 0
         // 전화면에서 전달받은 데이터들을 통해 셋팅
-        contents.text = place.diary
+        
+        if place.diary == "" {
+            contents.text = "여행을 기록해보세요"
+            contents.textColor = .lightGray
+        }else{
+            contents.text = place.diary
+            contents.textColor = .black
+        }
+       // contents.text = place.diary
         
         if (spendings.count != 0){
             for i in 0...spendings.count-1{
@@ -76,7 +84,18 @@ class WritingPageViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.reloadData()
+        let tableHeight = tableView.frame.height
+  
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: tableHeight + uiphotoView.frame.height + uiView.frame.height + 50)
+        uiView.frame.size.height = scrollView.contentSize.height
+        // 테이블 뷰의 높이 증가
+        tableView.frame.size.height = tableHeight
+        // 테이블 뷰의 높이 증가
+    
+        tableView.reloadData()
+//        tableView.reloadData()
+//          tableView.layoutIfNeeded()
+//          tableView.frame.size.height = tableView.contentSize.height
     }
 
     
@@ -104,6 +123,7 @@ class WritingPageViewController: UIViewController {
         
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0 // 셀 사이의 수평 간격
@@ -118,24 +138,29 @@ class WritingPageViewController: UIViewController {
         tableView.layer.shadowRadius = 4
         tableView.layer.shadowOpacity = 0.3
         
-        let tableHeight = tableView.contentSize.height
+        let tableHeight = tableView.frame.height
   
         scrollView.contentSize = CGSize(width: scrollView.frame.width, height: tableHeight + uiphotoView.frame.height + uiView.frame.height + 50)
         uiView.frame.size.height = scrollView.contentSize.height
         // 테이블 뷰의 높이 증가
         tableView.frame.size.height = tableHeight
-        //tableView.reloadData()
+        // 테이블 뷰의 높이 증가
+    
+        tableView.reloadData()
+        
+       
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
+        
         self.viewDidLayoutSubviews()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // 스크롤 뷰 컨텐츠 크기 재설정
         
-        let contentHeight = tableView.contentSize.height + uiphotoView.frame.height + uiView.frame.height + 100
+        let contentHeight = tableView.contentSize.height + uiphotoView.frame.height + uiView.frame.height + 50
         if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
         }
@@ -183,10 +208,10 @@ class WritingPageViewController: UIViewController {
         
         func showTableView() {
             self.tableView.isHidden = false
-            receiptBackImg.isHidden = false            // receiptBackImg를 서서히 나타나게 함
-            self.receiptBackImg.alpha = 0.0
+           // receiptBackImg.isHidden = false            // receiptBackImg를 서서히 나타나게 함
+            //self.receiptBackImg.alpha = 0.0
             UIView.animate(withDuration: 0.8, animations: {
-                self.receiptBackImg.alpha = 0.23
+               // self.receiptBackImg.alpha = 0.23
             })
             // 첫번째 row
             var delayCounter = 0.1
