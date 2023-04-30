@@ -34,7 +34,7 @@ class WritingPageViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!{
         didSet {
             imageView.isUserInteractionEnabled = true
-            imageView.image = UIImage(systemName: "chevron.up")
+            imageView.image = UIImage(named: "영수증보기")
         }
     }
     var onTapped :Bool = true
@@ -138,7 +138,7 @@ class WritingPageViewController: UIViewController {
         
         let tableHeight = tableView.frame.height
   
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height:  uiphotoView.frame.height + uiView.frame.height + 20)
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height:  uiphotoView.frame.height + uiView.frame.height + 50)
         uiView.frame.size.height = scrollView.contentSize.height
         // 테이블 뷰의 높이 증가
         tableView.frame.size.height = tableHeight
