@@ -10,7 +10,6 @@ import UIKit
 class WritingEditPhotosCollectionViewCell: UICollectionViewCell {
     @IBOutlet var photos: UIImageView!
     
-   
     
     
 }
