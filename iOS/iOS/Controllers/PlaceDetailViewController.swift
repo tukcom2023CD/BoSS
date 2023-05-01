@@ -25,7 +25,6 @@ class PlaceDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(barButtonTapped))
         
     }
-    
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self

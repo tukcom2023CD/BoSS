@@ -51,24 +51,26 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     var subTotalData: [Int] = [] //delete를 위한 각 행의 가격 데이터
     var getImageCard : UIImage?
     var photoArray : [UIImage] = []
-    
+    let textViewPlaceHolder = "텍스트를 입력하세요"
+    let textViewPlaceHolderColor = UIColor.lightGray
     
     var writeEditPhotoViewController: WriteEditPhotoViewController?
-    
+    @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
+
     
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var uiView: UIView!
+   // @IBOutlet weak var uiView: UIView!
     
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
-    
+    @IBOutlet weak var outView: UIView!
     // 새로 추가한 변수
     var place: Place!
     var spendings: [Spending]!
     var imagePickerStatus = false // 이미지 피커 상태 (false: 여행 사진 선택, true: 영수증 OCR)
     
-    let textViewPlaceHolder = "텍스트를 입력하세요"
+   
     //WritingPage로 넘길 데이터
     
     let camera = UIImagePickerController() // 카메라 변수
@@ -77,15 +79,22 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         total_subPriceCal()
-        
-        
+        // view가 화면에 보여질 때 contents의 높이를 글자수에 맞춰서 조절
+           let size = CGSize(width: view.frame.width, height: .infinity)
+           let estimatedSize = contents.sizeThatFits(size)
+           contents.constraints.forEach { (constraint) in
+               if constraint.firstAttribute == .height {
+                   constraint.constant = estimatedSize.height
+               }
+           }
+           textViewHeightConstraint.constant = estimatedSize.height
     }
     
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        uiViewSetting()
+ 
         
         setupCamera()
         contentsSetting()
@@ -94,12 +103,40 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         contents.isScrollEnabled = false
         receiptView.layer.cornerRadius = 5
         
+        // contentInset 속성을 사용하여 여백 설정
+       contents.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         
+        if place.diary == "" {
+                contents.text = textViewPlaceHolder
+                contents.textColor = textViewPlaceHolderColor
+            }
+            else {
+                
+                contents.text = place.diary
+                contents.textColor = .black
+                
+                
+            }
+
+//        textViewHeightConstraint.constant = contents.intrinsicContentSize.height
+//
         
-        contents.text = place.diary
-        
-        
-        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // 스크롤 뷰 컨텐츠 크기 재설정
+        let contentHeight = 200 + contents.frame.height + 50 + 100 + 120
+        //tableView.contentSize.height + subView1.frame.height
+        if scrollView.contentSize != CGSize(width: scrollView.frame.width, height: contentHeight) {
+            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
+        }
+    }
+    // MARK: - 금액 3자리수 마다 , 붙이기
+    func numberFormatter(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: number))!
     }
     // MARK: - total_subPriceCal : 총가격과 행마다의 가격계산함수
     func total_subPriceCal(){
@@ -110,7 +147,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                 totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
                 subTotalData.insert((spendings[i].quantity ?? 1) * (spendings[i].price ?? 0), at: 0)
             }
-            totalPriceLabel.text = String(totalPrice)
+            totalPriceLabel.text = numberFormatter(number: totalPrice)//String(totalPrice)
         }
     }
     
@@ -138,13 +175,13 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     }
     
     // MARK: - uiViewSetting
-    func uiViewSetting(){
-        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-        
-        self.uiView.layer.borderWidth = 0.3
-        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
-        self.uiView.layer.cornerRadius = 10
-    }
+//    func uiViewSetting(){
+//        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
+//
+//        self.uiView.layer.borderWidth = 0.3
+//        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
+//        self.uiView.layer.cornerRadius = 10
+//    }
     
     
     
@@ -183,7 +220,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     // MARK: - receiptButtonTapped
     @IBAction func receiptButtonTapped(_ sender: UIButton) {
         print(#function)
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(identifier: "ReceiptViewController") as! ReceiptViewController
         
@@ -219,8 +255,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     // MARK: - saveButtonTapped
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        
-        place.diary = contents.text
+        if contents.text == "텍스트를 입력하세요" {
+            place.diary = ""
+        }else{
+            place.diary = contents.text}
         place.totalSpending = totalPrice
         let spendingData = SpendingData(pid: place.pid!, spendings: spendings)
         
@@ -359,41 +397,49 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
         picker.dismiss(animated: true)
     }
     
+    
 }
 
 // MARK: - UITextFieldDelegate
 extension WritingEditPageViewController: UITextViewDelegate {
+    
     // textview 높이 자동조절
     func textViewDidChange(_ textView: UITextView) {
-        
         let size = CGSize(width: view.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
         
         textView.constraints.forEach { (constraint) in
             
-            /// 50 이하일때는 더 이상 줄어들지 않게하기
-            if estimatedSize.height <= 50 {
-                
-            }
-            else {
-                if constraint.firstAttribute == .height {
-                    constraint.constant = estimatedSize.height
-                }
-            }
+//            /// 50 이하일때는 더 이상 줄어들지 않게하기
+//            if estimatedSize.height <= 50 {
+//
+//            }
+//            else {
+//                if constraint.firstAttribute == .height {
+//                    constraint.constant = estimatedSize.height
+//                }
+//            }
         }
+        textViewHeightConstraint.constant = textView.intrinsicContentSize.height
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if contents.text == textViewPlaceHolder {
-            contents.text = nil
+            contents.text = ""
             contents.textColor = .black
         }
     }
-    
+    //글자수를 500자 이내로 제한
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+         guard let oldText = textView.text else { return true }
+         let newText = (oldText as NSString).replacingCharacters(in: range, with: text)
+         return newText.count <= 500
+     }
     func textViewDidEndEditing(_ textView: UITextView) {
         if contents.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             contents.text = textViewPlaceHolder
-            contents.textColor = .lightGray
+            contents.textColor = textViewPlaceHolderColor
+            
         }
     }
 }
