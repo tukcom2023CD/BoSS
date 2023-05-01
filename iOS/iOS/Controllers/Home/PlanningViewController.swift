@@ -18,8 +18,11 @@ class PlanningViewController: UIViewController{
     @IBOutlet weak var placeNameCheck: UILabel!
     @IBOutlet weak var selectCheckButton: UIButton!//날짜 선택하기
     @IBOutlet weak var dateLabel: UILabel! //날짜 표시되는 라벨
+    
+    @IBOutlet weak var dateLabelBackView: UIView!
     @IBOutlet weak var nextButton: UIButton!
     
+    @IBOutlet weak var nodateLabel: UIImageView!
     var regionDataArray: [Region] = []
     
     var startDate: String?
@@ -32,18 +35,22 @@ class PlanningViewController: UIViewController{
     var totalDistance = CGFloat()
     
     var regionDataManager = RegionDataManager()
-    
+    override func viewWillAppear(_ animated: Bool) {
+       
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         slideUpView.isHidden = true
-        
+        selectCheckButton.setTitle("날짜 설정", for: .normal)
+        nextButton.isHidden = true
         setupView()
         setupDatas()
         setupTableView()
         nextButton.isHidden = true
         nextButton.layer.cornerRadius = 10
         seeNavigation()
+        dateLabelSetting()
     }
     func seeNavigation(){
         
@@ -135,6 +142,7 @@ class PlanningViewController: UIViewController{
         
         let downPan = UIPanGestureRecognizer(target: self, action: #selector(dismissslideUpView(_:)))
         slideUpView.addGestureRecognizer(downPan)
+       // selectCheckButton.setTitle("날짜 설정", for: .normal)
     }
     
     //드래그해서 slideupView 끄는거 지정
@@ -182,6 +190,8 @@ class PlanningViewController: UIViewController{
     func setupSlideView(){
         slideUpView.isHidden = false
         dateLabel.isHidden = true
+        nodateLabel.isHidden = false
+        dateLabelBackView.isHidden = true
         totalDistance = 0
         slideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
         UIView.animate(withDuration: TimeInterval(animationTime), animations: {
@@ -194,6 +204,8 @@ class PlanningViewController: UIViewController{
         slideUpView.slideUpShow(animationTime)
         //self.tabBarController?.tabBar.isHidden = true
         originalCenterOfslideUpView = slideUpView.center.y
+        selectCheckButton.setTitle("날짜 설정", for: .normal)
+        nextButton.isHidden = true
     }
     
     @objc func handleDismiss() {
@@ -226,6 +238,18 @@ class PlanningViewController: UIViewController{
         
     }
     
+    //날짜 줄간견 설정
+    func dateLabelSetting(){
+      
+        // 문자열에 줄 간격 설정하기
+        let attributedString = NSMutableAttributedString(string: dateLabel.text!)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 10 // 원하는 줄 간격으로 변경
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+
+        // 라벨에 적용하기
+        dateLabel.attributedText = attributedString
+    }
     
     
 }
@@ -274,8 +298,11 @@ extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate
         self.endDate = CustomDateFormatter.format.string(from: endDate)
         
         dateLabel.text = "출발 : " + self.startDate! + " \n" + "도착 : " + self.endDate!
+        
         self.navigationController?.dismiss(animated: true, completion: nil)
         dateLabel.isHidden = false
+        nodateLabel.isHidden = true
+        dateLabelBackView.isHidden = false
         nextButton.isHidden = false
         selectCheckButton.setTitle("날짜 재설정", for: .normal)
         
