@@ -35,6 +35,8 @@ class PlanningViewController: UIViewController{
     var originalCenterOfslideUpView = CGFloat()
     var totalDistance = CGFloat()
     let dateTextColor = UIColor(red: 100/255, green: 46/255, blue: 69/255, alpha: 1.0)
+    let dateTextColorBefore = UIColor(red: 48/255, green: 38/255, blue: 145/255, alpha: 1.0)
+
     var regionDataManager = RegionDataManager()
     override func viewWillAppear(_ animated: Bool) {
         
@@ -344,8 +346,8 @@ extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate
         dateLabelBackView.isHidden = false
         nextButton.isHidden = false
         selectCheckButton.setTitle("날짜 재설정", for: .normal)
-        selectCheckButton.setTitleColor(.darkGray, for: .normal)
-        selectCheckButton.tintColor = .black
+        selectCheckButton.setTitleColor(dateTextColorBefore, for: .normal)
+        selectCheckButton.tintColor = dateTextColorBefore
     }
     
     @objc func didSelectStartDate(startDate: Date!){

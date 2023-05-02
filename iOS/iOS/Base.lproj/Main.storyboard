@@ -435,7 +435,7 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NiE-Hy-ygr">
                                         <rect key="frame" x="249" y="33.666666666666686" width="114" height="34.333333333333343"/>
-                                        <color key="tintColor" red="0.39215686274509803" green="0.1803921568627451" blue="0.27058823529411763" alpha="0.95999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.18823529411764706" green="0.14901960784313725" blue="0.56862745098039214" alpha="0.95999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="날짜 설정"/>
                                         <connections>
@@ -456,16 +456,16 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="날짜설정" translatesAutoresizingMaskIntoConstraints="NO" id="BLZ-pa-uoN">
-                                        <rect key="frame" x="30" y="103" width="333" height="130"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="날짜설정" translatesAutoresizingMaskIntoConstraints="NO" id="BLZ-pa-uoN">
+                                        <rect key="frame" x="30" y="103" width="333" height="160"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="130" id="Bas-lT-dkS"/>
+                                            <constraint firstAttribute="height" constant="160" id="Bas-lT-dkS"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인천" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjN-mG-pd1">
                                         <rect key="frame" x="50" y="37.666666666666686" width="36.333333333333343" height="24.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
