@@ -18,7 +18,7 @@ class PlacePhotosTableViewCell: UITableViewCell {
     var photoMetadata: [GMSPlacePhotoMetadata]?
     
     private var placesClient: GMSPlacesClient!
-    let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.photos.rawValue))
+    let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt64(GMSPlaceField.photos.rawValue))
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -1,5 +1,6 @@
 #import "GMSIndoorBuilding.h"
 #import "GMSIndoorLevel.h"
+#import "GMSAccessibilityLabels.h"
 #import "GMSAddress.h"
 #import "GMSCALayer.h"
 #import "GMSCameraPosition.h"
@@ -43,4 +44,3 @@
 #import "GMSTileLayer.h"
 #import "GMSUISettings.h"
 #import "GMSURLTileLayer.h"
-#import "GMSAccessibilityLabels.h"

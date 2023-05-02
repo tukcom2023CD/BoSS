@@ -5,20 +5,21 @@
 //  Copyright 2016 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
-//  Service: https://developers.google.com/maps/terms
+//  Service: https://cloud.google.com/maps-platform/terms
 //
 
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 
-#import "GMSPlace.h"
 #import "GMSPlaceFieldMask.h"
 #import "GMSPlacesDeprecationUtils.h"
 #import "GMSPlacesErrors.h"
 
+
 @class GMSAutocompleteFilter;
 @class GMSAutocompletePrediction;
 @class GMSAutocompleteSessionToken;
+@class GMSPlace;
 @class GMSPlaceLikelihood;
 @class GMSPlaceLikelihoodList;
 @class GMSPlacePhotoMetadata;
@@ -246,6 +247,7 @@ typedef void (^GMSPlacePhotoImageResultCallback)(UIImage *_Nullable photo,
                  sessionToken:(nullable GMSAutocompleteSessionToken *)sessionToken
                      callback:(GMSPlaceResultCallback)callback;
 
+
 /**
  * Find place likelihoods using the user's current location. This method is non-blocking.
  *
@@ -255,9 +257,11 @@ typedef void (^GMSPlacePhotoImageResultCallback)(UIImage *_Nullable photo,
  * @param placeFields The individual place fields requested for the place objects in the list.
  * @param callback The callback to invoke with place likelihoods.
  */
+
 - (void)findPlaceLikelihoodsFromCurrentLocationWithPlaceFields:(GMSPlaceField)placeFields
                                                       callback:
                                                           (GMSPlaceLikelihoodsCallback)callback;
+
 
 @end
 

@@ -5,18 +5,18 @@
 //  Copyright 2016 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
-//  Service: https://developers.google.com/maps/terms
+//  Service: https://cloud.google.com/maps-platform/terms
 //
 
 #import <UIKit/UIKit.h>
 
-#import "GMSAutocompleteFilter.h"
-#import "GMSAutocompletePrediction.h"
-#import "GMSPlace.h"
 #import "GMSPlaceFieldMask.h"
 #import "GMSPlacesDeprecationUtils.h"
 
+@class GMSAutocompleteFilter;
+@class GMSAutocompletePrediction;
 @class GMSAutocompleteTableDataSource;
+@class GMSPlace;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -140,6 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
  * all available fields.
  */
 @property(nonatomic, assign) GMSPlaceField placeFields;
+
 
 /** Initializes a data source. */
 - (instancetype)init NS_DESIGNATED_INITIALIZER;
