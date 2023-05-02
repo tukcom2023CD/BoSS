@@ -385,9 +385,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="6Mt-w0-vDf">
-                                <rect key="frame" x="25" y="59" width="343" height="40"/>
+                                <rect key="frame" x="25" y="59" width="343" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="4dv-br-gkr"/>
+                                    <constraint firstAttribute="height" constant="45" id="4dv-br-gkr"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -395,8 +395,18 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Euu-5Y-wjl">
-                                <rect key="frame" x="0.0" y="129" width="393" height="689"/>
+                                <rect key="frame" x="0.0" y="114" width="393" height="704"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="yD5-Ez-MOg">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yD5-Ez-MOg" id="XAa-G1-4Hg">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" id="86j-a5-sI9">
                                 <rect key="frame" x="0.0" y="404" width="393" height="414"/>
@@ -425,7 +435,7 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NiE-Hy-ygr">
                                         <rect key="frame" x="249" y="33.666666666666686" width="114" height="34.333333333333343"/>
-                                        <color key="tintColor" red="0.39267676767676762" green="0.17989167315050392" blue="0.27103254365464108" alpha="0.95999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.39215686274509803" green="0.1803921568627451" blue="0.27058823529411763" alpha="0.95999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="날짜 설정"/>
                                         <connections>
@@ -447,7 +457,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="날짜설정" translatesAutoresizingMaskIntoConstraints="NO" id="BLZ-pa-uoN">
-                                        <rect key="frame" x="30" y="98" width="333" height="130"/>
+                                        <rect key="frame" x="30" y="103" width="333" height="130"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="130" id="Bas-lT-dkS"/>
                                         </constraints>
@@ -472,7 +482,7 @@
                                     <constraint firstAttribute="trailing" secondItem="21c-AP-KC9" secondAttribute="trailing" id="THW-so-mhL"/>
                                     <constraint firstItem="21c-AP-KC9" firstAttribute="centerY" secondItem="vYr-oc-eDl" secondAttribute="centerY" id="TMs-r8-x0s"/>
                                     <constraint firstItem="vYr-oc-eDl" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" constant="40" id="aVs-PT-ys7"/>
-                                    <constraint firstItem="BLZ-pa-uoN" firstAttribute="top" secondItem="NiE-Hy-ygr" secondAttribute="bottom" constant="30" id="gjI-Kt-j4H"/>
+                                    <constraint firstItem="BLZ-pa-uoN" firstAttribute="top" secondItem="NiE-Hy-ygr" secondAttribute="bottom" constant="35" id="gjI-Kt-j4H"/>
                                     <constraint firstItem="BLZ-pa-uoN" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" constant="30" id="hIu-9K-wr0"/>
                                     <constraint firstAttribute="trailing" secondItem="06K-Bf-260" secondAttribute="trailing" constant="20" id="kQN-rd-5io"/>
                                     <constraint firstAttribute="trailing" secondItem="xjN-89-35b" secondAttribute="trailing" constant="10" id="lBR-XL-f6Y"/>
@@ -491,7 +501,7 @@
                             <constraint firstItem="Euu-5Y-wjl" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" id="ihY-G5-wYj"/>
                             <constraint firstItem="6Mt-w0-vDf" firstAttribute="top" secondItem="S08-WF-C35" secondAttribute="top" id="jbw-UX-dKe"/>
                             <constraint firstItem="6Mt-w0-vDf" firstAttribute="leading" secondItem="S08-WF-C35" secondAttribute="leading" constant="25" id="m4w-iD-lhF"/>
-                            <constraint firstItem="Euu-5Y-wjl" firstAttribute="top" secondItem="6Mt-w0-vDf" secondAttribute="bottom" constant="30" id="qdG-bA-B8R"/>
+                            <constraint firstItem="Euu-5Y-wjl" firstAttribute="top" secondItem="6Mt-w0-vDf" secondAttribute="bottom" constant="10" id="qdG-bA-B8R"/>
                             <constraint firstItem="S08-WF-C35" firstAttribute="bottom" secondItem="Euu-5Y-wjl" secondAttribute="bottom" id="s9w-Dx-8rt"/>
                             <constraint firstItem="Euu-5Y-wjl" firstAttribute="trailing" secondItem="86j-a5-sI9" secondAttribute="trailing" id="zJi-Ae-tC4"/>
                         </constraints>
@@ -503,6 +513,7 @@
                         <outlet property="nextButton" destination="06K-Bf-260" id="v2I-nf-EwY"/>
                         <outlet property="nodateLabel" destination="BLZ-pa-uoN" id="NXo-uy-18h"/>
                         <outlet property="placeNameCheck" destination="sjN-mG-pd1" id="jZq-gg-wNj"/>
+                        <outlet property="searchBar" destination="6Mt-w0-vDf" id="qIh-CQ-dad"/>
                         <outlet property="selectCheckButton" destination="NiE-Hy-ygr" id="I10-Rk-kUj"/>
                         <outlet property="slideUpView" destination="86j-a5-sI9" id="4DC-0d-lf9"/>
                         <outlet property="tableView" destination="Euu-5Y-wjl" id="bb4-ka-5OZ"/>
