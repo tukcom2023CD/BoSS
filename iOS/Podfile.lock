@@ -52,7 +52,6 @@ PODS:
   - GTMSessionFetcher/Core (2.1.0)
   - lottie-ios (4.1.3)
   - PromisesObjC (2.1.1)
-  - SwiftSoup (2.5.3)
 
 DEPENDENCIES:
   - Alamofire (~> 5.5)
@@ -65,7 +64,6 @@ DEPENDENCIES:
   - GooglePlaces
   - GoogleSignIn
   - lottie-ios
-  - SwiftSoup
 
 SPEC REPOS:
   trunk:
@@ -86,7 +84,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - lottie-ios
     - PromisesObjC
-    - SwiftSoup
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
@@ -106,8 +103,7 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: ffbb25ec00ebcb5201adab0a56d808f6f1902d9f
   lottie-ios: d0954d3150061f662ed0adf96ef98d7421864c47
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  SwiftSoup: 33e8d374021a6c332788f78fa29a93227d8a7699
 
-PODFILE CHECKSUM: 4d645a80db25f57ae82ff8cb2be2edf20b9bbde4
+PODFILE CHECKSUM: eb2afc680c7bde258b5bca0f14fb8af9ec69e6fc
 
 COCOAPODS: 1.11.3
