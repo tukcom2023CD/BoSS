@@ -6,9 +6,8 @@
 //
 
 import UIKit
-
-import UIKit
 import CalendarDateRangePicker
+import SwiftSoup
 
 class PlanningViewController: UIViewController{
     
@@ -18,32 +17,53 @@ class PlanningViewController: UIViewController{
     @IBOutlet weak var placeNameCheck: UILabel!
     @IBOutlet weak var selectCheckButton: UIButton!//날짜 선택하기
     @IBOutlet weak var dateLabel: UILabel! //날짜 표시되는 라벨
+    
+    @IBOutlet weak var dateLabelBackView: UIView!
     @IBOutlet weak var nextButton: UIButton!
     
-    var regionDataArray: [Region] = []
+    @IBOutlet weak var nodateLabel: UIImageView!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var startDate: String?
     var endDate: String?
-    
+    var localData = [String]()
+    var filteredData: [String] = []
     //Slide up view에 사용할 변수들
     let blackView = UIView()//슬라이드 뷰
     let animationTime = SlideViewConstant.animationTime
     var originalCenterOfslideUpView = CGFloat()
     var totalDistance = CGFloat()
-    
+    let dateTextColor = UIColor(red: 100/255, green: 46/255, blue: 69/255, alpha: 1.0)
+    let dateTextColorBefore = UIColor(red: 48/255, green: 38/255, blue: 145/255, alpha: 1.0)
+
     var regionDataManager = RegionDataManager()
-    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         slideUpView.isHidden = true
-        
+        selectCheckButton.setTitle("날짜 설정", for: .normal)
+        selectCheckButton.setTitleColor(dateTextColor, for: .normal)
+        selectCheckButton.tintColor = dateTextColor
+        nextButton.isHidden = true
         setupView()
-        setupDatas()
         setupTableView()
         nextButton.isHidden = true
         nextButton.layer.cornerRadius = 10
         seeNavigation()
+        dateLabelSetting()
+        localPasing()
+        filteredData = localData
+        searchBarSetting()
+
+    }
+    func searchBarSetting(){
+        searchBar.searchBarStyle = .minimal // 선 제거
+        searchBar.barTintColor = .white
+        searchBar.placeholder = "여행장소를 빠르게 찾아보세요"
     }
     func seeNavigation(){
         
@@ -54,7 +74,6 @@ class PlanningViewController: UIViewController{
     }
     // 테이블 뷰 세팅
     func setupTableView() {
-        tableView.register(UINib(nibName: "SearchPlaceTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchPlaceTableViewCell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = 70
@@ -99,25 +118,6 @@ class PlanningViewController: UIViewController{
         
         
         
-        //
-        //
-        //        let action = UIAlertAction(title: "네", style: .default, handler:  {(action) in
-        //                                   let vc = self.storyboard!.instantiateViewController(
-        //                                    withIdentifier: "MainPlanViewController") as! MainPlanViewController
-        //                                   self.present(vc, animated: true, completion: nil)
-        //
-        //                                   })
-        //        let cancel = UIAlertAction(title: "다시 정하기", style: .cancel, handler: nil)
-        //        alert.addAction(cancel)
-        //        alert.addAction(action)
-        //        //alert.modalTransitionStyle = UIModalTransitionStyle.partialCurl
-        //
-        //
-        //       // self.navigationController?.pushViewController(MainPlanViewController, animated: true)
-        //        present(alert, animated: true, completion: nil)
-        //
-        
-        
     }
     
     private func setupView(){
@@ -135,6 +135,7 @@ class PlanningViewController: UIViewController{
         
         let downPan = UIPanGestureRecognizer(target: self, action: #selector(dismissslideUpView(_:)))
         slideUpView.addGestureRecognizer(downPan)
+        
     }
     
     //드래그해서 slideupView 끄는거 지정
@@ -172,16 +173,14 @@ class PlanningViewController: UIViewController{
         
     }
     
-    //tableviewcell에 장소 데이터 넣기
-    func setupDatas() {
-        regionDataManager.makeRegionData()
-        regionDataArray = regionDataManager.getRegionData()
-    }
+    
     
     //slideupView 보이기
     func setupSlideView(){
         slideUpView.isHidden = false
         dateLabel.isHidden = true
+        nodateLabel.isHidden = false
+        dateLabelBackView.isHidden = true
         totalDistance = 0
         slideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
         UIView.animate(withDuration: TimeInterval(animationTime), animations: {
@@ -194,6 +193,10 @@ class PlanningViewController: UIViewController{
         slideUpView.slideUpShow(animationTime)
         //self.tabBarController?.tabBar.isHidden = true
         originalCenterOfslideUpView = slideUpView.center.y
+        selectCheckButton.setTitle("날짜 설정", for: .normal)
+        selectCheckButton.setTitleColor(dateTextColor, for: .normal)
+        selectCheckButton.tintColor = dateTextColor
+        nextButton.isHidden = true
     }
     
     @objc func handleDismiss() {
@@ -204,7 +207,7 @@ class PlanningViewController: UIViewController{
         }
         slideUpView.slideDownHide(animationTime)
         slideUpView.isHidden = false
-        //self.tabBarController?.tabBar.isHidden = false
+       
     }
     
     //선택완료 버튼클릭 -> datepicker 보이기
@@ -226,34 +229,96 @@ class PlanningViewController: UIViewController{
         
     }
     
+    //날짜 줄간격 설정
+    func dateLabelSetting(){
+        
+        // 문자열에 줄 간격 설정하기
+        let attributedString = NSMutableAttributedString(string: dateLabel.text!)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 10 // 원하는 줄 간격으로 변경
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+        
+        // 라벨에 적용하기
+        dateLabel.attributedText = attributedString
+    }
     
-    
+    func localPasing(){
+        guard let url = URL(string: "https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%9D%B8%EA%B5%AC%EC%88%9C_%EB%8F%84%EC%8B%9C_%EB%AA%A9%EB%A1%9D#%EA%B0%99%EC%9D%B4_%EB%B3%B4%EA%B8%B0") else {
+            return
+        }
+        
+        do {
+            let html = try String(contentsOf: url, encoding: .utf8)
+            let doc: Document = try SwiftSoup.parse(html)
+            
+            let table: Element = try doc.select("table.wikitable").first()!
+            let rows: Elements = try table.select("tr")
+            
+            let numRows = rows.count
+            
+            for (i, row) in rows.enumerated() {
+                if i == numRows - 1 { // 맨 마지막 행에서는 반복문을 종료
+                    break
+                }
+                let cols: Elements = try row.select("td:eq(1)")
+                for col in cols {
+                    let data = try col.text()
+                    localData.append(data)
+                    print(try col.text())
+                }
+            }
+            
+        } catch Exception.Error(let type, let message) {
+            print("\(type) : \(message)")
+        } catch {
+            print("error")
+        }
+    }
+ 
 }
+extension PlanningViewController: UISearchBarDelegate{
+    //검색어에 따라 필터링된 데이터를 저장한 후, 테이블 뷰를 업데이트
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+           // 검색어가 비어있는 경우 모든 데이터
+           if searchText.isEmpty {
+               filteredData = localData
+           } else {
+               // 검색어와 일치하는 데이터만 필터링저장
+               filteredData = localData.filter { $0.lowercased().contains(searchText.lowercased()) }
+           }
+
+           // 테이블 뷰를 업데이트합니다.
+           tableView.reloadData()
+       }
+
+}
+
 //tableview datasource랑 delegate 확장자
 extension PlanningViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(#function)
-        return regionDataArray.count
+        
+        return filteredData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchPlaceTableViewCell", for: indexPath) as! SearchPlaceTableViewCell
-        
-        cell.tripImg.image = regionDataArray[indexPath.row].placeImage
-        cell.title.text =  regionDataArray[indexPath.row].placeName
-        cell.subtitle.text =  regionDataArray[indexPath.row].placeSubtitle
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = filteredData[indexPath.row]
         cell.selectionStyle = .none
-        
         return cell
     }
 }
+
 extension PlanningViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         setupSlideView()
-        placeNameCheck.text = regionDataArray[indexPath.row].placeName
-        // 세그웨이를 실행 -> 사용 예정
-        //  performSegue(withIdentifier: "toPlanMain", sender: indexPath)
+        // 선택한 셀의 정보
+        if let selectedCell = tableView.cellForRow(at: indexPath) {
+            // 셀 내부의 라벨 정보 가져오기
+            if let textLabel = selectedCell.textLabel {
+                placeNameCheck.text = textLabel.text
+            }
+        }
     }
 }
 
@@ -274,11 +339,15 @@ extension PlanningViewController : CalendarDateRangePickerViewControllerDelegate
         self.endDate = CustomDateFormatter.format.string(from: endDate)
         
         dateLabel.text = "출발 : " + self.startDate! + " \n" + "도착 : " + self.endDate!
+        
         self.navigationController?.dismiss(animated: true, completion: nil)
         dateLabel.isHidden = false
+        nodateLabel.isHidden = true
+        dateLabelBackView.isHidden = false
         nextButton.isHidden = false
         selectCheckButton.setTitle("날짜 재설정", for: .normal)
-        
+        selectCheckButton.setTitleColor(dateTextColorBefore, for: .normal)
+        selectCheckButton.tintColor = dateTextColorBefore
     }
     
     @objc func didSelectStartDate(startDate: Date!){
