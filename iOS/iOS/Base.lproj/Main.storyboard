@@ -418,20 +418,14 @@
                                         </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="물감" translatesAutoresizingMaskIntoConstraints="NO" id="xjN-89-35b">
-                                        <rect key="frame" x="34" y="-14" width="325" height="60"/>
+                                        <rect key="frame" x="10" y="20" width="373" height="60"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="oBB-sY-YZF"/>
+                                            <constraint firstAttribute="height" constant="60" id="HrW-WO-OS8"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인천" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjN-mG-pd1">
-                                        <rect key="frame" x="-128.66666666666666" y="0.0" width="650.33333333333337" height="24.666666666666668"/>
-                                        <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NiE-Hy-ygr">
-                                        <rect key="frame" x="249" y="50" width="114" height="34.333333333333343"/>
-                                        <color key="tintColor" red="0.080359995891717523" green="0.18925491198561167" blue="0.39135495580808077" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <rect key="frame" x="249" y="33.666666666666686" width="114" height="34.333333333333343"/>
+                                        <color key="tintColor" red="0.39267676767676762" green="0.17989167315050392" blue="0.27103254365464108" alpha="0.95999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="날짜 설정"/>
                                         <connections>
@@ -439,47 +433,53 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21c-AP-KC9">
-                                        <rect key="frame" x="0.0" y="92.666666666666686" width="393" height="105"/>
+                                        <rect key="frame" x="0.0" y="106.33333333333331" width="393" height="105"/>
                                         <color key="backgroundColor" red="0.55048010418974469" green="0.91056103286285073" blue="1" alpha="0.33417839403973509" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="105" id="iLa-l8-qDr"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYr-oc-eDl">
-                                        <rect key="frame" x="40" y="134.33333333333337" width="313" height="21.333333333333343"/>
+                                        <rect key="frame" x="40" y="148" width="313" height="21.333333333333343"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="날짜설정" translatesAutoresizingMaskIntoConstraints="NO" id="BLZ-pa-uoN">
-                                        <rect key="frame" x="0.0" y="66" width="393" height="200"/>
+                                        <rect key="frame" x="30" y="98" width="333" height="130"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="200" id="Bas-lT-dkS"/>
+                                            <constraint firstAttribute="height" constant="130" id="Bas-lT-dkS"/>
                                         </constraints>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인천" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjN-mG-pd1">
+                                        <rect key="frame" x="50" y="37.666666666666686" width="36.333333333333343" height="24.666666666666671"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.95669509243595363" green="0.95411741829263175" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="06K-Bf-260" secondAttribute="bottom" constant="50" id="4fG-7r-OJQ"/>
                                     <constraint firstItem="BLZ-pa-uoN" firstAttribute="centerX" secondItem="86j-a5-sI9" secondAttribute="centerX" id="5Qm-oE-EfI"/>
-                                    <constraint firstItem="sjN-mG-pd1" firstAttribute="top" secondItem="86j-a5-sI9" secondAttribute="top" id="8Tb-ns-PE2"/>
+                                    <constraint firstItem="xjN-89-35b" firstAttribute="top" secondItem="86j-a5-sI9" secondAttribute="top" constant="20" id="906-Qf-1ti"/>
+                                    <constraint firstItem="sjN-mG-pd1" firstAttribute="centerY" secondItem="xjN-89-35b" secondAttribute="centerY" id="AYa-tD-AmW"/>
                                     <constraint firstItem="21c-AP-KC9" firstAttribute="centerX" secondItem="vYr-oc-eDl" secondAttribute="centerX" id="DMJ-mb-GKK"/>
-                                    <constraint firstItem="vYr-oc-eDl" firstAttribute="top" secondItem="NiE-Hy-ygr" secondAttribute="bottom" constant="50" id="JtD-b5-j1y"/>
-                                    <constraint firstItem="xjN-89-35b" firstAttribute="centerY" secondItem="sjN-mG-pd1" secondAttribute="centerY" multiplier="1.3" id="NDR-1y-htq"/>
+                                    <constraint firstItem="xjN-89-35b" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" constant="10" id="J9o-Gy-Ukc"/>
+                                    <constraint firstItem="vYr-oc-eDl" firstAttribute="top" secondItem="NiE-Hy-ygr" secondAttribute="bottom" constant="80" id="JtD-b5-j1y"/>
                                     <constraint firstItem="21c-AP-KC9" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" id="R2c-ZQ-qhp"/>
-                                    <constraint firstItem="NiE-Hy-ygr" firstAttribute="top" secondItem="86j-a5-sI9" secondAttribute="top" constant="50" id="Rwf-H2-Xq5"/>
-                                    <constraint firstItem="sjN-mG-pd1" firstAttribute="centerX" secondItem="86j-a5-sI9" secondAttribute="centerX" id="T1g-TH-p61"/>
                                     <constraint firstAttribute="trailing" secondItem="21c-AP-KC9" secondAttribute="trailing" id="THW-so-mhL"/>
                                     <constraint firstItem="21c-AP-KC9" firstAttribute="centerY" secondItem="vYr-oc-eDl" secondAttribute="centerY" id="TMs-r8-x0s"/>
-                                    <constraint firstItem="xjN-89-35b" firstAttribute="centerX" secondItem="sjN-mG-pd1" secondAttribute="centerX" id="aGJ-oX-9Id"/>
                                     <constraint firstItem="vYr-oc-eDl" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" constant="40" id="aVs-PT-ys7"/>
-                                    <constraint firstItem="BLZ-pa-uoN" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" id="hIu-9K-wr0"/>
-                                    <constraint firstItem="BLZ-pa-uoN" firstAttribute="top" secondItem="xjN-89-35b" secondAttribute="bottom" constant="20" id="hhE-wT-eCs"/>
-                                    <constraint firstItem="xjN-89-35b" firstAttribute="width" secondItem="sjN-mG-pd1" secondAttribute="width" multiplier="0.5" id="jQv-en-LqB"/>
+                                    <constraint firstItem="BLZ-pa-uoN" firstAttribute="top" secondItem="NiE-Hy-ygr" secondAttribute="bottom" constant="30" id="gjI-Kt-j4H"/>
+                                    <constraint firstItem="BLZ-pa-uoN" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" constant="30" id="hIu-9K-wr0"/>
                                     <constraint firstAttribute="trailing" secondItem="06K-Bf-260" secondAttribute="trailing" constant="20" id="kQN-rd-5io"/>
-                                    <constraint firstAttribute="trailing" secondItem="BLZ-pa-uoN" secondAttribute="trailing" id="lxH-PF-wJK"/>
+                                    <constraint firstAttribute="trailing" secondItem="xjN-89-35b" secondAttribute="trailing" constant="10" id="lBR-XL-f6Y"/>
+                                    <constraint firstAttribute="trailing" secondItem="BLZ-pa-uoN" secondAttribute="trailing" constant="30" id="lxH-PF-wJK"/>
                                     <constraint firstAttribute="trailing" secondItem="NiE-Hy-ygr" secondAttribute="trailing" constant="30" id="o7S-Wk-7Jc"/>
+                                    <constraint firstItem="sjN-mG-pd1" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" constant="50" id="pYo-38-HAT"/>
+                                    <constraint firstItem="NiE-Hy-ygr" firstAttribute="firstBaseline" secondItem="sjN-mG-pd1" secondAttribute="firstBaseline" id="ubS-E8-C4r"/>
                                     <constraint firstItem="06K-Bf-260" firstAttribute="leading" secondItem="86j-a5-sI9" secondAttribute="leading" constant="20" id="zLX-w6-Yva"/>
                                 </constraints>
                             </view>
@@ -3261,11 +3261,11 @@
         <image name="setting" width="256" height="256"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="tripimg" width="137.5" height="91.5"/>
-        <image name="날짜설정" width="448" height="176"/>
-        <image name="물감" width="325" height="117"/>
+        <image name="날짜설정" width="329" height="138"/>
+        <image name="물감" width="297" height="106"/>
         <image name="빈이미지" width="488" height="486"/>
-        <image name="영수증보기" width="250" height="250"/>
         <image name="여행사진 1" width="322" height="194"/>
+        <image name="영수증보기" width="250" height="250"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
