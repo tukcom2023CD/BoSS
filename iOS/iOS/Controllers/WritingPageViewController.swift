@@ -238,21 +238,24 @@ class WritingPageViewController: UIViewController {
     // 여행지 사진 네트워킹
     func uploadImageCard() {
         
+                PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
         
+                    // 여행지에 추가한 여러 사진들을 적용
+                    for photo in photos {
+                        guard let url = URL(string: photo.imageUrl) else { return }
+                        guard let data = try? Data(contentsOf: url) else { return }
         
-        //        PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
-        //
-        //            // 여행지에 추가한 여러 사진들을 적용
-        //            for photo in photos {
-        //                guard let url = URL(string: photo.imageUrl) else { return }
-        //                guard let data = try? Data(contentsOf: url) else { return }
-        //
-        //                DispatchQueue.main.async {
-        //                    // 이후에 이미지 슬라이드를 통해 여러 사진 적용할 수 있도록 수정
-        //                    self.imageCard.image = UIImage(data: data)
-        //                }
-        //            }
-        //        }
+                        DispatchQueue.main.async {
+                            // 이후에 이미지 슬라이드를 통해 여러 사진 적용할 수 있도록 수정
+                           
+                            if let image = UIImage(data: data) {
+                                 self.photoArray.append(image)
+                             }
+                            self.collectionView.reloadData()
+                            //self.imageCard.image = UIImage(data: data)
+                        }
+                    }
+                }
     }
     
     
