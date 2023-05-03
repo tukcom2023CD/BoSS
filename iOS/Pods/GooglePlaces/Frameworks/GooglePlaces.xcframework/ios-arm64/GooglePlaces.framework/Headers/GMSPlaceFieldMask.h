@@ -5,7 +5,7 @@
 //  Copyright 2018 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
-//  Service: https://developers.google.com/maps/terms
+//  Service: https://cloud.google.com/maps-platform/terms
 //
 
 #import <Foundation/Foundation.h>
@@ -26,31 +26,41 @@ NS_ASSUME_NONNULL_BEGIN
  *       supported for |GMSPlaceLikelihoodList| place objects. Please refer to
  *       https://developers.google.com/places/ios-sdk/place-data-fields for more details.
  */
-typedef NS_OPTIONS(NSUInteger, GMSPlaceField) {
+typedef NS_OPTIONS(uint64_t, GMSPlaceField) {
   GMSPlaceFieldName = 1 << 0,
-  GMSPlaceFieldPlaceID = 1 << 1,
-  GMSPlaceFieldPlusCode = 1 << 2,
-  GMSPlaceFieldCoordinate = 1 << 3,
-  GMSPlaceFieldOpeningHours = 1 << 4,
-  GMSPlaceFieldPhoneNumber = 1 << 5,
-  GMSPlaceFieldFormattedAddress = 1 << 6,
-  GMSPlaceFieldRating = 1 << 7,
-  GMSPlaceFieldPriceLevel = 1 << 8,
-  GMSPlaceFieldTypes = 1 << 9,
-  GMSPlaceFieldWebsite = 1 << 10,
-  GMSPlaceFieldViewport = 1 << 11,
-  GMSPlaceFieldAddressComponents = 1 << 12,
-  GMSPlaceFieldPhotos = 1 << 13,
-  GMSPlaceFieldUserRatingsTotal = 1 << 14,
-  GMSPlaceFieldUTCOffsetMinutes = 1 << 15,
-  GMSPlaceFieldBusinessStatus = 1 << 16,
-  GMSPlaceFieldIconImageURL = 1 << 17,
-  GMSPlaceFieldIconBackgroundColor = 1 << 18,
-  GMSPlaceFieldTakeout = 1 << 19,
-  GMSPlaceFieldDelivery = 1 << 20,
-  GMSPlaceFieldDineIn = 1 << 21,
-  GMSPlaceFieldCurbsidePickup = 1 << 22,
-  GMSPlaceFieldAll = NSUIntegerMax,
+  GMSPlaceFieldPlaceID = GMSPlaceFieldName << 1,
+  GMSPlaceFieldPlusCode = GMSPlaceFieldName << 2,
+  GMSPlaceFieldCoordinate = GMSPlaceFieldName << 3,
+  GMSPlaceFieldOpeningHours = GMSPlaceFieldName << 4,
+  GMSPlaceFieldPhoneNumber = GMSPlaceFieldName << 5,
+  GMSPlaceFieldFormattedAddress = GMSPlaceFieldName << 6,
+  GMSPlaceFieldRating = GMSPlaceFieldName << 7,
+  GMSPlaceFieldPriceLevel = GMSPlaceFieldName << 8,
+  GMSPlaceFieldTypes = GMSPlaceFieldName << 9,
+  GMSPlaceFieldWebsite = GMSPlaceFieldName << 10,
+  GMSPlaceFieldViewport = GMSPlaceFieldName << 11,
+  GMSPlaceFieldAddressComponents = GMSPlaceFieldName << 12,
+  GMSPlaceFieldPhotos = GMSPlaceFieldName << 13,
+  GMSPlaceFieldUserRatingsTotal = GMSPlaceFieldName << 14,
+  GMSPlaceFieldUTCOffsetMinutes = GMSPlaceFieldName << 15,
+  GMSPlaceFieldBusinessStatus = GMSPlaceFieldName << 16,
+  GMSPlaceFieldIconImageURL = GMSPlaceFieldName << 17,
+  GMSPlaceFieldIconBackgroundColor = GMSPlaceFieldName << 18,
+  GMSPlaceFieldTakeout = GMSPlaceFieldName << 19,
+  GMSPlaceFieldDelivery = GMSPlaceFieldName << 20,
+  GMSPlaceFieldDineIn = GMSPlaceFieldName << 21,
+  GMSPlaceFieldCurbsidePickup = GMSPlaceFieldName << 22,
+  GMSPlaceFieldReservable = GMSPlaceFieldName << 23,
+  GMSPlaceFieldServesBreakfast = GMSPlaceFieldName << 24,
+  GMSPlaceFieldServesLunch = GMSPlaceFieldName << 25,
+  GMSPlaceFieldServesDinner = GMSPlaceFieldName << 26,
+  GMSPlaceFieldServesBeer = GMSPlaceFieldName << 27,
+  GMSPlaceFieldServesWine = GMSPlaceFieldName << 28,
+  GMSPlaceFieldServesBrunch = GMSPlaceFieldName << 29,
+  GMSPlaceFieldServesVegetarianFood = GMSPlaceFieldName << 30,
+  GMSPlaceFieldWheelchairAccessibleEntrance = GMSPlaceFieldName
+                                              << 31,
+  GMSPlaceFieldAll = UINT64_MAX,
 };
 
 /**@}*/

@@ -5,7 +5,7 @@
 //  Copyright 2012 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
-//  Service: https://developers.google.com/maps/terms
+//  Service: https://cloud.google.com/maps-platform/terms
 //
 
 #import <CoreLocation/CoreLocation.h>
@@ -399,7 +399,7 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
  * Defaults to YES. If set to NO, GMSMapView will generate accessibility elements for overlay
  * objects, such as GMSMarker and GMSPolyline.
  *
- * This property is as per the informal UIAcessibility protocol, except for the default value of
+ * This property is as per the informal UIAccessibility protocol, except for the default value of
  * YES.
  */
 @property(nonatomic) BOOL accessibilityElementsHidden;
@@ -415,6 +415,7 @@ typedef NS_ENUM(NSUInteger, GMSMapViewPaddingAdjustmentBehavior) {
  * bounds.
  */
 @property(nonatomic, nullable) GMSCoordinateBounds *cameraTargetBounds;
+
 
 /** Builds and returns a map view with a frame and camera target. */
 + (instancetype)mapWithFrame:(CGRect)frame camera:(GMSCameraPosition *)camera;

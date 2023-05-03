@@ -14,9 +14,9 @@ target 'iOS' do
   pod 'CalendarDateRangePicker'
   pod 'GoogleSignIn'
   pod 'lottie-ios'
-  pod 'CollectionViewPagingLayout'
-  pod "BSImagePicker", "~> 3.1"
+  pod 'BSImagePicker', '~> 3.1'
   pod 'SwiftSoup'
+
   target 'iOSTests' do
     inherit! :search_paths
     # Pods for testing

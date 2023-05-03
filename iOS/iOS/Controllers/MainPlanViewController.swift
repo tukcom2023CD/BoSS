@@ -39,14 +39,6 @@ class MainPlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         requestPlaceData()
-        seeNavigation()
-    }
-    func seeNavigation(){
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        self.navigationItem.setHidesBackButton(false, animated: true)
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
-        
     }
     
     func setupTopView() {
@@ -56,13 +48,15 @@ class MainPlanViewController: UIViewController {
             attributes: [
                 .foregroundColor: UIColor.white,
                 .strokeColor: UIColor.black,
-                .strokeWidth: -3.0
+                .strokeWidth: -4.0
             ]
         )
     }
     
     func setupNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(barButtonTapped))
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.navigationItem.setHidesBackButton(false, animated: true)
     }
     
     func setupTableView() {
@@ -156,7 +150,7 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainPlanTableViewCell", for: indexPath) as! MainPlanTableViewCell
         
         cell.placeName.text = sections[indexPath.section].rows[indexPath.row].name
-        cell.totalSpending.text = "\(sections[indexPath.section].rows[indexPath.row].totalSpending!)"
+        cell.totalSpending.text = "\(sections[indexPath.section].rows[indexPath.row].totalSpending!)원"
         
         return cell
     }

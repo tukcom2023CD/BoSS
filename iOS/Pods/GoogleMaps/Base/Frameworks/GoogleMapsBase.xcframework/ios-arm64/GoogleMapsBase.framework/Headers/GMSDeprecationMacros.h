@@ -5,7 +5,7 @@
 //  Copyright 2015 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
-//  Service: https://developers.google.com/maps/terms
+//  Service: https://cloud.google.com/maps-platform/terms
 //
 
 #ifndef IPHONE_MAPS_SDK_BASE_API_GMSDEPRECATIONMACROS_H_

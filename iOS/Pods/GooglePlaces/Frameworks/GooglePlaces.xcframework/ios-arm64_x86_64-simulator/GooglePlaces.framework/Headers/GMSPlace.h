@@ -5,7 +5,7 @@
 //  Copyright 2016 Google LLC
 //
 //  Usage of this SDK is subject to the Google Maps/Google Earth APIs Terms of
-//  Service: https://developers.google.com/maps/terms
+//  Service: https://cloud.google.com/maps-platform/terms
 //
 
 #import <CoreLocation/CoreLocation.h>
@@ -248,6 +248,33 @@ typedef NS_ENUM(NSInteger, GMSBooleanPlaceAttribute) {
 
 /** Place Attribute for curbside pickup services. */
 @property(nonatomic, readonly) GMSBooleanPlaceAttribute curbsidePickup;
+
+/** Place Attribute indicating place is popular with tourists. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute reservable;
+
+/** Place Attribute indicating place serves breakfast. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute servesBreakfast;
+
+/** Place Attribute indicating place serves lunch. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute servesLunch;
+
+/** Place Attribute indicating place serves dinner. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute servesDinner;
+
+/** Place Attribute indicating place serves beer. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute servesBeer;
+
+/** Place Attribute indicating place serves wine. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute servesWine;
+
+/** Place Attribute indicating place serves brunch. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute servesBrunch;
+
+/** Place Attribute indicating place serves vegetarian food. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute servesVegetarianFood;
+
+/** Place Attribute indicating place is wheelchair accessible at the entrance. */
+@property(nonatomic, readonly) GMSBooleanPlaceAttribute wheelchairAccessibleEntrance;
 
 
 @end

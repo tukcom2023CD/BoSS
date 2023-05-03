@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct PhotoData: Codable {
     var photos: [Photo]
     
