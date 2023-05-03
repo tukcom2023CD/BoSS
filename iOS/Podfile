@@ -16,6 +16,7 @@ target 'iOS' do
   pod 'lottie-ios'
   pod 'CollectionViewPagingLayout'
   pod "BSImagePicker", "~> 3.1"
+  pod 'SwiftSoup'
   target 'iOSTests' do
     inherit! :search_paths
     # Pods for testing
