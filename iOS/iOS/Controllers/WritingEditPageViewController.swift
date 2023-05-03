@@ -162,7 +162,19 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         
     }
     
-    
+    func setupImagePicker() {
+            // 기본설정 셋팅
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 0
+            configuration.filter = .images
+            
+            // 기본설정을 가지고, 피커뷰컨트롤러 생성
+            let picker = PHPickerViewController(configuration: configuration)
+            // 피커뷰 컨트롤러의 대리자 설정
+            picker.delegate = self
+            // 피커뷰 띄우기
+            self.present(picker, animated: true, completion: nil)
+        }
     
     
     // MARK: - setupCamera
@@ -242,6 +254,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         }
         let albumSheet = UIAlertAction(title: "앨범", style: .default) { action in
             self.imagePickerStatus = true
+            self.setupImagePicker()
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         
