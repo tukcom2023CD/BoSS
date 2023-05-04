@@ -44,15 +44,15 @@ class WritingPageViewController: UIViewController {
     var place: Place!
     var spendings: [Spending] = []
     var currentPage : Int = 0
-    
+    var lastContentOffset: CGFloat = 0 // 셀 넘길때 인덱스 오류막음
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+       
         var totalPrice : Int = 0
         // 전화면에서 전달받은 데이터들을 통해 셋팅
-        
+       
         if place.diary == "" {
             contents.text = "여행을 기록해보세요"
             contents.textColor = .lightGray
@@ -116,7 +116,10 @@ class WritingPageViewController: UIViewController {
         labelViewSetting()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageButtonTapped(_:)))
         imageView.addGestureRecognizer(tapGestureRecognizer)
-        uploadImageCard()
+        uploadImageCard {
+                self.pageControl.numberOfPages = self.photoArray.count
+                self.collectionView.reloadData()
+            }
         
         
         self.collectionView.dataSource = self
@@ -152,8 +155,8 @@ class WritingPageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
-        
         self.viewDidLayoutSubviews()
+       
     }
     
     override func viewDidLayoutSubviews() {
@@ -235,25 +238,53 @@ class WritingPageViewController: UIViewController {
     }
     
     // MARK: - uploadImageCard
-    // 여행지 사진 네트워킹
-    func uploadImageCard() {
-        
-        
-        
-        //        PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
-        //
-        //            // 여행지에 추가한 여러 사진들을 적용
-        //            for photo in photos {
-        //                guard let url = URL(string: photo.imageUrl) else { return }
-        //                guard let data = try? Data(contentsOf: url) else { return }
-        //
-        //                DispatchQueue.main.async {
-        //                    // 이후에 이미지 슬라이드를 통해 여러 사진 적용할 수 있도록 수정
-        //                    self.imageCard.image = UIImage(data: data)
-        //                }
-        //            }
-        //        }
+    // 여행지 사진 네트워킹 완전히 출력이후에 pageControl사용
+    func uploadImageCard(completion: @escaping () -> Void) {
+        PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
+            var images = [UIImage]()
+            let group = DispatchGroup()
+            let queue = DispatchQueue(label: "com.myApp.photoQueue")
+            
+            // 여행지에 추가한 여러 사진들을 적용
+            for photo in photos {
+                group.enter()
+                guard let url = URL(string: photo.imageUrl) else { continue }
+                queue.async {
+                    if let data = try? Data(contentsOf: url) {
+                        if let image = UIImage(data: data) {
+                            images.append(image)
+                        }
+                    }
+                    group.leave()
+                }
+            }
+            group.notify(queue: .main) {
+                self.photoArray = images
+                completion()
+            }
+        }
     }
+    //    func uploadImageCard() {
+//
+//
+//
+//                PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
+//
+//                    // 여행지에 추가한 여러 사진들을 적용
+//                    for photo in photos {
+//                        guard let url = URL(string: photo.imageUrl) else { return }
+//                        guard let data = try? Data(contentsOf: url) else { return }
+//
+//                        DispatchQueue.main.async {
+//                            // 이후에 이미지 슬라이드를 통해 여러 사진 적용할 수 있도록 수정
+//                            if let image = UIImage(data: data) {
+//                                                           self.photoArray.append(image)
+//                   }
+//
+//                        }
+//                    }
+//                }
+//    }
     
     
     // MARK: - labelViewSetting() :UI세팅
@@ -309,15 +340,37 @@ class WritingPageViewController: UIViewController {
 extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate {
     
     
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        pageControl.currentPage = indexPath.row
-        let count = photoArray.count
-        
-        indexLabel.text = "\(indexPath.row + 1) / \(count)"
-        
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+ 
+      func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+          let count = photoArray.count
+          indexLabel.text = "\(1) / \(count)"
+          if lastContentOffset > collectionView.contentOffset.x {
+              // User scrolled to previous page
+              if indexPath.row > 0 {
+                  pageControl.currentPage = indexPath.row - 1
+                  indexLabel.text = "\(indexPath.row) / \(count)"
+              }
+          } else if lastContentOffset < collectionView.contentOffset.x {
+              // User scrolled to next page
+              if indexPath.row < count - 1 {
+                  pageControl.currentPage = indexPath.row + 1
+                  indexLabel.text = "\(indexPath.row + 2) / \(count)"
+              }
+          }
+      }
+      
+      func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+          let currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+          pageControl.currentPage = currentPage
+          indexLabel.text = "\(currentPage + 1) / \(photoArray.count)"
+      }
+      
+      func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+          lastContentOffset = scrollView.contentOffset.x
+      }
+      
+      // Other UICollectionView delegate methods
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         let height = collectionView.frame.height - 26
         return CGSize(width: width, height: height)
@@ -347,10 +400,7 @@ extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewD
         
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
-        pageControl.currentPage = currentPage
-    }
+
     
 }
 
