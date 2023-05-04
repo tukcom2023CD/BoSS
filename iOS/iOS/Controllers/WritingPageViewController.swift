@@ -44,15 +44,15 @@ class WritingPageViewController: UIViewController {
     var place: Place!
     var spendings: [Spending] = []
     var currentPage : Int = 0
-    
+    var lastContentOffset: CGFloat = 0 // 셀 넘길때 인덱스 오류막음
     
     // MARK: - viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+       
         var totalPrice : Int = 0
         // 전화면에서 전달받은 데이터들을 통해 셋팅
-        
+       
         if place.diary == "" {
             contents.text = "여행을 기록해보세요"
             contents.textColor = .lightGray
@@ -155,8 +155,8 @@ class WritingPageViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
-        
         self.viewDidLayoutSubviews()
+       
     }
     
     override func viewDidLayoutSubviews() {
@@ -340,15 +340,37 @@ class WritingPageViewController: UIViewController {
 extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate {
     
     
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        pageControl.currentPage = indexPath.row
-        let count = photoArray.count
-        
-        indexLabel.text = "\(indexPath.row + 1) / \(count)"
-        
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+ 
+      func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+          let count = photoArray.count
+          indexLabel.text = "\(1) / \(count)"
+          if lastContentOffset > collectionView.contentOffset.x {
+              // User scrolled to previous page
+              if indexPath.row > 0 {
+                  pageControl.currentPage = indexPath.row - 1
+                  indexLabel.text = "\(indexPath.row) / \(count)"
+              }
+          } else if lastContentOffset < collectionView.contentOffset.x {
+              // User scrolled to next page
+              if indexPath.row < count - 1 {
+                  pageControl.currentPage = indexPath.row + 1
+                  indexLabel.text = "\(indexPath.row + 2) / \(count)"
+              }
+          }
+      }
+      
+      func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+          let currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+          pageControl.currentPage = currentPage
+          indexLabel.text = "\(currentPage + 1) / \(photoArray.count)"
+      }
+      
+      func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+          lastContentOffset = scrollView.contentOffset.x
+      }
+      
+      // Other UICollectionView delegate methods
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
         let height = collectionView.frame.height - 26
         return CGSize(width: width, height: height)
@@ -378,10 +400,7 @@ extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewD
         
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let currentPage = Int(scrollView.contentOffset.x / scrollView.bounds.width)
-        pageControl.currentPage = currentPage
-    }
+
     
 }
 
