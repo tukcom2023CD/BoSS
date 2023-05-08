@@ -125,7 +125,7 @@ class ProfileEdirViewController : UIViewController {
         NSLayoutConstraint.activate([
             // 사이즈 설정
             emailTextField.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.75),
-            emailTextField.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.115)
+            emailTextField.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.125)
         ])
         
         // 텍스트 필드 UI (이름) 코드 설정
@@ -134,7 +134,7 @@ class ProfileEdirViewController : UIViewController {
         NSLayoutConstraint.activate([
             // 사이즈 설정
             nameTextField.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.75),
-            nameTextField.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.115)
+            nameTextField.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.125)
         ])
     
         // 버튼 스택 뷰 UI 코드 설정
@@ -152,8 +152,8 @@ class ProfileEdirViewController : UIViewController {
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         // 제약 조건 설정
         NSLayoutConstraint.activate([
-            cancelButton.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.31),
-            cancelButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.124)
+            cancelButton.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.3),
+            cancelButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.1)
         ])
         self.cancelButton.layer.cornerRadius = screenWidthSize * 0.03
         
@@ -161,8 +161,8 @@ class ProfileEdirViewController : UIViewController {
         applyButton.translatesAutoresizingMaskIntoConstraints = false
         // 제약 조건 설정
         NSLayoutConstraint.activate([
-            applyButton.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.31),
-            applyButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.124)
+            applyButton.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.3),
+            applyButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.1)
         ])
         self.applyButton.layer.cornerRadius = screenWidthSize * 0.03
     }
