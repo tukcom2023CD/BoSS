@@ -288,10 +288,12 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 // 만약 해당 일정에 지출내역이 존재하면
                 let sid = self.sidArray[indexPath.item - 1] // sid 가져옴
                 if let spendingCount = self.spendingOfEachScheduleDict[sid]?.spendingCount {
-                    height += 10
-                    height += (screenWidthSize * 0.05) // 내부 컬렉션 뷰 하단 공간
-                    for _ in 1...spendingCount {
-                        height += CGFloat((screenHeightSize * 0.1) + 10)
+                    if spendingCount != 0 {
+                        height += 10
+                        height += (screenWidthSize * 0.05) // 내부 컬렉션 뷰 하단 공간
+                        for _ in 1...spendingCount {
+                            height += CGFloat((screenHeightSize * 0.1) + 10)
+                        }
                     }
                 }
                 let width : CGFloat = screenWidthSize * 0.85
