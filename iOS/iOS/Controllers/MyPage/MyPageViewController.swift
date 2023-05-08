@@ -83,7 +83,7 @@ class MyPageViewController: UIViewController {
             userImage.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.4),
         ])
         // 모서리 값 설정
-        userImage.layer.cornerRadius = screenWidthSize * 0.125
+        userImage.layer.cornerRadius = screenWidthSize * 0.2
         // 비율에 맞춰 꽉 채움
         userImage.contentMode = .scaleAspectFill
                 
