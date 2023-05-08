@@ -1555,13 +1555,97 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행일정 편집" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4j5-Yg-Jap">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="여행일정 편집" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4j5-Yg-Jap">
                                 <rect key="frame" x="129" y="84" width="135.33333333333337" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="qoz-oS-wbO">
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="TGd-6K-U4O">
+                                <rect key="frame" x="46" y="194" width="95" height="316"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lok-dL-gbR">
+                                        <rect key="frame" x="0.0" y="0.0" width="95" height="62"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행 이름" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQ9-eA-i3Q">
+                                                <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="18"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="여행 이름" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iEe-dn-27I">
+                                                <rect key="frame" x="0.0" y="28" width="95" height="34"/>
+                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YIu-mN-ax7">
+                                        <rect key="frame" x="0.0" y="87" width="95" height="102"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행 기간" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jU3-gA-dyl">
+                                                <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="18"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="여행 기간" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qSP-FP-kqo">
+                                                <rect key="frame" x="0.0" y="28" width="95" height="34"/>
+                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50F-LF-imi">
+                                                <rect key="frame" x="0.0" y="72" width="56" height="30"/>
+                                                <color key="backgroundColor" name="AccentColor"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="기간 변경">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="dataChangeButtonTapped:" destination="DZq-ba-duj" eventType="touchUpInside" id="2Cj-2K-wkM"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rcq-am-fzV">
+                                        <rect key="frame" x="0.0" y="214" width="95" height="102"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행 지역" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyF-oI-hCC">
+                                                <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="18"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="여행 지역" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pea-Kd-pJE">
+                                                <rect key="frame" x="0.0" y="28" width="95" height="34"/>
+                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDz-VM-FrT">
+                                                <rect key="frame" x="0.0" y="72" width="56" height="30"/>
+                                                <color key="backgroundColor" name="AccentColor"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="지역 변경">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="regionChangeButtonTapped:" destination="DZq-ba-duj" eventType="touchUpInside" id="g7X-a3-VeV"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="qoz-oS-wbO">
                                 <rect key="frame" x="46.666666666666657" y="698" width="300" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A71-7V-opQ">
@@ -1596,127 +1680,21 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="TGd-6K-U4O">
-                                <rect key="frame" x="46.666666666666657" y="194" width="300" height="349"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lok-dL-gbR">
-                                        <rect key="frame" x="0.0" y="0.0" width="300" height="73"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행 이름" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQ9-eA-i3Q">
-                                                <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="18"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="여행 이름" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iEe-dn-27I">
-                                                <rect key="frame" x="0.0" y="28" width="300" height="45"/>
-                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="300" id="BMX-Yg-o9e"/>
-                                                    <constraint firstAttribute="height" constant="45" id="zQL-sm-7SQ"/>
-                                                </constraints>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="YIu-mN-ax7">
-                                        <rect key="frame" x="0.0" y="98" width="300" height="113"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행 기간" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jU3-gA-dyl">
-                                                <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="18"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="여행 기간" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qSP-FP-kqo">
-                                                <rect key="frame" x="0.0" y="28" width="300" height="45"/>
-                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="45" id="Drv-4H-goU"/>
-                                                    <constraint firstAttribute="width" constant="300" id="hdp-Sb-ynw"/>
-                                                </constraints>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="50F-LF-imi">
-                                                <rect key="frame" x="0.0" y="83" width="80" height="30"/>
-                                                <color key="backgroundColor" name="AccentColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="Lgf-c0-waR"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="기간 변경">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="dataChangeButtonTapped:" destination="DZq-ba-duj" eventType="touchUpInside" id="2Cj-2K-wkM"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rcq-am-fzV">
-                                        <rect key="frame" x="0.0" y="236" width="300" height="113"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="여행 지역" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GyF-oI-hCC">
-                                                <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="18"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="여행 지역" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pea-Kd-pJE">
-                                                <rect key="frame" x="0.0" y="28" width="300" height="45"/>
-                                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="45" id="o7w-yK-ja1"/>
-                                                    <constraint firstAttribute="width" constant="300" id="taU-nM-MoJ"/>
-                                                </constraints>
-                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDz-VM-FrT">
-                                                <rect key="frame" x="0.0" y="83" width="80" height="30"/>
-                                                <color key="backgroundColor" name="AccentColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="ml5-cB-fS2"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" title="지역 변경">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="regionChangeButtonTapped:" destination="DZq-ba-duj" eventType="touchUpInside" id="g7X-a3-VeV"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XK6-mA-AjN"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="XK6-mA-AjN" firstAttribute="bottom" secondItem="qoz-oS-wbO" secondAttribute="bottom" constant="80" id="1bZ-kp-yq3"/>
-                            <constraint firstItem="TGd-6K-U4O" firstAttribute="centerX" secondItem="Lox-Ys-skx" secondAttribute="centerX" id="7JX-0x-vbo"/>
-                            <constraint firstItem="4j5-Yg-Jap" firstAttribute="centerX" secondItem="Lox-Ys-skx" secondAttribute="centerX" id="Aca-mh-RSt"/>
-                            <constraint firstItem="TGd-6K-U4O" firstAttribute="top" secondItem="4j5-Yg-Jap" secondAttribute="bottom" constant="80" id="WXC-fS-i0Q"/>
-                            <constraint firstItem="qoz-oS-wbO" firstAttribute="centerX" secondItem="Lox-Ys-skx" secondAttribute="centerX" id="drK-o8-RXy"/>
-                            <constraint firstItem="4j5-Yg-Jap" firstAttribute="top" secondItem="XK6-mA-AjN" secondAttribute="top" constant="25" id="vfE-wI-sve"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="applyButton" destination="AVC-vu-rR5" id="y4e-tA-spz"/>
+                        <outlet property="buttonStackView" destination="qoz-oS-wbO" id="cJF-0Q-laP"/>
                         <outlet property="cancelButton" destination="A71-7V-opQ" id="PMz-wc-cBw"/>
                         <outlet property="dataChangeButton" destination="50F-LF-imi" id="tcg-g0-hya"/>
                         <outlet property="regionChangeButton" destination="hDz-VM-FrT" id="0EU-2m-hEs"/>
                         <outlet property="regionTextField" destination="pea-Kd-pJE" id="Qro-U0-hDl"/>
                         <outlet property="scheduleDateTextField" destination="qSP-FP-kqo" id="Hml-ju-WKq"/>
                         <outlet property="scheduleNameTextField" destination="iEe-dn-27I" id="Kud-gj-VlX"/>
+                        <outlet property="settingStackView" destination="TGd-6K-U4O" id="r0o-fc-zve"/>
+                        <outlet property="viewTitleLabel" destination="4j5-Yg-Jap" id="SIB-MH-5wc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8uo-tS-ak6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1731,8 +1709,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6dz-R4-Hrn">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="732"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6dz-R4-Hrn">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="677"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="0.0" id="Y2H-hu-icF">
                                     <size key="itemSize" width="350" height="100"/>
@@ -1793,8 +1772,8 @@
                                     <outlet property="delegate" destination="Fdb-Vb-YGY" id="s9m-gd-WlZ"/>
                                 </connections>
                             </collectionView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Zhp-eQ-Kal">
-                                <rect key="frame" x="46.666666666666657" y="762" width="300" height="40"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Zhp-eQ-Kal">
+                                <rect key="frame" x="46" y="698" width="300" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4f-2K-PqN">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="40"/>
@@ -1833,14 +1812,6 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZuP-Go-SZr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="6dz-R4-Hrn" firstAttribute="top" secondItem="Wbb-Rd-ydv" secondAttribute="top" id="4iL-oV-du0"/>
-                            <constraint firstItem="Zhp-eQ-Kal" firstAttribute="centerX" secondItem="Wbb-Rd-ydv" secondAttribute="centerX" id="65S-hQ-Jm5"/>
-                            <constraint firstAttribute="bottom" secondItem="6dz-R4-Hrn" secondAttribute="bottom" constant="120" id="GPC-Wd-wDi"/>
-                            <constraint firstItem="6dz-R4-Hrn" firstAttribute="leading" secondItem="ZuP-Go-SZr" secondAttribute="leading" id="UnZ-Su-KCO"/>
-                            <constraint firstItem="Zhp-eQ-Kal" firstAttribute="top" secondItem="6dz-R4-Hrn" secondAttribute="bottom" constant="30" id="udH-VO-Oqo"/>
-                            <constraint firstItem="ZuP-Go-SZr" firstAttribute="trailing" secondItem="6dz-R4-Hrn" secondAttribute="trailing" id="v1M-IE-qqx"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="applyButton" destination="mnC-fy-ROP" id="GVD-bN-vYQ"/>
@@ -1850,7 +1821,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WU7-Ui-FfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6363" y="1239"/>
+            <point key="canvasLocation" x="6362.5954198473282" y="1238.7323943661972"/>
         </scene>
         <!--With Draw Membership View Controller-->
         <scene sceneID="NC8-Sm-WiC">
