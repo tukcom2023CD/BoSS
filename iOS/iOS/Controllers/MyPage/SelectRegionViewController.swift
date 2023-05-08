@@ -29,7 +29,7 @@ class SelectRegionViewController : UIViewController {
         localPasing() // 지역 데이터 불러오기
         searchedRegionArray = regionArray
     }
-    
+
     // UI 설정
     func setUI() {
         // 화면 사이즈 값 저장
@@ -211,7 +211,7 @@ extension SelectRegionViewController : UICollectionViewDataSource, UICollectionV
         
         if self.selectedRegion == cell.regionName.text! {
             cell.regionCheckImage.tintColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-            cell.backgroundColor = #colorLiteral(red: 0.835628319, green: 0.9630018675, blue: 0.8461384469, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.9209920168, green: 0.9739885926, blue: 0.9211540818, alpha: 1)
         }
         else {
             cell.regionCheckImage.tintColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
@@ -235,6 +235,10 @@ extension SelectRegionViewController : UICollectionViewDataSource, UICollectionV
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder() // 키보드 닫기
     }
 }
 
