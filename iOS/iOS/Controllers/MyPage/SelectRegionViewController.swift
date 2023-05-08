@@ -13,33 +13,46 @@ class SelectRegionViewController : UIViewController {
     
     // Delegate 프로토콜 채택
     weak var delegate: MyDelegate?
-    
+    @IBOutlet weak var regionSearchBar: UISearchBar!
     @IBOutlet weak var buttonStackView: UIStackView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
-
     var regionArray = [String]() // 지역 이름 배열
+    var searchedRegionArray = [String]() // 검색된 이름 배열
     var selectedRegion = "" // 선택된 지역 이름
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUI()
-        localPasing()
+        regionSearchBar.delegate = self // 델리게이트 설정
+        setUI() // UI 설정
+        localPasing() // 지역 데이터 불러오기
+        searchedRegionArray = regionArray
     }
     
     // UI 설정
     func setUI() {
-        
         // 화면 사이즈 값 저장
         let screenWidthSize = UIScreen.main.bounds.size.width
         let screenHeightSize = UIScreen.main.bounds.size.height
+        
+        // 서치바 UI 코드 설정
+        regionSearchBar.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            regionSearchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeightSize * 0.06),
+            regionSearchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            regionSearchBar.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.95)
+        ])
+        regionSearchBar.searchBarStyle = .minimal // 선 제거
+        regionSearchBar.barTintColor = .white
+        regionSearchBar.placeholder = "여행장소 검색"
         
         // 컬렉션 뷰 UI 코드 설정
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         // 제약 조건 설정
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: regionSearchBar.bottomAnchor, constant: 0.05),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: screenHeightSize * -0.12),
@@ -138,10 +151,24 @@ class SelectRegionViewController : UIViewController {
     }
 }
 
-extension SelectRegionViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension SelectRegionViewController : UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+    
+    // 지역 검색
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+           // 검색어가 비어있는 경우 모든 데이터
+           if searchText.isEmpty {
+               searchedRegionArray = regionArray
+           } else {
+               // 검색어와 일치하는 데이터만 필터링저장
+               searchedRegionArray = regionArray.filter { $0.lowercased().contains(searchText.lowercased()) }
+           }
+           // 뷰 업데이트
+           collectionView.reloadData()
+       }
+    
     // 셀 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return regionArray.count
+        return searchedRegionArray.count
     }
     
     // 셀 설정
@@ -180,7 +207,7 @@ extension SelectRegionViewController : UICollectionViewDataSource, UICollectionV
         cell.layer.shadowRadius = 5
         
         // cell 내용 설정
-        cell.regionName.text = self.regionArray[indexPath.row]
+        cell.regionName.text = self.searchedRegionArray[indexPath.row]
         
         if self.selectedRegion == cell.regionName.text! {
             cell.regionCheckImage.tintColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)

@@ -1706,7 +1706,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6dz-R4-Hrn">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="677"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="574"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Y2H-hu-icF">
@@ -1782,6 +1782,11 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oDA-Pv-VFh">
+                                <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ZuP-Go-SZr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1791,6 +1796,7 @@
                         <outlet property="buttonStackView" destination="Zhp-eQ-Kal" id="vSE-Oa-Q2h"/>
                         <outlet property="cancelButton" destination="M4f-2K-PqN" id="k1w-3l-Etg"/>
                         <outlet property="collectionView" destination="6dz-R4-Hrn" id="a7a-mm-2Gt"/>
+                        <outlet property="regionSearchBar" destination="oDA-Pv-VFh" id="2sH-YY-Gkv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WU7-Ui-FfI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
