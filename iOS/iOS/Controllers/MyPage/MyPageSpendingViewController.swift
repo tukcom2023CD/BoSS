@@ -441,7 +441,7 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
             cell.spendingStackView_1.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
             
             // 지출 스택뷰_2 설정
-            cell.spendingStackView_2.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -((screenHeightSize * 0.1) - cell.spendingStackView_2.bounds.size.height) * 0.5),
+            cell.spendingStackView_2.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: (-((screenHeightSize * 0.1) - cell.spendingStackView_1.bounds.size.height) * 0.5)),
             cell.spendingStackView_2.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
         ])
         
