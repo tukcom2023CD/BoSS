@@ -42,7 +42,6 @@ class MyPageViewController: UIViewController {
         super.viewDidLoad()
         setUpUI() // UI 설정
         settingButtonSetUp() // 설정 메뉴 설정
-        
         setUserProfile() // 프로필 표시
         
         // 그림자 설정
@@ -56,21 +55,20 @@ class MyPageViewController: UIViewController {
         // 로그인 타입 확인
         self.userLoginType = checkLoginType()
         
+        // 프로필 수정 후 작업
         NotificationCenter.default.addObserver(self, selector: #selector(setUserProfile), name: NSNotification.Name("ProfileChanged"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        requestScheduleData() // 일정 데이터 불러오기
+        requestSpendingData() // 총지출  불러오기
     }
     
     // UI 설정 함수
     func setUpUI() {
-        
         // 화면 사이즈 값 저장
         let screenWidthSize = UIScreen.main.bounds.size.width
         let screenHeightSize = UIScreen.main.bounds.size.height
-        
-        
-        
-        
-        
-        
         
         // 유저 이미지뷰 UI 코드 설정
         userImage.translatesAutoresizingMaskIntoConstraints = false
@@ -88,12 +86,7 @@ class MyPageViewController: UIViewController {
         userImage.layer.cornerRadius = screenWidthSize * 0.125
         // 비율에 맞춰 꽉 채움
         userImage.contentMode = .scaleAspectFill
-        
-        
-    
-        
-        
-        
+                
         // 유저 정보 표시 뷰 UI 코드 설정
         userDataView.translatesAutoresizingMaskIntoConstraints = false
         // 제약 조건 설정
@@ -110,10 +103,6 @@ class MyPageViewController: UIViewController {
         // 모서리 값 설정, 가로 크기의 5%
         userDataView.layer.cornerRadius = (screenWidthSize * 0.04)
         
-        
-        
-        
-        
         // 유저 정보 스택 뷰 UI 코드 설정
         userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
         // 제약 조건 설정
@@ -124,10 +113,6 @@ class MyPageViewController: UIViewController {
             userInfoStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
         
-        
-    
-        
-
         // 여행 정보 스택 뷰 UI 코드 설정
         userDataStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -136,9 +121,6 @@ class MyPageViewController: UIViewController {
             // X축 중심에 맞춤
             userDataStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
-        
-        
-        
         
         // 유저 일정 표시 뷰 UI 코드 설정
         userScheduleView.translatesAutoresizingMaskIntoConstraints = false
@@ -151,8 +133,6 @@ class MyPageViewController: UIViewController {
         // 모서리 값 설정, 가로 크기의 10%
         userScheduleView.layer.cornerRadius = ((screenWidthSize * 0.8) - 10) / 2.0 * 0.1
         
-        
-        
         // 유저 일정 표시 스택 뷰 UI 코드 설정
         userScheduleStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -161,13 +141,6 @@ class MyPageViewController: UIViewController {
             // 세로 위치 설정
             userScheduleStackView.centerYAnchor.constraint(equalTo: userScheduleView.centerYAnchor),
         ])
-        
-        
-        
-        
-        
-        
-        
         
         // 유저 지출내역 표시 뷰 UI 코드 설정
         userSpendingView.translatesAutoresizingMaskIntoConstraints = false
@@ -180,7 +153,6 @@ class MyPageViewController: UIViewController {
         // 모서리 값 설정, 가로 크기의 10%
         userSpendingView.layer.cornerRadius = ((screenWidthSize * 0.8) - 10) / 2.0 * 0.1
         
-        
         // 유저 지출 표시 스택 뷰 UI 코드 설정
         userSpendingStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -189,11 +161,6 @@ class MyPageViewController: UIViewController {
             // 세로 위치 설정
             userSpendingStackView.centerYAnchor.constraint(equalTo: userSpendingView.centerYAnchor),
         ])
-        
-        
-        
-        
-        
         
         // 메뉴 테이블 뷰 UI 코드 설정
         menuTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -207,13 +174,6 @@ class MyPageViewController: UIViewController {
         
         menuTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
         ])
-        
-        
-        
-        
-        
-        
-        
     }
     
     // 버튼 설정 함수
@@ -267,7 +227,6 @@ class MyPageViewController: UIViewController {
         }
     }
 
-    
     // 유저 이메일 표시 함수
     func setUserEmail() {
         if self.userLoginType == "Google" {
@@ -403,7 +362,6 @@ class MyPageViewController: UIViewController {
         guard let withDrawVC = self.storyboard?.instantiateViewController(identifier: "withDrawVC") as? WithDrawMembershipViewController else {return}
         withDrawVC.modalPresentationStyle = .fullScreen
         withDrawVC.modalTransitionStyle = .coverVertical
-        
         self.present(withDrawVC, animated: true)
     }
     
@@ -426,10 +384,15 @@ class MyPageViewController: UIViewController {
     // 여행 일정 수 불러오기
     func requestScheduleData() {
         let user = UserDefaults.standard.getLoginUser()!
+        var count = 0
+        let group = DispatchGroup() // 비동기 함수 그룹
+        group.enter()
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
-            DispatchQueue.main.async {
-                self.userScheduleLabel.text = String(schedules.count)
-            }
+            count = schedules.count
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            self.userScheduleLabel.text = String(count)
         }
     }
 
