@@ -818,7 +818,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="w47-wJ-Y12">
-                                        <rect key="frame" x="89" y="87" width="152.66666666666669" height="47"/>
+                                        <rect key="frame" x="88.999999999999986" y="87" width="152.66666666666663" height="47"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxw-Sk-473">
                                                 <rect key="frame" x="26.666666666666664" y="0.0" width="99.333333333333343" height="24"/>
@@ -892,7 +892,7 @@
                                         <rect key="frame" x="170" y="0.0" width="160" height="100"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hO5-4K-iPu">
-                                                <rect key="frame" x="40.999999999999993" y="24" width="79.333333333333314" height="55.333333333333343"/>
+                                                <rect key="frame" x="41" y="24" width="79.333333333333329" height="55.333333333333343"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WNu-kq-O7c">
                                                         <rect key="frame" x="0.0" y="0.0" width="79.333333333333329" height="25"/>
@@ -2223,6 +2223,13 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="상세 지출내역" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kN-eB-Nh6">
+                                                    <rect key="frame" x="132" y="94" width="82" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2235,6 +2242,7 @@
                                             <outlet property="scheduleStatusLabel" destination="ryO-4V-nc8" id="3i9-iG-zcb"/>
                                             <outlet property="scheduleTitleLabel" destination="w2O-SV-EOA" id="5P1-Oi-uCD"/>
                                             <outlet property="spendingOfScheduleLabel" destination="eVZ-X4-NGN" id="dAj-HE-do9"/>
+                                            <outlet property="textLabel" destination="8kN-eB-Nh6" id="spy-pI-vK2"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

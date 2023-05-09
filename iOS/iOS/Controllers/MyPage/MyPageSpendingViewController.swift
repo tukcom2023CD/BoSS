@@ -191,6 +191,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             cell.scheduleDataStackView_1.translatesAutoresizingMaskIntoConstraints = false
             cell.scheduleDataStackView_2.translatesAutoresizingMaskIntoConstraints = false
             cell.collectionView.translatesAutoresizingMaskIntoConstraints = false
+            cell.textLabel.translatesAutoresizingMaskIntoConstraints = false
             
             // 제약 조건
             NSLayoutConstraint.activate([
@@ -199,6 +200,10 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 cell.scheduleStatusLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: screenWidthSize * 0.05),
                 cell.scheduleStatusLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -screenWidthSize * 0.05),
                 cell.scheduleStatusLabel.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.0125),
+                
+                // 텍스트 라벨 설정
+                cell.textLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: screenHeightSize * 0.12),
+                cell.textLabel.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
                 
                 // 일정 정보 스택뷰 1 설정
                 cell.scheduleDataStackView_1.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: ((screenHeightSize * 0.12) - cell.scheduleDataStackView_1.bounds.size.height) * 0.5),
@@ -209,7 +214,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 cell.scheduleDataStackView_2.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: ((screenHeightSize * 0.12) - cell.scheduleDataStackView_2.bounds.size.height) * 0.5),
                 
                 // 내부 컬렉션 뷰 설정
-                cell.collectionView.topAnchor.constraint(equalTo: cell.topAnchor, constant: screenHeightSize * 0.12),
+                cell.collectionView.topAnchor.constraint(equalTo: cell.topAnchor, constant: screenHeightSize * 0.12 + 20),
                 cell.collectionView.bottomAnchor.constraint(equalTo: cell.bottomAnchor, constant: -screenWidthSize * 0.05),
                 cell.collectionView.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: screenWidthSize * 0.05),
                 cell.collectionView.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -screenWidthSize * 0.025),
@@ -233,7 +238,6 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             if let spending = self.spendingOfEachScheduleDict[sid]?.spending {
                 cell.spendingOfScheduleLabel.text = numberFormatter(number : spending) // 지출 금액
             }
-    
             cell.contentView.alpha = 0.8
             cell.scheduleStatusLabel.layer.masksToBounds = true // 상태 표시 라벨 설정
             cell.scheduleStatusLabel.layer.cornerRadius = 3 // 상태 표시 라벨 설정
@@ -289,7 +293,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 let sid = self.sidArray[indexPath.item - 1] // sid 가져옴
                 if let spendingCount = self.spendingOfEachScheduleDict[sid]?.spendingCount {
                     if spendingCount != 0 {
-                        height += 10
+                        height += 30
                         height += (screenWidthSize * 0.05) // 내부 컬렉션 뷰 하단 공간
                         for _ in 1...spendingCount {
                             height += CGFloat((screenHeightSize * 0.1) + 10)
@@ -490,6 +494,7 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
     @IBOutlet weak var spendingOfScheduleLabel: UILabel! // 일정의 총 지출액
     @IBOutlet weak var scheduleRegionLabel: UILabel! // 일정 지역 이름
     @IBOutlet weak var scheduleStatusLabel: UILabel! // 일정 상태 라벨
+    @IBOutlet weak var textLabel: UILabel!
 }
 
 // 세부 지출내역 셀

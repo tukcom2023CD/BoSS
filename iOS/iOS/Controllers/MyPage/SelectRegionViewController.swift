@@ -46,7 +46,7 @@ class SelectRegionViewController : UIViewController {
         ])
         regionSearchBar.searchBarStyle = .minimal // 선 제거
         regionSearchBar.barTintColor = .white
-        regionSearchBar.placeholder = "여행장소 검색"
+        regionSearchBar.placeholder = "여행지역 검색"
         
         // 컬렉션 뷰 UI 코드 설정
         collectionView.translatesAutoresizingMaskIntoConstraints = false
