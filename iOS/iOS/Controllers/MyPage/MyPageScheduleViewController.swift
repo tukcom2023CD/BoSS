@@ -22,14 +22,19 @@ class MyPageScheduleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 스케줄 업데이트 신호를 받아 컬렉션 뷰 셀 리로드
-        NotificationCenter.default.addObserver(self, selector: #selector(requestScheduleData), name: NSNotification.Name("ScheduleUpdated"), object: nil)
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
         
-        // 스크롤 방향 설정
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
-
+        // 컬렉션 뷰 제약 조건 설정
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ])
+        
         // 시트 설정
         if #available(iOS 15.0, *) {
             if let sheetPresentationController = sheetPresentationController {
@@ -40,25 +45,40 @@ class MyPageScheduleViewController: UIViewController {
         } else {
             // Fallback on earlier versions
         }
+        
+        // 초기 간격 설정
+        let insets = (screenWidthSize * 0.05)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: insets, bottom: 0, right: 0)
+        
+        // 컬렉션 뷰 스크롤 방향 설정
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        
+        // 스케줄 업데이트 신호를 받아 컬렉션 뷰 셀 리로드
+        NotificationCenter.default.addObserver(self, selector: #selector(requestScheduleData), name: NSNotification.Name("ScheduleUpdated"), object: nil)
+        
+        // 여행 일정 가져오기
         requestScheduleData()
     }
     
     // 여행 일정 불러오기
     @objc func requestScheduleData() {
-        print("일정 불러옴")
+        self.scheduleStausArray = []
         let user = UserDefaults.standard.getLoginUser()!
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
+        group.enter()
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
-            self.scheduleStausArray = []
             self.scheduleCount = schedules.count // 스케줄 개수 저장
-            if schedules.count > 0 { // 스케줄 개수가 0보다 크면
-                self.hasSchedule = true
+            if schedules.count > 0 { // 일정 개수가 0보다 크면
+                self.hasSchedule = true // 일정 존재
             }
             self.scheduleArray = schedules // 스케줄 저장
             self.discriminationScheduleData(schedules: self.scheduleArray) // 일정 상태 구분
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            self.collectionView.reloadData()
         }
     }
     
@@ -94,31 +114,7 @@ class MyPageScheduleViewController: UIViewController {
             }
         }
     }
-    
-    // cell UI 설정함수
-    func setUpCellUI(cell : CustomScheduleCollecionCell) {
-        
-        // cell 자체 설정
-        cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        cell.layer.cornerRadius = 20 // 둥근 모서리
-        cell.layer.masksToBounds = false
-        
-        // cell 그림자 설정
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.3
-        cell.layer.shadowOffset = CGSize(width: 0, height: 0)
-        cell.layer.shadowRadius = 5
-        
-        // cell 내부 이미지 설정
-        cell.scheduleImage.image = self.exampleScheduleImage
-        cell.scheduleImage.contentMode = .scaleAspectFill
-        cell.scheduleImage.layer.cornerRadius = 15 // 둥근 모서리
-        cell.scheduleImage.layer.masksToBounds = true // 둥근 모서리에 맞게 자름
-        
-        // 셀 설정 버튼 설정
-        cell.cellSettingButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
-    }
-    
+
     func setColor(text : String) -> UIColor {
         if text == "완료" {
             return #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
@@ -167,14 +163,41 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             return self.scheduleCount
         }
     }
+    
+    // 셀 사이즈 결정 함수
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
+
+        let width : CGFloat = screenWidthSize * 0.9
+        let height: CGFloat = screenWidthSize * 0.9
+        let cgSize =  CGSize(width: width, height: height)
+        return cgSize
+    }
 
     // 컬렉션 뷰 cell 내용 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
+        
         if self.hasSchedule == false {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell_2", for: indexPath) as?
                     CustomScheduleCollecionCell_2 else {
                 return UICollectionViewCell()
             }
+            
+            // 일정없음 표시라벨 제약조건 설정
+            cell.noScheduleLabel.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                // x,y 축 중심에 위치하도록 설정
+                cell.noScheduleLabel.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+                cell.noScheduleLabel.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+            ])
+            
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell", for: indexPath) as?
@@ -182,7 +205,45 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
                 return UICollectionViewCell()
             }
             
-            self.setUpCellUI(cell: cell) // 셀 UI 설정
+            // 셀 내부 제약 조건 설정
+            cell.totalImageView.translatesAutoresizingMaskIntoConstraints = false
+            cell.scheduleDataStackView.translatesAutoresizingMaskIntoConstraints = false
+            cell.cellSettingButton.translatesAutoresizingMaskIntoConstraints = false
+        
+            NSLayoutConstraint.activate([
+                // 이미지 표시 뷰 위치 설정
+                cell.totalImageView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 0),
+                cell.totalImageView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: 0),
+                cell.totalImageView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 0),
+                cell.totalImageView.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.5),
+                cell.totalImageView.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+                
+                // 일정 정보 표시 스택 뷰 설정
+                cell.scheduleDataStackView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 10),
+                cell.scheduleDataStackView.topAnchor.constraint(equalTo: cell.totalImageView.bottomAnchor, constant: (((screenWidthSize * 0.9) - (screenWidthSize * 0.5)) - 115) / 2),
+                
+                // 일정 설정 버튼 설정
+                cell.cellSettingButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -15),
+                cell.cellSettingButton.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -15)
+            ])
+            
+            // 이미지 표시 뷰 설정
+            cell.totalImageView.backgroundColor = #colorLiteral(red: 0.9349470735, green: 0.9332778454, blue: 0.9347544312, alpha: 1)
+            cell.totalImageView.layer.cornerRadius = screenWidthSize * 0.09
+
+            // cell 설정
+            cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            cell.layer.cornerRadius = screenWidthSize * 0.09 // 둥근 모서리
+            cell.layer.masksToBounds = false
+            
+            // cell 그림자 설정
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOpacity = 0.2
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+            cell.layer.shadowRadius = 5
+            
+            // 셀 설정 버튼 설정
+            cell.cellSettingButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
 
             // cell 내용 설정
             cell.sid = scheduleArray[indexPath.row].sid
@@ -245,7 +306,6 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         if let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})  {
             scheduleEditVC.schedule = self.scheduleArray[index]
         }
-        
         self.present(scheduleEditVC, animated: true)
     }
 }
@@ -253,10 +313,11 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
 // 셀 설정
 class CustomScheduleCollecionCell : UICollectionViewCell {
     var sid : Int? // sid
+    @IBOutlet weak var totalImageView: UIView! // 이미지 표시 뷰
+    @IBOutlet weak var scheduleDataStackView: UIStackView! // 일정 데이터 스택 뷰
     @IBOutlet weak var scheduleTitle: UILabel! // 스케줄 이름
-    @IBOutlet weak var scheduleImage: UIImageView! // 스케줄 이미지
     @IBOutlet weak var regionLabel: UILabel! // 스케줄 지역
-    @IBOutlet weak var statusImage: UIImageView!
+    @IBOutlet weak var statusImage: UIImageView! // 스케줄 상태 이미지
     @IBOutlet weak var startLabel: UILabel! // 스케줄 시작 날짜
     @IBOutlet weak var stopLabel: UILabel! // 스케줄 종료 날짜
     @IBOutlet weak var statusLabel: UILabel! // 스케줄 상태
@@ -264,6 +325,6 @@ class CustomScheduleCollecionCell : UICollectionViewCell {
     @IBOutlet weak var cellSettingButton: UIButton! // 설정 버튼
 }
 
-
 class CustomScheduleCollecionCell_2 : UICollectionViewCell {
+    @IBOutlet weak var noScheduleLabel: UILabel! // 일정 없음 라벨
 }
