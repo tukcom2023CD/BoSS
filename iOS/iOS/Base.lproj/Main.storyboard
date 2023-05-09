@@ -1374,11 +1374,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="350" height="350"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TzO-eH-vbB">
-                                                    <rect key="frame" x="14.333333333333485" y="20" width="320" height="187"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillEqually" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="FKC-d5-bQl">
                                                     <rect key="frame" x="15" y="215" width="183.33333333333334" height="115"/>
                                                     <subviews>
@@ -1502,6 +1497,12 @@
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                     </state>
                                                 </button>
+                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xwt-iG-KJ4">
+                                                    <rect key="frame" x="15" y="19" width="320" height="188"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <viewLayoutGuide key="contentLayoutGuide" id="tZZ-rG-jxd"/>
+                                                    <viewLayoutGuide key="frameLayoutGuide" id="axY-SS-gQm"/>
+                                                </scrollView>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
@@ -1513,7 +1514,7 @@
                                             <outlet property="statusImage" destination="NMR-gR-PbY" id="z9v-KM-gkC"/>
                                             <outlet property="statusLabel" destination="6q3-7e-xBO" id="foX-iL-HL2"/>
                                             <outlet property="stopLabel" destination="gw5-Zi-J9I" id="1eI-at-MFh"/>
-                                            <outlet property="totalImageView" destination="TzO-eH-vbB" id="Veq-kO-1uH"/>
+                                            <outlet property="totalImageView" destination="xwt-iG-KJ4" id="T4d-GI-Bqt"/>
                                             <outlet property="totalSpending" destination="04f-Pc-czE" id="YXm-Lh-gkw"/>
                                         </connections>
                                     </collectionViewCell>

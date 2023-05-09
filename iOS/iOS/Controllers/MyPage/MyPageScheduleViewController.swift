@@ -16,6 +16,7 @@ class MyPageScheduleViewController: UIViewController {
     var currentCellSid : Int? // 현재 셀 sid
     var scheduleCount = 0 // 스케줄 개수
     var scheduleArray : [Schedule] = [] // 스케줄 배열
+    var scheduleImageDict : [Int : [String]] = [:] // 스케줄 딕셔너리
     var scheduleStausArray : [String] = [] // 스케줄 상태 배열
     let exampleScheduleImage = #imageLiteral(resourceName: "여행사진 1") // 예시 스케줄 사진
     
@@ -60,6 +61,8 @@ class MyPageScheduleViewController: UIViewController {
         
         // 여행 일정 가져오기
         requestScheduleData()
+        // 사진 불러오기
+        requestScheduleIamge()
     }
     
     // 여행 일정 불러오기
@@ -78,6 +81,38 @@ class MyPageScheduleViewController: UIViewController {
             group.leave()
         }
         group.notify(queue: .main) {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    // 일정에 대한 사진 불러오는 함수
+    func requestScheduleIamge() {
+        self.scheduleImageDict = [:] // Dict 초기화
+        let user = UserDefaults.standard.getLoginUser()!
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
+        group.enter()
+        ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            for schedule in schedules {
+                let urlArray : [String] = [] // 사진 URL 배열
+                self.scheduleImageDict[schedule.sid!] = urlArray // 딕셔너리 값추가
+                group.enter()
+                PlaceNetManager.shared.read(sid: schedule.sid!) { places in
+                    for place in places {
+                        group.enter()
+                        PhotoNetManager.shared.read(uid: user.uid!, pid: place.pid!) { photos in
+                            for photo in photos {
+                                self.scheduleImageDict[schedule.sid!]!.append(photo.imageUrl)
+                            }
+                            group.leave()
+                        }
+                    }
+                    group.leave()
+                }
+            }
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            print(self.scheduleImageDict)
             self.collectionView.reloadData()
         }
     }
@@ -169,7 +204,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         
         // 화면 사이즈 값 저장
         let screenWidthSize = UIScreen.main.bounds.size.width
-        let screenHeightSize = UIScreen.main.bounds.size.height
+        // let screenHeightSize = UIScreen.main.bounds.size.height
 
         let width : CGFloat = screenWidthSize * 0.9
         let height: CGFloat = screenWidthSize * 0.9
@@ -182,8 +217,9 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         
         // 화면 사이즈 값 저장
         let screenWidthSize = UIScreen.main.bounds.size.width
-        let screenHeightSize = UIScreen.main.bounds.size.height
+        // let screenHeightSize = UIScreen.main.bounds.size.height
         
+        // 일정이 없을 떄
         if self.hasSchedule == false {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell_2", for: indexPath) as?
                     CustomScheduleCollecionCell_2 else {
@@ -199,7 +235,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             ])
             
             return cell
-        } else {
+        } else { // 일정이 존재 할 떄
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell", for: indexPath) as?
                     CustomScheduleCollecionCell else {
                 return UICollectionViewCell()
@@ -228,8 +264,12 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             ])
             
             // 이미지 표시 뷰 설정
-            cell.totalImageView.backgroundColor = #colorLiteral(red: 0.9349470735, green: 0.9332778454, blue: 0.9347544312, alpha: 1)
+            cell.totalImageView.backgroundColor = #colorLiteral(red: 0.9636206031, green: 0.9636206031, blue: 0.9636206031, alpha: 1)
             cell.totalImageView.layer.cornerRadius = screenWidthSize * 0.09
+            // 스크롤 방향 설정
+            cell.totalImageView.showsHorizontalScrollIndicator = true
+            cell.totalImageView.showsVerticalScrollIndicator = false
+            cell.totalImageView.alwaysBounceHorizontal = true
 
             // cell 설정
             cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -245,8 +285,64 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             // 셀 설정 버튼 설정
             cell.cellSettingButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
 
-            // cell 내용 설정
+            // 셀 이미지 설정
             cell.sid = scheduleArray[indexPath.row].sid
+            
+            // 이미지 스크롤 뷰 contentSize 설정
+            var ImageCount = self.scheduleImageDict[cell.sid!]!.count
+            let size_1 = 10 * CGFloat(ImageCount + 1)
+            let size_2 = (screenWidthSize * 0.45) * CGFloat(ImageCount)
+            let size = size_1 + size_2
+            cell.totalImageView.contentSize = CGSize(width: size, height: screenWidthSize * 0.5)
+            
+            var count = 1 // 이미지 카운트
+            
+            // 각 url에 접근 하여 이미지 설정
+            for url in self.scheduleImageDict[cell.sid!]! {
+                
+                let imageView = UIImageView() // 이미지뷰 생성
+                
+                cell.totalImageView.addSubview(imageView) // 이미지 표시 뷰에 추가
+                
+                let spacing_1 = (screenWidthSize * 0.45) * CGFloat(count - 1)
+                let spacing_2 = 10 * CGFloat(count)
+                let spacing = spacing_1 + spacing_2
+                
+                print("\(count)번째 이미지")
+                
+                // 제약 조건 설정
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                
+                NSLayoutConstraint.activate([
+                    imageView.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.45),
+                    imageView.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.45),
+                    imageView.leadingAnchor.constraint(equalTo: cell.totalImageView.leadingAnchor, constant: spacing),
+                    imageView.centerYAnchor.constraint(equalTo: cell.totalImageView.centerYAnchor),
+                ])
+                imageView.clipsToBounds = true
+                imageView.layer.cornerRadius = screenWidthSize * 0.09
+                imageView.contentMode = .scaleAspectFill // 컨텐트 모드 설정
+                
+                // 문자열을 URL 구조체로 변환
+                if let imageURL = URL(string : url) {
+                    do {
+                        // 데이터로 변환
+                        let data = try Data(contentsOf: imageURL)
+                        
+                        // 데이터를 이미지로 변환
+                        if let image = UIImage(data : data) {
+                            // 이미지 설정
+                            imageView.image = image
+                        }
+                    } catch {
+                        // 이미지를 받아올 수 없는 경우 이미지 설정
+                        imageView.image = #imageLiteral(resourceName: "noImage")
+                    }
+                }
+                count += 1 // 카운트 증가
+            }
+        
+            // cell 내용 설정
             cell.scheduleTitle.text = scheduleArray[indexPath.row].title
             cell.regionLabel.text = scheduleArray[indexPath.row].region
             cell.startLabel.text = scheduleArray[indexPath.row].start
@@ -313,7 +409,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
 // 셀 설정
 class CustomScheduleCollecionCell : UICollectionViewCell {
     var sid : Int? // sid
-    @IBOutlet weak var totalImageView: UIView! // 이미지 표시 뷰
+    @IBOutlet weak var totalImageView: UIScrollView! // 이미지 표시 뷰
     @IBOutlet weak var scheduleDataStackView: UIStackView! // 일정 데이터 스택 뷰
     @IBOutlet weak var scheduleTitle: UILabel! // 스케줄 이름
     @IBOutlet weak var regionLabel: UILabel! // 스케줄 지역
