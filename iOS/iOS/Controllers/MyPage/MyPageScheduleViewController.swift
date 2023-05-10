@@ -18,23 +18,13 @@ class MyPageScheduleViewController: UIViewController {
     var scheduleArray : [Schedule] = [] // 스케줄 배열
     var scheduleImageDict : [Int : [String]] = [:] // 스케줄 딕셔너리
     var scheduleStausArray : [String] = [] // 스케줄 상태 배열
-    let exampleScheduleImage = #imageLiteral(resourceName: "여행사진 1") // 예시 스케줄 사진
+    
+    // 화면 사이즈 값 저장
+    let screenWidthSize = UIScreen.main.bounds.size.width
+    let screenHeightSize = UIScreen.main.bounds.size.height
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // 화면 사이즈 값 저장
-        let screenWidthSize = UIScreen.main.bounds.size.width
-        let screenHeightSize = UIScreen.main.bounds.size.height
-        
-        // 컬렉션 뷰 제약 조건 설정
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
-        ])
         
         // 시트 설정
         if #available(iOS 15.0, *) {
@@ -47,10 +37,24 @@ class MyPageScheduleViewController: UIViewController {
             // Fallback on earlier versions
         }
         
-        // 초기 간격 설정
+        // 컬렉션 뷰 제약 조건 설정
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ])
+        
+        // contentInsets 설정
         let insets = (screenWidthSize * 0.05)
         collectionView.contentInset = UIEdgeInsets(top: 0, left: insets, bottom: 0, right: 0)
         
+        // minimumLineSpacing 설정
+        let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        let minimumLineSpacing: CGFloat = insets
+        flowLayout?.minimumLineSpacing = minimumLineSpacing
+
         // 컬렉션 뷰 스크롤 방향 설정
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
@@ -123,6 +127,7 @@ class MyPageScheduleViewController: UIViewController {
         }
     }
     
+    // 일정 삭제 후 설정 함수
     func reloadAfterDeleteSchedule() {
         self.scheduleCount -= 1
         if self.scheduleCount == 0 {
@@ -189,7 +194,7 @@ class MyPageScheduleViewController: UIViewController {
     }
 }
 
-extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     // 컬렉션 뷰 cell 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.hasSchedule == false {
@@ -199,25 +204,8 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
         }
     }
     
-    // 셀 사이즈 결정 함수
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        // 화면 사이즈 값 저장
-        let screenWidthSize = UIScreen.main.bounds.size.width
-        // let screenHeightSize = UIScreen.main.bounds.size.height
-
-        let width : CGFloat = screenWidthSize * 0.9
-        let height: CGFloat = screenWidthSize * 0.9
-        let cgSize =  CGSize(width: width, height: height)
-        return cgSize
-    }
-
     // 컬렉션 뷰 cell 내용 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        // 화면 사이즈 값 저장
-        let screenWidthSize = UIScreen.main.bounds.size.width
-        // let screenHeightSize = UIScreen.main.bounds.size.height
         
         // 일정이 없을 떄
         if self.hasSchedule == false {
@@ -289,7 +277,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             cell.sid = scheduleArray[indexPath.row].sid
             
             // 이미지 스크롤 뷰 contentSize 설정
-            var ImageCount = self.scheduleImageDict[cell.sid!]!.count
+            let ImageCount = self.scheduleImageDict[cell.sid!]!.count
             let size_1 = 10 * CGFloat(ImageCount + 1)
             let size_2 = (screenWidthSize * 0.45) * CGFloat(ImageCount)
             let size = size_1 + size_2
@@ -371,6 +359,15 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             
             return cell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let width : CGFloat = screenWidthSize * 0.9
+        let height: CGFloat = screenWidthSize * 0.9
+        let cgSize =  CGSize(width: width, height: height)
+        return cgSize
     }
     
     // 일정 삭제 선택시 알림
