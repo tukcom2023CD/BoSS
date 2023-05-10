@@ -48,7 +48,7 @@ class MyPageScheduleViewController: UIViewController {
         
         // contentInsets 설정
         let insets = (screenWidthSize * 0.05)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: insets, bottom: 0, right: 0)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: insets, bottom: 0, right: insets)
         
         // minimumLineSpacing 설정
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout

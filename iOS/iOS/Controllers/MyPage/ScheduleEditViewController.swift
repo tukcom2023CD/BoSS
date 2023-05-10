@@ -222,6 +222,11 @@ extension ScheduleEditViewController : UITextFieldDelegate {
                 currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 extension ScheduleEditViewController : CalendarDateRangePickerViewControllerDelegate {

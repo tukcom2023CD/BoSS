@@ -304,4 +304,9 @@ extension ProfileEdirViewController : UITextFieldDelegate, UIImagePickerControll
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             dismiss(animated: true, completion: nil)
         }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
