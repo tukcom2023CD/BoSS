@@ -206,7 +206,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
     
     // 컬렉션 뷰 cell 내용 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+    
         // 일정이 없을 떄
         if self.hasSchedule == false {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell_2", for: indexPath) as?
@@ -233,6 +233,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             cell.totalImageView.translatesAutoresizingMaskIntoConstraints = false
             cell.scheduleDataStackView.translatesAutoresizingMaskIntoConstraints = false
             cell.cellSettingButton.translatesAutoresizingMaskIntoConstraints = false
+            cell.imageLabel.translatesAutoresizingMaskIntoConstraints = false
         
             NSLayoutConstraint.activate([
                 // 이미지 표시 뷰 위치 설정
@@ -248,9 +249,13 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
                 
                 // 일정 설정 버튼 설정
                 cell.cellSettingButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -15),
-                cell.cellSettingButton.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -15)
+                cell.cellSettingButton.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -15),
+                
+                // 사진 없음 라벨 설정
+                cell.imageLabel.centerXAnchor.constraint(equalTo: cell.totalImageView.centerXAnchor),
+                cell.imageLabel.centerYAnchor.constraint(equalTo: cell.totalImageView.centerYAnchor)
             ])
-            
+        
             // 이미지 표시 뷰 설정
             cell.totalImageView.backgroundColor = #colorLiteral(red: 0.9636206031, green: 0.9636206031, blue: 0.9636206031, alpha: 1)
             cell.totalImageView.layer.cornerRadius = screenWidthSize * 0.09
@@ -273,61 +278,69 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             // 셀 설정 버튼 설정
             cell.cellSettingButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
 
-            // 셀 이미지 설정
+            // sid 설정
             cell.sid = scheduleArray[indexPath.row].sid
             
+            // 셀 이미지 설정
             // 이미지 스크롤 뷰 contentSize 설정
             let ImageCount = self.scheduleImageDict[cell.sid!]!.count
-            let size_1 = 10 * CGFloat(ImageCount + 1)
-            let size_2 = (screenWidthSize * 0.45) * CGFloat(ImageCount)
-            let size = size_1 + size_2
-            cell.totalImageView.contentSize = CGSize(width: size, height: screenWidthSize * 0.5)
             
-            var count = 1 // 이미지 카운트
-            
-            // 각 url에 접근 하여 이미지 설정
-            for url in self.scheduleImageDict[cell.sid!]! {
+            if ImageCount > 0 {
+                cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
                 
-                let imageView = UIImageView() // 이미지뷰 생성
+                // 이미지 뷰 컨텐트 사이즈 설정
+                let size_1 = 10 * CGFloat(ImageCount + 1)
+                let size_2 = (screenWidthSize * 0.45) * CGFloat(ImageCount)
+                let size = size_1 + size_2
+                cell.totalImageView.contentSize = CGSize(width: size, height: screenWidthSize * 0.5)
                 
-                cell.totalImageView.addSubview(imageView) // 이미지 표시 뷰에 추가
+                var count = 1 // 설정중인 이미지 카운트
                 
-                let spacing_1 = (screenWidthSize * 0.45) * CGFloat(count - 1)
-                let spacing_2 = 10 * CGFloat(count)
-                let spacing = spacing_1 + spacing_2
-                
-                print("\(count)번째 이미지")
-                
-                // 제약 조건 설정
-                imageView.translatesAutoresizingMaskIntoConstraints = false
-                
-                NSLayoutConstraint.activate([
-                    imageView.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.45),
-                    imageView.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.45),
-                    imageView.leadingAnchor.constraint(equalTo: cell.totalImageView.leadingAnchor, constant: spacing),
-                    imageView.centerYAnchor.constraint(equalTo: cell.totalImageView.centerYAnchor),
-                ])
-                imageView.clipsToBounds = true
-                imageView.layer.cornerRadius = screenWidthSize * 0.09
-                imageView.contentMode = .scaleAspectFill // 컨텐트 모드 설정
-                
-                // 문자열을 URL 구조체로 변환
-                if let imageURL = URL(string : url) {
-                    do {
-                        // 데이터로 변환
-                        let data = try Data(contentsOf: imageURL)
-                        
-                        // 데이터를 이미지로 변환
-                        if let image = UIImage(data : data) {
-                            // 이미지 설정
-                            imageView.image = image
+                // 각 url에 접근 하여 이미지 설정
+                for url in self.scheduleImageDict[cell.sid!]! {
+                    let imageView = UIImageView() // 이미지뷰 생성
+                    cell.totalImageView.addSubview(imageView) // 이미지 표시 뷰에 추가
+                    
+                    // 이미지 뷰의 제약조건 설정을 위한 여백 수치 계산
+                    let spacing_1 = (screenWidthSize * 0.45) * CGFloat(count - 1)
+                    let spacing_2 = 10 * CGFloat(count)
+                    let spacing = spacing_1 + spacing_2
+                    
+                    // 제약 조건 설정
+                    imageView.translatesAutoresizingMaskIntoConstraints = false
+                    NSLayoutConstraint.activate([
+                        imageView.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.45),
+                        imageView.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.45),
+                        imageView.leadingAnchor.constraint(equalTo: cell.totalImageView.leadingAnchor, constant: spacing),
+                        imageView.centerYAnchor.constraint(equalTo: cell.totalImageView.centerYAnchor),
+                    ])
+                    imageView.clipsToBounds = true
+                    imageView.layer.cornerRadius = screenWidthSize * 0.09
+                    imageView.contentMode = .scaleAspectFill // 컨텐트 모드 설정
+                    
+                    // 문자열을 URL 구조체로 변환
+                    if let imageURL = URL(string : url) {
+                        do {
+                            // 데이터로 변환
+                            let data = try Data(contentsOf: imageURL)
+                            
+                            // 데이터를 이미지로 변환
+                            if let image = UIImage(data : data) {
+                                // 이미지 설정
+                                imageView.image = image
+                            }
+                        } catch {
+                            // 이미지를 받아올 수 없는 경우 이미지 설정
+                            imageView.image = #imageLiteral(resourceName: "noImage")
                         }
-                    } catch {
-                        // 이미지를 받아올 수 없는 경우 이미지 설정
-                        imageView.image = #imageLiteral(resourceName: "noImage")
                     }
+                    count += 1 // 설정중인 이미지 카운트 증가
                 }
-                count += 1 // 카운트 증가
+            } else if ImageCount == 0 {
+                // 이미지 개수가 0개 일때 3초후 이미지 상태 라벨 "사진 없음"으로 변경
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    cell.imageLabel.text = "사진 없음"
+                }
             }
         
             // cell 내용 설정
@@ -416,6 +429,12 @@ class CustomScheduleCollecionCell : UICollectionViewCell {
     @IBOutlet weak var statusLabel: UILabel! // 스케줄 상태
     @IBOutlet weak var totalSpending: UILabel! // 지출 금액
     @IBOutlet weak var cellSettingButton: UIButton! // 설정 버튼
+    @IBOutlet weak var imageLabel: UILabel! // 사진 없음 라벨
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        imageLabel.text = "사진 불러오는중"
+    }
 }
 
 class CustomScheduleCollecionCell_2 : UICollectionViewCell {
