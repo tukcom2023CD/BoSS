@@ -317,27 +317,44 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
                     imageView.layer.cornerRadius = self.screenWidthSize * 0.09
                     imageView.contentMode = .scaleAspectFill // 컨텐트 모드 설정
                     
+                    
                     // 비동기 처리로 이미지 설정
                     DispatchQueue.global().async {
-                        if let imageURL = URL(string : url) {
-                            do {
-                                // 데이터로 변환
-                                let data = try Data(contentsOf: imageURL)
-                                
-                                // 데이터를 이미지로 변환
-                                if let image = UIImage(data : data) {
-                                    // 이미지 설정
+                        
+                        let cacheKey = NSString(string: url) // 캐시 키 설정
+                        
+                        // 만약 캐시된 이미지가 있다면 해당 캐시 이미지로 설정
+                        if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                            DispatchQueue.main.async {
+                                cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
+                                imageView.image = cachedImage
+                            }
+                        } else { // 캐시 이미지가 없다면
+                            // URL 확인
+                            if let imageURL = URL(string : url) {
+                                do {
+                                    // 데이터로 변환
+                                    let data = try Data(contentsOf: imageURL)
+                                    
+                                    // 캐시 저장
+                                    AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
+                                    
+                                    // 데이터를 이미지로 변환
+                                    if let image = UIImage(data : data) {
+                                        // 이미지 설정
+                                        DispatchQueue.main.async {
+                                            cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
+                                            imageView.image = image
+                                        }
+                                    }
+                                } catch {
+                                    // 이미지를 받아올 수 없는 경우 이미지 설정
                                     DispatchQueue.main.async {
-                                        cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
-                                        imageView.image = image
+                                        imageView.image = #imageLiteral(resourceName: "noImage")
                                     }
                                 }
-                            } catch {
-                                // 이미지를 받아올 수 없는 경우 이미지 설정
-                                DispatchQueue.main.async {
-                                    imageView.image = #imageLiteral(resourceName: "noImage")
-                                }
                             }
+                            
                         }
                     }
                     count += 1 // 설정중인 이미지 카운트 증가
