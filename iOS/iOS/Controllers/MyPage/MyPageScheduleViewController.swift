@@ -23,6 +23,9 @@ class MyPageScheduleViewController: UIViewController {
     let screenWidthSize = UIScreen.main.bounds.size.width
     let screenHeightSize = UIScreen.main.bounds.size.height
     
+    // 이미지 불러왔는지 여부
+    var loadedImage : Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -116,7 +119,7 @@ class MyPageScheduleViewController: UIViewController {
             group.leave()
         }
         group.notify(queue: .main) {
-            print(self.scheduleImageDict)
+            self.loadedImage = true
             self.collectionView.reloadData()
         }
     }
@@ -359,11 +362,8 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
                     }
                     count += 1 // 설정중인 이미지 카운트 증가
                 }
-            } else if ImageCount == 0 {
-                // 이미지 개수가 0개 일때 3초후 이미지 상태 라벨 "사진 없음"으로 변경
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    cell.imageLabel.text = "사진 없음"
-                }
+            } else if ImageCount == 0 && self.loadedImage == true{
+                cell.imageLabel.text = "사진 없음"
             }
         
             // cell 내용 설정
