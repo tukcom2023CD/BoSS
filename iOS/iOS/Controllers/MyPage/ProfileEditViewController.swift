@@ -18,12 +18,19 @@ class ProfileEdirViewController : UIViewController {
     @IBOutlet weak var setDefaultImageButton: UIButton! // 기본 이미지 설정 버튼
     
     @IBOutlet weak var userDateSTackView: UIStackView! // 유저 정보 스택 뷰
+    
+    @IBOutlet weak var emailStackView: UIStackView! // 이메일 스택뷰
     @IBOutlet weak var emailTextField: UITextField! // 이메일 텍스트 필드
+    @IBOutlet weak var nameStackView: UIStackView! // 이름 스택 뷰
     @IBOutlet weak var nameTextField: UITextField! // 이름 텍스트 필드
     
     @IBOutlet weak var buttonStackView: UIStackView! // 버튼 스택 뷰
     @IBOutlet weak var cancelButton: UIButton! // 취소 버튼
     @IBOutlet weak var applyButton: UIButton! // 적용 버튼
+    
+    var activeTextField: UITextField? // 현재 수정중인 텍스트필드
+    var difference : CGFloat? // 텍스트필드 하단 위치와 키보드 상단위치 차이
+    var changeView : Bool = false // 뷰 변경 여부
     
     // 사용자 로그인 종류 구분
     var userLoginType : String?
@@ -46,6 +53,14 @@ class ProfileEdirViewController : UIViewController {
         setUserEmail()
         setUserName()
         setUserImage()
+        
+        // Notification 등록
+        
+        // 키보드 활성화 직전
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        // 키보드 비활성화 직전
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     // UI 설정 함수
@@ -165,6 +180,8 @@ class ProfileEdirViewController : UIViewController {
             applyButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.1)
         ])
         self.applyButton.layer.cornerRadius = screenWidthSize * 0.03
+        
+        view.layoutIfNeeded() // 레이아웃 업데이트 (frmae값 및 bounds값 업데이트)
     }
     
     // 로그인 타입 확인
@@ -282,31 +299,71 @@ class ProfileEdirViewController : UIViewController {
 }
 
 extension ProfileEdirViewController : UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
     // 글자수 제한 함수
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            // 글자 수를 제한하는 코드
-            let maxLength = 10
-            let currentString: NSString = textField.text! as NSString
-            let newString: NSString =
-                currentString.replacingCharacters(in: range, with: string) as NSString
-            return newString.length <= maxLength
-        }
+        // 글자 수를 제한하는 코드
+        let maxLength = 10
+        let currentString: NSString = textField.text! as NSString
+        let newString: NSString =
+        currentString.replacingCharacters(in: range, with: string) as NSString
+        return newString.length <= maxLength
+    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            guard let image = info[.originalImage] as? UIImage else {
-                return
-            }
-            userImageView.image = image
-            dismiss(animated: true, completion: nil)
+        guard let image = info[.originalImage] as? UIImage else {
+            return
         }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            dismiss(animated: true, completion: nil)
-        }
+        userImageView.image = image
+        dismiss(animated: true, completion: nil)
+    }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // 키보드 리턴키가 눌렸을 때
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        textField.resignFirstResponder() // 현재 편집되고 있는 텍스트필드 해제
         return true
+    }
+    
+    // UITextFieldDelegate 메소드
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        activeTextField = nil
+    }
+    
+    // 키보드가 나타나기 직전에 실행되는 함수
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                
+                let convertedPoint = activeTextField!.convert(CGPoint.zero, to: self.view)  // 좌표 알아내기
+                let bottom_y_coor = activeTextField!.frame.size.height + convertedPoint.y  // 알아낸 좌표에 텍스트 필드 높이를 더해 bottom y좌표 구함
+                
+                // 키보드 상단까지 거리
+                let keyboardTop = self.view.frame.size.height - keyboardSize.height
+                
+                // 차이 구함
+                self.difference = bottom_y_coor - keyboardTop
+                
+                // 차이가 0보다 큼 = 텍스트필드가 키보드 밑에 있음
+                if difference! > 0 {
+                    self.view.frame.origin.y -= (difference! + 10) // 차이 만큼 view를 위로 올림, 10은 여유값
+                    print("뷰 올림!")
+                }
+            }
+        }
+    }
+    
+    // 키보드가 사라지기 직전에 실행되는 함수
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if difference! > 0 {
+            self.view.frame.origin.y += (self.difference! + 10) // 차이 만큼 view를 아래로 내림, 10은 여유값
+            print("뷰 내림!")
+        }
     }
 }
