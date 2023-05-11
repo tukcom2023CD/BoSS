@@ -29,8 +29,8 @@ class MyPageScheduleViewController: UIViewController {
         // 시트 설정
         if #available(iOS 15.0, *) {
             if let sheetPresentationController = sheetPresentationController {
-                sheetPresentationController.detents = [.medium()]
-                sheetPresentationController.preferredCornerRadius = 20
+                sheetPresentationController.detents = [.medium(), .large()] // 확장 가능하도록
+                sheetPresentationController.preferredCornerRadius = screenWidthSize * 0.09
                 sheetPresentationController.prefersGrabberVisible = true
             }
         } else {
@@ -48,7 +48,7 @@ class MyPageScheduleViewController: UIViewController {
         
         // contentInsets 설정
         let insets = (screenWidthSize * 0.05)
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: insets, bottom: 0, right: insets)
+        collectionView.contentInset = UIEdgeInsets(top: 2 * insets, left: insets, bottom: insets, right: insets)
         
         // minimumLineSpacing 설정
         let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout
