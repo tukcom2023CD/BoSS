@@ -286,8 +286,6 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             let ImageCount = self.scheduleImageDict[cell.sid!]!.count
             
             if ImageCount > 0 {
-                cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
-                
                 // 이미지 뷰 컨텐트 사이즈 설정
                 let size_1 = 10 * CGFloat(ImageCount + 1)
                 let size_2 = (screenWidthSize * 0.45) * CGFloat(ImageCount)
@@ -298,40 +296,48 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
                 
                 // 각 url에 접근 하여 이미지 설정
                 for url in self.scheduleImageDict[cell.sid!]! {
+                
                     let imageView = UIImageView() // 이미지뷰 생성
                     cell.totalImageView.addSubview(imageView) // 이미지 표시 뷰에 추가
                     
                     // 이미지 뷰의 제약조건 설정을 위한 여백 수치 계산
-                    let spacing_1 = (screenWidthSize * 0.45) * CGFloat(count - 1)
+                    let spacing_1 = (self.screenWidthSize * 0.45) * CGFloat(count - 1)
                     let spacing_2 = 10 * CGFloat(count)
                     let spacing = spacing_1 + spacing_2
                     
                     // 제약 조건 설정
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     NSLayoutConstraint.activate([
-                        imageView.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.45),
-                        imageView.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.45),
+                        imageView.widthAnchor.constraint(equalToConstant: self.screenWidthSize * 0.45),
+                        imageView.heightAnchor.constraint(equalToConstant: self.screenWidthSize * 0.45),
                         imageView.leadingAnchor.constraint(equalTo: cell.totalImageView.leadingAnchor, constant: spacing),
                         imageView.centerYAnchor.constraint(equalTo: cell.totalImageView.centerYAnchor),
                     ])
                     imageView.clipsToBounds = true
-                    imageView.layer.cornerRadius = screenWidthSize * 0.09
+                    imageView.layer.cornerRadius = self.screenWidthSize * 0.09
                     imageView.contentMode = .scaleAspectFill // 컨텐트 모드 설정
                     
-                    // 문자열을 URL 구조체로 변환
-                    if let imageURL = URL(string : url) {
-                        do {
-                            // 데이터로 변환
-                            let data = try Data(contentsOf: imageURL)
-                            
-                            // 데이터를 이미지로 변환
-                            if let image = UIImage(data : data) {
-                                // 이미지 설정
-                                imageView.image = image
+                    // 비동기 처리로 이미지 설정
+                    DispatchQueue.global().async {
+                        if let imageURL = URL(string : url) {
+                            do {
+                                // 데이터로 변환
+                                let data = try Data(contentsOf: imageURL)
+                                
+                                // 데이터를 이미지로 변환
+                                if let image = UIImage(data : data) {
+                                    // 이미지 설정
+                                    DispatchQueue.main.async {
+                                        cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
+                                        imageView.image = image
+                                    }
+                                }
+                            } catch {
+                                // 이미지를 받아올 수 없는 경우 이미지 설정
+                                DispatchQueue.main.async {
+                                    imageView.image = #imageLiteral(resourceName: "noImage")
+                                }
                             }
-                        } catch {
-                            // 이미지를 받아올 수 없는 경우 이미지 설정
-                            imageView.image = #imageLiteral(resourceName: "noImage")
                         }
                     }
                     count += 1 // 설정중인 이미지 카운트 증가
