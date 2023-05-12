@@ -12,19 +12,17 @@ class MyPageScheduleViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var hasSchedule : Bool = false // 스케줄 존재 여부
-    var currentCellSid : Int? // 현재 셀 sid
+    var loadedSchedule : Bool = false // 스케줄 로딩 여부
+    var loadedImage : Bool = false // 이미지 로딩 여부
     var scheduleCount = 0 // 스케줄 개수
     var scheduleArray : [Schedule] = [] // 스케줄 배열
-    var scheduleImageDict : [Int : [String]] = [:] // 스케줄 딕셔너리
     var scheduleStausArray : [String] = [] // 스케줄 상태 배열
+    var scheduleImageDict : [Int : [String]] = [:] // 스케줄 이미지 딕셔너리
+    var currentCellSid : Int? // 현재 셀 sid
     
     // 화면 사이즈 값 저장
     let screenWidthSize = UIScreen.main.bounds.size.width
     let screenHeightSize = UIScreen.main.bounds.size.height
-    
-    // 이미지 불러왔는지 여부
-    var loadedImage : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,14 +78,12 @@ class MyPageScheduleViewController: UIViewController {
         group.enter()
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
             self.scheduleCount = schedules.count // 스케줄 개수 저장
-            if schedules.count > 0 { // 일정 개수가 0보다 크면
-                self.hasSchedule = true // 일정 존재
-            }
             self.scheduleArray = schedules // 스케줄 저장
             self.discriminationScheduleData(schedules: self.scheduleArray) // 일정 상태 구분
             group.leave()
         }
         group.notify(queue: .main) {
+            self.loadedSchedule = true // 일정 로딩 완료
             self.collectionView.reloadData()
         }
     }
@@ -133,9 +129,6 @@ class MyPageScheduleViewController: UIViewController {
     // 일정 삭제 후 설정 함수
     func reloadAfterDeleteSchedule() {
         self.scheduleCount -= 1
-        if self.scheduleCount == 0 {
-            self.hasSchedule = false
-        }
         let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})
         self.scheduleArray.remove(at: index!)
         self.scheduleStausArray.remove(at: index!)
@@ -200,7 +193,7 @@ class MyPageScheduleViewController: UIViewController {
 extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     // 컬렉션 뷰 cell 개수 설정
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self.hasSchedule == false {
+        if self.scheduleCount == 0 {
             return 1
         } else {
             return self.scheduleCount
@@ -210,23 +203,28 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
     // 컬렉션 뷰 cell 내용 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-        // 일정이 없을 떄
-        if self.hasSchedule == false {
+        // 일정이 없을 때
+        if scheduleCount == 0 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell_2", for: indexPath) as?
                     CustomScheduleCollecionCell_2 else {
                 return UICollectionViewCell()
             }
             
+            if loadedSchedule == true {
+                cell.statusScheduleLabel.text = "일정 없음"
+            }
+            
             // 일정없음 표시라벨 제약조건 설정
-            cell.noScheduleLabel.translatesAutoresizingMaskIntoConstraints = false
+            cell.statusScheduleLabel.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 // x,y 축 중심에 위치하도록 설정
-                cell.noScheduleLabel.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
-                cell.noScheduleLabel.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+                cell.statusScheduleLabel.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+                cell.statusScheduleLabel.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
             ])
-            
+        
             return cell
-        } else { // 일정이 존재 할 떄
+        }
+        else { // 일정이 존재 할 떄
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomScheduleCollecionCell", for: indexPath) as?
                     CustomScheduleCollecionCell else {
                 return UICollectionViewCell()
@@ -452,7 +450,7 @@ class CustomScheduleCollecionCell : UICollectionViewCell {
     @IBOutlet weak var statusLabel: UILabel! // 스케줄 상태
     @IBOutlet weak var totalSpending: UILabel! // 지출 금액
     @IBOutlet weak var cellSettingButton: UIButton! // 설정 버튼
-    @IBOutlet weak var imageLabel: UILabel! // 사진 없음 라벨
+    @IBOutlet weak var imageLabel: UILabel! // 사진 상태 라벨
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -461,5 +459,11 @@ class CustomScheduleCollecionCell : UICollectionViewCell {
 }
 
 class CustomScheduleCollecionCell_2 : UICollectionViewCell {
-    @IBOutlet weak var noScheduleLabel: UILabel! // 일정 없음 라벨
+
+    @IBOutlet weak var statusScheduleLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        statusScheduleLabel.text = "일정 불러오는 중"
+    }
 }
