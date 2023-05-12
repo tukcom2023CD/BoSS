@@ -12,11 +12,14 @@ class MyPageSpendingViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var loadedTotalSpending : Bool = false // 총 지출 불러왔는지 여부
+    var loadedEachSchedule : Bool = false // 각 일정을 불러왔는지 여부
+    
     var uid = UserDefaults.standard.getLoginUser()!.uid // 사용자 uid
-    var selectedCellIndex : IndexPath? // 선택된 일정 셀 index
     var userTotalSpending : Int = 0 // 사용자의 총지출
     var scheduleCount : Int = 0  // 여행일정 수
     var sidArray : [Int] = [] // sid 배열
+    var selectedCellIndex : IndexPath? // 선택된 일정 셀 index
     
     // 지출 금액 표시 셀에 대한 구조체
     struct spendingOfEachSchedule {
@@ -32,9 +35,9 @@ class MyPageSpendingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        loadUserTotalSpending()
-        loadSpendingOfSchedule()
+        setupUI() // UI 설정
+        loadUserTotalSpending() // 총지출 계산
+        loadSpendingOfSchedule() // 일정당 지출 계산
     }
     
     func setupUI() {
@@ -78,6 +81,7 @@ class MyPageSpendingViewController: UIViewController {
             group.leave() // 그룹에서 제외
         }
         group.notify(queue: .main) {
+            self.loadedTotalSpending = true
             self.userTotalSpending = userTotalSpending // 사용자 총지출 설정
             self.scheduleCount = scheduleCount // 일정 수 저장
             self.sidArray = sidArray // sid 배열 저장
@@ -85,7 +89,7 @@ class MyPageSpendingViewController: UIViewController {
         }
     }
     
-    // 사용자 일정수, 일정이름, 일정당지출  불러오기
+    // 일정 정보 불러오기
     func loadSpendingOfSchedule() {
         // 일정 구조체 딕셔너리
         var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:]
@@ -109,6 +113,7 @@ class MyPageSpendingViewController: UIViewController {
                     group.leave() // 그룹에서 제외
                 }
                 group.notify(queue: .main) {
+                    self.loadedEachSchedule = true
                     self.spendingOfEachScheduleDict = spendingOfEachScheduleDict
                     print(spendingOfEachScheduleDict)
                     self.collectionView.reloadData() // 새로고침
@@ -151,7 +156,12 @@ class MyPageSpendingViewController: UIViewController {
 extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  self.scheduleCount + 1  // 셀 수
+        // 각 스케줄 내용 로딩이 완료된 경우
+        if self.loadedEachSchedule == true {
+            return self.scheduleCount + 1  // 셀 수
+        } else {
+            return 1
+        }
     }
 
     // 셀 설정 함수
@@ -321,16 +331,19 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
     
     // 셀표시할떄 함수
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        // 딜레이 값
-        let delay : Double = (Double(indexPath.item) * (0.1))
-        // 셀의 초기 투명도와 위치 설정
-        cell.alpha = 0
-        cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
-        // 투명도를 1, 원래 위치로 이동
-        UIView.animate(withDuration: 0.5, delay: 0.2 + delay, options: [.curveEaseInOut], animations: {
-            cell.alpha = 1
-            cell.transform = CGAffineTransform.identity
-        }, completion: nil)
+        
+        if indexPath.item != 0 {
+            // 딜레이 값
+            let delay : Double = (Double(indexPath.item) * (0.05))
+            // 셀의 초기 투명도와 위치 설정
+            cell.alpha = 0
+            cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
+            // 투명도를 1, 원래 위치로 이동
+            UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: {
+                cell.alpha = 1
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+        }
     }
 }
 
