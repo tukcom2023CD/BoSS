@@ -26,7 +26,7 @@ class MyPageScheduleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // 시트 설정
         if #available(iOS 15.0, *) {
             if let sheetPresentationController = sheetPresentationController {
@@ -72,6 +72,8 @@ class MyPageScheduleViewController: UIViewController {
     
     // 여행 일정 불러오기
     @objc func requestScheduleData() {
+        self.scheduleCount = 0
+        self.scheduleArray = []
         self.scheduleStausArray = []
         let user = UserDefaults.standard.getLoginUser()!
         let group = DispatchGroup() // 비동기 함수 그룹 생성
@@ -128,11 +130,11 @@ class MyPageScheduleViewController: UIViewController {
     
     // 일정 삭제 후 설정 함수
     func reloadAfterDeleteSchedule() {
-        self.scheduleCount -= 1
-        let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid})
-        self.scheduleArray.remove(at: index!)
-        self.scheduleStausArray.remove(at: index!)
-        self.collectionView.reloadData()
+        self.scheduleCount -= 1 // 일정 수를 하나 줄임
+        let index = self.scheduleArray.firstIndex(where: {$0.sid == currentCellSid}) // 일정 배열에서 해당 일정에 대한 인덱스 찾음
+        self.scheduleArray.remove(at: index!) // 일저어 배열에서 해당 일정 삭제
+        self.scheduleStausArray.remove(at: index!) // 일정 상태 배열에서 삭제
+        self.collectionView.reloadData() // reload
     }
     
     // 스케줄 상태(완료, 진행중, 예정) 구분
@@ -256,15 +258,7 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
                 cell.imageLabel.centerXAnchor.constraint(equalTo: cell.totalImageView.centerXAnchor),
                 cell.imageLabel.centerYAnchor.constraint(equalTo: cell.totalImageView.centerYAnchor)
             ])
-        
-            // 이미지 표시 뷰 설정
-            cell.totalImageView.backgroundColor = #colorLiteral(red: 0.9636206031, green: 0.9636206031, blue: 0.9636206031, alpha: 1)
-            cell.totalImageView.layer.cornerRadius = screenWidthSize * 0.09
-            // 스크롤 방향 설정
-            cell.totalImageView.showsHorizontalScrollIndicator = true
-            cell.totalImageView.showsVerticalScrollIndicator = false
-            cell.totalImageView.alwaysBounceHorizontal = true
-
+            
             // cell 설정
             cell.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             cell.layer.cornerRadius = screenWidthSize * 0.09 // 둥근 모서리
@@ -275,7 +269,16 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             cell.layer.shadowOpacity = 0.2
             cell.layer.shadowOffset = CGSize(width: 0, height: 0)
             cell.layer.shadowRadius = 5
+        
+            // 이미지 표시 뷰 설정
+            cell.totalImageView.backgroundColor = #colorLiteral(red: 0.9636206031, green: 0.9636206031, blue: 0.9636206031, alpha: 1)
+            cell.totalImageView.layer.cornerRadius = screenWidthSize * 0.09
             
+            // 스크롤 방향 설정
+            cell.totalImageView.showsHorizontalScrollIndicator = true
+            cell.totalImageView.showsVerticalScrollIndicator = false
+            cell.totalImageView.alwaysBounceHorizontal = true
+
             // 셀 설정 버튼 설정
             cell.cellSettingButton.imageView?.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
 
@@ -283,85 +286,87 @@ extension MyPageScheduleViewController : UICollectionViewDataSource, UICollectio
             cell.sid = scheduleArray[indexPath.row].sid
             
             // 셀 이미지 설정
-            // 이미지 스크롤 뷰 contentSize 설정
-            let ImageCount = self.scheduleImageDict[cell.sid!]!.count
-            
-            if ImageCount > 0 {
+            if self.loadedImage == true { // 이미지 url 로딩이 완료된 경우
+                
+                // 이미지 스크롤 뷰 contentSize 설정
+                let ImageCount = self.scheduleImageDict[cell.sid!]!.count
+                
                 // 이미지 뷰 컨텐트 사이즈 설정
                 let size_1 = 10 * CGFloat(ImageCount + 1)
                 let size_2 = (screenWidthSize * 0.45) * CGFloat(ImageCount)
                 let size = size_1 + size_2
                 cell.totalImageView.contentSize = CGSize(width: size, height: screenWidthSize * 0.5)
                 
-                var count = 1 // 설정중인 이미지 카운트
-                
-                // 각 url에 접근 하여 이미지 설정
-                for url in self.scheduleImageDict[cell.sid!]! {
-                
-                    let imageView = UIImageView() // 이미지뷰 생성
-                    cell.totalImageView.addSubview(imageView) // 이미지 표시 뷰에 추가
+                if ImageCount > 0 {
                     
-                    // 이미지 뷰의 제약조건 설정을 위한 여백 수치 계산
-                    let spacing_1 = (self.screenWidthSize * 0.45) * CGFloat(count - 1)
-                    let spacing_2 = 10 * CGFloat(count)
-                    let spacing = spacing_1 + spacing_2
+                    var count = 1 // 설정된 이미지 카운트
                     
-                    // 제약 조건 설정
-                    imageView.translatesAutoresizingMaskIntoConstraints = false
-                    NSLayoutConstraint.activate([
-                        imageView.widthAnchor.constraint(equalToConstant: self.screenWidthSize * 0.45),
-                        imageView.heightAnchor.constraint(equalToConstant: self.screenWidthSize * 0.45),
-                        imageView.leadingAnchor.constraint(equalTo: cell.totalImageView.leadingAnchor, constant: spacing),
-                        imageView.centerYAnchor.constraint(equalTo: cell.totalImageView.centerYAnchor),
-                    ])
-                    imageView.clipsToBounds = true
-                    imageView.layer.cornerRadius = self.screenWidthSize * 0.09
-                    imageView.contentMode = .scaleAspectFill // 컨텐트 모드 설정
+                    // 각 url에 접근 하여 이미지 설정
+                    for url in self.scheduleImageDict[cell.sid!]! {
                     
-                    
-                    // 비동기 처리로 이미지 설정
-                    DispatchQueue.global().async {
+                        let imageView = UIImageView() // 이미지뷰 생성
+                        cell.totalImageView.addSubview(imageView) // 이미지 표시 뷰에 추가
                         
-                        let cacheKey = NSString(string: url) // 캐시 키 설정
+                        // 이미지 뷰의 제약조건 설정을 위한 여백 수치 계산
+                        let spacing_1 = (self.screenWidthSize * 0.45) * CGFloat(count - 1)
+                        let spacing_2 = 10 * CGFloat(count)
+                        let spacing = spacing_1 + spacing_2
                         
-                        // 만약 캐시된 이미지가 있다면 해당 캐시 이미지로 설정
-                        if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
-                            DispatchQueue.main.async {
-                                cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
-                                imageView.image = cachedImage
-                            }
-                        } else { // 캐시 이미지가 없다면
-                            // URL 확인
-                            if let imageURL = URL(string : url) {
-                                do {
-                                    // 데이터로 변환
-                                    let data = try Data(contentsOf: imageURL)
-                                    
-                                    // 캐시 저장
-                                    AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
-                                    
-                                    // 데이터를 이미지로 변환
-                                    if let image = UIImage(data : data) {
-                                        // 이미지 설정
-                                        DispatchQueue.main.async {
-                                            cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
-                                            imageView.image = image
+                        // 제약 조건 설정
+                        imageView.translatesAutoresizingMaskIntoConstraints = false
+                        NSLayoutConstraint.activate([
+                            imageView.widthAnchor.constraint(equalToConstant: self.screenWidthSize * 0.45),
+                            imageView.heightAnchor.constraint(equalToConstant: self.screenWidthSize * 0.45),
+                            imageView.leadingAnchor.constraint(equalTo: cell.totalImageView.leadingAnchor, constant: spacing),
+                            imageView.centerYAnchor.constraint(equalTo: cell.totalImageView.centerYAnchor),
+                        ])
+                        imageView.clipsToBounds = true
+                        imageView.layer.cornerRadius = self.screenWidthSize * 0.09
+                        imageView.contentMode = .scaleAspectFill // 컨텐트 모드 설정
+                        
+                        // 비동기 처리로 이미지 설정
+                        DispatchQueue.global().async {
+                            
+                            let cacheKey = NSString(string: url) // 캐시 키 설정
+                            
+                            // 만약 캐시된 이미지가 있다면 해당 캐시 이미지로 설정
+                            if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                                DispatchQueue.main.async {
+                                    cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
+                                    imageView.image = cachedImage
+                                }
+                            } else { // 캐시 이미지가 없다면
+                                // URL 확인
+                                if let imageURL = URL(string : url) {
+                                    do {
+                                        // 데이터로 변환
+                                        let data = try Data(contentsOf: imageURL)
+                                        
+                                        // 캐시 저장
+                                        AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
+                                        
+                                        // 데이터를 이미지로 변환
+                                        if let image = UIImage(data : data) {
+                                            // 이미지 설정
+                                            DispatchQueue.main.async {
+                                                cell.imageLabel.isHidden = true // 사진 상태 라벨 비활성화
+                                                imageView.image = image
+                                            }
                                         }
-                                    }
-                                } catch {
-                                    // 이미지를 받아올 수 없는 경우 이미지 설정
-                                    DispatchQueue.main.async {
-                                        imageView.image = #imageLiteral(resourceName: "noImage")
+                                    } catch {
+                                        // 이미지를 받아올 수 없는 경우 이미지 설정
+                                        DispatchQueue.main.async {
+                                            imageView.image = #imageLiteral(resourceName: "noImage")
+                                        }
                                     }
                                 }
                             }
-                            
                         }
+                        count += 1 // 설정중인 이미지 카운트 증가
                     }
-                    count += 1 // 설정중인 이미지 카운트 증가
+                } else if ImageCount == 0 {
+                    cell.imageLabel.text = "사진 없음"
                 }
-            } else if ImageCount == 0 && self.loadedImage == true{
-                cell.imageLabel.text = "사진 없음"
             }
         
             // cell 내용 설정
@@ -455,6 +460,16 @@ class CustomScheduleCollecionCell : UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageLabel.text = "사진 불러오는중"
+    }
+    
+    // 셀이 재사용될떄 이미지뷰를 모두 삭제하도록 함 -> 셀이 재사용되면서 데이터가 잘못표시될 수 있음
+    override func prepareForReuse() {
+        for someView in self.totalImageView.subviews {
+            if let imageView = someView as? UIImageView {
+                imageView.removeFromSuperview()
+                imageLabel.isHidden = false
+            }
+        }
     }
 }
 
