@@ -14,13 +14,18 @@ class MyPageViewController: UIViewController {
     
     @IBOutlet weak var userDataView: UIView! // 유저 정보를 포함하는 뷰
     @IBOutlet weak var userImage: UIImageView! // 유저 이미지
+    @IBOutlet weak var userInfoStackView: UIStackView! // 유저 정보 스택 뷰
     @IBOutlet weak var userName: UILabel! // 유저 이름
     @IBOutlet weak var userEmail: UILabel! // 유저 이메일
 
+    @IBOutlet weak var userDataStackView: UIStackView! // 여행 정보 스택 뷰
+    
     @IBOutlet weak var userScheduleView: UIView! // 유저 스케줄 표시 뷰
+    @IBOutlet weak var userScheduleStackView: UIStackView! // 유저 스케줄 스택 뷰
     @IBOutlet weak var userScheduleLabel: UILabel!  // 유저 스케줄 라벨
     
     @IBOutlet weak var userSpendingView: UIView! // 유저 지출 표시 뷰
+    @IBOutlet weak var userSpendingStackView: UIStackView! // 유지 지출 스택 뷰
     @IBOutlet weak var userSpendingLabel: UILabel! // 유저 지출 라벨
 
     @IBOutlet weak var settingButton: UIButton! // 설정 버튼
@@ -37,7 +42,6 @@ class MyPageViewController: UIViewController {
         super.viewDidLoad()
         setUpUI() // UI 설정
         settingButtonSetUp() // 설정 메뉴 설정
-        
         setUserProfile() // 프로필 표시
         
         // 그림자 설정
@@ -48,29 +52,128 @@ class MyPageViewController: UIViewController {
         requestScheduleData() // 일정 데이터 불러오기
         requestSpendingData() // 총지출  불러오기
         
+        // 로그인 타입 확인
+        self.userLoginType = checkLoginType()
+        
+        // 프로필 수정 후 작업
         NotificationCenter.default.addObserver(self, selector: #selector(setUserProfile), name: NSNotification.Name("ProfileChanged"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        requestScheduleData() // 일정 데이터 불러오기
+        requestSpendingData() // 총지출  불러오기
     }
     
     // UI 설정 함수
     func setUpUI() {
-        // 유저 정보 표시 뷰 설정
-        userDataView.layer.cornerRadius = 40
-        // 유저 이미지 모서리 설정
-        userImage.layer.cornerRadius = 75
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
+        
+        // 유저 이미지뷰 UI 코드 설정
+        userImage.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 상단으로 부터 떨어진 거리 설정
+            userImage.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeightSize / 8),
+            // X축 중심에 맞춤
+            userImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            // 가로세로 크기 설정, 화면 너비의 40%
+            userImage.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.4),
+            userImage.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.4),
+        ])
+        // 모서리 값 설정
+        userImage.layer.cornerRadius = screenWidthSize * 0.2
+        // 비율에 맞춰 꽉 채움
         userImage.contentMode = .scaleAspectFill
+                
+        // 유저 정보 표시 뷰 UI 코드 설정
+        userDataView.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 떨어진 거리 설정, 이미지 크기의 절반 = 화면 너비의 20%
+            userDataView.topAnchor.constraint(equalTo: userImage.topAnchor, constant: (screenWidthSize * 0.2)),
+            // X축 중심에 맞춤
+            userDataView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            // 가로 크기 설정, 화면 너비의 80%
+            userDataView.widthAnchor.constraint(equalToConstant: (screenWidthSize * 0.8)),
+            // 세로 크기 설정, 가로 크기의 절반 = 화면 너비의 40%
+            userDataView.heightAnchor.constraint(equalToConstant: (screenWidthSize * 0.4)),
+        ])
+        // 모서리 값 설정, 가로 크기의 5%
+        userDataView.layer.cornerRadius = (screenWidthSize * 0.04)
         
-        // 유저 스케줄 표시 뷰 설정
-        userScheduleView.layer.cornerRadius = 25
-        // 유저 스케줄 기본값으로 표시
-        userScheduleLabel.text = "0"
+        // 유저 정보 스택 뷰 UI 코드 설정
+        userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 유저 정보 표시 뷰 하단으로 부터 떨어진 거리, (이미지 크기 절반 - 스택 사이즈) / 2
+            userInfoStackView.bottomAnchor.constraint(equalTo: userDataView.bottomAnchor, constant: -((screenWidthSize * 0.2)-47) / 2),
+            // X축 중심에 맞춤
+            userInfoStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
         
-        // 유저 지출 표시 뷰 설정
-        userSpendingView.layer.cornerRadius = 25
-        // 유저 지출 기본값으로 표시
-        userSpendingLabel.text = numberFormatter(number: 0)
+        // 여행 정보 스택 뷰 UI 코드 설정
+        userDataStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            // 위치 설정
+            userDataStackView.topAnchor.constraint(equalTo: userDataView.bottomAnchor, constant: 10),
+            // X축 중심에 맞춤
+            userDataStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
         
-        // 로그인 타입 확인
-        self.userLoginType = checkLoginType()
+        // 유저 일정 표시 뷰 UI 코드 설정
+        userScheduleView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            // 너비 크기 설정, ((화면 너비 * 0.8) - 10) / 2
+            userScheduleView.widthAnchor.constraint(equalToConstant: ((screenWidthSize * 0.8) - 10) / 2.0),
+            // 높이 크기 설정, 화면 너비의 25%
+            userScheduleView.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.25)
+        ])
+        // 모서리 값 설정, 가로 크기의 10%
+        userScheduleView.layer.cornerRadius = ((screenWidthSize * 0.8) - 10) / 2.0 * 0.1
+        
+        // 유저 일정 표시 스택 뷰 UI 코드 설정
+        userScheduleStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            // 가로 위치 설정
+            userScheduleStackView.centerXAnchor.constraint(equalTo: userScheduleView.centerXAnchor),
+            // 세로 위치 설정
+            userScheduleStackView.centerYAnchor.constraint(equalTo: userScheduleView.centerYAnchor),
+        ])
+        
+        // 유저 지출내역 표시 뷰 UI 코드 설정
+        userSpendingView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            // 너비 크기 설정, ((화면 너비 * 0.8) - 10) / 2
+            userSpendingView.widthAnchor.constraint(equalToConstant: ((screenWidthSize * 0.8) - 10) / 2.0),
+            // 높이 크기 설정, 화면 너비의 30%
+            userSpendingView.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.25)
+        ])
+        // 모서리 값 설정, 가로 크기의 10%
+        userSpendingView.layer.cornerRadius = ((screenWidthSize * 0.8) - 10) / 2.0 * 0.1
+        
+        // 유저 지출 표시 스택 뷰 UI 코드 설정
+        userSpendingStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            // 가로 위치 설정
+            userSpendingStackView.centerXAnchor.constraint(equalTo: userSpendingView.centerXAnchor),
+            // 세로 위치 설정
+            userSpendingStackView.centerYAnchor.constraint(equalTo: userSpendingView.centerYAnchor),
+        ])
+        
+        // 메뉴 테이블 뷰 UI 코드 설정
+        menuTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+        // 위치 설정
+        menuTableView.topAnchor.constraint(equalTo: userDataStackView.bottomAnchor, constant: 30),
+        
+        menuTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+        
+        menuTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+        
+        menuTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+        ])
     }
     
     // 버튼 설정 함수
@@ -124,7 +227,6 @@ class MyPageViewController: UIViewController {
         }
     }
 
-    
     // 유저 이메일 표시 함수
     func setUserEmail() {
         if self.userLoginType == "Google" {
@@ -260,7 +362,6 @@ class MyPageViewController: UIViewController {
         guard let withDrawVC = self.storyboard?.instantiateViewController(identifier: "withDrawVC") as? WithDrawMembershipViewController else {return}
         withDrawVC.modalPresentationStyle = .fullScreen
         withDrawVC.modalTransitionStyle = .coverVertical
-        
         self.present(withDrawVC, animated: true)
     }
     
@@ -283,10 +384,15 @@ class MyPageViewController: UIViewController {
     // 여행 일정 수 불러오기
     func requestScheduleData() {
         let user = UserDefaults.standard.getLoginUser()!
+        var count = 0
+        let group = DispatchGroup() // 비동기 함수 그룹
+        group.enter()
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
-            DispatchQueue.main.async {
-                self.userScheduleLabel.text = String(schedules.count)
-            }
+            count = schedules.count
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            self.userScheduleLabel.text = String(count)
         }
     }
 
@@ -323,6 +429,37 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CustomTableCell", for: indexPath) as? CustomTableCell else {
             return UITableViewCell()
         }
+        
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
+        
+        // 셀에 대해 제약 조건
+        cell.contentView.translatesAutoresizingMaskIntoConstraints = false
+        cell.cellStackView.translatesAutoresizingMaskIntoConstraints = false
+        cell.arrowImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            // cell 높이 설정
+            cell.contentView.heightAnchor.constraint(equalToConstant: screenHeightSize * 0.08),
+            // cell 너비 설정
+            cell.contentView.widthAnchor.constraint(equalToConstant: screenWidthSize),
+            
+            // 스택뷰를 y축 중심으로 설정
+            cell.cellStackView.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+            // 스택뷰를 왼쪽으로 부터 20 만큼 떨어지도록 설정
+            cell.cellStackView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 20),
+            
+            // 이미지 뷰 크기 설정
+            cell.arrowImageView.widthAnchor.constraint(equalToConstant: 30),
+            cell.arrowImageView.heightAnchor.constraint(equalToConstant: 30),
+            // 이미지 뷰를 y축 중심으로 설정
+            cell.arrowImageView.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+            // 스택뷰를 오른쪽으로 부터 20 만큼 떨어지도록 설정
+            cell.arrowImageView.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -20),
+            ])
+
+        cell.arrowImageView.contentMode = .scaleAspectFill
         cell.labelTitle.text = titleArray[indexPath.row]
         cell.labelContent.text = contentArray[indexPath.row]
         cell.selectionStyle = .none
@@ -347,7 +484,9 @@ extension MyPageViewController : UITableViewDataSource, UITableViewDelegate {
 }
 
 class CustomTableCell: UITableViewCell {
+    @IBOutlet weak var cellStackView: UIStackView!
     @IBOutlet weak var labelTitle: UILabel!
     @IBOutlet weak var labelContent: UILabel!
+    @IBOutlet weak var arrowImageView: UIImageView!
 }
 

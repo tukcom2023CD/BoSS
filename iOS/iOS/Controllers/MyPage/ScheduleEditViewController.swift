@@ -15,6 +15,10 @@ protocol MyDelegate: AnyObject {
 
 // 여행 일정 편집 화면
 class ScheduleEditViewController : UIViewController {
+
+    @IBOutlet weak var viewTitleLabel: UILabel! // 여행일정편집 라벨
+    @IBOutlet weak var settingStackView: UIStackView! // 설정 스택뷰
+    @IBOutlet weak var buttonStackView: UIStackView! // 버튼 스택뷰
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var scheduleNameTextField: UITextField!
@@ -38,11 +42,102 @@ class ScheduleEditViewController : UIViewController {
     }
     
     func setUI() {
-        self.cancelButton.layer.cornerRadius = 20
-        self.applyButton.layer.cornerRadius = 20
-        self.dataChangeButton.layer.cornerRadius = 5
-        self.regionChangeButton.layer.cornerRadius = 5
         
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
+        
+        // 프로필 편집 타이틀 UI 코드 설정
+        viewTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 상단으로 부터 떨어진 거리 설정
+            viewTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: screenHeightSize * 0.1),
+            // X축 중심에 맞춤
+            viewTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        
+        // 설정 스택 뷰 UI 코드 설정
+        settingStackView.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            settingStackView.topAnchor.constraint(equalTo: viewTitleLabel.bottomAnchor, constant: screenHeightSize * 0.1),
+            settingStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+        
+        // 여행 이름 텍스트 필드 코드 설정
+        scheduleNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 사이즈 설정
+            scheduleNameTextField.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.75),
+            scheduleNameTextField.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.125)
+        ])
+        
+        // 여행기간 텍스트 필드 코드 설정
+        scheduleDateTextField.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 사이즈 설정
+            scheduleDateTextField.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.75),
+            scheduleDateTextField.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.125)
+        ])
+        
+        // 여행 지역 텍스트필드 코드 설정
+        regionTextField.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 사이즈 설정
+            regionTextField.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.75),
+            regionTextField.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.125)
+        ])
+        
+        // 기간 변경 버튼 UI 설정 코드
+        dataChangeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            // 사이즈 설정
+            dataChangeButton.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.2),
+            dataChangeButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.1)
+        ])
+        self.dataChangeButton.layer.cornerRadius = screenWidthSize * 0.02
+        
+        // 지역 변경 버튼 UI 설정 코드
+        regionChangeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            // 사이즈 설정
+            regionChangeButton.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.2),
+            regionChangeButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.1)
+        ])
+        self.regionChangeButton.layer.cornerRadius = screenWidthSize * 0.02
+        
+        // 버튼 스택 뷰 UI 코드 설정
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 상단으로 부터 떨어진 거리 설정
+            buttonStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: screenWidthSize * -0.25),
+            // X축 중심에 맞춤
+            buttonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            // 사이즈 설정
+        ])
+        
+        // 취소 버튼 UI 코드 설정
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            cancelButton.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.3),
+            cancelButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.1)
+        ])
+        self.cancelButton.layer.cornerRadius = screenWidthSize * 0.03
+        
+        // 선택 버튼 UI 코드 설정
+        applyButton.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            applyButton.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.3),
+            applyButton.heightAnchor.constraint(equalToConstant: screenWidthSize * 0.1)
+        ])
+        self.applyButton.layer.cornerRadius = screenWidthSize * 0.03
     }
     
     func setScheduleData() {
@@ -127,6 +222,11 @@ extension ScheduleEditViewController : UITextFieldDelegate {
                 currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 extension ScheduleEditViewController : CalendarDateRangePickerViewControllerDelegate {
