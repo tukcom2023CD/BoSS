@@ -12,11 +12,14 @@ class MyPageSpendingViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var loadedTotalSpending : Bool = false // 총 지출 불러왔는지 여부
+    var loadedEachSchedule : Bool = false // 각 일정을 불러왔는지 여부
+    
     var uid = UserDefaults.standard.getLoginUser()!.uid // 사용자 uid
-    var selectedCellIndex : IndexPath? // 선택된 일정 셀 index
     var userTotalSpending : Int = 0 // 사용자의 총지출
     var scheduleCount : Int = 0  // 여행일정 수
     var sidArray : [Int] = [] // sid 배열
+    var selectedCellIndex : IndexPath? // 선택된 일정 셀 index
     
     // 지출 금액 표시 셀에 대한 구조체
     struct spendingOfEachSchedule {
@@ -27,12 +30,27 @@ class MyPageSpendingViewController: UIViewController {
         var spendingCount : Int? // 지출내역 수
     }
     
-    var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:] // 일정 구조체 딕셔너리
+    // 일정 구조체 딕셔너리
+    var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadUserTotalSpending()
-        loadSpendingOfSchedule()
+        setupUI() // UI 설정
+        loadUserTotalSpending() // 총지출 계산
+        loadSpendingOfSchedule() // 일정당 지출 계산
+    }
+    
+    func setupUI() {
+        // 컬렉션 뷰 UI 코드 설정
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        // 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 위치 설정
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+        ]) 
     }
     
     // 사용자 총지출 불러오기
@@ -63,6 +81,7 @@ class MyPageSpendingViewController: UIViewController {
             group.leave() // 그룹에서 제외
         }
         group.notify(queue: .main) {
+            self.loadedTotalSpending = true
             self.userTotalSpending = userTotalSpending // 사용자 총지출 설정
             self.scheduleCount = scheduleCount // 일정 수 저장
             self.sidArray = sidArray // sid 배열 저장
@@ -70,9 +89,10 @@ class MyPageSpendingViewController: UIViewController {
         }
     }
     
-    // 사용자 일정수, 일정이름, 일정당지출  불러오기
+    // 일정 정보 불러오기
     func loadSpendingOfSchedule() {
-        var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:]// 일정 구조체 딕셔너리
+        // 일정 구조체 딕셔너리
+        var spendingOfEachScheduleDict : [Int : spendingOfEachSchedule] = [:]
         let group = DispatchGroup() // 비동기 함수 그룹 생성
         ScheduleNetManager.shared.read(uid: self.uid!) { schedules in
             for schedule in schedules {
@@ -93,6 +113,7 @@ class MyPageSpendingViewController: UIViewController {
                     group.leave() // 그룹에서 제외
                 }
                 group.notify(queue: .main) {
+                    self.loadedEachSchedule = true
                     self.spendingOfEachScheduleDict = spendingOfEachScheduleDict
                     print(spendingOfEachScheduleDict)
                     self.collectionView.reloadData() // 새로고침
@@ -135,19 +156,39 @@ class MyPageSpendingViewController: UIViewController {
 extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return  self.scheduleCount + 1  // 셀 수
+        // 각 스케줄 내용 로딩이 완료된 경우
+        if self.loadedEachSchedule == true {
+            return self.scheduleCount + 1  // 셀 수
+        } else {
+            return 1
+        }
     }
-    
+
     // 셀 설정 함수
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
+        
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
+        
         if indexPath.item == 0 { // 첫번째 셀 : 총지출 표시 셀인 경우
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "userTotalSpendingCell", for: indexPath) as? userTotalSpendingCell else {
                 return UICollectionViewCell()
             }
-            cell.layer.cornerRadius = 15 // 모서리 설정
+            
+            // 첫번째 셀 UI 코드 설정
+            cell.totalSpendingStackView.translatesAutoresizingMaskIntoConstraints = false
+            
+            // 제약 조건 설정
+            NSLayoutConstraint.activate([
+               // 스택 뷰 위치
+                cell.totalSpendingStackView.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+                cell.totalSpendingStackView.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+            ])
+            cell.layer.cornerRadius = screenWidthSize * 0.055 // 모서리 설정
             setShadow(cell : cell) // 그림자 설정
             cell.userTotalSpendingLabel.text = numberFormatter(number: self.userTotalSpending) // 총지출
+            
             return cell
         }
         
@@ -155,6 +196,41 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "scheduleSpendingCell", for: indexPath) as? scheduleSpendingCell else {
                 return UICollectionViewCell()
             }
+            
+            cell.scheduleStatusLabel.translatesAutoresizingMaskIntoConstraints = false
+            cell.scheduleDataStackView_1.translatesAutoresizingMaskIntoConstraints = false
+            cell.scheduleDataStackView_2.translatesAutoresizingMaskIntoConstraints = false
+            cell.collectionView.translatesAutoresizingMaskIntoConstraints = false
+            cell.textLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            // 제약 조건
+            NSLayoutConstraint.activate([
+                // 막대 라벨 설정
+                cell.scheduleStatusLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: screenWidthSize * 0.025),
+                cell.scheduleStatusLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: screenWidthSize * 0.05),
+                cell.scheduleStatusLabel.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -screenWidthSize * 0.05),
+                cell.scheduleStatusLabel.widthAnchor.constraint(equalToConstant: screenWidthSize * 0.0125),
+                
+                // 텍스트 라벨 설정
+                cell.textLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: screenHeightSize * 0.12),
+                cell.textLabel.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor),
+                
+                // 일정 정보 스택뷰 1 설정
+                cell.scheduleDataStackView_1.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: ((screenHeightSize * 0.12) - cell.scheduleDataStackView_1.bounds.size.height) * 0.5),
+                cell.scheduleDataStackView_1.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: ((screenHeightSize * 0.12) - cell.scheduleDataStackView_1.bounds.size.height) * 0.5),
+                
+                // 일정 정보 스택뷰 2 설정
+                cell.scheduleDataStackView_2.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -((screenHeightSize * 0.12) - cell.scheduleDataStackView_2.bounds.size.height) * 0.5),
+                cell.scheduleDataStackView_2.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: ((screenHeightSize * 0.12) - cell.scheduleDataStackView_2.bounds.size.height) * 0.5),
+                
+                // 내부 컬렉션 뷰 설정
+                cell.collectionView.topAnchor.constraint(equalTo: cell.topAnchor, constant: screenHeightSize * 0.12 + 20),
+                cell.collectionView.bottomAnchor.constraint(equalTo: cell.bottomAnchor, constant: -screenWidthSize * 0.05),
+                cell.collectionView.leadingAnchor.constraint(equalTo: cell.leadingAnchor, constant: screenWidthSize * 0.05),
+                cell.collectionView.trailingAnchor.constraint(equalTo: cell.trailingAnchor, constant: -screenWidthSize * 0.025),
+            ])
+            // cell UI 설정
+            cell.layer.cornerRadius = screenWidthSize * 0.055 // 모서리 설정
             
             let sid = self.sidArray[indexPath.item - 1] // sid 배열에서 첫번째 sid 가져옴
             cell.sid = sid // cell의 sid 설정
@@ -172,12 +248,9 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             if let spending = self.spendingOfEachScheduleDict[sid]?.spending {
                 cell.spendingOfScheduleLabel.text = numberFormatter(number : spending) // 지출 금액
             }
-            
-            // cell UI 설정
-            cell.layer.cornerRadius = 15 // 모서리 설정
             cell.contentView.alpha = 0.8
             cell.scheduleStatusLabel.layer.masksToBounds = true // 상태 표시 라벨 설정
-            cell.scheduleStatusLabel.layer.cornerRadius = 3 // 상태 표시 라벨 설정ㄴ
+            cell.scheduleStatusLabel.layer.cornerRadius = 3 // 상태 표시 라벨 설정
             setShadow(cell : cell) // 그림자 설정
             return cell
         }
@@ -217,34 +290,40 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
     
     // 셀 사이즈 결정 함수
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
 
         if indexPath.item != 0 {
             // 만약 해당 셀이 선택된 셀이라면
             if self.selectedCellIndex == indexPath {
-                var height: CGFloat = 100
+                var height: CGFloat = screenHeightSize * 0.12
                 // 만약 해당 일정에 지출내역이 존재하면
                 let sid = self.sidArray[indexPath.item - 1] // sid 가져옴
                 if let spendingCount = self.spendingOfEachScheduleDict[sid]?.spendingCount {
-                    if spendingCount > 0 {
+                    if spendingCount != 0 {
                         height += 30
+                        height += (screenWidthSize * 0.05) // 내부 컬렉션 뷰 하단 공간
+                        for _ in 1...spendingCount {
+                            height += CGFloat((screenHeightSize * 0.1) + 10)
+                        }
                     }
-                    height += CGFloat(90 * spendingCount)
                 }
-                
-                let width : CGFloat = 360
+                let width : CGFloat = screenWidthSize * 0.85
                 let cgSize =  CGSize(width: width, height: height)
                 return cgSize
             }
             // 만약 해당 셀이 선택된 셀이 아니라면
             else  {
-                let width : CGFloat = 360
-                let height: CGFloat = 100
+                let width : CGFloat = screenWidthSize * 0.85
+                let height: CGFloat = screenHeightSize * 0.12
                 let cgSize =  CGSize(width: width, height: height)
                 return cgSize
             }
         } else {
-            let width : CGFloat = 360
-            let height: CGFloat = 100
+            let width : CGFloat = screenWidthSize * 0.85
+            let height: CGFloat = screenHeightSize * 0.12
             let cgSize =  CGSize(width: width, height: height)
             return cgSize
         }
@@ -252,21 +331,25 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
     
     // 셀표시할떄 함수
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        // 딜레이 값
-        let delay : Double = (Double(indexPath.item) * (0.1))
-        // 셀의 초기 투명도와 위치 설정
-        cell.alpha = 0
-        cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
-        // 투명도를 1, 원래 위치로 이동
-        UIView.animate(withDuration: 0.5, delay: 0.2 + delay, options: [.curveEaseInOut], animations: {
-            cell.alpha = 1
-            cell.transform = CGAffineTransform.identity
-        }, completion: nil)
+        
+        if indexPath.item != 0 {
+            // 딜레이 값
+            let delay : Double = (Double(indexPath.item) * (0.05))
+            // 셀의 초기 투명도와 위치 설정
+            cell.alpha = 0
+            cell.transform = CGAffineTransform(translationX: collectionView.bounds.width, y: 0)
+            // 투명도를 1, 원래 위치로 이동
+            UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: {
+                cell.alpha = 1
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+        }
     }
 }
 
 // 총 지출 금액 표시 셀
 class userTotalSpendingCell : UICollectionViewCell {
+    @IBOutlet weak var totalSpendingStackView: UIStackView!
     @IBOutlet weak var userTotalSpendingLabel: UILabel!
 }
 
@@ -342,11 +425,43 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
         return spendingCount
     }
     
+    // 셀 크기
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
+        
+        let width : CGFloat = screenWidthSize * 0.72
+        let height: CGFloat = screenHeightSize * 0.1
+        let cgSize =  CGSize(width: width, height: height)
+        return cgSize
+    }
+    
     // 셀 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailedCell", for: indexPath) as? detailedSpendingCell else {
             return UICollectionViewCell()
         }
+        
+        // 화면 사이즈 값 저장
+        let screenWidthSize = UIScreen.main.bounds.size.width
+        let screenHeightSize = UIScreen.main.bounds.size.height
+        
+        cell.spendingStackView_1.translatesAutoresizingMaskIntoConstraints = false
+        cell.spendingStackView_2.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            
+            // 지출 스택뷰_1 설정
+            cell.spendingStackView_1.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: ((screenHeightSize * 0.1) - cell.spendingStackView_1.bounds.size.height) * 0.5),
+            cell.spendingStackView_1.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
+            
+            // 지출 스택뷰_2 설정
+            cell.spendingStackView_2.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: (-((screenHeightSize * 0.1) - cell.spendingStackView_1.bounds.size.height) * 0.5)),
+            cell.spendingStackView_2.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor)
+        ])
+        
         cell.layer.cornerRadius = 10 // 모서리 설정
         setShadow(cell : cell) // 그림자 설정
         
@@ -385,14 +500,20 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
             cell.transform = CGAffineTransform.identity
         }, completion: nil)
     }
+    
+    @IBOutlet weak var scheduleDataStackView_1: UIStackView!
+    @IBOutlet weak var scheduleDataStackView_2: UIStackView!
     @IBOutlet weak var scheduleTitleLabel: UILabel! // 일정 이름
     @IBOutlet weak var spendingOfScheduleLabel: UILabel! // 일정의 총 지출액
     @IBOutlet weak var scheduleRegionLabel: UILabel! // 일정 지역 이름
     @IBOutlet weak var scheduleStatusLabel: UILabel! // 일정 상태 라벨
+    @IBOutlet weak var textLabel: UILabel!
 }
 
 // 세부 지출내역 셀
 class detailedSpendingCell : UICollectionViewCell {
+    @IBOutlet weak var spendingStackView_1: UIStackView!
+    @IBOutlet weak var spendingStackView_2: UIStackView!
     @IBOutlet weak var spendingTitleLabel: UILabel!
     @IBOutlet weak var spendingRegionLabel: UILabel!
     @IBOutlet weak var spendingLabel: UILabel!
