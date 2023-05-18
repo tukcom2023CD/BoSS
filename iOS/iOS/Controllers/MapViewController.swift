@@ -114,6 +114,7 @@ class MapViewController: UIViewController {
     
     @IBAction func dateResetButtonTapped(_ sender: UIButton) {
         topViewLabel.text = "전체 기간"
+        requestPlaceData()
     }
     
 
@@ -173,6 +174,8 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
 //        dateFormatter.dateFormat = "yyyy.MM.dd"
         self.startDate = CustomDateFormatter.format.string(from: startDate)
         self.endDate = CustomDateFormatter.format.string(from: endDate)
+        
+        topViewLabel.text = "\(self.startDate!) ~ \(self.endDate!)"
         
         dismiss(animated: true) {
             self.map.clear()

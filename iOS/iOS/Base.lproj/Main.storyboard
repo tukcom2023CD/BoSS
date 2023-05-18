@@ -612,12 +612,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="TSO-Ao-4C7">
-                                <rect key="frame" x="30" y="80" width="333" height="30"/>
+                                <rect key="frame" x="20" y="80" width="353" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hc9-gG-BEF">
                                         <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2023.12.33 ~ 2023.12.33" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl1-Dg-YFh">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="전체 기간" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl1-Dg-YFh">
                                                 <rect key="frame" x="10" y="5" width="180" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" systemColor="systemGrayColor"/>
@@ -635,7 +635,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7oe-eo-qNV">
-                                        <rect key="frame" x="206.66666666666666" y="0.0" width="59.999999999999972" height="30"/>
+                                        <rect key="frame" x="216.66666666666666" y="0.0" width="59.999999999999972" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="hky-pr-tJj"/>
@@ -650,7 +650,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaV-rP-Hrr">
-                                        <rect key="frame" x="273" y="0.0" width="60" height="30"/>
+                                        <rect key="frame" x="293" y="0.0" width="60" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="cxE-yP-Wnq"/>
@@ -670,9 +670,9 @@
                         <viewLayoutGuide key="safeArea" id="sHW-VG-dPZ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="sHW-VG-dPZ" firstAttribute="trailing" secondItem="TSO-Ao-4C7" secondAttribute="trailing" constant="30" id="775-eZ-EC7"/>
+                            <constraint firstItem="sHW-VG-dPZ" firstAttribute="trailing" secondItem="TSO-Ao-4C7" secondAttribute="trailing" constant="20" id="775-eZ-EC7"/>
                             <constraint firstItem="TSO-Ao-4C7" firstAttribute="top" secondItem="Yv0-p0-1fC" secondAttribute="top" constant="80" id="lpw-a2-tQY"/>
-                            <constraint firstItem="TSO-Ao-4C7" firstAttribute="leading" secondItem="sHW-VG-dPZ" secondAttribute="leading" constant="30" id="yM3-xA-gdg"/>
+                            <constraint firstItem="TSO-Ao-4C7" firstAttribute="leading" secondItem="sHW-VG-dPZ" secondAttribute="leading" constant="20" id="yM3-xA-gdg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ulP-yp-Xcn"/>
