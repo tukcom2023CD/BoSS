@@ -92,11 +92,14 @@ class AlbumViewController: UIViewController {
             categoryButton.setTitleColor(.white, for: .normal)
             
             // 버튼 색상 설정
-            categoryButton.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+            categoryButton.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
             
             // 버튼 이미지 설정
             let image = UIImage(systemName : "checkmark.circle.fill")
             categoryButton.setImage(image, for: .normal)
+            
+            // 버튼 이미지 색상 설정
+            categoryButton.tintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
             
             // 버튼 이미지 여백 공간 설정
             categoryButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
@@ -120,9 +123,12 @@ class AlbumViewController: UIViewController {
                     
                     // 배열에 추가
                     self.selectedCategoryArray.append(categoryButton.titleLabel!.text!)
+                
+                    // 버튼 색상 설정
+                    categoryButton.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
                     
-                    // 색상 및 이미지 변경
-                    categoryButton.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+                    // 버튼 색상 설정
+                    categoryButton.tintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
                 }
                 // 선택된 카테고리 배열에 존재 한다면
                 else {
@@ -131,8 +137,11 @@ class AlbumViewController: UIViewController {
                         self.selectedCategoryArray.remove(at: index)
                     }
                     
-                    // 색상 및 이미지 변경
-                    categoryButton.backgroundColor = #colorLiteral(red: 0.6617937088, green: 0.6617937088, blue: 0.6617937088, alpha: 1)
+                    // 버튼 색상 설정
+                    categoryButton.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+                    
+                    // 버튼 색상 설정
+                    categoryButton.tintColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
                 }
                 self.loadImagesWithCategory() // 이미지 불러오는 함수 호출
             }), for: .touchUpInside)
@@ -329,10 +338,7 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
         print("click index=\(indexPath.row)")
         
         if collectionView.tag == 1 {
-            // 현재 셀 가져오기
-            guard let currentCell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else {
-                return
-            }
+            return
         }
         else {
             // 현재 셀 가져오기
@@ -368,12 +374,4 @@ class AlbumCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     var url : String!
     var imageName : (String?, String?, String?, String?)
-
-    override func prepareForReuse() {
-        for someView in self.subviews {
-            if let imageView = someView as? UIImageView {
-                imageView.removeFromSuperview()
-            }
-        }
-    }
 }
