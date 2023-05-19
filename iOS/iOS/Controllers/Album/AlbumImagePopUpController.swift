@@ -10,7 +10,9 @@ import UIKit
 class AlbumImagePopUpController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var buttonStackView: UIStackView!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     
     // 이미지 저장 변수
@@ -27,6 +29,7 @@ class AlbumImagePopUpController: UIViewController {
         
         // 핀치 제스쳐 정의 (이미지 확대)
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(AlbumImagePopUpController.doPinch(_:)))
+        
         // 핀치 제스처를 등록
         self.view.addGestureRecognizer(pinch)
         
@@ -34,6 +37,7 @@ class AlbumImagePopUpController: UIViewController {
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(AlbumImagePopUpController.handleTap(_:)))
         tapGR.delegate = self
         tapGR.numberOfTouchesRequired = 2
+        
         // 탭 제스쳐 등록
         self.view.addGestureRecognizer(tapGR)
             
@@ -43,21 +47,72 @@ class AlbumImagePopUpController: UIViewController {
     
     // UI 설정
     func setUpUI() {
+        
+        // 화면 가로세로 길이 값 설정
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        
         // 뒷배경 불투명 처리
         self.view.backgroundColor = UIColor.black.withAlphaComponent(0.85)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        // 이미지 뷰 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 너비 설정
+            self.imageView.heightAnchor.constraint(equalToConstant: screenWidth * 1.0),
+            // 높이 설정
+            self.imageView.heightAnchor.constraint(equalToConstant: screenHeight * 0.5),
+            // 위치 설정
+            self.imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        // 버튼 스택 뷰 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 위치 설정
+            self.buttonStackView.topAnchor.constraint(equalTo: self.imageView.bottomAnchor
+                                                      , constant: screenWidth * 0.1),
+            self.buttonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        // 버튼 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 삭제 버튼 크기 설정
+            self.deleteButton.widthAnchor.constraint(equalToConstant: screenWidth * 0.2),
+            self.deleteButton.heightAnchor.constraint(equalToConstant: screenWidth * 0.1),
+            
+            // 수정 버튼 크기 설정
+            self.editButton.widthAnchor.constraint(equalToConstant: screenWidth * 0.2),
+            self.editButton.heightAnchor.constraint(equalToConstant: screenWidth * 0.1),
+            
+            // 닫기 버튼 크기 설정
+            self.closeButton.widthAnchor.constraint(equalToConstant: screenWidth * 0.2),
+            self.closeButton.heightAnchor.constraint(equalToConstant: screenWidth * 0.1),
+        ])
         
         // 이미지 설정
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
         
         // 닫기 버튼 설정
-        closeButton.layer.borderWidth = 1
-        closeButton.layer.borderColor = UIColor.systemBlue.cgColor
+        closeButton.backgroundColor = #colorLiteral(red: 0.0668868199, green: 0.847835958, blue: 0.07329245657, alpha: 1)
+        closeButton.setTitleColor(.white, for: .normal)
         closeButton.layer.cornerRadius = 15
         
+        // 수정 버튼 설정
+        editButton.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        editButton.setTitleColor(.white, for: .normal)
+        editButton.layer.cornerRadius = 15
+        
         // 삭제 버튼 설정
-        deleteButton.layer.borderWidth = 1
-        deleteButton.layer.borderColor = UIColor.red.cgColor
+        deleteButton.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        deleteButton.setTitleColor(.white, for: .normal)
         deleteButton.layer.cornerRadius = 15
     }
     
@@ -95,7 +150,6 @@ class AlbumImagePopUpController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
 }
-
 
 extension AlbumImagePopUpController : UIGestureRecognizerDelegate {
     // 핀치 제스쳐 메서드 구현
