@@ -138,7 +138,7 @@ class AlbumViewController: UIViewController {
                     }
                     
                     // 버튼 색상 설정
-                    categoryButton.backgroundColor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
+                    categoryButton.backgroundColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1)
                     
                     // 버튼 색상 설정
                     categoryButton.tintColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
@@ -357,6 +357,7 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
             // 이미지 넘겨주기
             guard let currentCellImage = currentCell.imageView.image else {return}
             popupVC.image = currentCellImage
+            popupVC.category = currentCell.category
             popupVC.imageName = currentCell.imageName
             
             // 화면 전환
@@ -376,3 +377,9 @@ class AlbumCollectionViewCell : UICollectionViewCell {
     var category : String!
     var imageName : (String?, String?, String?, String?)
 }
+
+// 카테고리 불러오는 함수 작성
+// 화면 나타날때 카테고리 및 이미지 불러오는 함수 설정
+// 사진 삭제시 변경시 notification 이용하여 카테고리 다시 불러오기 및 사진 다시 불러오기
+// 사진 카테고리 변경시 notification 이용하여 카테고리 다시 불러오기 및 사진 다시 불러오기
+

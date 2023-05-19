@@ -9,14 +9,17 @@ import UIKit
 
 class AlbumImagePopUpController: UIViewController {
 
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var buttonStackView: UIStackView!
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var imageView: UIImageView! // 이미지 뷰
+    @IBOutlet weak var buttonStackView: UIStackView! // 버튼 스택 뷰
+    @IBOutlet weak var closeButton: UIButton! // 닫기 버튼
+    @IBOutlet weak var deleteButton: UIButton! // 삭제 버튼
+    
+    let width = UIScreen.main.bounds.width // 화면 너비값
+    let height = UIScreen.main.bounds.height // 화면 높이값
     
     // 이미지 저장 변수
     var image : UIImage = UIImage(named: "noImage.png")!
+    var category : String = ""
     var imageName : (String?, String?, String?, String?)
     
     // 확대 축소 기능을 위한 변수
@@ -41,9 +44,110 @@ class AlbumImagePopUpController: UIViewController {
         // 탭 제스쳐 등록
         self.view.addGestureRecognizer(tapGR)
             
+        // 버튼 설정 함수
+        setCategoryButton()
+        
         // UI 설정 함수 호출
         setUpUI()
     }
+    
+    // 카테고리 버튼 새성 및 추가 함수
+    func setCategoryButton() {
+        
+        // 카테고리 버튼 생성
+        let categoryButton = UIButton(type: .custom)
+        
+        // 버튼 타이틀 설정
+        categoryButton.setTitle("\(category)", for: .normal)
+        
+        // 버튼 타이틀 폰트 사이즈
+        categoryButton.titleLabel!.font = UIFont.boldSystemFont(ofSize: 17)
+        
+        // 버튼 타이틀 컬러 설정
+        categoryButton.setTitleColor(.white, for: .normal)
+        
+        // 버튼 색상 설정
+        categoryButton.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+        
+        // 버튼 이미지 설정
+        let image = UIImage(systemName : "pencil")
+        categoryButton.setImage(image, for: .normal)
+        
+        // 버튼 이미지 색상 설정
+        categoryButton.tintColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+        
+        // 버튼 이미지 여백 공간 설정
+        categoryButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+        
+        // 여백 공간 설정
+        categoryButton.contentEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 5)
+        
+        // 내용 맞게 사이즈 조절
+        categoryButton.sizeToFit()
+        
+        // 잘림 설정
+        categoryButton.clipsToBounds = true
+        
+        // 모서리 설정
+        categoryButton.layer.cornerRadius = 10
+        
+        // 카테고리 버튼 클릭시
+        categoryButton.addAction(UIAction(handler: { _ in
+            self.showEditableAlert()
+        }), for: .touchUpInside)
+        
+        // 뷰에 추가
+        self.view.addSubview(categoryButton)
+        
+        // 제약 조건 설정
+        categoryButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 카테고리 라벨 제약 조건 설정
+        NSLayoutConstraint.activate([
+            // 위치 설정
+            categoryButton.bottomAnchor.constraint(equalTo: self.imageView.topAnchor, constant: -20),
+            categoryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+    }
+    
+    // 카테고리 수정 알림창 띄우는 함수
+    func showEditableAlert() {
+        let alertController = UIAlertController(title: "카테고리 수정", message: "카테고리를 입력하세요", preferredStyle: .alert)
+        
+        alertController.addTextField { textField in
+            textField.placeholder = "카테고리 이름"
+            textField.text = self.category
+        }
+        
+        // 취소 동작
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        // 저장 동작
+        let saveAction = UIAlertAction(title: "저장", style: .default) { _ in
+            // 텍스트 필드 가져옴
+            if let textField = alertController.textFields?.first {
+    
+                // 불필요한 공백 제거
+                let trimmedText = textField.text!.trimmingCharacters(in:
+                        .whitespaces)
+                
+                // 텍스트 필드가 공백이라면
+                if trimmedText == "" {
+                    print("수정 실패")
+                }
+                // 테그트가 공백이 아니라면
+                else {
+                    self.category = trimmedText
+                    print("수정된 텍스트: \(self.category)")
+                }
+            }
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
     
     // UI 설정
     func setUpUI() {
@@ -58,9 +162,7 @@ class AlbumImagePopUpController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        editButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        
         
         // 이미지 뷰 제약 조건 설정
         NSLayoutConstraint.activate([
@@ -87,10 +189,6 @@ class AlbumImagePopUpController: UIViewController {
             self.deleteButton.widthAnchor.constraint(equalToConstant: screenWidth * 0.2),
             self.deleteButton.heightAnchor.constraint(equalToConstant: screenWidth * 0.1),
             
-            // 수정 버튼 크기 설정
-            self.editButton.widthAnchor.constraint(equalToConstant: screenWidth * 0.2),
-            self.editButton.heightAnchor.constraint(equalToConstant: screenWidth * 0.1),
-            
             // 닫기 버튼 크기 설정
             self.closeButton.widthAnchor.constraint(equalToConstant: screenWidth * 0.2),
             self.closeButton.heightAnchor.constraint(equalToConstant: screenWidth * 0.1),
@@ -101,14 +199,9 @@ class AlbumImagePopUpController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         
         // 닫기 버튼 설정
-        closeButton.backgroundColor = #colorLiteral(red: 0.0668868199, green: 0.847835958, blue: 0.07329245657, alpha: 1)
+        closeButton.backgroundColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
         closeButton.setTitleColor(.white, for: .normal)
         closeButton.layer.cornerRadius = 15
-        
-        // 수정 버튼 설정
-        editButton.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
-        editButton.setTitleColor(.white, for: .normal)
-        editButton.layer.cornerRadius = 15
         
         // 삭제 버튼 설정
         deleteButton.backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
@@ -175,3 +268,5 @@ extension AlbumImagePopUpController : UIGestureRecognizerDelegate {
         recognizerScale = 1.0
     }
 }
+
+// 카테고리 입력후 수정버튼 누르면 API호출하여 변경된 내용 DB 반영 및 카테고리 다시 불러오기

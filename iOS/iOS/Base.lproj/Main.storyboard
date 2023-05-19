@@ -768,7 +768,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="wbK-Aw-dxM">
-                                <rect key="frame" x="26" y="611" width="340" height="40"/>
+                                <rect key="frame" x="91" y="620" width="210" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="foO-lQ-bGQ">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="40"/>
@@ -786,24 +786,8 @@
                                             <action selector="deleteButtonPressed:" destination="leL-Z6-2Bh" eventType="touchUpInside" id="e0D-kl-vC2"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VxO-0H-0fL">
-                                        <rect key="frame" x="130" y="0.0" width="80" height="40"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="25G-WE-2ey"/>
-                                            <constraint firstAttribute="height" constant="40" id="njF-Q6-LWB"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" title="수정">
-                                            <color key="titleColor" systemColor="systemIndigoColor"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="deleteButtonPressed:" destination="leL-Z6-2Bh" eventType="touchUpInside" id="jlg-cf-8ia"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N9e-7t-vUL">
-                                        <rect key="frame" x="260" y="0.0" width="80" height="40"/>
+                                        <rect key="frame" x="130" y="0.0" width="80" height="40"/>
                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -824,7 +808,6 @@
                         <outlet property="buttonStackView" destination="wbK-Aw-dxM" id="8iv-fG-fa9"/>
                         <outlet property="closeButton" destination="N9e-7t-vUL" id="t10-V0-nmG"/>
                         <outlet property="deleteButton" destination="foO-lQ-bGQ" id="2Jj-Bl-zg1"/>
-                        <outlet property="editButton" destination="VxO-0H-0fL" id="npK-yc-Xc0"/>
                         <outlet property="imageView" destination="UQm-tt-yoP" id="8WN-Bv-3hq"/>
                     </connections>
                 </viewController>
@@ -3102,9 +3085,6 @@
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
