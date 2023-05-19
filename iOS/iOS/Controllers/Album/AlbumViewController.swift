@@ -21,7 +21,7 @@ class AlbumViewController: UIViewController {
     var totalCategoryArray : [String] = ["사람", "동물", "식물", "건물", "바다", "산", "자동차", "기타"] // 전체 카테고리 배열
     var selectedCategoryArray : [String] = [] // 선택된 카테고리 배열
     var categoryButtonArray : [UIButton] = [] // 카테고리 버튼 배열
-    var imageUrlArray : [String] = [] // 이미지 url 배열
+    var ImageArray : [PhotoWithCategory] = [] // 이미지 구조체 배열
     var imageCount : Int = 0  // 표시할 이미지 개수
     var currentImageUrl = "" // 선택된 이미지의 url
     
@@ -153,7 +153,7 @@ class AlbumViewController: UIViewController {
     
     // 사진 불러오는 함수
     @objc func loadImagesWithCategory() {
-        self.imageUrlArray = []
+        self.ImageArray = []
         self.imageCount = 0 // 이미지 수 초기화
         let user = UserDefaults.standard.getLoginUser()! // 유저 정보 불러오기
         
@@ -170,10 +170,9 @@ class AlbumViewController: UIViewController {
             let group = DispatchGroup() // 비동기 함수 그룹
             for category in self.selectedCategoryArray {
                 group.enter() // 그룹에 추가
-                // self.imageUrlDict[category] = []
                 PhotoNetManager.shared.read(uid: user.uid!, category: category) { photos in
                     for photo in photos {
-                        self.imageUrlArray.append(photo.imageUrl)
+                        self.ImageArray.append(photo)
                         self.imageCount += 1
                     }
                     group.leave() // 그룹 떠남
@@ -188,8 +187,8 @@ class AlbumViewController: UIViewController {
     
     @objc func reloadAfterDeleteImage() {
             self.imageCount -= 1
-            let index = self.imageUrlArray.firstIndex(of: currentImageUrl)
-            self.imageUrlArray.remove(at: index!)
+            let index = self.ImageArray.firstIndex(where: { $0.imageUrl == currentImageUrl })
+            self.ImageArray.remove(at: index!)
             self.navigationItem.title = "사진 \(self.imageCount) 장"
             self.collectionView.reloadData()
     }
@@ -251,7 +250,8 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
             }
             
             cell.imageView.contentMode = .scaleToFill // cell에 이미지가 꽉차도록 표시
-            cell.url = imageUrlArray[indexPath.row] // cell에 표시될 사진의 url 설정
+            cell.url = self.ImageArray[indexPath.row].imageUrl // cell에 url 값 설정
+            cell.category = self.ImageArray[indexPath.row].category_name // cell에 카테고리 이름 설정
             cell.imageName = extractValues(from : cell.url) // 이미지 이름 설정
 
             // 받아온 url을 통해 캐시키 생성
@@ -373,5 +373,6 @@ class CategoryCollectionViewCell : UICollectionViewCell {
 class AlbumCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     var url : String!
+    var category : String!
     var imageName : (String?, String?, String?, String?)
 }
