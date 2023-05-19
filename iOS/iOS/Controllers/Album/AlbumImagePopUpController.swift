@@ -18,6 +18,7 @@ class AlbumImagePopUpController: UIViewController {
     let height = UIScreen.main.bounds.height // 화면 높이값
     
     // 이미지 저장 변수
+    var phid : Int?
     var image : UIImage = UIImage(named: "noImage.png")!
     var category : String = ""
     var imageName : (String?, String?, String?, String?)

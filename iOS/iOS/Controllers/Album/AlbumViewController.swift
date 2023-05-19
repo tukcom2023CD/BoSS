@@ -12,39 +12,38 @@ class AlbumViewController: UIViewController {
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    // 화면 너비, 높이 값
+    var screenWidth = UIScreen.main.bounds.width
+    var screenHeight = UIScreen.main.bounds.height
+    
     // 카테고리 셀 간격 수치 값 설정 변수
     let categorySectionInsets = UIEdgeInsets(top: 1, left: 0, bottom: 10, right: 10)
     
     // 사진 셀 간격 수치 값 설정 변수
     let ImageSectionInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
    
-    var totalCategoryArray : [String] = ["사람", "동물", "식물", "건물", "바다", "산", "자동차", "기타"] // 전체 카테고리 배열
+    var categoryCount : Int = 0 // 카테고리 개수
+    var totalCategoryArray : [String] = [] // 전체 카테고리 배열
     var selectedCategoryArray : [String] = [] // 선택된 카테고리 배열
     var categoryButtonArray : [UIButton] = [] // 카테고리 버튼 배열
-    var ImageArray : [PhotoWithCategory] = [] // 이미지 구조체 배열
+    
     var imageCount : Int = 0  // 표시할 이미지 개수
+    var phidArray : [Int] = [] // phid 배열 -> 이미지 구조체를 중복 저장하지 않기 위해 사용
+    var ImageArray : [PhotoWithCategory] = [] // 이미지 구조체 배열
+    
     var currentImageUrl = "" // 선택된 이미지의 url
     
-    // 화면 너비, 높이 값
-    var screenWidth = UIScreen.main.bounds.width
-    var screenHeight = UIScreen.main.bounds.height
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "앨범" // 네비게이션 아이템 타이틀
         
-        // 태그 설정
+        // 컬렉션 뷰 태그 설정
         categoryCollectionView.tag = 1
         collectionView.tag = 2
         
         setUI() // UI 설정
-        setCategoryButtonArray() // 카테고리 버튼 설정
+        loadCategory() // 카테고리 불러오는 함수
         
-        self.navigationItem.title = "앨범" // 네비게이션 아이템 타이틀
-        
-        selectedCategoryArray = totalCategoryArray
-        
-        loadImagesWithCategory() // 이미지 불러오는 함수 호출
-    
         // 앨범 사진에대한 삭제 버튼을 클릭한 경우 삭제후 새로고침 함수 호출
         NotificationCenter.default.addObserver(self, selector: #selector(reloadAfterDeleteImage), name: NSNotification.Name("ImageDeleteButtonPressed"), object: nil)
     }
@@ -123,7 +122,7 @@ class AlbumViewController: UIViewController {
                     
                     // 배열에 추가
                     self.selectedCategoryArray.append(categoryButton.titleLabel!.text!)
-                
+                    
                     // 버튼 색상 설정
                     categoryButton.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
                     
@@ -143,16 +142,40 @@ class AlbumViewController: UIViewController {
                     // 버튼 색상 설정
                     categoryButton.tintColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
                 }
-                self.loadImagesWithCategory() // 이미지 불러오는 함수 호출
+                self.loadImagesWithCategory() // 이미지 다시 불러오기
             }), for: .touchUpInside)
-            
-            // 카테고리 버튼 배열에 추가
-            categoryButtonArray.append(categoryButton)
+            self.categoryButtonArray.append(categoryButton) // 배열에 추가
+        }
+    }
+    
+    // 카테고리 불러오는 함수
+    func loadCategory() {
+        // 카테고리 배열 초기화
+        self.categoryCount = 0
+        self.totalCategoryArray = []
+        self.selectedCategoryArray = []
+        
+        let group = DispatchGroup() // 비동기 함수 그룹
+
+        group.enter() // 그룹에 추가
+        CategoryNetManager.shared.read() { categories in
+            for category in categories {
+                self.totalCategoryArray.append(category.category_name!)
+                self.categoryCount += 1
+            }
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            self.selectedCategoryArray = self.totalCategoryArray // 초기에는 모두 선택된 카테고리로 설정
+            self.setCategoryButtonArray() // 카테고리 버튼 설정
+            self.categoryCollectionView.reloadData() // 컬렉션 뷰 다시 로딩
+            self.loadImagesWithCategory() // 이미지 불러옴
         }
     }
     
     // 사진 불러오는 함수
     @objc func loadImagesWithCategory() {
+        self.phidArray = []
         self.ImageArray = []
         self.imageCount = 0 // 이미지 수 초기화
         let user = UserDefaults.standard.getLoginUser()! // 유저 정보 불러오기
@@ -172,8 +195,12 @@ class AlbumViewController: UIViewController {
                 group.enter() // 그룹에 추가
                 PhotoNetManager.shared.read(uid: user.uid!, category: category) { photos in
                     for photo in photos {
-                        self.ImageArray.append(photo)
-                        self.imageCount += 1
+                        // phid 배열에 저장되어 있지 않다면
+                        if !self.phidArray.contains(photo.phid) {
+                            self.phidArray.append(photo.phid)
+                            self.ImageArray.append(photo)
+                            self.imageCount += 1
+                        }
                     }
                     group.leave() // 그룹 떠남
                 }
@@ -211,7 +238,7 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
         if collectionView.tag == 1 {
-            return self.totalCategoryArray.count
+            return self.categoryCount
         } else {
             return self.imageCount
         }
@@ -250,6 +277,7 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
             }
             
             cell.imageView.contentMode = .scaleToFill // cell에 이미지가 꽉차도록 표시
+            cell.phid = self.ImageArray[indexPath.row].phid // phid 설정
             cell.url = self.ImageArray[indexPath.row].imageUrl // cell에 url 값 설정
             cell.category = self.ImageArray[indexPath.row].category_name // cell에 카테고리 이름 설정
             cell.imageName = extractValues(from : cell.url) // 이미지 이름 설정
@@ -357,6 +385,7 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
             // 이미지 넘겨주기
             guard let currentCellImage = currentCell.imageView.image else {return}
             popupVC.image = currentCellImage
+            popupVC.phid = currentCell.phid
             popupVC.category = currentCell.category
             popupVC.imageName = currentCell.imageName
             
@@ -373,12 +402,12 @@ class CategoryCollectionViewCell : UICollectionViewCell {
 // 앨범 컬렉션 뷰 셀
 class AlbumCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
+    var phid : Int!
     var url : String!
     var category : String!
     var imageName : (String?, String?, String?, String?)
 }
 
-// 카테고리 불러오는 함수 작성
 // 화면 나타날때 카테고리 및 이미지 불러오는 함수 설정
 // 사진 삭제시 변경시 notification 이용하여 카테고리 다시 불러오기 및 사진 다시 불러오기
 // 사진 카테고리 변경시 notification 이용하여 카테고리 다시 불러오기 및 사진 다시 불러오기
