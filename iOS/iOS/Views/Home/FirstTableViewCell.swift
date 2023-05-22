@@ -60,21 +60,28 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return schedules?.count ?? 0
+        return schedules?.isEmpty == true ? 1 : schedules?.count ?? 0
+
+        // return schedules?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"FirstCollectionViewCell", for: indexPath) as! FirstCollectionViewCell
-        
-        guard let schedule = schedules?[indexPath.item] else { return UICollectionViewCell() }
-        
-        //cell.configure()
-        cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
-        cell.tripState.text = calcTripState(startDate: schedule.start!)
-        cell.tripTitle.text = schedule.title
-        cell.tripImage.image = UIImage(named: "tripimg")
-        
-        return cell
+        if schedules?.isEmpty == true {
+                  let blankCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlankCollectionViewCell", for: indexPath) as! BlankCollectionViewCell
+            blankCell.textLabel.text = "등록된 여행정보가 없습니다"
+                  return blankCell
+              } else {
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FirstCollectionViewCell", for: indexPath) as! FirstCollectionViewCell
+                  
+                  guard let schedule = schedules?[indexPath.item] else { return UICollectionViewCell() }
+                  
+                  cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
+                  cell.tripState.text = calcTripState(startDate: schedule.start!)
+                  cell.tripTitle.text = schedule.title
+                  cell.tripImage.image = UIImage(named: "tripimg")
+                  
+                  return cell
+              }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -15,6 +15,8 @@
 		373A081C29E9A3AA00D228A9 /* WebsiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373A081B29E9A3AA00D228A9 /* WebsiteViewController.swift */; };
 		3742356F299F3C390049DFA1 /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742356E299F3C390049DFA1 /* ReceiptViewController.swift */; };
 		37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37423570299F41FE0049DFA1 /* EditTableViewCell.swift */; };
+		374A5B0E2A1B9BA200901247 /* BlankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */; };
+		374A5B0F2A1B9BA200901247 /* BlankCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
 		3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F656297B974400014FFE /* FirstCollectionViewCell.xib */; };
 		3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */; };
@@ -133,6 +135,8 @@
 		373A081B29E9A3AA00D228A9 /* WebsiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteViewController.swift; sourceTree = "<group>"; };
 		3742356E299F3C390049DFA1 /* ReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
 		37423570299F41FE0049DFA1 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
+		374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankCollectionViewCell.swift; sourceTree = "<group>"; };
+		374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlankCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3764F656297B974400014FFE /* FirstCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -291,6 +295,8 @@
 				3785E3F029E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.swift */,
 				3785E3F129E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib */,
 				371DC5A129E58DB700EFD154 /* WritingEditPhotoCollectionViewCell.swift */,
+				374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */,
+				374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -653,6 +659,7 @@
 				57808758296BEB5600D2BAF8 /* LaunchScreen.storyboard in Resources */,
 				570AAB7429917850006CB64C /* PlacePhotosTableViewCell.xib in Resources */,
 				570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */,
+				374A5B0F2A1B9BA200901247 /* BlankCollectionViewCell.xib in Resources */,
 				3764F65C297B97A900014FFE /* SecondCollectionViewCell.xib in Resources */,
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
 				3785E3EF29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib in Resources */,
@@ -861,6 +868,7 @@
 				571FF69C29A3C787005E54F6 /* Spending.swift in Sources */,
 				BFA24D9029DFD4570084E417 /* WithDrawMembershipViewController.swift in Sources */,
 				3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */,
+				374A5B0E2A1B9BA200901247 /* BlankCollectionViewCell.swift in Sources */,
 				BF0CCB2429DF128300720875 /* ProfileEditViewController.swift in Sources */,
 				5794116929710FEB009192DD /* Bundle+Ext.swift in Sources */,
 				576B64C029996F1A002609FA /* MainPlanHeaderView.swift in Sources */,
