@@ -28,6 +28,7 @@ class FirstTableViewCell: UITableViewCell {
         self.collectionView.dataSource = self
         //collectionCell register
         collectionView.register(UINib(nibName:"FirstCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "FirstCollectionViewCell")
+        collectionView.register(UINib(nibName: "BlankCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BlankCollectionViewCell")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -55,8 +56,13 @@ class FirstTableViewCell: UITableViewCell {
 extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if let count = schedules?.count {
-            indexLabel.text = "\(indexPath.item + 1)/\(count)"
+        if (schedules?.isEmpty) == true {
+            indexLabel.text = "0/0"
+        }
+        else{
+            if let count = schedules?.count {
+                indexLabel.text = "\(indexPath.item + 1)/\(count)"
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,10 +95,22 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if schedules?.isEmpty == true {
+            // BlankCollectionViewCell인 경우에는 아무 동작도 수행하지 않음
+            return
+        }
         
-        let schedule = schedules![indexPath.item]
+        guard let schedule = schedules?[indexPath.item] else {
+            // schedules 배열의 인덱스에 접근할 수 없는 경우
+            return
+        }
         
-        // 여행 일정 클릭 시 상세 일정 페이지로 이동
         didSelectItem?(schedule)
+    
+    
+//        let schedule = schedules![indexPath.item]
+//
+//        // 여행 일정 클릭 시 상세 일정 페이지로 이동
+//        didSelectItem?(schedule)
     }
 }

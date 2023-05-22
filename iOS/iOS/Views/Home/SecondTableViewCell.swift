@@ -10,7 +10,8 @@ import UIKit
 class SecondTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    @IBOutlet weak var indexLabel: UILabel!
+
     var schedules: [Schedule]?
     
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
@@ -38,6 +39,17 @@ class SecondTableViewCell: UITableViewCell {
     
 }
 extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if (schedules?.isEmpty) == true {
+            indexLabel.text = "0/0"
+        }
+        else{
+            if let count = schedules?.count {
+                indexLabel.text = "\(indexPath.item + 1)/\(count)"
+            }
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if schedules?.isEmpty == true {
                     return 1
