@@ -279,7 +279,6 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
             cell.imageView.contentMode = .scaleToFill // cell에 이미지가 꽉차도록 표시
             cell.phid = self.ImageArray[indexPath.row].phid // phid 설정
             cell.url = self.ImageArray[indexPath.row].imageUrl // cell에 url 값 설정
-            cell.category = self.ImageArray[indexPath.row].category_name // cell에 카테고리 이름 설정
             cell.imageName = extractValues(from : cell.url) // 이미지 이름 설정
 
             // 받아온 url을 통해 캐시키 생성
@@ -386,7 +385,6 @@ extension AlbumViewController : UICollectionViewDelegate, UICollectionViewDataSo
             guard let currentCellImage = currentCell.imageView.image else {return}
             popupVC.image = currentCellImage
             popupVC.phid = currentCell.phid
-            popupVC.category = currentCell.category
             popupVC.imageName = currentCell.imageName
             
             // 화면 전환
@@ -404,7 +402,6 @@ class AlbumCollectionViewCell : UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     var phid : Int!
     var url : String!
-    var category : String!
     var imageName : (String?, String?, String?, String?)
 }
 
