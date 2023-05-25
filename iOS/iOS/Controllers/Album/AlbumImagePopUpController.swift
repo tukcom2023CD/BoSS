@@ -103,8 +103,15 @@ class AlbumImagePopUpController: UIViewController {
             
             categoryButtonArray.append(categoryButton) // 배열에 추가
         }
-        
         setButtonConstraint() // 제약 조건 설정
+    }
+    
+    // 뷰에 추가된 버튼 삭제
+    func deleteUIButton() {
+        for button in categoryButtonArray {
+            button.removeFromSuperview()
+            print("\(button.titleLabel!.text!) 버튼 삭제")
+        }
     }
     
     // 버튼 제약 조건 설정
@@ -158,20 +165,23 @@ class AlbumImagePopUpController: UIViewController {
     }
     
     // 카테고리 업데이트 함수
-    func updateCategory(phid : Int, category_name : String) {
+    func updateCategory(phid : Int, category_name : String ,category_name_edit : String) {
         
-        var category = Category(phid : phid, category_name : category_name)
+        let Category_Edit = Category_Edit(phid : phid, category_name : category_name, category_name_edit : category_name_edit)
         
         let group = DispatchGroup() // 비동기 함수 그룹
         group.enter()
         
-        CategoryNetManager.shared.update(category: category) {
+        CategoryNetManager.shared.update(Category_Edit: Category_Edit) {
             print("카테고리 업데이트 완료")
             group.leave()
         }
         
         group.notify(queue: .main) {
-            self.loadCategoryOfPhoto() // 카테고리 불러오는 함수
+            self.deleteUIButton() // 추가되었던 버튼 삭제
+            self.loadCategoryOfPhoto() // 카테고리 로딩
+            // 앨범화면 카테고리 새로고침
+            NotificationCenter.default.post(name: NSNotification.Name("ImageCategoryEdited"), object: self)
         }
     }
     
@@ -208,7 +218,7 @@ class AlbumImagePopUpController: UIViewController {
                 // 테그트가 공백이 아니라면 수정
                 else {
                     print(trimmedText)
-                    self.updateCategory(phid: self.phid!, category_name: trimmedText)
+                    self.updateCategory(phid: self.phid!, category_name: button.titleLabel!.text!, category_name_edit: trimmedText)
                 }
             }
         }

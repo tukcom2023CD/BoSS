@@ -33,6 +33,8 @@ class AlbumViewController: UIViewController {
     
     var currentImageUrl = "" // 선택된 이미지의 url
     
+    var loadedDataBool : Bool = false // 데이터를 로딩 여부
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "앨범" // 네비게이션 아이템 타이틀
@@ -46,13 +48,30 @@ class AlbumViewController: UIViewController {
         
         // 앨범 사진에대한 삭제 버튼을 클릭한 경우 삭제후 새로고침 함수 호출
         NotificationCenter.default.addObserver(self, selector: #selector(reloadAfterDeleteImage), name: NSNotification.Name("ImageDeleteButtonPressed"), object: nil)
+        
+        // 카테고리 수정후 카테고리 다시 불러옴
+        NotificationCenter.default.addObserver(self, selector: #selector(loadCategory), name: NSNotification.Name("ImageCategoryEdited"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+        if loadedDataBool == true {
+            loadCategory()
+        }
     }
     
     // UI 설정
     func setUI() {
-        
         self.categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // 컬렉션 뷰 스크롤 방향 설정
+        if let layout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        
+        categoryCollectionView.showsHorizontalScrollIndicator = false // 수평 스크롤바 숨김
         
         // 카테고리 컬렉션 뷰
         NSLayoutConstraint.activate([
@@ -61,7 +80,7 @@ class AlbumViewController: UIViewController {
             self.categoryCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             self.categoryCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             // 높이 설정
-            self.categoryCollectionView.heightAnchor.constraint(equalToConstant: screenHeight * 0.25)
+            self.categoryCollectionView.heightAnchor.constraint(equalToConstant: screenHeight * 0.2)
         ])
         
         // 이미지 컬렉션 뷰
@@ -76,6 +95,15 @@ class AlbumViewController: UIViewController {
     
     // 카테고리 버튼 배열 설정 함수
     func setCategoryButtonArray() {
+        
+        // 버튼 상위 뷰에서 제거
+        for button in categoryButtonArray {
+            button.removeFromSuperview()
+        }
+        
+        // 버튼 배열 초기화
+        categoryButtonArray = []
+        
         for category in totalCategoryArray {
             
             // 카테고리 버튼 생성
@@ -149,7 +177,7 @@ class AlbumViewController: UIViewController {
     }
     
     // 카테고리 불러오는 함수
-    func loadCategory() {
+    @objc func loadCategory() {
         // 카테고리 배열 초기화
         self.categoryCount = 0
         self.totalCategoryArray = []
@@ -170,6 +198,7 @@ class AlbumViewController: UIViewController {
             self.setCategoryButtonArray() // 카테고리 버튼 설정
             self.categoryCollectionView.reloadData() // 컬렉션 뷰 다시 로딩
             self.loadImagesWithCategory() // 이미지 불러옴
+            self.loadedDataBool = true
         }
     }
     

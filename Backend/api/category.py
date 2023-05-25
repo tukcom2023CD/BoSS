@@ -32,11 +32,11 @@ class ReadCategories(Resource):
 # 사진의 카테고리 업데이트 (U)
 @Category.route('/api/categories/update')  
 class UpdateCategories(Resource):
-    def poset(self):
+    def post(self):
         phid = (request.json.get('phid')) # json 데이터에서 sid 값을 저장합니다.
         category_name = (request.json.get('category_name')) # json 데이터에서 title 값을 저장합니다.
-        
-        sql = f"update category set category_name ='{category_name}' where phid = {phid}" # sql문을 생성합니다.
+        category_name_edit = (request.json.get('category_name_edit'))
+        sql = f"update category set category_name ='{category_name_edit}' where phid = {phid} and category_name = '{category_name}'" # sql문을 생성합니다.
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.

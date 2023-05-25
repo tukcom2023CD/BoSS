@@ -79,11 +79,11 @@ class CategoryNetManager {
     }
     
     // 카테고리 업데이트
-    func update(category: Category, completion: @escaping ()->()) {
+    func update(Category_Edit: Category_Edit, completion: @escaping ()->()) {
         
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/categories/update") else { return }
         
-        guard let jsonData = try? JSONEncoder().encode(category) else {
+        guard let jsonData = try? JSONEncoder().encode(Category_Edit) else {
             print("Error: Trying to convert model to JSON data")
             return
         }
