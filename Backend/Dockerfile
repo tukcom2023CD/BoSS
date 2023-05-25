@@ -9,6 +9,7 @@ RUN apt-get update
 RUN apt-get -y install libgl1-mesa-glx
 
 RUN pip install pillow
+RUN pip install ultralytics
 
 RUN pip install -r requirements.txt
 

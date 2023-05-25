@@ -12,7 +12,11 @@ import CalendarDateRangePicker
 
 class MapViewController: UIViewController {
     
-    @IBOutlet weak var calendarButton: UIButton!
+    @IBOutlet weak var topStackView: UIStackView!
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var topViewLabel: UILabel!
+    @IBOutlet var topButton: [UIButton]!
+    
     
     var map: GMSMapView!
     var startDate: String?
@@ -24,13 +28,25 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(#function)
         
         loadMapView()
         requestPlaceData()
+        setupTopView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         requestPlaceData()
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    func setupTopView() {
+        topView.layer.cornerRadius = 10
+        topButton.forEach { $0.layer.cornerRadius = 10 }
     }
     
     // 맵 불러오기
@@ -43,7 +59,7 @@ class MapViewController: UIViewController {
         
         view.addSubview(map)
         
-        view.bringSubviewToFront(calendarButton)
+        view.bringSubviewToFront(topStackView)
     }
     
     // 여행지 데이터 호출 및 지도에 마커 표시
@@ -95,6 +111,12 @@ class MapViewController: UIViewController {
         present(navigationController, animated: true)
         
     }
+    
+    @IBAction func dateResetButtonTapped(_ sender: UIButton) {
+        topViewLabel.text = "전체 기간"
+        requestPlaceData()
+    }
+    
 
 }
 
@@ -152,6 +174,8 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
 //        dateFormatter.dateFormat = "yyyy.MM.dd"
         self.startDate = CustomDateFormatter.format.string(from: startDate)
         self.endDate = CustomDateFormatter.format.string(from: endDate)
+        
+        topViewLabel.text = "\(self.startDate!) ~ \(self.endDate!)"
         
         dismiss(animated: true) {
             self.map.clear()
