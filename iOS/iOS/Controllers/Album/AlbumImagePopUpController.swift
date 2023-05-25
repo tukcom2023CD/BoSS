@@ -56,6 +56,8 @@ class AlbumImagePopUpController: UIViewController {
     // 카테고리 버튼 새성 및 추가 함수
     func setCategoryButton() {
         
+        categoryButtonArray = [] // 카테고리 버튼 배열 초기화
+        
         for category in self.categoryArray {
             // 카테고리 버튼 생성
             let categoryButton = UIButton(type: .custom)
@@ -121,8 +123,6 @@ class AlbumImagePopUpController: UIViewController {
         
         leading = (UIScreen.main.bounds.width - totalButtonWidth) * 0.5
         
-        print(leading)
-        
         // 제약 조건 설정
         for button in categoryButtonArray {
             
@@ -157,6 +157,24 @@ class AlbumImagePopUpController: UIViewController {
         }
     }
     
+    // 카테고리 업데이트 함수
+    func updateCategory(phid : Int, category_name : String) {
+        
+        var category = Category(phid : phid, category_name : category_name)
+        
+        let group = DispatchGroup() // 비동기 함수 그룹
+        group.enter()
+        
+        CategoryNetManager.shared.update(category: category) {
+            print("카테고리 업데이트 완료")
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            self.loadCategoryOfPhoto() // 카테고리 불러오는 함수
+        }
+    }
+    
     // 카테고리 수정 알림창 띄우는 함수
     func showEditableAlert(button : UIButton) {
         
@@ -187,10 +205,10 @@ class AlbumImagePopUpController: UIViewController {
                     
                     self.showFailedEditingAlert()
                 }
-                // 테그트가 공백이 아니라면 변경
+                // 테그트가 공백이 아니라면 수정
                 else {
-                    button.setTitle(trimmedText, for: .normal)
                     print(trimmedText)
+                    self.updateCategory(phid: self.phid!, category_name: trimmedText)
                 }
             }
         }
@@ -338,3 +356,4 @@ extension AlbumImagePopUpController : UIGestureRecognizerDelegate {
 }
 
 // 카테고리 입력후 수정버튼 누르면 API호출하여 변경된 내용 DB 반영 및 카테고리 다시 불러오기
+// 수정후 버튼 재설정
