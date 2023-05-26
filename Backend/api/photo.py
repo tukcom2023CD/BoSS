@@ -77,17 +77,6 @@ Photo = Namespace('Photo')
 @Photo.route('/api/photo/create/<int:uid>/<int:sid>/<int:pid>')
 class CreatePhoto(Resource):
     def post(self, uid, sid, pid):
-
-        # 해당 장소에 해당하는 모든 장소 삭제
-        sql = f"delete from photo where uid = {uid} and pid = {pid}"
-        conn = connect.ConnectDB(sql) # DB와 연결합니다.
-        conn.execute() # sql문 수행합니다.
-        del conn # DB와 연결을 해제합니다.
-        s3 = sc.s3_connection() # s3 객체 생성
-        # 특정 장소에 대응되는 s3 디렉토리 경로에 포함되는 모든 파일의 Key값 리스트 반환
-        keys = sc.s3_get_file_list(s3, ak.bucket_name(), f"{uid}/{pid}")
-        # s3 에서 이미지 삭제
-        delete = sc.s3_delete_files(s3, ak.bucket_name(), keys)
         
         # 바디에 포함된 파일들을 가져옴
         file_objects = request.files
