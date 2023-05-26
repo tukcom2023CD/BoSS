@@ -4,7 +4,8 @@ USE Boss;
 create table user (
 	uid int primary key auto_increment,
 	email varchar(30),
-	name varchar(20)
+	name varchar(20),
+    image_url varchar(100)
 );
 
 -- schedule
