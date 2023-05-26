@@ -74,7 +74,6 @@ def detectObjects(phid) :
 
 Photo = Namespace('Photo')
 
-
 @Photo.route('/api/photo/create/<int:uid>')
 class CreateUserPhoto(Resource):
     def post(self, uid):

@@ -7,8 +7,15 @@
 
 import Foundation
 
+
+struct UserData: Codable {
+    var users: [User]
+}
+
 struct User: Codable {
     var uid: Int?
     var email: String?
     var name: String?
+    var image_url : String?
 }
+

@@ -40,6 +40,31 @@ class PhotoNetManager {
         }
     }
     
+    // 사용자 이미지
+    func create(uid: Int, image: [UIImage], completion: @escaping()->()) {
+        let urlKey = Bundle.main.getSecretKey(key: "REST_API_URL")
+        let url = "\(urlKey)/api/photo/create/\(uid)"
+        
+        let headers: HTTPHeaders = [ "Content-Type" : "multipart/form-data" ]
+        
+        // 멀티파트 통신
+        AF.upload(multipartFormData: { (multipartFormData) in
+            for i in 0..<image.count {
+                let file = image[i].pngData()!
+                multipartFormData.append(file, withName: "file\(i)", fileName: "test.png", mimeType: "multipart/form-data")
+            }
+        }, to: url, method: .post, headers: headers).responseJSON { (response) in
+            
+            guard let statusCode = response.response?.statusCode else { return }
+            
+            guard statusCode == 200 else {
+                print(statusCode)
+                return
+            }
+            completion()
+        }
+    }
+    
     func read(uid: Int, pid: Int, completion: @escaping ([Photo])->()) {
         guard let url = URL(string: "\(Bundle.main.REST_API_URL)/api/photo/read/\(uid)/\(pid)") else { return }
         

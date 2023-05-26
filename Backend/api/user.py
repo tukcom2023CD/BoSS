@@ -60,8 +60,6 @@ class DeleteUser(Resource):
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
 
-
-
 # @User.route('/api/user/login')
 # class LoginUser(Resource):
 #     def post(self):
