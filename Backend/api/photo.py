@@ -74,6 +74,45 @@ def detectObjects(phid) :
 
 Photo = Namespace('Photo')
 
+
+@Photo.route('/api/photo/create/<int:uid>')
+class CreateUserPhoto(Resource):
+    def post(self, uid):
+        
+        # 사용자 이미지 
+        user_Image = request.files[0]
+        
+        # 이미지 마일 이름 설정
+        user_Image_Name = str(uid) + ".jpg"
+        
+        # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
+        # save_image_dir = f"/app/userImages/{user_Image_Name}"
+        save_image_dir = f"/Users/jun/Desktop/무제 폴더/userImages/{user_Image_Name}"
+        
+        # 파일 저장
+        user_Image.save(save_image_dir)
+        
+        # s3 객체 생성
+        s3 = sc.s3_connection() 
+        
+        # 버킷이름 저장
+        bucket_name = ak.bucket_name()
+    
+        # s3에 저장할 파일 이름 설정
+        s3_file_name = f"userImages/{uid}.jpg"
+    
+        # 파일 업로드 함수 호출
+        put = sc.s3_put_object(s3, bucket_name, save_image_dir, s3_file_name)
+        
+        # 파일 url 얻는 함수 호출
+        get = sc.s3_get_image_url(s3, s3_file_name)
+            
+        # url 저장
+        sql = f"update user set image_url = '{get}' where uid = {uid}" # sql문 
+        conn = connect.ConnectDB(sql) # DB와 연결합니다.
+        conn.execute() # sql문 수행합니다.
+        del conn # DB와 연결을 해제합니다.
+
 @Photo.route('/api/photo/create/<int:uid>/<int:sid>/<int:pid>')
 class CreatePhoto(Resource):
     def post(self, uid, sid, pid):
