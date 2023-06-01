@@ -79,15 +79,14 @@ class CreateUserPhoto(Resource):
     def post(self, uid):
         
         # 사용자 이미지 
-        user_Image = request.files[0]
+        user_Image = request.files[f"{uid}"]
         
-        # 이미지 마일 이름 설정
+        # 이미지 파일 이름 설정
         user_Image_Name = str(uid) + ".jpg"
         
         # 이미지 임시 저장 경로 -> 서버 컴퓨터에 따라 적절한 경로 지정
-        # save_image_dir = f"/app/userImages/{user_Image_Name}"
-        save_image_dir = f"/Users/jun/Desktop/무제 폴더/userImages/{user_Image_Name}"
-        
+        save_image_dir = f"/app/userImages/{user_Image_Name}"
+    
         # 파일 저장
         user_Image.save(save_image_dir)
         

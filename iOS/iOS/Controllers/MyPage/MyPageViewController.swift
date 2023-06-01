@@ -52,14 +52,12 @@ class MyPageViewController: UIViewController {
         requestScheduleData() // 일정 데이터 불러오기
         requestSpendingData() // 총지출  불러오기
         
-        // 로그인 타입 확인
-        self.userLoginType = checkLoginType()
-        
         // 프로필 수정 후 작업
         NotificationCenter.default.addObserver(self, selector: #selector(setUserProfile), name: NSNotification.Name("ProfileChanged"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setUserProfile()
         requestScheduleData() // 일정 데이터 불러오기
         requestSpendingData() // 총지출  불러오기
     }
@@ -188,121 +186,57 @@ class MyPageViewController: UIViewController {
         settingButton.showsMenuAsPrimaryAction = true
     }
     
-    // 로그인 타입 확인
-    func checkLoginType() -> String {
-        if let user = GIDSignIn.sharedInstance.currentUser {
-            if ((user.profile?.email) != nil) {
-                return ("Google")
-            } else {
-                return ("Google")
-            }
-        } else {
-            return ("Guest")
-        }
-    }
-    
-    // 현재 구글 로그인한 사용자의 이메일 주소 가져오기
-    func getGoogleUserEmail() -> String {
-        if let user = GIDSignIn.sharedInstance.currentUser {
-            if let email = user.profile?.email {
-                return (email)
-            } else {
-                return ("Unknown")
-            }
-        } else {
-            return ("@Guest")
-        }
-    }
-    
-    // 현재 구글 로그인한 사용자의 이름 가져오기
-    func getGoogleUserName() -> String {
-        if let user = GIDSignIn.sharedInstance.currentUser {
-            if let name = user.profile?.name {
-                return (name)
-            } else {
-                return ("Unknown")
-            }
-        } else {
-            return ("Guest")
-        }
-    }
-
-    // 유저 이메일 표시 함수
-    func setUserEmail() {
-        if self.userLoginType == "Google" {
-            // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
-            guard let userEmail = UserDefaults.standard.string(forKey: "userGoogleEmail") else {
-                let userEmail = getGoogleUserEmail()
-                UserDefaults.standard.set(userEmail, forKey: "userGoogleEmail")
-                self.userEmail.text = userEmail
-                return
-            }
-            self.userEmail.text = userEmail
-        } else {
-            // UserDefaults로 부터 이메일을 불러오고 만약 없다면 해당 이메일을 구글 로그인 정보로 부터 불러옴
-            guard let userEmail = UserDefaults.standard.string(forKey: "userGuestEmail") else {
-                let userEmail = getGoogleUserEmail()
-                UserDefaults.standard.set(userEmail, forKey: "userGuestEmail")
-                self.userEmail.text = userEmail
-                return
-            }
-            self.userEmail.text = userEmail
-        }
-    }
-    
-    // 유저 이름 표시 함수
-    func setUserName() {
-        if self.userLoginType == "Google" {
-            // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
-            guard let userName = UserDefaults.standard.string(forKey: "userGoogleName") else {
-                let userName = getGoogleUserName()
-                UserDefaults.standard.set(userName, forKey: "userGoogleName")
-                self.userName.text = userName
-                return
-            }
-            self.userName.text = userName
-        } else {
-            // UserDefaults로 부터 이름을 불러오고 만약 없다면 해당 이름을 구글 로그인 정보로 부터 불러옴
-            guard let userName = UserDefaults.standard.string(forKey: "userGuestName") else {
-                let userName = getGoogleUserName()
-                UserDefaults.standard.set(userName, forKey: "userGuestName")
-                self.userName.text = userName
-                return
-            }
-            self.userName.text = userName
-        }
-    }
-    
-    // 유저 사진 표시 함수
-    func setUserImage() {
-        if self.userLoginType == "Google"{
-            guard let userImage = UserDefaults.standard.data(forKey: "userGoogleImage") else {
-                self.userImage.image = UIImage(named: "user")
-                // 이미지를 Data로 변환하여 UserDefaults에 저장
-                if let imageData = self.userImage.image!.pngData() {
-                    UserDefaults.standard.set(imageData, forKey: "userGoogleImage")
-                }
-                return
-            }
-            self.userImage.image = UIImage(data: userImage)
-        } else {
-            guard let userImage = UserDefaults.standard.data(forKey: "userGuestImage") else {
-                self.userImage.image = UIImage(named: "user")
-                // 이미지를 Data로 변환하여 UserDefaults에 저장
-                if let imageData = self.userImage.image!.pngData() {
-                    UserDefaults.standard.set(imageData, forKey: "userGuestImage")
-                }
-                return
-            }
-            self.userImage.image = UIImage(data: userImage)
-        }
-    }
-    
     // 유저 프로필 표시 함수
     @objc func setUserProfile() {
-        setUserEmail()
-        setUserName()
-        setUserImage()
+        
+        var userData : User!
+        let uid = UserDefaults.standard.getLoginUser()!.uid // uid 불러오기
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
+        group.enter()
+        UserNetManager.shared.read(uid: uid!) { users in
+            for user in users {
+                userData = user
+            }
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            
+            self.userName.text = userData.name! // 이름 설정
+            self.userEmail.text = userData.email! // 이메일 설정
+            
+            // url 가져옴
+            if let image_url = userData.image_url {
+                
+                // 받아온 url을 통해 캐시키 생성
+                let cacheKey = NSString(string: image_url)
+                
+                // 캐시 이미지가 존재한다면 해당 이미지로 설정
+                if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                    self.userImage.image = cachedImage
+                }
+                
+                // 캐시 이미지가 존재하지 않는다면
+                else {
+                    DispatchQueue.global().async { // 멀티쓰레드 사용
+                        if let url = URL(string: image_url) { // url 생성
+                            if let data = try? Data(contentsOf: url) { // 데이터 다운로드
+                                
+                                // 이미지 설정
+                                DispatchQueue.main.async {
+                                    self.userImage.image = UIImage(data: data)
+                                }
+                                
+                                // 키, 밸류 값으로 캐시값 저장
+                                AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                self.userImage.image = UIImage(named: "user.png") // 사진이 없으면 기본이미지로 설정
+            }
+        }
     }
     
     // 프로필 편집화면으로 이동하는 함수

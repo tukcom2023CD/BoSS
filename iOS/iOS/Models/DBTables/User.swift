@@ -9,7 +9,7 @@ import Foundation
 
 
 struct UserData: Codable {
-    var users: [User]
+    var user: [User]
 }
 
 struct User: Codable {

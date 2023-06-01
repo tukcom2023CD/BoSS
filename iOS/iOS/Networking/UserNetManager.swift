@@ -80,7 +80,7 @@ class UserNetManager {
                 do {
                     let decodedData = try JSONDecoder().decode(UserData.self, from: safeData)
                     dump(decodedData)
-                    completion(decodedData.users)
+                    completion(decodedData.user)
                 } catch {
                     print("Decode Error")
                 }
