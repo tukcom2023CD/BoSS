@@ -301,7 +301,7 @@ class WritingPageViewController: UIViewController {
     //        costView.layer.cornerRadius = 10
     //    }
     //
-    
+
     // MARK: 스무스한 타이틀 변경
     func changeTitleMode() {
         self.navigationController?.navigationBar.prefersLargeTitles = true

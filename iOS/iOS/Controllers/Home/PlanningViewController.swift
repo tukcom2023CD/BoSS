@@ -58,8 +58,17 @@ class PlanningViewController: UIViewController{
         localPasing()
         filteredData = localData
         searchBarSetting()
-
+        searchBar.delegate = self
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+               tapGesture.cancelsTouchesInView = false // 테이블 뷰의 터치 이벤트와 키보드 내려가는 터치관련
+        
+               tableView.addGestureRecognizer(tapGesture)
+       
     }
+    // 테이블 뷰를 터치했을 때 키보드를 내리는 메서드
+       @objc func handleTap() {
+           searchBar.resignFirstResponder()
+       }
     func searchBarSetting(){
         searchBar.searchBarStyle = .minimal // 선 제거
         searchBar.barTintColor = .white
@@ -287,8 +296,17 @@ extension PlanningViewController: UISearchBarDelegate{
                filteredData = localData.filter { $0.lowercased().contains(searchText.lowercased()) }
            }
 
-           // 테이블 뷰를 업데이트합니다.
+           // 테이블 뷰를 업데이트
            tableView.reloadData()
+       }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+           searchBar.resignFirstResponder()
+          
+       }
+       
+       // 화면의 다른 곳을 터치하면 키보드를 내림
+       override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+           searchBar.resignFirstResponder()
        }
 
 }

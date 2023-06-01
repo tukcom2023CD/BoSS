@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BlankCollectionViewCell" id="gTV-IL-0wX" customClass="BlankCollectionViewCell" customModule="iOS" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="299" height="119"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="299" height="119"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e94-cI-ql3">
+                        <rect key="frame" x="0.0" y="0.0" width="299" height="119"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.10000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travelog" translatesAutoresizingMaskIntoConstraints="NO" id="YRv-FF-q9C">
+                                <rect key="frame" x="0.0" y="0.0" width="299" height="119"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="완료된 여행정보가 없습니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IE9-Nd-bwI">
+                                <rect key="frame" x="51.666666666666657" y="49" width="196" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="YRv-FF-q9C" firstAttribute="top" secondItem="e94-cI-ql3" secondAttribute="top" id="4Je-F4-ahn"/>
+                            <constraint firstItem="IE9-Nd-bwI" firstAttribute="centerY" secondItem="e94-cI-ql3" secondAttribute="centerY" id="9aB-lE-747"/>
+                            <constraint firstItem="IE9-Nd-bwI" firstAttribute="centerX" secondItem="e94-cI-ql3" secondAttribute="centerX" id="GaT-5c-Ttm"/>
+                            <constraint firstAttribute="trailing" secondItem="YRv-FF-q9C" secondAttribute="trailing" id="dPr-MF-UD0"/>
+                            <constraint firstAttribute="bottom" secondItem="YRv-FF-q9C" secondAttribute="bottom" id="g4i-vx-E4N"/>
+                            <constraint firstItem="YRv-FF-q9C" firstAttribute="leading" secondItem="e94-cI-ql3" secondAttribute="leading" id="lqT-ed-wo3"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="e94-cI-ql3" secondAttribute="trailing" id="0Fg-p2-B7v"/>
+                <constraint firstItem="e94-cI-ql3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="BT7-Wh-km8"/>
+                <constraint firstAttribute="bottom" secondItem="e94-cI-ql3" secondAttribute="bottom" id="UKR-fK-1Rh"/>
+                <constraint firstItem="e94-cI-ql3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iKQ-QK-bmI"/>
+            </constraints>
+            <size key="customSize" width="299" height="119"/>
+            <connections>
+                <outlet property="textLabel" destination="IE9-Nd-bwI" id="dvr-19-kUN"/>
+            </connections>
+            <point key="canvasLocation" x="174.80916030534351" y="11.619718309859156"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Travelog" width="876" height="319"/>
+    </resources>
+</document>
