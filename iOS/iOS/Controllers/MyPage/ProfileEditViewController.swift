@@ -194,32 +194,16 @@ class ProfileEdirViewController : UIViewController {
             group.leave()
         }
         group.notify(queue: .main) {
-            
-            self.nameTextField.text = userData.name! // 이름 설정
+                    self.nameTextField.text = userData.name! // 이름 설정
             self.emailTextField.text = userData.email! // 이메일 설정
             
             // url 가져옴
             if let image_url = userData.image_url {
                 
-                // 받아온 url을 통해 캐시키 생성
-                let cacheKey = NSString(string: image_url)
-                
-                // 캐시 이미지가 존재한다면 해당 이미지로 설정
-                if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
-                    self.userImageView.image = cachedImage
-                }
-                
-                // 캐시 이미지가 존재하지 않는다면
-                else {
-                    if let url = URL(string: image_url) { // url 생성
-                        if let data = try? Data(contentsOf: url) { // 데이터 다운로드
-                            
-                            // 이미지 설정
-                            self.userImageView.image = UIImage(data: data)
-                            
-                            // 키, 밸류 값으로 캐시값 저장
-                            AlbumImageCacheManager.shared.setObject(UIImage(data: data)!, forKey: cacheKey)
-                        }
+                if let url = URL(string: image_url) { // url 생성
+                    if let data = try? Data(contentsOf: url) { // 데이터 다운로드
+                        // 이미지 설정
+                        self.userImageView.image = UIImage(data: data)
                     }
                 }
             }
