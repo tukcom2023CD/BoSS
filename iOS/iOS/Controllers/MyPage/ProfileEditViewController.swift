@@ -32,9 +32,6 @@ class ProfileEdirViewController : UIViewController {
     var difference : CGFloat? // 텍스트필드 하단 위치와 키보드 상단위치 차이
     var changeView : Bool = false // 뷰 변경 여부
     
-    // 사용자 로그인 종류 구분
-    var userLoginType : String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI() // UI설정
@@ -46,13 +43,12 @@ class ProfileEdirViewController : UIViewController {
         // 이메일 수정 못하도록 설정
         emailTextField.isEnabled = false // 이메일 수정 못하도록 설정
         
-        // 로그인 타입 확인
-        self.userLoginType = checkLoginType()
-        
         // 유저 정보 설정
-        setUserEmail()
-        setUserName()
-        setUserImage()
+        setUserProfile()
+        
+        // 적용버튼 비활성화
+        applyButton.isEnabled = false
+        applyButton.backgroundColor = UIColor.systemGray
         
         // Notification 등록
         
@@ -184,91 +180,62 @@ class ProfileEdirViewController : UIViewController {
         view.layoutIfNeeded() // 레이아웃 업데이트 (frmae값 및 bounds값 업데이트)
     }
     
-    // 로그인 타입 확인
-    func checkLoginType() -> String {
-        if let user = GIDSignIn.sharedInstance.currentUser {
-            if ((user.profile?.email) != nil) {
-                return ("Google")
-            } else {
-                return ("Google")
+    // 유저 프로필 표시 함수
+    @objc func setUserProfile() {
+        
+        var userData : User!
+        let uid = UserDefaults.standard.getLoginUser()!.uid // uid 불러오기
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
+        group.enter()
+        UserNetManager.shared.read(uid: uid!) { users in
+            for user in users {
+                userData = user
             }
-        } else {
-            return ("Guest")
+            group.leave()
         }
-    }
-    
-    // 유저 이메일 표시 함수
-    func setUserEmail() {
-        if self.userLoginType == "Google"{
-            guard let userEmail = UserDefaults.standard.string(forKey: "userGoogleEmail") else {
-                return
-            }
-            self.emailTextField.text = userEmail
-        } else {
-                guard let userEmail = UserDefaults.standard.string(forKey: "userGuestEmail") else {
-                    return
+        group.notify(queue: .main) {
+                    self.nameTextField.text = userData.name! // 이름 설정
+            self.emailTextField.text = userData.email! // 이메일 설정
+            
+            // url 가져옴
+            if let image_url = userData.image_url {
+                
+                if let url = URL(string: image_url) { // url 생성
+                    if let data = try? Data(contentsOf: url) { // 데이터 다운로드
+                        // 이미지 설정
+                        self.userImageView.image = UIImage(data: data)
+                    }
                 }
-                self.emailTextField.text = userEmail
-        }
-       
-    }
-    
-    // 유저 이름 표시 함수
-    func setUserName() {
-        if self.userLoginType == "Google"{
-            guard let userName = UserDefaults.standard.string(forKey: "userGoogleName") else {
-                return
             }
-            self.nameTextField.text = userName
-        } else {
-            guard let userName = UserDefaults.standard.string(forKey: "userGuestName") else {
-                return
+            else {
+                self.userImageView.image = UIImage(named: "user.png") // 사진이 없으면 기본이미지로 설정
             }
-            self.nameTextField.text = userName
-        }
-    }
-    
-    // 유저 사진 표시 함수
-    func setUserImage() {
-        if self.userLoginType == "Google"{
-            guard let userImage = UserDefaults.standard.data(forKey: "userGoogleImage") else {
-                return
-            }
-            self.userImageView.image = UIImage(data: userImage)
-        } else {
-            guard let userImage = UserDefaults.standard.data(forKey: "userGuestImage") else {
-                return
-            }
-            self.userImageView.image = UIImage(data: userImage)
+            
+            // 버튼 활성화
+            self.applyButton.isEnabled = true
+            self.applyButton.backgroundColor = UIColor.systemGreen
         }
     }
     
     // 변경사항 적용 함수
     func applyEditChanges() {
-        if self.userLoginType == "Google" {
-            if let email = self.emailTextField.text{
-                UserDefaults.standard.set(email, forKey: "userGoogleEmail")
-            }
-            
-            if let name = self.nameTextField.text{
-                UserDefaults.standard.set(name, forKey: "userGoogleName")
-            }
-            
-            if let imageData = self.userImageView.image!.pngData() {
-                UserDefaults.standard.set(imageData, forKey: "userGoogleImage")
-            }
-        } else {
-            if let email = self.emailTextField.text{
-                UserDefaults.standard.set(email, forKey: "userGuestEmail")
-            }
-            
-            if let name = self.nameTextField.text{
-                UserDefaults.standard.set(name, forKey: "userGuestName")
-            }
-            
-            if let imageData = self.userImageView.image!.pngData() {
-                UserDefaults.standard.set(imageData, forKey: "userGuestImage")
-            }
+        
+        let uid = UserDefaults.standard.getLoginUser()!.uid // uid 불러오기
+        let user = User(uid: uid, email: emailTextField.text, name: nameTextField.text) // 구조체 생성
+        
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
+        group.enter()
+        UserNetManager.shared.update(user: user) { // 이름, 이메일 데이터 업데이트
+            group.leave()
+        }
+        
+        group.enter()
+        PhotoNetManager.shared.create(uid: uid!, image: userImageView.image!) {
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            print("프로필 업데이트 완료")
         }
     }
     

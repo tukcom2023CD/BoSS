@@ -26,7 +26,17 @@ class LoginUser(Resource):
         print(data)
         del conn
         return jsonify(data[0])
-
+    
+# 유저 정보 읽기 (R)
+@User.route('/api/user/read/<int:uid>')
+class ReadUser(Resource):
+    def get(self, uid):
+        sql = f"select * from user where uid={uid}"
+        conn = connect.ConnectDB(sql)
+        conn.execute()
+        data = conn.fetch()
+        del conn
+        return jsonify({"user": data})
 
 # 유저 정보 업데이트 (U)
 @User.route('/api/user/update')
@@ -35,7 +45,8 @@ class UpdateUser(Resource):
         uid = int(request.json.get('uid')) # json 데이터에서 uid 값 저장
         email = (request.json.get('email')) # json 데이터에서 email 값 저장
         name = (request.json.get('name')) # json 데이터에서 name 값 저장
-        sql = f"update user set email ='{email}', name ='{name}' where uid = {uid}" # sql문 
+        image_url = (request.json.get('image_url')) # json 데이터에서 name 값 저장
+        sql = f"update user set email ='{email}', name ='{name}', image_url ='{image_url}' where uid = {uid}" # sql문 
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
@@ -48,8 +59,6 @@ class DeleteUser(Resource):
         conn = connect.ConnectDB(sql) # DB와 연결합니다.
         conn.execute() # sql문 수행합니다.
         del conn # DB와 연결을 해제합니다.
-
-
 
 # @User.route('/api/user/login')
 # class LoginUser(Resource):
