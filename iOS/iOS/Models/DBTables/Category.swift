@@ -16,6 +16,12 @@ struct Category: Codable {
     var category_name : String?
 }
 
+struct Category_Edit: Codable {
+    var phid : Int?
+    var category_name : String?
+    var category_name_edit : String?
+}
+
 struct CategoryTypeData: Codable {
     var categoryTypes: [CategoryType]
 }

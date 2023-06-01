@@ -44,7 +44,6 @@ class ReadSchedule(Resource):
         del conn # DB와 연결을 해제합니다.
         return jsonify(data[0]) # josn 형식의 데이터를 반환합니다.
         
-
 # 일정 업데이트 (U)
 @Schedule.route('/api/schedule/update')
 class UpdateSchedule(Resource):
