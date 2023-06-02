@@ -189,8 +189,11 @@ class MyPageViewController: UIViewController {
     // 유저 프로필 표시 함수
     @objc func setUserProfile() {
         
-        var userData : User!
+        
         let uid = UserDefaults.standard.getLoginUser()!.uid // uid 불러오기
+        
+        var userData : User = User(uid: uid, email : "이메일", name: "이름") // 기본 구조체 값 설정
+        
         let group = DispatchGroup() // 비동기 함수 그룹 생성
         group.enter()
         UserNetManager.shared.read(uid: uid!) { users in
@@ -201,7 +204,14 @@ class MyPageViewController: UIViewController {
         }
         group.notify(queue: .main) {
             
-            self.userName.text = userData.name! // 이름 설정
+            if let name = userData.name {
+                self.userName.text = name
+            }
+            
+            if let email = userData.email {
+                self.userEmail.text = email
+            }
+    
             self.userEmail.text = userData.email! // 이메일 설정
             
             // url 가져옴
