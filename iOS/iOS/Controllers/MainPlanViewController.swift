@@ -38,7 +38,8 @@ class MainPlanViewController: UIViewController {
         setupTopView()
         setupTableView()
         setupNavigationBar()
-        
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
         NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleData), name: NSNotification.Name("ScheduleUpdated"), object: nil)
         tableView.showsVerticalScrollIndicator = false
               tableView.showsHorizontalScrollIndicator = false
@@ -47,7 +48,10 @@ class MainPlanViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         requestPlaceData()
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
     }
+    
     
     func setupTopView() {
         period.text = "\(schedule.start!) ~ \(schedule.stop!)"
@@ -74,6 +78,7 @@ class MainPlanViewController: UIViewController {
         // "Back" 버튼 숨기기
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftItemsSupplementBackButton = true
+        
 
   
         
