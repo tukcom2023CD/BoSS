@@ -257,6 +257,9 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UI
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "SearchPlaceVC") as! SearchPlaceViewController
             vc.visitDate = self.sections[section].date
             vc.scheduleId = self.schedule.sid!
+            vc.localLabel = self.tripTitle.text?.components(separatedBy: " ").first
+            print(vc.localLabel ?? "no")
+           
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
@@ -280,6 +283,7 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
+        vc.navigationItem.title = tripTitle.text
         //여기서 작업시작
         
         let place = sections[indexPath.section].rows[indexPath.row]

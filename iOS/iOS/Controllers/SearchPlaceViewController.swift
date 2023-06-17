@@ -15,13 +15,20 @@ class SearchPlaceViewController: UIViewController {
     var resultView: UITextView?
     var visitDate: String!
     var scheduleId: Int!
-    
+    var localLabel:String!
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+   
         // Do any additional setup after loading the view.
         resultsViewController = GMSAutocompleteResultsViewController()
         resultsViewController?.delegate = self
+        
+        // 한국 내 장소로 검색 결과를 제한하기 위해 필터
+                let filter = GMSAutocompleteFilter()
+                filter.country = "KR"
+        
+        // 생성한 필터를 autocomplete 결과 뷰 컨트롤러에 적용합니다.
+               resultsViewController?.autocompleteFilter = filter
         
         searchController = UISearchController(searchResultsController: resultsViewController)
         searchController?.searchResultsUpdater = resultsViewController
@@ -42,11 +49,14 @@ class SearchPlaceViewController: UIViewController {
 
 
 extension SearchPlaceViewController: GMSAutocompleteResultsViewControllerDelegate {
+    
+    
+    
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWith place: GMSPlace) {
-        //searchController?.isActive = false
-        // Do something with the selected place.
+        
         print(place)
+        
         let placeDetailVC = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailVC") as! PlaceDetailViewController
         placeDetailVC.place = place
         placeDetailVC.visitDate = visitDate
@@ -54,6 +64,7 @@ extension SearchPlaceViewController: GMSAutocompleteResultsViewControllerDelegat
         navigationController?.pushViewController(placeDetailVC, animated: true)
         
     }
+    
     
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didFailAutocompleteWithError error: Error){
@@ -65,8 +76,12 @@ extension SearchPlaceViewController: GMSAutocompleteResultsViewControllerDelegat
     func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
-    
-    func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-    }
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
+                              didAutocompleteWith predictions: [GMSAutocompletePrediction]) {
+           let filteredPredictions = predictions.filter {
+               $0.attributedFullText.string.localizedCaseInsensitiveContains(localLabel)
+           }
+       
+//           resultsController.autocompletePredictions = filteredPredictions
+       }
 }

@@ -2214,7 +2214,7 @@
             </objects>
             <point key="canvasLocation" x="4788.5496183206105" y="1937.323943661972"/>
         </scene>
-        <!--여행지-->
+        <!--Writing Page View Controller-->
         <scene sceneID="3vx-3Z-dg6">
             <objects>
                 <viewController storyboardIdentifier="WritingPageViewController" modalPresentationStyle="fullScreen" id="hVD-WG-O5W" customClass="WritingPageViewController" customModule="iOS" customModuleProvider="target" sceneMemberID="viewController">
@@ -2483,7 +2483,7 @@
                             <constraint firstItem="pTj-W0-Qjt" firstAttribute="trailing" secondItem="WSN-AU-W9E" secondAttribute="trailing" id="c6A-m3-mcw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="여행지" id="Nrt-mG-zOK">
+                    <navigationItem key="navigationItem" id="Nrt-mG-zOK">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="chevron.left" catalog="system" id="hnJ-lp-hao">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
