@@ -188,7 +188,7 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UI
               let offsetY = scrollView.contentOffset.y
               
               // 테이블의 top부분 계산
-              let maxTopSpacing: CGFloat = 100.0 // 초기 간격
+              let maxTopSpacing: CGFloat = 130.0 // 초기 간격
               let minTopSpacing: CGFloat = 0.0 // 최소 간격
               let totalScrollDistance = maxTopSpacing - minTopSpacing
               let currentTopSpacing = max(maxTopSpacing - offsetY, minTopSpacing)

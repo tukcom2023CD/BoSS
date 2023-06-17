@@ -535,39 +535,67 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="shw-WB-ciG">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="120"/>
                                         <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인천 여행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBW-8P-ZDK">
+                                                <rect key="frame" x="10" y="3" width="165" height="54"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2023.01.01 ~ 2023.01.03" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7e-O4-Hx2">
-                                                <rect key="frame" x="20" y="81" width="163.33333333333334" height="17"/>
+                                                <rect key="frame" x="20" y="57" width="163.33333333333334" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="인천 여행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dBW-8P-ZDK">
-                                                <rect key="frame" x="10" y="21" width="184" height="60"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b1C-od-Lk4">
+                                                <rect key="frame" x="0.0" y="79" width="393" height="51.666666666666657"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="▿ 드래그로 여행 순서를 수정할 수 있습니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jot-Zz-Cqf">
+                                                        <rect key="frame" x="10" y="10" width="210" height="14.333333333333336"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▿ 왼쪽으로 밀면 여행일정을 삭제할 수 있습니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQO-SW-9mE">
+                                                        <rect key="frame" x="10" y="27.333333333333339" width="231" height="14.333333333333332"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.62836630874138444" green="0.77422228227094902" blue="0.77643459359395139" alpha="0.5045271109271523" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="xQO-SW-9mE" secondAttribute="bottom" constant="10" id="9zn-CL-NdT"/>
+                                                    <constraint firstItem="xQO-SW-9mE" firstAttribute="top" secondItem="Jot-Zz-Cqf" secondAttribute="bottom" constant="3" id="F7G-cE-8pP"/>
+                                                    <constraint firstItem="Jot-Zz-Cqf" firstAttribute="leading" secondItem="b1C-od-Lk4" secondAttribute="leading" constant="10" id="IMh-o1-Pnr"/>
+                                                    <constraint firstItem="Jot-Zz-Cqf" firstAttribute="top" secondItem="b1C-od-Lk4" secondAttribute="top" constant="10" id="pUi-mH-hO6"/>
+                                                    <constraint firstItem="xQO-SW-9mE" firstAttribute="leading" secondItem="b1C-od-Lk4" secondAttribute="leading" constant="10" id="tZc-qT-1H9"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="05G-vT-cya"/>
+                                            <constraint firstAttribute="height" constant="120" id="05G-vT-cya"/>
                                             <constraint firstItem="dBW-8P-ZDK" firstAttribute="leading" secondItem="shw-WB-ciG" secondAttribute="leading" constant="10" id="1dz-xH-C7Y"/>
-                                            <constraint firstAttribute="bottom" secondItem="k7e-O4-Hx2" secondAttribute="bottom" constant="2" id="8Ze-Cd-v7V"/>
+                                            <constraint firstAttribute="trailing" secondItem="b1C-od-Lk4" secondAttribute="trailing" id="2vK-AP-wLY"/>
+                                            <constraint firstItem="dBW-8P-ZDK" firstAttribute="top" secondItem="shw-WB-ciG" secondAttribute="top" constant="3" id="ECV-uH-bvn"/>
                                             <constraint firstItem="k7e-O4-Hx2" firstAttribute="top" secondItem="dBW-8P-ZDK" secondAttribute="bottom" id="Kh2-gz-f7U"/>
+                                            <constraint firstItem="b1C-od-Lk4" firstAttribute="top" secondItem="k7e-O4-Hx2" secondAttribute="bottom" constant="5" id="RoV-Ri-TbB"/>
                                             <constraint firstItem="k7e-O4-Hx2" firstAttribute="leading" secondItem="shw-WB-ciG" secondAttribute="leading" constant="20" id="siy-Dd-r4J"/>
+                                            <constraint firstItem="b1C-od-Lk4" firstAttribute="leading" secondItem="shw-WB-ciG" secondAttribute="leading" id="wt2-EU-jGp"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="JmO-YV-xVi">
-                                        <rect key="frame" x="0.0" y="100" width="393" height="659"/>
+                                        <rect key="frame" x="0.0" y="130" width="393" height="629"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="JmO-YV-xVi" firstAttribute="leading" secondItem="aPR-Ah-gC1" secondAttribute="leading" id="1nT-bO-KvT"/>
-                                    <constraint firstItem="JmO-YV-xVi" firstAttribute="top" secondItem="aPR-Ah-gC1" secondAttribute="top" constant="100" id="2ND-2J-8YH"/>
+                                    <constraint firstItem="JmO-YV-xVi" firstAttribute="top" secondItem="aPR-Ah-gC1" secondAttribute="top" constant="130" id="2ND-2J-8YH"/>
                                     <constraint firstAttribute="trailing" secondItem="shw-WB-ciG" secondAttribute="trailing" id="BY6-8M-Bvo"/>
                                     <constraint firstAttribute="trailing" secondItem="JmO-YV-xVi" secondAttribute="trailing" id="GdY-e5-zz2"/>
                                     <constraint firstItem="shw-WB-ciG" firstAttribute="top" secondItem="aPR-Ah-gC1" secondAttribute="top" id="KWv-Dt-R2s"/>
