@@ -16,25 +16,33 @@ class MainPlanViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var upperView: UIView!
     @IBOutlet weak var tripTitle: UILabel!
     
     @IBOutlet weak var period: UILabel!
+
+    @IBOutlet weak var outView: UIView!
+    
+    @IBOutlet weak var tableTopConstraints: NSLayoutConstraint!
     
     var schedule: Schedule!
     var places: [Place] = []
     
     var sections: [Section] = []
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         
         setupTopView()
         setupTableView()
         setupNavigationBar()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleData), name: NSNotification.Name("ScheduleUpdated"), object: nil)
+        tableView.showsVerticalScrollIndicator = false
+              tableView.showsHorizontalScrollIndicator = false
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,9 +62,44 @@ class MainPlanViewController: UIViewController {
     }
     
     func setupNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(barButtonTapped))
+        // "Edit" 버튼을 "수정"으로 변경
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "수정", style: .plain, target: self, action: #selector(barButtonTapped))
+        
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         self.navigationItem.setHidesBackButton(false, animated: true)
+        
+        // 네비게이션 바 버튼 색상 변경
+        navigationController?.navigationBar.tintColor = .black
+
+        // "Back" 버튼 숨기기
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.leftItemsSupplementBackButton = true
+
+  
+        
+        //옵셔널 없애기
+
+        if let tripTitleText = tripTitle.text?.components(separatedBy: " ").first,
+           let periodText = period.text {
+               let components = periodText.components(separatedBy: " ")
+               if components.count == 3 {
+                   let startDateComponents = components[0].components(separatedBy: ".")
+                   let endDateComponents = components[2].components(separatedBy: ".")
+                   
+                   if startDateComponents.count == 3 && endDateComponents.count == 3 {
+                       let startMonthDay = "\(startDateComponents[0]).\(startDateComponents[1]).\(startDateComponents[2])"
+                       let endMonthDay = "\(endDateComponents[1]).\(endDateComponents[2])"
+                       
+                       let formattedPeriodText = "\(startMonthDay) ~ \(endMonthDay)"
+                       navigationItem.title = "\(tripTitleText) \(formattedPeriodText)"
+                   }
+               }
+           } else {
+               navigationItem.title = ""
+           }
+        
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(0)]
+       
     }
     
     func setupTableView() {
@@ -133,8 +176,44 @@ class MainPlanViewController: UIViewController {
 }
 
 // MARK: - TableViewDataSource, Delegate
-extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDragDelegate, UITableViewDropDelegate {
-    
+extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDragDelegate, UITableViewDropDelegate,UIScrollViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+          if scrollView == tableView {
+              let offsetY = scrollView.contentOffset.y
+              
+              // 테이블의 top부분 계산
+              let maxTopSpacing: CGFloat = 100.0 // 초기 간격
+              let minTopSpacing: CGFloat = 0.0 // 최소 간격
+              let totalScrollDistance = maxTopSpacing - minTopSpacing
+              let currentTopSpacing = max(maxTopSpacing - offsetY, minTopSpacing)
+              
+              // 업데이트 된 top
+              tableTopConstraints.constant = currentTopSpacing
+              
+              // Calculate the alpha value for the upperView
+              let maxAlpha: CGFloat = 1.0
+              let minAlpha: CGFloat = 0.0
+              let currentAlpha = max(minAlpha, maxAlpha - (offsetY / totalScrollDistance))
+              
+              // 업데이트된 upperView투명도
+              upperView.alpha = currentAlpha
+              
+              //업데이트된 타이틀 투명도
+              let titleAlpha = 1.0 - currentAlpha
+              navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black.withAlphaComponent(titleAlpha)]
+              
+              // 서서히 애니메이션으로
+              UIView.animate(withDuration: 0.2) {
+                  self.view.layoutIfNeeded()
+              }
+          }
+      }
+  
+
+
+
+
     // 섹션 개수
     func numberOfSections(in tableView: UITableView) -> Int {
         return sections.count
