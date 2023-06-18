@@ -45,7 +45,7 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
         }
         else{
             if let count = schedules?.count {
-                indexLabel.text = "\(indexPath.item + 1)/\(count)"
+                indexLabel.text = "▹ \(count)번의 여행기록이 있습니다."
             }
         }
     }
@@ -80,7 +80,7 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
         if schedules?.isEmpty == true {
             return CGSize(width: collectionView.frame.width , height: 200)
         }
-        return CGSize(width: collectionView.frame.width/2 , height: 250)
+        return CGSize(width: collectionView.frame.width/2-6 , height: 250)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

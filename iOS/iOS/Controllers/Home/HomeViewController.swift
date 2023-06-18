@@ -15,11 +15,17 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var stickyView: UIView!
-    var initialStickyViewYPosition: CGFloat = 250
+    var initialStickyViewYPosition: CGFloat = 330
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     var currentCellIndex = 0
+    
+    @IBOutlet weak var smallLogo: UIImageView!
+    
+    @IBOutlet weak var smallLogoText: UIImageView!
+    
+    @IBOutlet weak var upperView: UIView!
     
     //  var isExpanded = false
     
@@ -31,20 +37,21 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
     //웹사이트나열  --> 다음화면에 넘겨주기 (현재화면이랑, 배열전체)
     //외국 감성 물씬 나는 국내 여행지 BEST7,
     var websites = [
-        "ktourtop10.kr", "expedia.co.kr", "kr.trip.com", "korean.visitkorea.or.kr","verygoodtour.com"] //5개 생각중
+        "ktourtop10.kr", "expedia.co.kr", "kr.trip.com", "korean.visitkorea.or.kr","verygoodtour.com"]
     
     var websitesImages = [
-        UIImage(named: "테마10선"),UIImage(named: "트릿닷컴"),UIImage(named: "대한민국구석구석"),UIImage(named: "트릿닷컴"),UIImage(named: "트릿닷컴")]
+        UIImage(named: "테마10선"),UIImage(named: "익스피디아"),UIImage(named: "트릿닷컴"),UIImage(named: "대한민국구석구석"),UIImage(named: "참좋은여행")]
     
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
-      hideNavigation()
+        hideNavigation()
         navigationController?.isToolbarHidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            smallLogo.alpha = 0.0
+        smallLogoText.alpha = 0.0
         //title = "Travelog"
         scrollView.delegate = self
         stickyView.frame.origin.y = initialStickyViewYPosition
@@ -75,12 +82,12 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.navigationItem.setHidesBackButton(true, animated: true)
         self.navigationItem.rightBarButtonItem?.isEnabled = false
-       // self.navigationItem.rightBarButtonItem?.tintColor = .clear
+        // self.navigationItem.rightBarButtonItem?.tintColor = .clear
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         //스크롤 위치
-        let yOffset = scrollView.contentOffset.y + 60
+        let yOffset = scrollView.contentOffset.y + 80
         
         // 현재위치 :스크롤위치와 스티키 뷰의 초기 위치인 y중 더 큰값
         let newStickyViewYPosition = max(yOffset, initialStickyViewYPosition)
@@ -89,13 +96,31 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
         if stickyView.frame.origin.y != newStickyViewYPosition {
             stickyView.frame.origin.y = newStickyViewYPosition
             
-            //
-            let alphaValue = max(0, min(positionDifference / 100, 1.0))
-            
-         
-            stickyView.layer.shadowColor = UIColor.gray.cgColor
-            stickyView.layer.shadowOpacity = Float(alphaValue)
-            stickyView.layer.shadowRadius = alphaValue*5
+            // 배경색 및 투명도 변경
+            UIView.animate(withDuration: 0.3) {
+                if positionDifference >= 0 {
+                    self.upperView.backgroundColor = UIColor.white // 완전히 흰색으로 설정
+                    self.smallLogo.alpha = 1.0 // 완전히 보이도록 설정
+                    self.smallLogoText.alpha = 1.0
+                } else {
+                    self.upperView.backgroundColor = UIColor.clear // 투명하게 설정
+                    self.smallLogo.alpha = 0.0 // 완전히 투명하게 설정
+                    self.smallLogoText.alpha = 0.0
+                }
+                
+                let alphaValue = max(0, min(positionDifference / 100, 1.0))
+                
+                self.stickyView.layer.shadowColor = UIColor.gray.cgColor
+                self.stickyView.layer.shadowOpacity = Float(alphaValue)
+                self.stickyView.layer.shadowRadius = alphaValue * 5
+            }
+        } else {
+            // 스티키 뷰가 내려가서 고정되지 않을 때 투명하게 만들기
+            UIView.animate(withDuration: 0.3) {
+                self.upperView.backgroundColor = UIColor.clear // 투명하게 설정
+                self.smallLogo.alpha = 0.0 // 완전히 투명하게 설정
+                self.smallLogoText.alpha = 0.0
+            }
         }
         
         
@@ -175,7 +200,7 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
         
     }
 }
- 
+
 extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     
@@ -192,7 +217,7 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
         cell.images.image = websitesImages[indexPath.row]
         
         return cell
-
+        
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 각 셀의 크기를 지정

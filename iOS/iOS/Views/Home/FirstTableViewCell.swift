@@ -55,16 +55,7 @@ class FirstTableViewCell: UITableViewCell {
 
 extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if (schedules?.isEmpty) == true {
-            indexLabel.text = "0/0"
-        }
-        else{
-            if let count = schedules?.count {
-                indexLabel.text = "\(indexPath.item + 1)/\(count)"
-            }
-        }
-    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return schedules?.isEmpty == true ? 1 : schedules?.count ?? 0
 
@@ -113,4 +104,13 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
 //        // 여행 일정 클릭 시 상세 일정 페이지로 이동
 //        didSelectItem?(schedule)
     }
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+           if let visibleIndexPaths = collectionView.indexPathsForVisibleItems.first {
+               if let count = schedules?.count {
+                   indexLabel.text = "\(visibleIndexPaths.item + 1)/\(count)"
+               }
+           } else {
+               indexLabel.text = "0/0"
+           }
+       }
 }

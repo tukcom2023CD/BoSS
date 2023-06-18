@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +17,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="175" height="110"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JF3-Jr-Zwr">
-                            <rect key="frame" x="14.999999999999996" y="15" width="45.666666666666657" height="21"/>
+                            <rect key="frame" x="14.999999999999996" y="15" width="45.666666666666657" height="30"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -34,6 +34,15 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kAo-Pb-OAh">
+                            <rect key="frame" x="75.666666666666671" y="15" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="30" id="3Z7-l2-n15"/>
+                                <constraint firstAttribute="height" constant="30" id="bQ9-qO-gZN"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button" image="자세히보기"/>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.97564393281936646" green="0.98404234647750854" blue="0.99139684438705444" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -41,8 +50,11 @@
                         <constraint firstItem="JF3-Jr-Zwr" firstAttribute="leading" secondItem="m7J-wa-kdE" secondAttribute="leading" constant="15" id="CcV-oo-JSm"/>
                         <constraint firstItem="3wZ-oT-ibC" firstAttribute="top" secondItem="Gk9-Ug-aQD" secondAttribute="bottom" constant="8" id="Ckj-5u-ObW"/>
                         <constraint firstAttribute="trailing" secondItem="Gk9-Ug-aQD" secondAttribute="trailing" constant="15" id="DTx-DO-W1X"/>
+                        <constraint firstItem="kAo-Pb-OAh" firstAttribute="top" secondItem="m7J-wa-kdE" secondAttribute="top" constant="15" id="FHs-x2-CCX"/>
                         <constraint firstAttribute="trailing" secondItem="3wZ-oT-ibC" secondAttribute="trailing" constant="15" id="WGL-es-b2d"/>
                         <constraint firstItem="JF3-Jr-Zwr" firstAttribute="top" secondItem="m7J-wa-kdE" secondAttribute="top" constant="15" id="cSQ-Zx-ImQ"/>
+                        <constraint firstItem="kAo-Pb-OAh" firstAttribute="leading" secondItem="JF3-Jr-Zwr" secondAttribute="trailing" constant="15" id="y5H-u5-ERf"/>
+                        <constraint firstItem="kAo-Pb-OAh" firstAttribute="centerY" secondItem="JF3-Jr-Zwr" secondAttribute="centerY" id="ydZ-Xd-n1r"/>
                     </constraints>
                 </view>
             </subviews>
@@ -58,9 +70,13 @@
                 <outlet property="date" destination="Gk9-Ug-aQD" id="I6T-UF-f3E"/>
                 <outlet property="infoView" destination="m7J-wa-kdE" id="xaE-m4-FAL"/>
                 <outlet property="name" destination="JF3-Jr-Zwr" id="CWX-37-XnV"/>
+                <outlet property="showDetail" destination="kAo-Pb-OAh" id="cMy-4T-qVV"/>
                 <outlet property="spending" destination="3wZ-oT-ibC" id="tmb-TT-IRm"/>
             </connections>
             <point key="canvasLocation" x="-75.572519083969468" y="246.12676056338029"/>
         </view>
     </objects>
+    <resources>
+        <image name="자세히보기" width="100" height="100"/>
+    </resources>
 </document>
