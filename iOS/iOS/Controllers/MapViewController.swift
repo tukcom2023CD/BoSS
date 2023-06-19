@@ -149,14 +149,14 @@ extension MapViewController: GMSMapViewDelegate {
         let infoWindow = Bundle.main.loadNibNamed("MarkerInfoWindowView", owner: self, options: nil)![0] as! MarkerInfoWindowView
         
         // 뷰의 크기 조정
-        let infowindowSize = CGSize(width: 180, height: 140) // 원하는 크기로 설정
+        let infowindowSize = CGSize(width: 160, height: 120) // 원하는 크기로 설정
         infoWindow.frame = CGRect(origin: infoWindow.frame.origin, size: infowindowSize)
 
 
         infoWindow.infoView.layer.cornerRadius = 15
         infoWindow.infoView.layer.borderColor = CGColor(red: 0.23, green: 0.5, blue: 0.8, alpha: 0.8)
         infoWindow.infoView.layer.borderWidth = 3
-        
+        infoWindow.infoView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
         let place = marker.userData as! Place
         
         infoWindow.name.text = place.name
