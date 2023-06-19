@@ -41,7 +41,7 @@ class SecondTableViewCell: UITableViewCell {
 extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if (schedules?.isEmpty) == true {
-            indexLabel.text = "0/0"
+            indexLabel.text = "완료된 여행정보가 없습니다."
         }
         else{
             if let count = schedules?.count {
@@ -70,12 +70,16 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
             
             cell.tripTitle.text = schedule.title
             cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
+            PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
+                let totalSpending = places.reduce(0) { $0 + ($1.totalSpending ?? 0) }
+                DispatchQueue.main.async {
+                    cell.tripCost.text = "\(totalSpending) 원"
+                }
+            }
             
             return cell
         }
-        
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if schedules?.isEmpty == true {
             return CGSize(width: collectionView.frame.width , height: 200)

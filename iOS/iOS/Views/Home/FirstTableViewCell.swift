@@ -29,7 +29,17 @@ class FirstTableViewCell: UITableViewCell {
         //collectionCell register
         collectionView.register(UINib(nibName:"FirstCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "FirstCollectionViewCell")
         collectionView.register(UINib(nibName: "BlankCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BlankCollectionViewCell")
+     
     }
+    override func layoutSubviews() {
+          super.layoutSubviews()
+          if let count = schedules?.count {
+              if count == 0 {
+                  indexLabel.text = "여행정보를 불러오는 중..."
+              }
+              indexLabel.text = "1/\(count)"
+          }
+      }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -110,7 +120,7 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
                    indexLabel.text = "\(visibleIndexPaths.item + 1)/\(count)"
                }
            } else {
-               indexLabel.text = "0/0"
+               indexLabel.text = "진행중인 여행정보가 없습니다."
            }
        }
 }

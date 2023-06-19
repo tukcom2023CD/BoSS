@@ -156,9 +156,16 @@ extension MapViewController: GMSMapViewDelegate {
         
         infoWindow.name.text = place.name
         infoWindow.date.text = place.visitDate
-        infoWindow.spending.text = "\(place.totalSpending!) 원"
+        infoWindow.spending.text = "\(numberFormatter(number:place.totalSpending!)) 원"
+    
         
         return infoWindow
+    }
+    // MARK: - 금액 3자리수 마다 , 붙이기
+    func numberFormatter(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return numberFormatter.string(from: NSNumber(value: number))!
     }
 }
 
