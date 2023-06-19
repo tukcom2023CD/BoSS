@@ -15,13 +15,15 @@ class SecondTableViewCell: UITableViewCell {
     var schedules: [Schedule]?
     
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
-    
+    var scheduleImageDict : [Int : [String]] = [:] // 스케줄 이미지 딕셔너리
     func configure(){
         collectionView.reloadData()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        // 사진 불러오기
+        requestScheduleIamge()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
@@ -43,7 +45,37 @@ func numberFormatter(number: Int) -> String {
     numberFormatter.numberStyle = .decimal
     return numberFormatter.string(from: NSNumber(value: number))!
 }
-
+    // 일정에 대한 사진 불러오는 함수
+    func requestScheduleIamge() {
+        self.scheduleImageDict = [:] // Dict 초기화
+        let user = UserDefaults.standard.getLoginUser()!
+        let group = DispatchGroup() // 비동기 함수 그룹 생성
+        group.enter()
+        ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            for schedule in schedules {
+                let urlArray : [String] = [] // 사진 URL 배열
+                self.scheduleImageDict[schedule.sid!] = urlArray // 딕셔너리 값추가
+                group.enter()
+                PlaceNetManager.shared.read(sid: schedule.sid!) { places in
+                    if let firstPlace = places.first { // 첫 번째 장소만 사용
+                        group.enter()
+                        PhotoNetManager.shared.read(uid: user.uid!, pid: firstPlace.pid!) { photos in
+                            if let firstPhoto = photos.first { // 첫 번째 사진만 사용
+                                self.scheduleImageDict[schedule.sid!]!.append(firstPhoto.imageUrl)
+                            }
+                            group.leave()
+                        }
+                    }
+                    group.leave()
+                }
+            }
+            group.leave()
+        }
+        group.notify(queue: .main) {
+            //self.loadedImage = true
+            self.collectionView.reloadData()
+        }
+    }
     
 }
 extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
@@ -79,16 +111,36 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
             cell.tripTitle.text = schedule.title
             cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
             //places : read(sid:completion:) 함수에서 받아온 여행지 데이터 배열
-            PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
-                let totalSpending = places.reduce(0) { $0 + ($1.totalSpending ?? 0) }
-                DispatchQueue.main.async {
-                    cell.tripCost.text =
-                    "\(self.numberFormatter(number:totalSpending)) 원"
-
-                    
-               
-                }
-            }
+    
+                   PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
+                       let totalSpending = places.reduce(0) { $0 + ($1.totalSpending ?? 0) }
+                       DispatchQueue.main.async {
+                           cell.tripCost.text = "\(self.numberFormatter(number: totalSpending)) 원"
+                           
+                           if let imageUrl = self.scheduleImageDict[schedule.sid!]?.first {
+                               DispatchQueue.global().async {
+                                   let cacheKey = NSString(string: imageUrl)
+                                   if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                                       DispatchQueue.main.async {
+                                           cell.tripImage.image = cachedImage
+                                       }
+                                   } else {
+                                       if let imageURL = URL(string: imageUrl),
+                                          let data = try? Data(contentsOf: imageURL),
+                                          let image = UIImage(data: data) {
+                                           AlbumImageCacheManager.shared.setObject(image, forKey: cacheKey)
+                                           DispatchQueue.main.async {
+                                               cell.tripImage.image = image
+                                           }
+                                       }
+                                   }
+                               }
+                           } else {
+                               cell.tripImage.image = #imageLiteral(resourceName: "noImage")
+                           }
+                       }
+                   }
+            
             
             return cell
         }
