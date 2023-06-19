@@ -3163,7 +3163,7 @@
         <image name="물감" width="297" height="106"/>
         <image name="빈이미지" width="488" height="486"/>
         <image name="영수증보기" width="250" height="250"/>
-        <image name="작은로고소글씨" width="193" height="37"/>
+        <image name="작은로고소글씨" width="181" height="37"/>
         <image name="큰로고" width="366" height="134"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

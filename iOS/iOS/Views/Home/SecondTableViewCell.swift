@@ -36,6 +36,14 @@ class SecondTableViewCell: UITableViewCell {
 
        
     }
+  
+// MARK: - 금액 3자리수 마다 , 붙이기
+func numberFormatter(number: Int) -> String {
+    let numberFormatter = NumberFormatter()
+    numberFormatter.numberStyle = .decimal
+    return numberFormatter.string(from: NSNumber(value: number))!
+}
+
     
 }
 extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
@@ -70,10 +78,15 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
             
             cell.tripTitle.text = schedule.title
             cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
+            //places : read(sid:completion:) 함수에서 받아온 여행지 데이터 배열
             PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
                 let totalSpending = places.reduce(0) { $0 + ($1.totalSpending ?? 0) }
                 DispatchQueue.main.async {
-                    cell.tripCost.text = "\(totalSpending) 원"
+                    cell.tripCost.text =
+                    "\(self.numberFormatter(number:totalSpending)) 원"
+
+                    
+               
                 }
             }
             

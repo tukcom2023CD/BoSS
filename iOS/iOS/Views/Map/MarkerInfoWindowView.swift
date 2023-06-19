@@ -14,4 +14,6 @@ class MarkerInfoWindowView: UIView {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var spending: UILabel!
+    
+    @IBOutlet weak var showDetailButton: UIButton!
 }

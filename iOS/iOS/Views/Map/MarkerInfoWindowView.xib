@@ -70,6 +70,7 @@
                 <outlet property="date" destination="Gk9-Ug-aQD" id="I6T-UF-f3E"/>
                 <outlet property="infoView" destination="m7J-wa-kdE" id="xaE-m4-FAL"/>
                 <outlet property="name" destination="JF3-Jr-Zwr" id="CWX-37-XnV"/>
+                <outlet property="showDetailButton" destination="kAo-Pb-OAh" id="6EI-pa-ghn"/>
                 <outlet property="spending" destination="3wZ-oT-ibC" id="tmb-TT-IRm"/>
             </connections>
             <point key="canvasLocation" x="-75.572519083969468" y="246.12676056338029"/>

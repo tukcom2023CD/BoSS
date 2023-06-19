@@ -126,17 +126,18 @@ extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
         
-        //vc.modalPresentationStyle = .popover
+       
     
         let place = marker.userData as! Place
         vc.place = place
+        vc.navigationItem.title = place.name
         
         SpendingNetManager.shared.read(pid: place.pid!) { spendings in
             
             vc.spendings = spendings
             DispatchQueue.main.async {
                 self.navigationController?.pushViewController(vc, animated: true)
-                //self.present(vc, animated: true)
+              
             }
         }
         
@@ -146,18 +147,23 @@ extension MapViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
 
         let infoWindow = Bundle.main.loadNibNamed("MarkerInfoWindowView", owner: self, options: nil)![0] as! MarkerInfoWindowView
-        //infoWindow.frame = CGRect(x: 0, y: 0, width: 175, height: 125)
+        
+        // 뷰의 크기 조정
+        let infowindowSize = CGSize(width: 180, height: 140) // 원하는 크기로 설정
+        infoWindow.frame = CGRect(origin: infoWindow.frame.origin, size: infowindowSize)
 
-        infoWindow.infoView.layer.cornerRadius = 10
-        infoWindow.infoView.layer.borderColor = UIColor.lightGray.cgColor
-        infoWindow.infoView.layer.borderWidth = 2
+
+        infoWindow.infoView.layer.cornerRadius = 15
+        infoWindow.infoView.layer.borderColor = CGColor(red: 0.23, green: 0.5, blue: 0.8, alpha: 0.8)
+        infoWindow.infoView.layer.borderWidth = 3
         
         let place = marker.userData as! Place
         
         infoWindow.name.text = place.name
         infoWindow.date.text = place.visitDate
         infoWindow.spending.text = "\(numberFormatter(number:place.totalSpending!)) 원"
-    
+        
+        
         
         return infoWindow
     }
