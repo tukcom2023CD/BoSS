@@ -11,12 +11,19 @@
 		370DCB0629A0DD4C007B4FDD /* GetpriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370DCB0529A0DD4C007B4FDD /* GetpriceTableViewCell.swift */; };
 		371DC5A229E58DB700EFD154 /* WritingEditPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DC5A129E58DB700EFD154 /* WritingEditPhotoCollectionViewCell.swift */; };
 		371DC5A429E58E5000EFD154 /* WriteEditPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371DC5A329E58E5000EFD154 /* WriteEditPhotoViewController.swift */; };
+		372071962A43522B00174A1F /* airplane.json in Resources */ = {isa = PBXBuildFile; fileRef = 372071952A43522A00174A1F /* airplane.json */; };
+		3720719E2A435DA900174A1F /* linedown.json in Resources */ = {isa = PBXBuildFile; fileRef = 3720719D2A435DA900174A1F /* linedown.json */; };
 		372183B8299A201100373F9C /* WritingEditPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372183B7299A201100373F9C /* WritingEditPageViewController.swift */; };
 		373A081C29E9A3AA00D228A9 /* WebsiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373A081B29E9A3AA00D228A9 /* WebsiteViewController.swift */; };
 		3742356F299F3C390049DFA1 /* ReceiptViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3742356E299F3C390049DFA1 /* ReceiptViewController.swift */; };
 		37423571299F41FE0049DFA1 /* EditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37423570299F41FE0049DFA1 /* EditTableViewCell.swift */; };
 		374781612A3F4FFE007057D8 /* Pods_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; };
 		374781622A3F4FFE007057D8 /* Pods_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3748B9FC2A437F82004B5D22 /* scrollDown.json in Resources */ = {isa = PBXBuildFile; fileRef = 3748B9FB2A437F82004B5D22 /* scrollDown.json */; };
+		3748B9FE2A438D65004B5D22 /* right-arrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 3748B9FD2A438D65004B5D22 /* right-arrow.json */; };
+		3748BA002A4395EA004B5D22 /* paperplane.json in Resources */ = {isa = PBXBuildFile; fileRef = 3748B9FF2A4395EA004B5D22 /* paperplane.json */; };
+		3748BA022A439EB7004B5D22 /* calendar.json in Resources */ = {isa = PBXBuildFile; fileRef = 3748BA012A439EB7004B5D22 /* calendar.json */; };
+		3748BA042A43A2C1004B5D22 /* record.json in Resources */ = {isa = PBXBuildFile; fileRef = 3748BA032A43A2C1004B5D22 /* record.json */; };
 		374A5B0E2A1B9BA200901247 /* BlankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */; };
 		374A5B0F2A1B9BA200901247 /* BlankCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
@@ -29,6 +36,7 @@
 		3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F666297B980800014FFE /* SecondTableViewCell.xib */; };
 		3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F669297BB04800014FFE /* CalendarTableViewCell.swift */; };
 		3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */; };
+		376A16452A42E526007280DC /* mapmaker.json in Resources */ = {isa = PBXBuildFile; fileRef = 376A16442A42E526007280DC /* mapmaker.json */; };
 		3785E3EB29E1932B001535C0 /* HomeTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785E3EA29E1932B001535C0 /* HomeTravelCollectionViewCell.swift */; };
 		3785E3EE29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785E3EC29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift */; };
 		3785E3EF29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3785E3ED29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib */; };
@@ -146,10 +154,17 @@
 		370DCB0529A0DD4C007B4FDD /* GetpriceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetpriceTableViewCell.swift; sourceTree = "<group>"; };
 		371DC5A129E58DB700EFD154 /* WritingEditPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		371DC5A329E58E5000EFD154 /* WriteEditPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteEditPhotoViewController.swift; sourceTree = "<group>"; };
+		372071952A43522A00174A1F /* airplane.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = airplane.json; path = ../../../../../../../Downloads/airplane.json; sourceTree = "<group>"; };
+		3720719D2A435DA900174A1F /* linedown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = linedown.json; path = ../../../../../../../Downloads/linedown.json; sourceTree = "<group>"; };
 		372183B7299A201100373F9C /* WritingEditPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPageViewController.swift; sourceTree = "<group>"; };
 		373A081B29E9A3AA00D228A9 /* WebsiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteViewController.swift; sourceTree = "<group>"; };
 		3742356E299F3C390049DFA1 /* ReceiptViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptViewController.swift; sourceTree = "<group>"; };
 		37423570299F41FE0049DFA1 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
+		3748B9FB2A437F82004B5D22 /* scrollDown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = scrollDown.json; path = ../../../../../../../Downloads/scrollDown.json; sourceTree = "<group>"; };
+		3748B9FD2A438D65004B5D22 /* right-arrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = "right-arrow.json"; path = "../../../../../../../Downloads/right-arrow.json"; sourceTree = "<group>"; };
+		3748B9FF2A4395EA004B5D22 /* paperplane.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = paperplane.json; path = ../../../../../../../Downloads/paperplane.json; sourceTree = "<group>"; };
+		3748BA012A439EB7004B5D22 /* calendar.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = calendar.json; path = ../../../../../../../Downloads/calendar.json; sourceTree = "<group>"; };
+		3748BA032A43A2C1004B5D22 /* record.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = record.json; path = ../../../../../../../Downloads/record.json; sourceTree = "<group>"; };
 		374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankCollectionViewCell.swift; sourceTree = "<group>"; };
 		374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlankCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -162,6 +177,7 @@
 		3764F666297B980800014FFE /* SecondTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondTableViewCell.xib; sourceTree = "<group>"; };
 		3764F669297BB04800014FFE /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
+		376A16442A42E526007280DC /* mapmaker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = mapmaker.json; path = ../../../../../../../Downloads/mapmaker.json; sourceTree = "<group>"; };
 		3785E3EA29E1932B001535C0 /* HomeTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		3785E3EC29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHomeTravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		3785E3ED29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtensionHomeTravelCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -316,6 +332,22 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		376A16422A42D74C007280DC /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				3748BA032A43A2C1004B5D22 /* record.json */,
+				3748BA012A439EB7004B5D22 /* calendar.json */,
+				3748B9FF2A4395EA004B5D22 /* paperplane.json */,
+				3748B9FD2A438D65004B5D22 /* right-arrow.json */,
+				3748B9FB2A437F82004B5D22 /* scrollDown.json */,
+				3720719D2A435DA900174A1F /* linedown.json */,
+				372071952A43522A00174A1F /* airplane.json */,
+				376A16442A42E526007280DC /* mapmaker.json */,
+				57808754296BEB5600D2BAF8 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		570AAB6029911DE4006CB64C /* Place */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,7 +493,7 @@
 				573941AA2980110500E69D8F /* Views */,
 				5775975B297653EB008CB199 /* Controllers */,
 				57808751296BEB5500D2BAF8 /* Main.storyboard */,
-				57808754296BEB5600D2BAF8 /* Assets.xcassets */,
+				376A16422A42D74C007280DC /* Assets */,
 				57808756296BEB5600D2BAF8 /* LaunchScreen.storyboard */,
 				57808759296BEB5600D2BAF8 /* Info.plist */,
 				57A1205E297128A7008F5572 /* GoogleService-Info.plist */,
@@ -673,25 +705,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				57808758296BEB5600D2BAF8 /* LaunchScreen.storyboard in Resources */,
+				372071962A43522B00174A1F /* airplane.json in Resources */,
 				570AAB7429917850006CB64C /* PlacePhotosTableViewCell.xib in Resources */,
+				3748BA002A4395EA004B5D22 /* paperplane.json in Resources */,
 				570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */,
+				3748B9FE2A438D65004B5D22 /* right-arrow.json in Resources */,
+				3748BA022A439EB7004B5D22 /* calendar.json in Resources */,
 				374A5B0F2A1B9BA200901247 /* BlankCollectionViewCell.xib in Resources */,
 				3764F65C297B97A900014FFE /* SecondCollectionViewCell.xib in Resources */,
 				37D5D5752A28A119002BD640 /* SecretKey.plist in Resources */,
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
 				3785E3EF29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib in Resources */,
+				3748BA042A43A2C1004B5D22 /* record.json in Resources */,
 				3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
 				570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */,
 				57808755296BEB5600D2BAF8 /* Assets.xcassets in Resources */,
 				570AAB57298EA026006CB64C /* MarkerInfoWindowView.xib in Resources */,
+				3748B9FC2A437F82004B5D22 /* scrollDown.json in Resources */,
 				37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */,
+				3720719E2A435DA900174A1F /* linedown.json in Resources */,
 				576B64C629997361002609FA /* MainPlanFooterView.xib in Resources */,
 				576B64BE29996EBF002609FA /* MainPlanHeaderView.xib in Resources */,
 				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
 				576B64C4299970FA002609FA /* MainPlanTableViewCell.xib in Resources */,
 				570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */,
+				376A16452A42E526007280DC /* mapmaker.json in Resources */,
 				3785E3F329E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);

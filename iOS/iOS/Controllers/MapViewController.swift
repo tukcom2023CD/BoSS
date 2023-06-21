@@ -9,7 +9,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 import CalendarDateRangePicker
-
+import Lottie
 class MapViewController: UIViewController {
     
     @IBOutlet weak var topStackView: UIStackView!
@@ -77,13 +77,23 @@ class MapViewController: UIViewController {
                 self.endDate = nil
             }
             
-            // 마커 표시
             DispatchQueue.main.async {
                 for place in places {
                     let position = CLLocationCoordinate2D(latitude: place.latitude!, longitude: place.longitude!)
                     let marker = GMSMarker(position: position)
-//                    marker.title =  place.name
-//                    marker.snippet = place.visitDate
+                    
+                    //마커 로티
+                    let animationView = LottieAnimationView(name: "mapmaker")
+                    animationView.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
+                    animationView.contentMode = .scaleAspectFit
+                    animationView.loopMode = .loop
+                    animationView.animationSpeed = 1.8
+                    
+                    marker.iconView = animationView
+                    
+                   
+                    animationView.play()
+                    
                     marker.userData = place
                     marker.map = self.map
                 }

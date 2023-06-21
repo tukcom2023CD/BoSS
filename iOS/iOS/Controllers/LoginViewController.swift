@@ -9,7 +9,7 @@ import UIKit
 import FirebaseCore
 import FirebaseAuth
 import GoogleSignIn
-
+import Lottie
 
 class LoginViewController: UIViewController {
     
@@ -18,10 +18,18 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var appleLoginButton: UIButton!
     @IBOutlet weak var guestLoginButton: UIButton!
     
+    @IBOutlet weak var animPlaneView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 로그인 버튼 설정
+        let animationView = LottieAnimationView(name: "airplane")
+        animationView.frame = animPlaneView.bounds
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animPlaneView.addSubview(animationView)
+        animationView.play()
+       
+        
         setLoginButton()
         
     }

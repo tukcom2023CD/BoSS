@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,28 +19,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aF3-p9-uP3">
-                        <rect key="frame" x="70" y="0.0" width="2" height="60"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <rect key="frame" x="20" y="-10" width="50" height="80"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="2" id="Xkc-2X-ke4"/>
-                        </constraints>
-                    </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CGy-r2-jEW">
-                        <rect key="frame" x="63.666666666666657" y="22.666666666666668" width="15" height="15.000000000000004"/>
-                        <color key="backgroundColor" systemColor="systemMintColor"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="15" id="eET-Rp-0Wi"/>
-                            <constraint firstAttribute="height" constant="15" id="xAZ-yu-HrV"/>
+                            <constraint firstAttribute="width" constant="50" id="Xkc-2X-ke4"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="해운대 해수욕장" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8K-lG-bnO">
-                        <rect key="frame" x="118.66666666666669" y="10" width="101" height="20"/>
+                        <rect key="frame" x="100" y="10" width="101" height="20"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000000원" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWF-3E-hnz">
-                        <rect key="frame" x="118.66666666666669" y="35" width="100" height="17"/>
+                        <rect key="frame" x="100" y="35" width="100" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="wRJ-6u-XXu"/>
                         </constraints>
@@ -48,42 +40,40 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zol-A5-qdA">
-                        <rect key="frame" x="270" y="22" width="20" height="16.333333333333329"/>
-                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N7m-kn-pqo">
+                        <rect key="frame" x="230" y="-30" width="100" height="120"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="N4S-EZ-bnk"/>
-                            <constraint firstAttribute="width" constant="20" id="P8X-gz-CTO"/>
+                            <constraint firstAttribute="width" constant="100" id="POv-uv-bSr"/>
                         </constraints>
-                    </imageView>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="aF3-p9-uP3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="70" id="9j6-Om-qie"/>
+                    <constraint firstItem="o8K-lG-bnO" firstAttribute="leading" secondItem="aF3-p9-uP3" secondAttribute="trailing" constant="30" id="2mr-eu-1i4"/>
+                    <constraint firstItem="aF3-p9-uP3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="9j6-Om-qie"/>
+                    <constraint firstAttribute="trailing" secondItem="N7m-kn-pqo" secondAttribute="trailing" id="Cg8-Ay-UO1"/>
                     <constraint firstItem="dWF-3E-hnz" firstAttribute="top" secondItem="o8K-lG-bnO" secondAttribute="bottom" constant="5" id="FFo-Sp-oM5"/>
-                    <constraint firstItem="CGy-r2-jEW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HDl-Co-wbe"/>
                     <constraint firstItem="dWF-3E-hnz" firstAttribute="leading" secondItem="o8K-lG-bnO" secondAttribute="leading" id="IWr-QM-08g"/>
-                    <constraint firstAttribute="trailing" secondItem="Zol-A5-qdA" secondAttribute="trailing" constant="40" id="QkB-fg-zuG"/>
-                    <constraint firstAttribute="bottom" secondItem="aF3-p9-uP3" secondAttribute="bottom" id="RSv-qf-tI9"/>
-                    <constraint firstItem="Zol-A5-qdA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="cHB-aB-BaM"/>
-                    <constraint firstItem="CGy-r2-jEW" firstAttribute="centerX" secondItem="aF3-p9-uP3" secondAttribute="centerX" id="chL-Er-oIk"/>
+                    <constraint firstItem="N7m-kn-pqo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-30" id="LQa-Ru-ZFG"/>
+                    <constraint firstAttribute="bottom" secondItem="aF3-p9-uP3" secondAttribute="bottom" constant="-10" id="RSv-qf-tI9"/>
+                    <constraint firstAttribute="bottom" secondItem="N7m-kn-pqo" secondAttribute="bottom" constant="-30" id="VNV-Yf-kF0"/>
                     <constraint firstItem="o8K-lG-bnO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="nYD-gR-bmm"/>
-                    <constraint firstItem="aF3-p9-uP3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ndl-zb-EhG"/>
-                    <constraint firstItem="o8K-lG-bnO" firstAttribute="leading" secondItem="CGy-r2-jEW" secondAttribute="trailing" constant="40" id="xRq-So-ebw"/>
+                    <constraint firstItem="aF3-p9-uP3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-10" id="ndl-zb-EhG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="circleImage" destination="CGy-r2-jEW" id="cyA-Ol-Yqu"/>
+                <outlet property="nextArrowView" destination="N7m-kn-pqo" id="MPI-9I-RUf"/>
                 <outlet property="placeName" destination="o8K-lG-bnO" id="F2T-d3-v2l"/>
                 <outlet property="totalSpending" destination="dWF-3E-hnz" id="bI1-ZI-er6"/>
+                <outlet property="verticalLine" destination="aF3-p9-uP3" id="47R-ch-Qhd"/>
             </connections>
             <point key="canvasLocation" x="77.862595419847324" y="-5.6338028169014089"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="chevron.right" catalog="system" width="97" height="128"/>
-        <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

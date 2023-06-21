@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -25,13 +25,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travelog" translatesAutoresizingMaskIntoConstraints="NO" id="X4F-Wa-9LB">
-                                <rect key="frame" x="46.666666666666657" y="134" width="300" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="8Y0-Za-hln"/>
-                                    <constraint firstAttribute="height" constant="150" id="o0P-6U-POI"/>
-                                </constraints>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="3Zs-bd-nPb">
                                 <rect key="frame" x="46.666666666666657" y="534" width="300" height="180"/>
                                 <subviews>
@@ -80,17 +73,35 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view alpha="0.84999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zs9-6d-vhq">
+                                <rect key="frame" x="46.666666666666657" y="234" width="300" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="eng-kc-yZe"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Travelog" translatesAutoresizingMaskIntoConstraints="NO" id="X4F-Wa-9LB">
+                                <rect key="frame" x="46.666666666666657" y="134" width="300" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="8Y0-Za-hln"/>
+                                    <constraint firstAttribute="height" constant="150" id="o0P-6U-POI"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="X4F-Wa-9LB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="75" id="91r-xd-vQm"/>
+                            <constraint firstItem="HYt-2c-FLC" firstAttribute="top" secondItem="Zs9-6d-vhq" secondAttribute="bottom" id="Jgm-TB-hzk"/>
+                            <constraint firstItem="Zs9-6d-vhq" firstAttribute="top" secondItem="X4F-Wa-9LB" secondAttribute="bottom" constant="-50" id="QAw-aH-gbV"/>
                             <constraint firstItem="X4F-Wa-9LB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SSc-d7-0Y5"/>
+                            <constraint firstItem="Zs9-6d-vhq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YbI-pC-76Z"/>
                             <constraint firstItem="3Zs-bd-nPb" firstAttribute="top" secondItem="X4F-Wa-9LB" secondAttribute="bottom" constant="250" id="hUJ-oJ-AfM"/>
                             <constraint firstItem="3Zs-bd-nPb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ppE-Dq-rUr"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="animPlaneView" destination="Zs9-6d-vhq" id="fOt-rG-IPF"/>
                         <outlet property="appleLoginButton" destination="HYt-2c-FLC" id="cZH-8R-jpb"/>
                         <outlet property="googleLoginButton" destination="I38-qC-X32" id="I9C-eR-LSZ"/>
                         <outlet property="guestLoginButton" destination="ku0-cd-dNK" id="kxw-4Y-Zsl"/>
@@ -934,7 +945,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="w47-wJ-Y12">
-                                        <rect key="frame" x="88.999999999999986" y="87" width="152.66666666666663" height="47"/>
+                                        <rect key="frame" x="89" y="87" width="152.66666666666669" height="47"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pxw-Sk-473">
                                                 <rect key="frame" x="26.666666666666664" y="0.0" width="99.333333333333343" height="24"/>
@@ -1008,7 +1019,7 @@
                                         <rect key="frame" x="170" y="0.0" width="160" height="100"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hO5-4K-iPu">
-                                                <rect key="frame" x="41" y="24" width="79.333333333333329" height="55.333333333333343"/>
+                                                <rect key="frame" x="40.999999999999993" y="24" width="79.333333333333314" height="55.333333333333343"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WNu-kq-O7c">
                                                         <rect key="frame" x="0.0" y="0.0" width="79.333333333333329" height="25"/>
@@ -1125,15 +1136,17 @@
             </objects>
             <point key="canvasLocation" x="3864.8854961832058" y="1482.3943661971832"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Limber Tabbar Controller-->
         <scene sceneID="U4g-MF-cuw">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarVC" automaticallyAdjustsScrollViewInsets="NO" id="F3y-Q5-Key" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarVC" automaticallyAdjustsScrollViewInsets="NO" id="F3y-Q5-Key" customClass="AHLimberTabbarController" customModule="LimberTabbar" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4fz-mR-pj5">
+                    <tabBar key="tabBar" alpha="0.84999999999999998" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4fz-mR-pj5" customClass="AHLimberTabbar" customModule="LimberTabbar">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="hZg-gI-cwy" kind="relationship" relationship="viewControllers" id="RSI-kd-kVR"/>
@@ -1150,7 +1163,9 @@
         <scene sceneID="KLh-qd-7xe">
             <objects>
                 <navigationController storyboardIdentifier="HomeNavVC" automaticallyAdjustsScrollViewInsets="NO" id="hZg-gI-cwy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="홈" image="house" catalog="system" id="P2h-Xh-YQ2"/>
+                    <tabBarItem key="tabBarItem" title="홈" id="P2h-Xh-YQ2">
+                        <imageReference key="image" image="house" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6U2-jC-cJS">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -1173,7 +1188,10 @@
         <scene sceneID="Za9-Gx-wlg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7yQ-OB-X0l" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="앨범" image="photo.stack" catalog="system" id="tYC-y7-dTo"/>
+                    <tabBarItem key="tabBarItem" title="앨범" id="tYC-y7-dTo">
+                        <imageReference key="image" image="photo.stack" catalog="system" symbolScale="large"/>
+                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jdR-lt-GLF">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -1192,7 +1210,9 @@
         <scene sceneID="jXN-QZ-3RK">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xJh-V1-yIF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="내정보" image="person.crop.circle" catalog="system" id="JCQ-3T-lxx"/>
+                    <tabBarItem key="tabBarItem" title="내정보" id="JCQ-3T-lxx">
+                        <imageReference key="image" image="person.crop.circle" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6rb-si-OKB">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -2120,7 +2140,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9ix-L9-xG4">
-                                                    <rect key="frame" x="25" y="34" width="85.333333333333343" height="49.666666666666657"/>
+                                                    <rect key="frame" x="24.999999999999993" y="34" width="85.333333333333314" height="49.666666666666657"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="일정 이름" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2O-SV-EOA">
                                                             <rect key="frame" x="0.0" y="0.0" width="66.333333333333329" height="21.666666666666668"/>
@@ -3009,7 +3029,9 @@
         <scene sceneID="H9i-L8-6yh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Fgl-pH-PD6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="지도" image="map" catalog="system" id="BJH-DA-C4a"/>
+                    <tabBarItem key="tabBarItem" title="지도" id="BJH-DA-C4a">
+                        <imageReference key="image" image="map" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2Yp-L9-ME0">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -3128,8 +3150,13 @@
             <point key="canvasLocation" x="8011" y="-1975"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="4fz-mR-pj5">
+            <size key="intrinsicContentSize" width="-1" height="83"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="Travelog" width="876" height="319"/>
+        <image name="Travelog" width="414" height="150.5"/>
         <image name="addImage" width="143" height="143"/>
         <image name="apple" width="26" height="32"/>
         <image name="arrow" width="256" height="256"/>
