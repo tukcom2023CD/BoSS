@@ -95,7 +95,7 @@ class AHSelectedTabItem: UIView {
     
     func commonInit() {
         
-        backgroundColor = UIColor.red
+       
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.3
@@ -104,7 +104,7 @@ class AHSelectedTabItem: UIView {
         imgTabIcon = UIImageView()
         imgTabIcon.tintColor = self.iconTintColor
         addSubview(imgTabIcon)
-        
+        imgTabIcon.tintColor = .black
         imgTabIcon.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 9.0, *) {
             NSLayoutConstraint.activate([

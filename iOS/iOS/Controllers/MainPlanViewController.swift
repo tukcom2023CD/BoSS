@@ -282,6 +282,9 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.cellForRow(at: indexPath)?.selectionStyle = .none // 선택 스타일 설정
+
+        
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
         vc.navigationItem.title = sections[indexPath.section].rows[indexPath.row].name
       

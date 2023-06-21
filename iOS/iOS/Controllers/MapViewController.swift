@@ -87,7 +87,7 @@ class MapViewController: UIViewController {
                     animationView.frame = CGRect(x: 0, y: 0, width: 70, height: 70)
                     animationView.contentMode = .scaleAspectFit
                     animationView.loopMode = .loop
-                    animationView.animationSpeed = 1.5
+                    animationView.animationSpeed = 1.8
                     
                     marker.iconView = animationView
                     

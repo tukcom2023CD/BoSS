@@ -7,9 +7,10 @@
 
 import UIKit
 import FSCalendar
-
+import Lottie
 class CalendarTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var calendarView: UIView!
     @IBOutlet weak var calendar: FSCalendar!
     
     var eventDates: [String] = []
@@ -24,7 +25,20 @@ class CalendarTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         setupCalendar()
+        
+        let animationView = LottieAnimationView(name: "calendar")
+        
+        
+        animationView.frame = CGRect(x: 0, y: 0, width: 100, height: 100) // 원하는 크기로 설정
+        animationView.center = calendarView.center
+        animationView.loopMode = .loop
+        // 애니메이션 재생
+        animationView.play()
+        
+        // 애니메이션 뷰를 planView의 서브뷰로 추가
+        calendarView.addSubview(animationView)
     }
+
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

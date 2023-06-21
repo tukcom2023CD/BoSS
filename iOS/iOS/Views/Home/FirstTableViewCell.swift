@@ -6,14 +6,15 @@
 //
 
 import UIKit
-
+import Lottie
 class FirstTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var planView: UIView!
     
     @IBOutlet weak var indexLabel: UILabel!
- 
+    
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
     
     var schedules: [Schedule]?
@@ -29,21 +30,34 @@ class FirstTableViewCell: UITableViewCell {
         //collectionCell register
         collectionView.register(UINib(nibName:"FirstCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "FirstCollectionViewCell")
         collectionView.register(UINib(nibName: "BlankCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BlankCollectionViewCell")
-     
+        
+        // Lottie 애니메이션 뷰 생성
+        let animationView = LottieAnimationView(name: "paperplane")
+        
+        // 애니메이션 뷰 크기 및 위치 설정
+        animationView.frame = CGRect(x: 00, y: 0, width: 75, height: 75) // 원하는 크기로 설정
+        animationView.center = planView.center
+        animationView.loopMode = .loop
+        // 애니메이션 재생
+        animationView.play()
+        
+        // 애니메이션 뷰를 planView의 서브뷰로 추가
+        planView.addSubview(animationView)
+        
     }
     override func layoutSubviews() {
-          super.layoutSubviews()
-          if let count = schedules?.count {
-              if count == 0 {
-                  indexLabel.text = "여행정보를 불러오는 중..."
-              }
-              indexLabel.text = "1/\(count)"
-          }
-      }
-
+        super.layoutSubviews()
+        if let count = schedules?.count {
+            if count == 0 {
+                indexLabel.text = "여행정보를 불러오는 중..."
+            }
+            indexLabel.text = "1/\(count)"
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -65,30 +79,30 @@ class FirstTableViewCell: UITableViewCell {
 
 extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return schedules?.isEmpty == true ? 1 : schedules?.count ?? 0
-
+        
         // return schedules?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if schedules?.isEmpty == true {
-                  let blankCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlankCollectionViewCell", for: indexPath) as! BlankCollectionViewCell
+            let blankCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlankCollectionViewCell", for: indexPath) as! BlankCollectionViewCell
             blankCell.textLabel.text = "등록된 여행정보가 없습니다"
-                  return blankCell
-              } else {
-                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FirstCollectionViewCell", for: indexPath) as! FirstCollectionViewCell
-                  
-                  guard let schedule = schedules?[indexPath.item] else { return UICollectionViewCell() }
-                  
-                  cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
-                  cell.tripState.text = calcTripState(startDate: schedule.start!)
-                  cell.tripTitle.text = schedule.title
-                  cell.tripImage.image = UIImage(named: "tripimg")
-                  
-                  return cell
-              }
+            return blankCell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FirstCollectionViewCell", for: indexPath) as! FirstCollectionViewCell
+            
+            guard let schedule = schedules?[indexPath.item] else { return UICollectionViewCell() }
+            
+            cell.tripDate.text = "\(schedule.start!) ~ \(schedule.stop!)"
+            cell.tripState.text = calcTripState(startDate: schedule.start!)
+            cell.tripTitle.text = schedule.title
+            cell.tripImage.image = UIImage(named: "tripimg")
+            
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -107,20 +121,20 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         didSelectItem?(schedule)
-    
-    
-//        let schedule = schedules![indexPath.item]
-//
-//        // 여행 일정 클릭 시 상세 일정 페이지로 이동
-//        didSelectItem?(schedule)
+        
+        
+        //        let schedule = schedules![indexPath.item]
+        //
+        //        // 여행 일정 클릭 시 상세 일정 페이지로 이동
+        //        didSelectItem?(schedule)
     }
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-           if let visibleIndexPaths = collectionView.indexPathsForVisibleItems.first {
-               if let count = schedules?.count {
-                   indexLabel.text = "\(visibleIndexPaths.item + 1)/\(count)"
-               }
-           } else {
-               indexLabel.text = "진행중인 여행정보가 없습니다."
-           }
-       }
+        if let visibleIndexPaths = collectionView.indexPathsForVisibleItems.first {
+            if let count = schedules?.count {
+                indexLabel.text = "\(visibleIndexPaths.item + 1)/\(count)"
+            }
+        } else {
+            indexLabel.text = "진행중인 여행정보가 없습니다."
+        }
+    }
 }

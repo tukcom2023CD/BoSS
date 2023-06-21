@@ -6,12 +6,13 @@
 //
 
 import UIKit
-
+import Lottie
 class SecondTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var indexLabel: UILabel!
 
+    @IBOutlet weak var recordView: UIView!
     var schedules: [Schedule]?
     
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
@@ -29,8 +30,18 @@ class SecondTableViewCell: UITableViewCell {
         
         collectionView.register(UINib(nibName:"SecondCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "SecondCollectionViewCell")
         collectionView.register(UINib(nibName: "BlankCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BlankCollectionViewCell")
-
         
+        let animationView = LottieAnimationView(name: "record")
+        
+        
+        animationView.frame = CGRect(x: 0, y: 0, width: 60, height: 60) // 원하는 크기로 설정
+        animationView.center = recordView.center
+        animationView.loopMode = .loop
+        // 애니메이션 재생
+        animationView.play()
+        
+        // 애니메이션 뷰를 planView의 서브뷰로 추가
+        recordView.addSubview(animationView)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
