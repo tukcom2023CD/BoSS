@@ -29,6 +29,7 @@
 		3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F666297B980800014FFE /* SecondTableViewCell.xib */; };
 		3764F66B297BB04800014FFE /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F669297BB04800014FFE /* CalendarTableViewCell.swift */; };
 		3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */; };
+		376A16452A42E526007280DC /* mapmaker.json in Resources */ = {isa = PBXBuildFile; fileRef = 376A16442A42E526007280DC /* mapmaker.json */; };
 		3785E3EB29E1932B001535C0 /* HomeTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785E3EA29E1932B001535C0 /* HomeTravelCollectionViewCell.swift */; };
 		3785E3EE29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3785E3EC29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift */; };
 		3785E3EF29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3785E3ED29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib */; };
@@ -162,6 +163,8 @@
 		3764F666297B980800014FFE /* SecondTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondTableViewCell.xib; sourceTree = "<group>"; };
 		3764F669297BB04800014FFE /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		3764F66A297BB04800014FFE /* CalendarTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarTableViewCell.xib; sourceTree = "<group>"; };
+		376A16432A42D779007280DC /* map-marker.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "map-marker.json"; sourceTree = "<group>"; };
+		376A16442A42E526007280DC /* mapmaker.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = mapmaker.json; path = ../../../../../../../Downloads/mapmaker.json; sourceTree = "<group>"; };
 		3785E3EA29E1932B001535C0 /* HomeTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		3785E3EC29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionHomeTravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		3785E3ED29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExtensionHomeTravelCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -316,6 +319,16 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		376A16422A42D74C007280DC /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				376A16442A42E526007280DC /* mapmaker.json */,
+				57808754296BEB5600D2BAF8 /* Assets.xcassets */,
+				376A16432A42D779007280DC /* map-marker.json */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		570AAB6029911DE4006CB64C /* Place */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,7 +474,7 @@
 				573941AA2980110500E69D8F /* Views */,
 				5775975B297653EB008CB199 /* Controllers */,
 				57808751296BEB5500D2BAF8 /* Main.storyboard */,
-				57808754296BEB5600D2BAF8 /* Assets.xcassets */,
+				376A16422A42D74C007280DC /* Assets */,
 				57808756296BEB5600D2BAF8 /* LaunchScreen.storyboard */,
 				57808759296BEB5600D2BAF8 /* Info.plist */,
 				57A1205E297128A7008F5572 /* GoogleService-Info.plist */,
@@ -692,6 +705,7 @@
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
 				576B64C4299970FA002609FA /* MainPlanTableViewCell.xib in Resources */,
 				570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */,
+				376A16452A42E526007280DC /* mapmaker.json in Resources */,
 				3785E3F329E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);
