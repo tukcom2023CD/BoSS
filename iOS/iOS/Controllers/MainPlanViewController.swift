@@ -284,7 +284,7 @@ extension MainPlanViewController: UITableViewDataSource, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
         vc.navigationItem.title = sections[indexPath.section].rows[indexPath.row].name
-        //여기서 작업시작
+      
         
         let place = sections[indexPath.section].rows[indexPath.row]
         

@@ -7,7 +7,7 @@
 
 import UIKit
 
-//받는 프ㄹ
+
 class WritingPageViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!

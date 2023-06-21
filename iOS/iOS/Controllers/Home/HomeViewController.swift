@@ -97,7 +97,7 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
             stickyView.frame.origin.y = newStickyViewYPosition
             
             // 배경색 및 투명도 변경
-            UIView.animate(withDuration: 0.3) {
+            UIView.animate(withDuration: 0.1) {
                 if positionDifference >= 0 {
                     self.upperView.backgroundColor = UIColor.white // 완전히 흰색으로 설정
                     self.smallLogo.alpha = 1.0 // 완전히 보이도록 설정

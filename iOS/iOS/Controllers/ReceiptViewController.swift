@@ -103,7 +103,7 @@ class ReceiptViewController: UIViewController {
         
         spendings.remove(at: indexpath.row)
         subPriceData.remove(at: indexpath.row)
-        totalPriceLabel.text = numberFormatter(number:totalPrice)//"\(totalPrice!) "
+        totalPriceLabel.text = numberFormatter(number:totalPrice)
         tableView.beginUpdates()
         tableView.deleteRows(at: [IndexPath(row: indexpath.row, section: 0)], with: .left)
         tableView.endUpdates()

@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="59" width="196" height="236"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tripimg2" translatesAutoresizingMaskIntoConstraints="NO" id="0v6-zU-OAW">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0v6-zU-OAW">
                         <rect key="frame" x="8" y="64" width="180" height="153"/>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="253" verticalCompressionResistancePriority="752" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="YKJ-oK-PyF">
@@ -84,7 +84,4 @@
             <point key="canvasLocation" x="241.22137404580153" y="84.859154929577471"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="tripimg2" width="90" height="109"/>
-    </resources>
 </document>
