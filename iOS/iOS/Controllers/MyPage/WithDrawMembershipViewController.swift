@@ -20,9 +20,6 @@ class WithDrawMembershipViewController : UIViewController {
     @IBOutlet weak var cancelButton: UIButton! // 취소 버튼
     @IBOutlet weak var withDrawButton: UIButton! // 탈퇴 버튼
     
-    // 사용자 로그인 종류 구분
-    var userLoginType : String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI() // UI 설정
@@ -96,39 +93,6 @@ class WithDrawMembershipViewController : UIViewController {
         self.withDrawButton.layer.cornerRadius = screenWidthSize * 0.03
     }
     
-    // 로그인 타입 확인
-    func checkLoginType() -> String {
-        if let user = GIDSignIn.sharedInstance.currentUser {
-            if ((user.profile?.email) != nil) {
-                return ("Google")
-            } else {
-                return ("Google")
-            }
-        } else {
-            return ("Guest")
-        }
-    }
-    
-    // 유저의 로컬 데이터 삭제
-    func deleteUserDataFromLocal() {
-        
-        self.userLoginType = checkLoginType()
-        
-        print("로컬 데이터 삭제")
-        if userLoginType == "Google" {
-            // 로컬에 저장되어 있는 유저 데이터 삭제
-            UserDefaults.standard.removeObject(forKey: "userGoogleName")
-            UserDefaults.standard.removeObject(forKey: "userGoogleEmail")
-            UserDefaults.standard.removeObject(forKey: "userGoogleImage")
-        } else {
-            // 로컬에 저장되어 있는 유저 데이터 삭제
-            UserDefaults.standard.removeObject(forKey: "userGuestName")
-            UserDefaults.standard.removeObject(forKey: "userGuestEmail")
-            UserDefaults.standard.removeObject(forKey: "userGuestImage")
-        }
-    }
-       
-    
     // DB에 저장되어있는 데이터 삭제
     func deleteUserDataFromDB() {
         print("DB 데이터 삭제")
@@ -164,13 +128,12 @@ class WithDrawMembershipViewController : UIViewController {
     }
     
     @IBAction func withDrawButtonTapped(_ sender: UIButton) {
-        deleteUserDataFromLocal() // 유저의 로컬 데이터 삭제
-        deleteUserDataFromDB () // DB에 저장되어있는 유저 데이터 삭제
         
         // 현재 화면 닫기
         dismiss(animated: true) {
             self.signOut()
             self.loginVC()
+            self.deleteUserDataFromDB () // DB에 저장되어있는 유저 데이터 삭제
         }
     }
 }
