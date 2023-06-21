@@ -16,6 +16,7 @@ target 'iOS' do
   pod 'lottie-ios'
   pod 'BSImagePicker', '~> 3.1'
   pod 'SwiftSoup'
+  pod 'LimberTabbar', :git=> 'https://github.com/afshin-hoseini/LimberTabbar.iOS.git', :tag=> '0.2.0'
 
   target 'iOSTests' do
     inherit! :search_paths

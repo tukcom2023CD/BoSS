@@ -1,0 +1,23 @@
+{
+  "name": "LimberTabbar",
+  "version": "0.2.0",
+  "summary": "Yet another tabbar with smooth animation.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/afshin-hoseini/LimberTabbar.iOS",
+  "license": {
+    "type": "MIT",
+    "file": "LimberTabbar/LICENSE"
+  },
+  "authors": {
+    "afshin.hoseini@gmail.com": "afshin.hoseini@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/afshin.hoseini@gmail.com/LimberTabbar.git",
+    "tag": "0.2.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "LimberTabbar/**/*.swift",
+  "frameworks": "UIKit"
+}
