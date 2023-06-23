@@ -42,34 +42,12 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
     var websitesImages = [
         UIImage(named: "테마10선"),UIImage(named: "익스피디아"),UIImage(named: "트릿닷컴"),UIImage(named: "대한민국구석구석"),UIImage(named: "참좋은여행")]
     
-  
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
         hideNavigation()
         navigationController?.isToolbarHidden = true
-        
-        requestScheduleData() // 데이터 다시 불러오기
-        tableView.reloadData() // 테이블 뷰 갱신
-        collectionView.reloadData()
-            
-            for section in 0..<tableView.numberOfSections {
-                for row in 0..<tableView.numberOfRows(inSection: section) {
-                    if let cell = tableView.dequeueReusableCell(withIdentifier: "FirstTableViewCell", for: IndexPath(row: row, section: section)) as? FirstTableViewCell {
-                        cell.requestScheduleIamge() // 각 셀의 이미지 갱신 요청
-                    }
-                }
-            }
-        }
-      
-
-
-
-
-
-
-
-
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
             smallLogo.alpha = 0.0

@@ -45,17 +45,12 @@ class FirstTableViewCell: UITableViewCell {
         
         // 애니메이션 뷰를 planView의 서브뷰로 추가
         planView.addSubview(animationView)
+        collectionView.reloadData()
         
-    }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if let count = schedules?.count {
-            if count == 0 {
-                indexLabel.text = "여행정보를 불러오는 중..."
             }
-            indexLabel.text = "1/\(count)"
-        }
-    }
+            
+            
+  
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -93,7 +88,27 @@ class FirstTableViewCell: UITableViewCell {
             self.collectionView.reloadData()
         }
     }
-    
+    func updateIndexLabel() {
+        if let selectedIndexPath = collectionView.indexPathsForVisibleItems.last {
+            let currentItem = selectedIndexPath.item + 1
+            if let count = schedules?.count {
+                if currentItem != count {
+                    indexLabel.text = "\(currentItem)/\(count)"
+                } else {
+                    indexLabel.text = "\(count)/\(count)"
+                }
+            }
+        } else {
+            indexLabel.text = "진행중인 여행정보가 없습니다."
+        }
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+          if scrollView == collectionView {
+              updateIndexLabel()
+          }
+      }
+ 
+        
     // 여행 진행 상태 계산 (진행 or 예정)
     func calcTripState(startDate: String) -> String {
         let formatter = DateFormatter()
