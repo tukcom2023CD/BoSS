@@ -158,8 +158,12 @@ extension MapViewController: GMSMapViewDelegate {
 
         let infoWindow = Bundle.main.loadNibNamed("MarkerInfoWindowView", owner: self, options: nil)![0] as! MarkerInfoWindowView
         
-        // 뷰의 크기 조정
-        let infowindowSize = CGSize(width: 160, height: 120) // 원하는 크기로 설정
+        // 라벨의 너비 자동 조정
+        infoWindow.name.sizeToFit()
+
+        // 최소 너비를 160으로 유지하고 너비 조정
+        let infowindowWidth = max(160, infoWindow.name.frame.width + 30) // name 레이블에 맞게 설정
+        let infowindowSize = CGSize(width: infowindowWidth, height: 120) // name 레이블에 맞게 설정
         infoWindow.frame = CGRect(origin: infoWindow.frame.origin, size: infowindowSize)
 
 
