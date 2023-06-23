@@ -22,13 +22,10 @@ class FirstCollectionViewCell: UICollectionViewCell {
   
         tripImage.layer.cornerRadius = tripImage.frame.height / 2
         tripImage.clipsToBounds = true
+        tripImage.layer.borderWidth = 2
+        tripImage.layer.borderColor = UIColor(red: 0.0, green: 0.5, blue: 0.8, alpha: 0.5).cgColor
     }
-    public func configure() { //이미지랑 여행지이름만 넣음
-        tripImage.image = UIImage(named: "tripimg")
-        tripTitle.text = " 경주여행 "
-        tripDate.text = " 2023.01.10 ~2023.01.15 "
-        tripState.text = " 🔵 여행중 "
-    }
+ 
    
 }
 
