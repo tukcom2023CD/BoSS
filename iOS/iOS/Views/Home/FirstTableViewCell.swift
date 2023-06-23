@@ -25,7 +25,9 @@ class FirstTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+       
         // 사진 불러오기
+
         requestScheduleIamge()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -64,6 +66,8 @@ class FirstTableViewCell: UITableViewCell {
         let group = DispatchGroup() // 비동기 함수 그룹 생성
         group.enter()
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            self.schedules = schedules // 수정된 부분: schedules 배열에 데이터 저장
+
             for schedule in schedules {
                 let urlArray : [String] = [] // 사진 URL 배열
                 self.scheduleImageDict[schedule.sid!] = urlArray // 딕셔너리 값추가
