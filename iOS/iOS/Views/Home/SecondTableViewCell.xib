@@ -35,8 +35,8 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qsK-TA-qgU">
-                        <rect key="frame" x="206" y="24.333333333333332" width="33" height="15.666666666666668"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="206" y="24.999999999999996" width="31" height="14.333333333333332"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.0" green="0.28611960310000001" blue="0.60160017509999997" alpha="0.8464450966" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -66,6 +66,7 @@
             <connections>
                 <outlet property="collectionView" destination="eOi-xA-vMh" id="yDk-Kg-Rd1"/>
                 <outlet property="indexLabel" destination="qsK-TA-qgU" id="TrP-EW-BOe"/>
+                <outlet property="label" destination="3wO-wW-kSj" id="PJa-2n-2TN"/>
                 <outlet property="recordView" destination="Bs1-Eo-poC" id="5cl-lu-IYr"/>
             </connections>
             <point key="canvasLocation" x="112.21374045801527" y="-61.619718309859159"/>

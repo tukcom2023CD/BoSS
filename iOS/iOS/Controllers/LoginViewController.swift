@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
        
         
         setLoginButton()
+        applySUITEBoldFont()
         
     }
     

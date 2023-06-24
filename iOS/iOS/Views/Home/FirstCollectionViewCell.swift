@@ -10,16 +10,18 @@ import UIKit
 class FirstCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var tripImage: UIImageView!
-    
     @IBOutlet weak var tripTitle: UILabel!
-    
     @IBOutlet weak var tripDate: UILabel!
-    
     @IBOutlet weak var tripState: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
   
+        // 글꼴 변경
+            tripTitle.font = UIFont.fontSUITEBold(ofSize: 18)
+            tripDate.font = UIFont.fontSUITEBold(ofSize: 14)
+            tripState.font = UIFont.fontSUITEBold(ofSize: 14)
+        
         tripImage.layer.cornerRadius = tripImage.frame.height / 2
         tripImage.clipsToBounds = true
         tripImage.layer.borderWidth = 2

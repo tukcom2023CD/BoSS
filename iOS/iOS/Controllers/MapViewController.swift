@@ -33,6 +33,8 @@ class MapViewController: UIViewController {
         loadMapView()
         requestPlaceData()
         setupTopView()
+                applySUITEBoldFont()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +45,22 @@ class MapViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
        
     }
+    func applySUITEBoldFontToButtons() {
+        for subview in self.view.subviews {
+            applySUITEBoldFontToSubviews(subview)
+        }
+    }
+
+    func applySUITEBoldFontToSubviews(_ view: UIView) {
+        for subview in view.subviews {
+            if let button = subview as? UIButton {
+                button.titleLabel?.font = UIFont.fontSUITEBold(ofSize: button.titleLabel?.font.pointSize ?? 0)
+            } else {
+                applySUITEBoldFontToSubviews(subview)
+            }
+        }
+    }
+
     
     func setupTopView() {
         topView.layer.cornerRadius = 10

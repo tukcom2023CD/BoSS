@@ -11,18 +11,22 @@ class SecondTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var indexLabel: UILabel!
-
     @IBOutlet weak var recordView: UIView!
     var schedules: [Schedule]?
-    
+    @IBOutlet weak var label: UILabel!
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
     var scheduleImageDict : [Int : [String]] = [:] // 스케줄 이미지 딕셔너리
+    
     func configure(){
         collectionView.reloadData()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        label.font = UIFont.fontSUITEBold(ofSize: 20)
+        indexLabel.font = UIFont.fontSUITEBold(ofSize: 12)
+        
         // 사진 불러오기
         requestScheduleIamge()
         self.collectionView.delegate = self
@@ -96,7 +100,7 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
         }
         else{
             if let count = schedules?.count {
-                indexLabel.text = "▹ \(count)번의 여행기록이 있습니다."
+                indexLabel.text = "▹ \(count)번의 여행기록이 있습니다"
             }
         }
     }

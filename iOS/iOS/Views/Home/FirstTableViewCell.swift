@@ -10,11 +10,10 @@ import Lottie
 class FirstTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var planView: UIView!
-    
     @IBOutlet weak var indexLabel: UILabel!
     
+    @IBOutlet weak var label: UILabel!
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
     
     var schedules: [Schedule]?
@@ -25,9 +24,11 @@ class FirstTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        
+        
+        label.font = UIFont.fontSUITEBold(ofSize: 20)
+        indexLabel.font = UIFont.fontSUITEBold(ofSize: 12)
         // 사진 불러오기
-
         requestScheduleIamge()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
@@ -48,11 +49,10 @@ class FirstTableViewCell: UITableViewCell {
         // 애니메이션 뷰를 planView의 서브뷰로 추가
         planView.addSubview(animationView)
         collectionView.reloadData()
-        
-            }
-            
-            
-  
+    }
+    
+    
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -67,7 +67,7 @@ class FirstTableViewCell: UITableViewCell {
         group.enter()
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
             self.schedules = schedules // 수정된 부분: schedules 배열에 데이터 저장
-
+            
             for schedule in schedules {
                 let urlArray : [String] = [] // 사진 URL 배열
                 self.scheduleImageDict[schedule.sid!] = urlArray // 딕셔너리 값추가
@@ -107,12 +107,12 @@ class FirstTableViewCell: UITableViewCell {
         }
     }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-          if scrollView == collectionView {
-              updateIndexLabel()
-          }
-      }
- 
-        
+        if scrollView == collectionView {
+            updateIndexLabel()
+        }
+    }
+    
+    
     // 여행 진행 상태 계산 (진행 or 예정)
     func calcTripState(startDate: String) -> String {
         let formatter = DateFormatter()
@@ -152,37 +152,37 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
             cell.tripState.text = calcTripState(startDate: schedule.start!)
             cell.tripTitle.text = schedule.title
             
-                           PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
-                               DispatchQueue.main.async {
-                                   
-                                   
-                                   if let imageUrl = self.scheduleImageDict[schedule.sid!]?.first {
-                                       DispatchQueue.global().async {
-                                           let cacheKey = NSString(string: imageUrl)
-                                           if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
-                                               DispatchQueue.main.async {
-                                                   cell.tripImage.image = cachedImage
-                                               }
-                                           } else {
-                                               if let imageURL = URL(string: imageUrl),
-                                                  let data = try? Data(contentsOf: imageURL),
-                                                  let image = UIImage(data: data) {
-                                                   AlbumImageCacheManager.shared.setObject(image, forKey: cacheKey)
-                                                   DispatchQueue.main.async {
-                                                       cell.tripImage.image = image
-                                                   }
-                                               }
-                                           }
-                                       }
-                                   } else {
-                                       cell.tripImage.image = #imageLiteral(resourceName: "noImage")
-                                   }
-                               }
-                           }
+            PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
+                DispatchQueue.main.async {
                     
                     
-                    return cell
-          
+                    if let imageUrl = self.scheduleImageDict[schedule.sid!]?.first {
+                        DispatchQueue.global().async {
+                            let cacheKey = NSString(string: imageUrl)
+                            if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                                DispatchQueue.main.async {
+                                    cell.tripImage.image = cachedImage
+                                }
+                            } else {
+                                if let imageURL = URL(string: imageUrl),
+                                   let data = try? Data(contentsOf: imageURL),
+                                   let image = UIImage(data: data) {
+                                    AlbumImageCacheManager.shared.setObject(image, forKey: cacheKey)
+                                    DispatchQueue.main.async {
+                                        cell.tripImage.image = image
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        cell.tripImage.image = #imageLiteral(resourceName: "noImage")
+                    }
+                }
+            }
+            
+            
+            return cell
+            
         }
     }
     
