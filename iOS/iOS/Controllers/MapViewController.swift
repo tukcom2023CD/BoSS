@@ -176,6 +176,14 @@ extension MapViewController: GMSMapViewDelegate {
 
         let infoWindow = Bundle.main.loadNibNamed("MarkerInfoWindowView", owner: self, options: nil)![0] as! MarkerInfoWindowView
         
+      
+        let place = marker.userData as! Place
+        
+        infoWindow.name.text = place.name
+        infoWindow.date.text = place.visitDate
+        infoWindow.spending.text = "\(numberFormatter(number:place.totalSpending!)) 원"
+        infoWindow.name.layoutIfNeeded() // 추가: name 레이블의 레이아웃 업데이트
+
         // 라벨의 너비 자동 조정
         infoWindow.name.sizeToFit()
 
@@ -189,12 +197,6 @@ extension MapViewController: GMSMapViewDelegate {
         infoWindow.infoView.layer.borderColor = CGColor(red: 0.23, green: 0.5, blue: 0.8, alpha: 0.8)
         infoWindow.infoView.layer.borderWidth = 3
         infoWindow.infoView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.9)
-        let place = marker.userData as! Place
-        
-        infoWindow.name.text = place.name
-        infoWindow.date.text = place.visitDate
-        infoWindow.spending.text = "\(numberFormatter(number:place.totalSpending!)) 원"
-        
         
         
         return infoWindow
