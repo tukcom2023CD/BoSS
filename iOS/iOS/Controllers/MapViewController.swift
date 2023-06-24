@@ -38,7 +38,10 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+        map.clear() // 기존에 표시되어 있던 마커들을 제거
+        requestPlaceData() // 데이터를 재로딩
     }
     
     override func viewWillDisappear(_ animated: Bool) {
