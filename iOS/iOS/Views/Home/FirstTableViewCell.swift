@@ -10,11 +10,10 @@ import Lottie
 class FirstTableViewCell: UITableViewCell {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var planView: UIView!
-    
     @IBOutlet weak var indexLabel: UILabel!
     
+    @IBOutlet weak var label: UILabel!
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
     
     var schedules: [Schedule]?
@@ -25,6 +24,10 @@ class FirstTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        
+        label.font = UIFont.fontSUITEBold(ofSize: 20)
+        indexLabel.font = UIFont.fontSUITEBold(ofSize: 12)
         // 사진 불러오기
         requestScheduleIamge()
         self.collectionView.delegate = self
@@ -45,17 +48,11 @@ class FirstTableViewCell: UITableViewCell {
         
         // 애니메이션 뷰를 planView의 서브뷰로 추가
         planView.addSubview(animationView)
-        
+        collectionView.reloadData()
     }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if let count = schedules?.count {
-            if count == 0 {
-                indexLabel.text = "여행정보를 불러오는 중..."
-            }
-            indexLabel.text = "1/\(count)"
-        }
-    }
+    
+    
+    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -69,6 +66,8 @@ class FirstTableViewCell: UITableViewCell {
         let group = DispatchGroup() // 비동기 함수 그룹 생성
         group.enter()
         ScheduleNetManager.shared.read(uid: user.uid!) { schedules in
+            self.schedules = schedules // 수정된 부분: schedules 배열에 데이터 저장
+            
             for schedule in schedules {
                 let urlArray : [String] = [] // 사진 URL 배열
                 self.scheduleImageDict[schedule.sid!] = urlArray // 딕셔너리 값추가
@@ -93,6 +92,26 @@ class FirstTableViewCell: UITableViewCell {
             self.collectionView.reloadData()
         }
     }
+    func updateIndexLabel() {
+        if let selectedIndexPath = collectionView.indexPathsForVisibleItems.last {
+            let currentItem = selectedIndexPath.item + 1
+            if let count = schedules?.count {
+                if currentItem != count {
+                    indexLabel.text = "\(currentItem)/\(count)"
+                } else {
+                    indexLabel.text = "\(count)/\(count)"
+                }
+            }
+        } else {
+            indexLabel.text = "진행중인 여행정보가 없습니다."
+        }
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == collectionView {
+            updateIndexLabel()
+        }
+    }
+    
     
     // 여행 진행 상태 계산 (진행 or 예정)
     func calcTripState(startDate: String) -> String {
@@ -133,37 +152,37 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
             cell.tripState.text = calcTripState(startDate: schedule.start!)
             cell.tripTitle.text = schedule.title
             
-                           PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
-                               DispatchQueue.main.async {
-                                   
-                                   
-                                   if let imageUrl = self.scheduleImageDict[schedule.sid!]?.first {
-                                       DispatchQueue.global().async {
-                                           let cacheKey = NSString(string: imageUrl)
-                                           if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
-                                               DispatchQueue.main.async {
-                                                   cell.tripImage.image = cachedImage
-                                               }
-                                           } else {
-                                               if let imageURL = URL(string: imageUrl),
-                                                  let data = try? Data(contentsOf: imageURL),
-                                                  let image = UIImage(data: data) {
-                                                   AlbumImageCacheManager.shared.setObject(image, forKey: cacheKey)
-                                                   DispatchQueue.main.async {
-                                                       cell.tripImage.image = image
-                                                   }
-                                               }
-                                           }
-                                       }
-                                   } else {
-                                       cell.tripImage.image = #imageLiteral(resourceName: "noImage")
-                                   }
-                               }
-                           }
+            PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
+                DispatchQueue.main.async {
                     
                     
-                    return cell
-          
+                    if let imageUrl = self.scheduleImageDict[schedule.sid!]?.first {
+                        DispatchQueue.global().async {
+                            let cacheKey = NSString(string: imageUrl)
+                            if let cachedImage = AlbumImageCacheManager.shared.object(forKey: cacheKey) {
+                                DispatchQueue.main.async {
+                                    cell.tripImage.image = cachedImage
+                                }
+                            } else {
+                                if let imageURL = URL(string: imageUrl),
+                                   let data = try? Data(contentsOf: imageURL),
+                                   let image = UIImage(data: data) {
+                                    AlbumImageCacheManager.shared.setObject(image, forKey: cacheKey)
+                                    DispatchQueue.main.async {
+                                        cell.tripImage.image = image
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        cell.tripImage.image = #imageLiteral(resourceName: "noImage")
+                    }
+                }
+            }
+            
+            
+            return cell
+            
         }
     }
     
@@ -171,7 +190,10 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width , height: 120)
     }
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if schedules?.isEmpty == true {
             // BlankCollectionViewCell인 경우에는 아무 동작도 수행하지 않음

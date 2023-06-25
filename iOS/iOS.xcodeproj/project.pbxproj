@@ -19,6 +19,9 @@
 		374781622A3F4FFE007057D8 /* Pods_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		374A5B0E2A1B9BA200901247 /* BlankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */; };
 		374A5B0F2A1B9BA200901247 /* BlankCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */; };
+		375EBD622A45E0E1009225F1 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EBD612A45E0E1009225F1 /* Font+Ext.swift */; };
+		375EBD632A45E0E2009225F1 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EBD612A45E0E1009225F1 /* Font+Ext.swift */; };
+		375EBD642A45E0E2009225F1 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EBD612A45E0E1009225F1 /* Font+Ext.swift */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
 		3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F656297B974400014FFE /* FirstCollectionViewCell.xib */; };
 		3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */; };
@@ -92,6 +95,12 @@
 		57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 57A1205E297128A7008F5572 /* GoogleService-Info.plist */; };
 		57C399D22982383600F63900 /* PlaceNetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C399D12982383600F63900 /* PlaceNetManager.swift */; };
 		57C399D42982385300F63900 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57C399D32982385300F63900 /* Place.swift */; };
+		57D5F3C62A484533007CA2F8 /* SUITE-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D5F3C02A484533007CA2F8 /* SUITE-Regular.ttf */; };
+		57D5F3C72A484533007CA2F8 /* SUITE-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D5F3C12A484533007CA2F8 /* SUITE-Medium.ttf */; };
+		57D5F3C82A484533007CA2F8 /* SUITE-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D5F3C22A484533007CA2F8 /* SUITE-ExtraBold.ttf */; };
+		57D5F3C92A484533007CA2F8 /* SUITE-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D5F3C32A484533007CA2F8 /* SUITE-SemiBold.ttf */; };
+		57D5F3CA2A484533007CA2F8 /* SUITE-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D5F3C42A484533007CA2F8 /* SUITE-Bold.ttf */; };
+		57D5F3CB2A484533007CA2F8 /* SUITE-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 57D5F3C52A484533007CA2F8 /* SUITE-Light.ttf */; };
 		57EAE5662A4574DD001F4FF3 /* record.json in Resources */ = {isa = PBXBuildFile; fileRef = 57EAE55E2A4574DD001F4FF3 /* record.json */; };
 		57EAE5672A4574DD001F4FF3 /* airplane.json in Resources */ = {isa = PBXBuildFile; fileRef = 57EAE55F2A4574DD001F4FF3 /* airplane.json */; };
 		57EAE5682A4574DD001F4FF3 /* scrollDown.json in Resources */ = {isa = PBXBuildFile; fileRef = 57EAE5602A4574DD001F4FF3 /* scrollDown.json */; };
@@ -160,6 +169,7 @@
 		37423570299F41FE0049DFA1 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
 		374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankCollectionViewCell.swift; sourceTree = "<group>"; };
 		374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlankCollectionViewCell.xib; sourceTree = "<group>"; };
+		375EBD612A45E0E1009225F1 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3764F656297B974400014FFE /* FirstCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -236,6 +246,12 @@
 		57A1205E297128A7008F5572 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		57C399D12982383600F63900 /* PlaceNetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceNetManager.swift; sourceTree = "<group>"; };
 		57C399D32982385300F63900 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Place.swift; path = Models/DBTables/Place.swift; sourceTree = "<group>"; };
+		57D5F3C02A484533007CA2F8 /* SUITE-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUITE-Regular.ttf"; sourceTree = "<group>"; };
+		57D5F3C12A484533007CA2F8 /* SUITE-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUITE-Medium.ttf"; sourceTree = "<group>"; };
+		57D5F3C22A484533007CA2F8 /* SUITE-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUITE-ExtraBold.ttf"; sourceTree = "<group>"; };
+		57D5F3C32A484533007CA2F8 /* SUITE-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUITE-SemiBold.ttf"; sourceTree = "<group>"; };
+		57D5F3C42A484533007CA2F8 /* SUITE-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUITE-Bold.ttf"; sourceTree = "<group>"; };
+		57D5F3C52A484533007CA2F8 /* SUITE-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SUITE-Light.ttf"; sourceTree = "<group>"; };
 		57EAE55E2A4574DD001F4FF3 /* record.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = record.json; sourceTree = "<group>"; };
 		57EAE55F2A4574DD001F4FF3 /* airplane.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = airplane.json; sourceTree = "<group>"; };
 		57EAE5602A4574DD001F4FF3 /* scrollDown.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scrollDown.json; sourceTree = "<group>"; };
@@ -305,6 +321,19 @@
 				B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		375EBD502A45D885009225F1 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				57D5F3C42A484533007CA2F8 /* SUITE-Bold.ttf */,
+				57D5F3C22A484533007CA2F8 /* SUITE-ExtraBold.ttf */,
+				57D5F3C52A484533007CA2F8 /* SUITE-Light.ttf */,
+				57D5F3C12A484533007CA2F8 /* SUITE-Medium.ttf */,
+				57D5F3C02A484533007CA2F8 /* SUITE-Regular.ttf */,
+				57D5F3C32A484533007CA2F8 /* SUITE-SemiBold.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		3764F654297B972400014FFE /* Home */ = {
@@ -479,6 +508,7 @@
 				5780874B296BEB5500D2BAF8 /* AppDelegate.swift */,
 				5780874D296BEB5500D2BAF8 /* SceneDelegate.swift */,
 				BFE0022B29A8B0E200194E58 /* Cache */,
+				375EBD502A45D885009225F1 /* Font */,
 				5794116729710FDD009192DD /* Extensions */,
 				573941A7297ED0B600E69D8F /* Helpers */,
 				577B8F792979034E00FBD1EB /* Networking */,
@@ -520,6 +550,7 @@
 				576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */,
 				570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */,
 				37CBE79629EBC8D100BA93A9 /* NavitaionBar+Ext.swift */,
+				375EBD612A45E0E1009225F1 /* Font+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -716,12 +747,16 @@
 				57808758296BEB5600D2BAF8 /* LaunchScreen.storyboard in Resources */,
 				57EAE5672A4574DD001F4FF3 /* airplane.json in Resources */,
 				57EAE56B2A4574DD001F4FF3 /* calendar.json in Resources */,
+				57D5F3C72A484533007CA2F8 /* SUITE-Medium.ttf in Resources */,
 				570AAB7429917850006CB64C /* PlacePhotosTableViewCell.xib in Resources */,
 				57EAE5692A4574DD001F4FF3 /* mapmaker.json in Resources */,
 				570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */,
+				57D5F3CA2A484533007CA2F8 /* SUITE-Bold.ttf in Resources */,
 				374A5B0F2A1B9BA200901247 /* BlankCollectionViewCell.xib in Resources */,
+				57D5F3CB2A484533007CA2F8 /* SUITE-Light.ttf in Resources */,
 				3764F65C297B97A900014FFE /* SecondCollectionViewCell.xib in Resources */,
 				57EAE56C2A4574DD001F4FF3 /* paperplane.json in Resources */,
+				57D5F3C62A484533007CA2F8 /* SUITE-Regular.ttf in Resources */,
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
 				57EAE5682A4574DD001F4FF3 /* scrollDown.json in Resources */,
 				3785E3EF29E19AF8001535C0 /* ExtensionHomeTravelCollectionViewCell.xib in Resources */,
@@ -729,12 +764,14 @@
 				3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */,
 				57EAE56D2A4574DD001F4FF3 /* right-arrow.json in Resources */,
 				37E055FC2A457CEF00A08CC9 /* SecretKey.plist in Resources */,
+				57D5F3C82A484533007CA2F8 /* SUITE-ExtraBold.ttf in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
 				570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */,
 				57808755296BEB5600D2BAF8 /* Assets.xcassets in Resources */,
 				570AAB57298EA026006CB64C /* MarkerInfoWindowView.xib in Resources */,
 				37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */,
 				576B64C629997361002609FA /* MainPlanFooterView.xib in Resources */,
+				57D5F3C92A484533007CA2F8 /* SUITE-SemiBold.ttf in Resources */,
 				576B64BE29996EBF002609FA /* MainPlanHeaderView.xib in Resources */,
 				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
 				3764F668297B980800014FFE /* SecondTableViewCell.xib in Resources */,
@@ -944,6 +981,7 @@
 				37B7E32129E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
 				571FF6A029A3CFF7005E54F6 /* Photo.swift in Sources */,
+				375EBD622A45E0E1009225F1 /* Font+Ext.swift in Sources */,
 				BF7D3F8929E5760F008F81E9 /* ScheduleEditViewController.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
 				571FF6A229A3D0A0005E54F6 /* PhotoNetManager.swift in Sources */,
@@ -980,6 +1018,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375EBD632A45E0E2009225F1 /* Font+Ext.swift in Sources */,
 				57808763296BEB5600D2BAF8 /* iOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -990,6 +1029,7 @@
 			files = (
 				5780876F296BEB5600D2BAF8 /* iOSUITestsLaunchTests.swift in Sources */,
 				5780876D296BEB5600D2BAF8 /* iOSUITests.swift in Sources */,
+				375EBD642A45E0E2009225F1 /* Font+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1150,7 +1190,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5DFZR8RCQR;
+				DEVELOPMENT_TEAM = FQ9852Z3LX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
@@ -1168,7 +1208,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea3.ce.ios.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea.ce.ios.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1188,7 +1228,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5DFZR8RCQR;
+				DEVELOPMENT_TEAM = FQ9852Z3LX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
@@ -1206,7 +1246,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea3.ce.ios.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea.ce.ios.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

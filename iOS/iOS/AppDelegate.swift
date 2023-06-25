@@ -24,6 +24,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Firebase 연결을 위한 초기화 설정
         FirebaseApp.configure()
         
+        
+//        //폰트 적용
+//        // 앱 전체의 글꼴 스타일 정의
+//        let fontName = "SUITE-Bold" // 변경하고자 하는 폰트 이름으로 설정합니다.
+//        let font = UIFont(name: fontName, size: 16)!
+//
+//        // UILabel의 글꼴 스타일 설정
+//        UILabel.appearance().font = UIFontMetrics.default.scaledFont(for: font)
+//
+//        // UIButton의 글꼴 스타일 설정
+//        UIButton.appearance().titleLabel?.font = UIFontMetrics.default.scaledFont(for: font)
+//
+//        // UITextField의 글꼴 스타일 설정
+//        UITextField.appearance().font = UIFontMetrics.default.scaledFont(for: font)
+//
+//        // UITextView의 글꼴 스타일 설정
+//        UITextView.appearance().font = UIFontMetrics.default.scaledFont(for: font)
+//        
+       
         return true
     }
     

@@ -12,6 +12,7 @@ class CalendarTableViewCell: UITableViewCell {
     
     @IBOutlet weak var calendarView: UIView!
     @IBOutlet weak var calendar: FSCalendar!
+    @IBOutlet weak var label: UILabel!
     
     var eventDates: [String] = []
     var schedules: [Schedule]?
@@ -23,7 +24,7 @@ class CalendarTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        label.font = UIFont.fontSUITEBold(ofSize: 20)
         setupCalendar()
         
         let animationView = LottieAnimationView(name: "calendar")
