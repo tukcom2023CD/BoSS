@@ -21,6 +21,8 @@ struct Photo: Codable {
     var imageUrl: String
     var uid: Int
     var pid: Int
+    var isAdded: Bool = false
+    var isDeleted: Bool = false
     
     enum CodingKeys: String, CodingKey {
         case phid, uid, pid
