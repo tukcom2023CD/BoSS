@@ -64,6 +64,7 @@
             <connections>
                 <outlet property="calendar" destination="Cqu-j7-U6g" id="1pa-Lr-Aed"/>
                 <outlet property="calendarView" destination="jhN-ga-KBe" id="lbp-Bs-s39"/>
+                <outlet property="label" destination="wvm-Se-RT5" id="4vI-Xp-7fG"/>
             </connections>
             <point key="canvasLocation" x="127.48091603053435" y="94.014084507042256"/>
         </tableViewCell>

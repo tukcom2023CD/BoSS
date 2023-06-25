@@ -50,7 +50,9 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            smallLogo.alpha = 0.0
+        applySUITEBoldFontToButtons()
+        
+        smallLogo.alpha = 0.0
         smallLogoText.alpha = 0.0
         //title = "Travelog"
         scrollView.delegate = self
@@ -76,6 +78,22 @@ class HomeViewController: UIViewController,UIScrollViewDelegate {
         
     }
     
+    //MARK: -VC전체 ButtonFont
+    func applySUITEBoldFontToButtons() {
+        for subview in self.view.subviews {
+            applySUITEBoldFontToSubviews(subview)
+        }
+    }
+    
+    func applySUITEBoldFontToSubviews(_ view: UIView) {
+        for subview in view.subviews {
+            if let button = subview as? UIButton {
+                button.titleLabel?.font = UIFont.fontSUITEBold(ofSize: button.titleLabel?.font.pointSize ?? 0)
+            } else {
+                applySUITEBoldFontToSubviews(subview)
+            }
+        }
+    }
     
     func hideNavigation(){
         
@@ -302,7 +320,6 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
         case 2:
             return 400
             
-            //            return (width + 40 + 3) * 5 + 40
         default:
             return 0
         }

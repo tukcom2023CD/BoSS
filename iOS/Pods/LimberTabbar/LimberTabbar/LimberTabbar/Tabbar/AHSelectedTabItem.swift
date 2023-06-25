@@ -102,17 +102,16 @@ class AHSelectedTabItem: UIView {
         layer.shadowRadius = 2
         
         imgTabIcon = UIImageView()
-        imgTabIcon.tintColor = self.iconTintColor
+        //imgTabIcon.tintColor = self.iconTintColor
         addSubview(imgTabIcon)
         imgTabIcon.tintColor = .black
         imgTabIcon.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 9.0, *) {
             NSLayoutConstraint.activate([
+                imgTabIcon.centerXAnchor.constraint(equalTo: centerXAnchor),
+                imgTabIcon.centerYAnchor.constraint(equalTo: centerYAnchor)
                 
-                imgTabIcon.topAnchor.constraint(equalTo: topAnchor, constant: 9),
-                imgTabIcon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-                imgTabIcon.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-                imgTabIcon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -9)
+
             ])
         }
     }

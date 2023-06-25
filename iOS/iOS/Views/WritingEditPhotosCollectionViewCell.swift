@@ -10,6 +10,11 @@ import UIKit
 class WritingEditPhotosCollectionViewCell: UICollectionViewCell {
     @IBOutlet var photos: UIImageView!
     
-    
+    override func awakeFromNib() {
+           super.awakeFromNib()
+           
+           photos.contentMode = .scaleAspectFit
+           photos.clipsToBounds = true
+       }
     
 }

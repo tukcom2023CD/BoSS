@@ -19,6 +19,27 @@
 		374781622A3F4FFE007057D8 /* Pods_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D186E571686558A6A981FD3E /* Pods_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		374A5B0E2A1B9BA200901247 /* BlankCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */; };
 		374A5B0F2A1B9BA200901247 /* BlankCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */; };
+		375EBD522A45D925009225F1 /* SUITE-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD512A45D925009225F1 /* SUITE-Medium.ttf */; };
+		375EBD532A45D925009225F1 /* SUITE-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD512A45D925009225F1 /* SUITE-Medium.ttf */; };
+		375EBD542A45D925009225F1 /* SUITE-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD512A45D925009225F1 /* SUITE-Medium.ttf */; };
+		375EBD5A2A45DCB4009225F1 /* SUITE-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD592A45DCB4009225F1 /* SUITE-SemiBold.ttf */; };
+		375EBD5B2A45DCB4009225F1 /* SUITE-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD592A45DCB4009225F1 /* SUITE-SemiBold.ttf */; };
+		375EBD5C2A45DCB4009225F1 /* SUITE-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD592A45DCB4009225F1 /* SUITE-SemiBold.ttf */; };
+		375EBD5E2A45DF4E009225F1 /* SUITE-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD5D2A45DF4E009225F1 /* SUITE-Bold.ttf */; };
+		375EBD5F2A45DF4E009225F1 /* SUITE-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD5D2A45DF4E009225F1 /* SUITE-Bold.ttf */; };
+		375EBD602A45DF4E009225F1 /* SUITE-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD5D2A45DF4E009225F1 /* SUITE-Bold.ttf */; };
+		375EBD622A45E0E1009225F1 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EBD612A45E0E1009225F1 /* Font+Ext.swift */; };
+		375EBD632A45E0E2009225F1 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EBD612A45E0E1009225F1 /* Font+Ext.swift */; };
+		375EBD642A45E0E2009225F1 /* Font+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EBD612A45E0E1009225F1 /* Font+Ext.swift */; };
+		375EBD682A45E28A009225F1 /* SUITE-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD652A45E28A009225F1 /* SUITE-ExtraBold.ttf */; };
+		375EBD692A45E28A009225F1 /* SUITE-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD652A45E28A009225F1 /* SUITE-ExtraBold.ttf */; };
+		375EBD6A2A45E28A009225F1 /* SUITE-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD652A45E28A009225F1 /* SUITE-ExtraBold.ttf */; };
+		375EBD6B2A45E28A009225F1 /* SUITE-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD662A45E28A009225F1 /* SUITE-Light.ttf */; };
+		375EBD6C2A45E28A009225F1 /* SUITE-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD662A45E28A009225F1 /* SUITE-Light.ttf */; };
+		375EBD6D2A45E28A009225F1 /* SUITE-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD662A45E28A009225F1 /* SUITE-Light.ttf */; };
+		375EBD6E2A45E28A009225F1 /* SUITE-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD672A45E28A009225F1 /* SUITE-Regular.ttf */; };
+		375EBD6F2A45E28A009225F1 /* SUITE-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD672A45E28A009225F1 /* SUITE-Regular.ttf */; };
+		375EBD702A45E28A009225F1 /* SUITE-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 375EBD672A45E28A009225F1 /* SUITE-Regular.ttf */; };
 		3764F657297B974400014FFE /* FirstCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F655297B974400014FFE /* FirstCollectionViewCell.swift */; };
 		3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3764F656297B974400014FFE /* FirstCollectionViewCell.xib */; };
 		3764F65B297B97A900014FFE /* SecondCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */; };
@@ -160,6 +181,13 @@
 		37423570299F41FE0049DFA1 /* EditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewCell.swift; sourceTree = "<group>"; };
 		374A5B0C2A1B9BA200901247 /* BlankCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankCollectionViewCell.swift; sourceTree = "<group>"; };
 		374A5B0D2A1B9BA200901247 /* BlankCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlankCollectionViewCell.xib; sourceTree = "<group>"; };
+		375EBD512A45D925009225F1 /* SUITE-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUITE-Medium.ttf"; path = "../../../../../../Downloads/SUITE-ttf/SUITE-Medium.ttf"; sourceTree = "<group>"; };
+		375EBD592A45DCB4009225F1 /* SUITE-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUITE-SemiBold.ttf"; path = "../../../../../../Downloads/SUITE-ttf/SUITE-SemiBold.ttf"; sourceTree = "<group>"; };
+		375EBD5D2A45DF4E009225F1 /* SUITE-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUITE-Bold.ttf"; path = "../../../../../../Downloads/SUITE-ttf/SUITE-Bold.ttf"; sourceTree = "<group>"; };
+		375EBD612A45E0E1009225F1 /* Font+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+Ext.swift"; sourceTree = "<group>"; };
+		375EBD652A45E28A009225F1 /* SUITE-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUITE-ExtraBold.ttf"; path = "../../../../../../Downloads/SUITE-ttf/SUITE-ExtraBold.ttf"; sourceTree = "<group>"; };
+		375EBD662A45E28A009225F1 /* SUITE-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUITE-Light.ttf"; path = "../../../../../../Downloads/SUITE-ttf/SUITE-Light.ttf"; sourceTree = "<group>"; };
+		375EBD672A45E28A009225F1 /* SUITE-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SUITE-Regular.ttf"; path = "../../../../../../Downloads/SUITE-ttf/SUITE-Regular.ttf"; sourceTree = "<group>"; };
 		3764F655297B974400014FFE /* FirstCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCollectionViewCell.swift; sourceTree = "<group>"; };
 		3764F656297B974400014FFE /* FirstCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstCollectionViewCell.xib; sourceTree = "<group>"; };
 		3764F659297B97A900014FFE /* SecondCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -305,6 +333,19 @@
 				B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		375EBD502A45D885009225F1 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				375EBD652A45E28A009225F1 /* SUITE-ExtraBold.ttf */,
+				375EBD662A45E28A009225F1 /* SUITE-Light.ttf */,
+				375EBD672A45E28A009225F1 /* SUITE-Regular.ttf */,
+				375EBD5D2A45DF4E009225F1 /* SUITE-Bold.ttf */,
+				375EBD592A45DCB4009225F1 /* SUITE-SemiBold.ttf */,
+				375EBD512A45D925009225F1 /* SUITE-Medium.ttf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		3764F654297B972400014FFE /* Home */ = {
@@ -476,6 +517,7 @@
 		5780874A296BEB5500D2BAF8 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				375EBD502A45D885009225F1 /* Font */,
 				5780874B296BEB5500D2BAF8 /* AppDelegate.swift */,
 				5780874D296BEB5500D2BAF8 /* SceneDelegate.swift */,
 				BFE0022B29A8B0E200194E58 /* Cache */,
@@ -520,6 +562,7 @@
 				576C0DB9298A325900485AD5 /* UserDefaults+Ext.swift */,
 				570AAB7D29919C6E006CB64C /* UIImageView+Ext.swift */,
 				37CBE79629EBC8D100BA93A9 /* NavitaionBar+Ext.swift */,
+				375EBD612A45E0E1009225F1 /* Font+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -712,6 +755,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375EBD5E2A45DF4E009225F1 /* SUITE-Bold.ttf in Resources */,
 				57EAE56A2A4574DD001F4FF3 /* linedown.json in Resources */,
 				57808758296BEB5600D2BAF8 /* LaunchScreen.storyboard in Resources */,
 				57EAE5672A4574DD001F4FF3 /* airplane.json in Resources */,
@@ -720,6 +764,7 @@
 				57EAE5692A4574DD001F4FF3 /* mapmaker.json in Resources */,
 				570AAB70299173E2006CB64C /* PlaceLocationMapTableViewCell.xib in Resources */,
 				374A5B0F2A1B9BA200901247 /* BlankCollectionViewCell.xib in Resources */,
+				375EBD522A45D925009225F1 /* SUITE-Medium.ttf in Resources */,
 				3764F65C297B97A900014FFE /* SecondCollectionViewCell.xib in Resources */,
 				57EAE56C2A4574DD001F4FF3 /* paperplane.json in Resources */,
 				3764F664297B97FC00014FFE /* FirstTableViewCell.xib in Resources */,
@@ -731,9 +776,12 @@
 				37E055FC2A457CEF00A08CC9 /* SecretKey.plist in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
 				570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */,
+				375EBD6B2A45E28A009225F1 /* SUITE-Light.ttf in Resources */,
+				375EBD5A2A45DCB4009225F1 /* SUITE-SemiBold.ttf in Resources */,
 				57808755296BEB5600D2BAF8 /* Assets.xcassets in Resources */,
 				570AAB57298EA026006CB64C /* MarkerInfoWindowView.xib in Resources */,
 				37F18C4F29856CFD003C8EF2 /* SearchPlaceTableViewCell.xib in Resources */,
+				375EBD682A45E28A009225F1 /* SUITE-ExtraBold.ttf in Resources */,
 				576B64C629997361002609FA /* MainPlanFooterView.xib in Resources */,
 				576B64BE29996EBF002609FA /* MainPlanHeaderView.xib in Resources */,
 				3764F66C297BB04800014FFE /* CalendarTableViewCell.xib in Resources */,
@@ -741,6 +789,7 @@
 				576B64C4299970FA002609FA /* MainPlanTableViewCell.xib in Resources */,
 				570AAB7A299180CC006CB64C /* PlacePhotoCollectionViewCell.xib in Resources */,
 				3785E3F329E1A15A001535C0 /* NoExHomeTravelCollectionViewCell.xib in Resources */,
+				375EBD6E2A45E28A009225F1 /* SUITE-Regular.ttf in Resources */,
 				57808753296BEB5500D2BAF8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -749,6 +798,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375EBD5F2A45DF4E009225F1 /* SUITE-Bold.ttf in Resources */,
+				375EBD6C2A45E28A009225F1 /* SUITE-Light.ttf in Resources */,
+				375EBD5B2A45DCB4009225F1 /* SUITE-SemiBold.ttf in Resources */,
+				375EBD532A45D925009225F1 /* SUITE-Medium.ttf in Resources */,
+				375EBD6F2A45E28A009225F1 /* SUITE-Regular.ttf in Resources */,
+				375EBD692A45E28A009225F1 /* SUITE-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +811,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375EBD602A45DF4E009225F1 /* SUITE-Bold.ttf in Resources */,
+				375EBD6D2A45E28A009225F1 /* SUITE-Light.ttf in Resources */,
+				375EBD5C2A45DCB4009225F1 /* SUITE-SemiBold.ttf in Resources */,
+				375EBD542A45D925009225F1 /* SUITE-Medium.ttf in Resources */,
+				375EBD702A45E28A009225F1 /* SUITE-Regular.ttf in Resources */,
+				375EBD6A2A45E28A009225F1 /* SUITE-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,6 +1005,7 @@
 				37B7E32129E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift in Sources */,
 				BFD1F9BD29920D2D00D06496 /* MyPageViewController.swift in Sources */,
 				571FF6A029A3CFF7005E54F6 /* Photo.swift in Sources */,
+				375EBD622A45E0E1009225F1 /* Font+Ext.swift in Sources */,
 				BF7D3F8929E5760F008F81E9 /* ScheduleEditViewController.swift in Sources */,
 				570AAB5F29911C1D006CB64C /* PlaceDetailViewController.swift in Sources */,
 				571FF6A229A3D0A0005E54F6 /* PhotoNetManager.swift in Sources */,
@@ -980,6 +1042,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375EBD632A45E0E2009225F1 /* Font+Ext.swift in Sources */,
 				57808763296BEB5600D2BAF8 /* iOSTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -990,6 +1053,7 @@
 			files = (
 				5780876F296BEB5600D2BAF8 /* iOSUITestsLaunchTests.swift in Sources */,
 				5780876D296BEB5600D2BAF8 /* iOSUITests.swift in Sources */,
+				375EBD642A45E0E2009225F1 /* Font+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1150,7 +1214,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5DFZR8RCQR;
+				DEVELOPMENT_TEAM = FQ9852Z3LX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
@@ -1168,7 +1232,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea3.ce.ios.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea.ce.ios.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1188,7 +1252,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5DFZR8RCQR;
+				DEVELOPMENT_TEAM = FQ9852Z3LX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
@@ -1206,7 +1270,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea3.ce.ios.iOS;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.ac.tukorea.ce.ios.iOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

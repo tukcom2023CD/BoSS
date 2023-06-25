@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oLh-FW-MRt">
-                        <rect key="frame" x="10" y="74" width="395" height="179"/>
+                        <rect key="frame" x="10" y="75" width="395" height="178"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="d5I-Xi-pwA">
@@ -29,22 +29,22 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="airplane.departure" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="jwE-NK-tvq">
-                        <rect key="frame" x="10.000000000000002" y="31.666666666666671" width="25.666666666666671" height="20.666666666666657"/>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5BM-eX-BM0">
-                        <rect key="frame" x="-10" y="0.0" width="100.66666666666667" height="84"/>
+                        <rect key="frame" x="-8" y="0.0" width="100" height="85"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="85" id="Obf-SB-CcJ"/>
+                            <constraint firstAttribute="width" constant="100" id="ogj-BO-pLP"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="계획중인 여행" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AU6-cj-Otn">
-                        <rect key="frame" x="70.666666666666657" y="30" width="108.66666666666666" height="24"/>
+                        <rect key="frame" x="65" y="30" width="108.66666666666669" height="25"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MdI-1r-GyZ">
-                        <rect key="frame" x="199.33333333333334" y="30" width="0.0" height="0.0"/>
+                        <rect key="frame" x="193.66666666666666" y="42.666666666666664" width="0.0" height="0.0"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -52,21 +52,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="oLh-FW-MRt" secondAttribute="trailing" constant="10" id="O9J-wh-I0c"/>
-                    <constraint firstItem="MdI-1r-GyZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="Q0o-Mz-lmv"/>
                     <constraint firstItem="AU6-cj-Otn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="SbU-sx-oyR"/>
-                    <constraint firstItem="jwE-NK-tvq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="30" id="U4m-Ki-aMx"/>
                     <constraint firstItem="oLh-FW-MRt" firstAttribute="top" secondItem="AU6-cj-Otn" secondAttribute="bottom" constant="20" id="UyU-qQ-vmh"/>
+                    <constraint firstItem="AU6-cj-Otn" firstAttribute="leading" secondItem="5BM-eX-BM0" secondAttribute="trailing" constant="-27" id="WXm-Cr-MDQ"/>
                     <constraint firstAttribute="bottom" secondItem="oLh-FW-MRt" secondAttribute="bottom" id="ZUu-H8-KaI"/>
-                    <constraint firstItem="5BM-eX-BM0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-10" id="aha-Y7-Eyh"/>
+                    <constraint firstItem="5BM-eX-BM0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-8" id="aha-Y7-Eyh"/>
                     <constraint firstItem="MdI-1r-GyZ" firstAttribute="leading" secondItem="AU6-cj-Otn" secondAttribute="trailing" constant="20" id="cih-jL-OPm"/>
-                    <constraint firstItem="AU6-cj-Otn" firstAttribute="leading" secondItem="jwE-NK-tvq" secondAttribute="trailing" constant="35" id="dbu-mm-MGf"/>
                     <constraint firstItem="oLh-FW-MRt" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="gYd-t5-dLM"/>
                     <constraint firstItem="5BM-eX-BM0" firstAttribute="centerY" secondItem="AU6-cj-Otn" secondAttribute="centerY" id="lm2-r0-h7L"/>
-                    <constraint firstItem="jwE-NK-tvq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="m60-UR-b0v"/>
                     <constraint firstItem="5BM-eX-BM0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="naz-mT-RgH"/>
-                    <constraint firstItem="jwE-NK-tvq" firstAttribute="centerY" secondItem="AU6-cj-Otn" secondAttribute="centerY" id="ogd-bb-7yH"/>
                     <constraint firstItem="oLh-FW-MRt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="rqg-33-DL0"/>
-                    <constraint firstItem="AU6-cj-Otn" firstAttribute="leading" secondItem="5BM-eX-BM0" secondAttribute="trailing" constant="-20" id="vog-NM-kE0"/>
+                    <constraint firstItem="MdI-1r-GyZ" firstAttribute="centerY" secondItem="AU6-cj-Otn" secondAttribute="centerY" id="uq6-4F-iQg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -74,13 +70,13 @@
             <connections>
                 <outlet property="collectionView" destination="oLh-FW-MRt" id="ZAo-Xz-T61"/>
                 <outlet property="indexLabel" destination="MdI-1r-GyZ" id="WZK-KF-5wm"/>
+                <outlet property="label" destination="AU6-cj-Otn" id="hyK-Sh-I8S"/>
                 <outlet property="planView" destination="5BM-eX-BM0" id="tec-DY-1XQ"/>
             </connections>
             <point key="canvasLocation" x="109.16030534351144" y="69.366197183098592"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="airplane.departure" catalog="system" width="128" height="84"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
