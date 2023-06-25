@@ -14,9 +14,12 @@ class FirstCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var tripDate: UILabel!
     @IBOutlet weak var tripState: UILabel!
     
+    @IBOutlet weak var outermostView: UIView!
+    @IBOutlet weak var outView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
-  
+        outermostView.layer.cornerRadius = 5
+        outView.layer.cornerRadius = 5
         // 글꼴 변경
             tripTitle.font = UIFont.fontSUITEBold(ofSize: 18)
             tripDate.font = UIFont.fontSUITEBold(ofSize: 14)

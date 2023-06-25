@@ -1189,7 +1189,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7yQ-OB-X0l" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="앨범" id="tYC-y7-dTo">
-                        <imageReference key="image" image="photo.stack" catalog="system" symbolScale="large"/>
+                        <imageReference key="image" image="photo.on.rectangle.angled" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jdR-lt-GLF">
@@ -3178,7 +3178,7 @@
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="photo.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="photo.stack" catalog="system" width="128" height="122"/>
+        <image name="photo.on.rectangle.angled" catalog="system" width="128" height="98"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="schedule" width="256" height="256"/>
         <image name="setting" width="256" height="256"/>
