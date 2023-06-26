@@ -10,7 +10,7 @@ import UIKit
 import PhotosUI
 
 protocol PhotoArrayProtocol: AnyObject {
-    func updatePhotoArray(_ photoArray: [UIImage])
+    func updatePhotoArray(_ photoArray: [ImageData])
 }
 
 class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayProtocol{
@@ -32,14 +32,14 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     //           }
     //       }
     
-    func updatePhotoArray(_ photoArray: [UIImage]) {
+    func updatePhotoArray(_ photoArray: [ImageData]) {
         self.photoArray = photoArray
         print("받는쪽 사진 배열은 \(photoArray.count) items")
     }
-    
-    func didUpdatePhotoArray(_ photoArray: [UIImage]) {
-        self.photoArray = photoArray
-    }
+//    
+//    func didUpdatePhotoArray(_ photoArray: [UIImage]) {
+//        self.photoArray = photoArray
+//    }
     
     
     func sendData(receiptData: [Spending]) {
@@ -50,7 +50,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     //MARK: - Properties
     var subTotalData: [Int] = [] //delete를 위한 각 행의 가격 데이터
     var getImageCard : UIImage?
-    var photoArray : [UIImage] = []
+    var photoArray : [ImageData] = []
     let textViewPlaceHolder = "텍스트를 입력하세요"
     let textViewPlaceHolderColor = UIColor.lightGray
     
@@ -270,17 +270,18 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         if contents.text == "텍스트를 입력하세요" {
             place.diary = ""
-        }else{
-            place.diary = contents.text}
+        } else {
+            place.diary = contents.text
+        }
         place.totalSpending = totalPrice
         let spendingData = SpendingData(pid: place.pid!, spendings: spendings)
-        
+        let addedPhotos = photoArray.filter({ $0.isAdded }).map({ $0.image })
         
         DispatchQueue.global().async {
             let dispatchGroup = DispatchGroup()
             
             dispatchGroup.enter()
-            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: self.photoArray) {
+            PhotoNetManager.shared.create(uid: self.place.uid!, sid: self.place.sid!, pid: self.place.pid!, image: addedPhotos) {
                 dispatchGroup.leave()
             }
             
@@ -297,6 +298,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
             
             
             
+            
             dispatchGroup.notify(queue: .main) {
                 guard let vcStack =
                         self.navigationController?.viewControllers else { return }
@@ -306,7 +308,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                         view.spendings = self.spendings
                         view.place = self.place
                         //view.imageCard.image = self.imageCard.image
-                        view.photoArray = self.photoArray
+                        view.photoArray = self.photoArray.map({ ImageData(image: $0.image, isAdded: false, isDeleted: false) })
                         self.navigationController?.popToViewController(view, animated: true)
                     }
                 }
