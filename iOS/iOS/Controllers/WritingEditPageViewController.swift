@@ -11,6 +11,7 @@ import PhotosUI
 
 protocol PhotoArrayProtocol: AnyObject {
     func updatePhotoArray(_ photoArray: [ImageData])
+    func appendDeletedPhotoArray(_ deletedPhotos: ImageData)
 }
 
 class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayProtocol{
@@ -36,6 +37,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         self.photoArray = photoArray
         print("받는쪽 사진 배열은 \(photoArray.count) items")
     }
+    
+    func appendDeletedPhotoArray(_ deletedPhotos: ImageData) {
+        self.deletedPhotos.append(deletedPhotos)
+    }
 //    
 //    func didUpdatePhotoArray(_ photoArray: [UIImage]) {
 //        self.photoArray = photoArray
@@ -51,6 +56,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     var subTotalData: [Int] = [] //delete를 위한 각 행의 가격 데이터
     var getImageCard : UIImage?
     var photoArray : [ImageData] = []
+    var deletedPhotos: [ImageData] = []
     let textViewPlaceHolder = "텍스트를 입력하세요"
     let textViewPlaceHolderColor = UIColor.lightGray
     
@@ -217,6 +223,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         //액션 만들기
         
         let action = UIAlertAction(title: "네", style: .default, handler:  {(action) in
+            self.deletedPhotos.removeAll()
             self.navigationController?.popViewController(animated: true)
         })
         let cancel = UIAlertAction(title: "아니오", style: .cancel, handler: nil)
@@ -277,6 +284,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         let spendingData = SpendingData(pid: place.pid!, spendings: spendings)
         let addedPhotos = photoArray.filter({ $0.isAdded }).map({ $0.image })
         
+        
+        
         DispatchQueue.global().async {
             let dispatchGroup = DispatchGroup()
             
@@ -296,10 +305,17 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                 dispatchGroup.leave()
             }
             
-            
+            self.deletedPhotos.forEach {
+                let param = self.extractValues(from: $0.imageUrl ?? "")
+                dispatchGroup.enter()
+                PhotoNetManager.shared.delete(imageName: param) {
+                    dispatchGroup.leave()
+                }
+            }
             
             
             dispatchGroup.notify(queue: .main) {
+                self.deletedPhotos.removeAll()
                 guard let vcStack =
                         self.navigationController?.viewControllers else { return }
                 for vc in vcStack {
@@ -308,12 +324,27 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                         view.spendings = self.spendings
                         view.place = self.place
                         //view.imageCard.image = self.imageCard.image
-                        view.photoArray = self.photoArray.map({ ImageData(image: $0.image, isAdded: false, isDeleted: false) })
-                        self.navigationController?.popToViewController(view, animated: true)
+                        //view.photoArray = self.photoArray.filter({ !$0.isDeleted }).map({ ImageData(image: $0.image, isAdded: false, imageUrl: $0.imageUrl) })
+                        view.uploadImageCard {
+                            DispatchQueue.main.async {
+                                self.navigationController?.popToViewController(view, animated: true)
+                            }
+                        }
+                        
                     }
                 }
             }
         }
+    }
+    
+    func extractValues(from url: String) -> (x: String?, y: String?, w: String?, z: String?) {
+        let components = url.components(separatedBy: "/")
+        let count = components.count
+        let w = components[count - 1] // "w.jpg"
+        let z = components[count - 2] // "z.jpg"
+        let y = components[count - 3] // "y.jpg"
+        let x = components[count - 4] // "x.jpg"
+        return (x,y,z,w)
     }
 }
 

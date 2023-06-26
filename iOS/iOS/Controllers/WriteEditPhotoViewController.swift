@@ -34,12 +34,10 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
     
     
     @IBAction func deleteImageTapped(_ sender: UIButton) {
-        
-        self.photoArray.remove(at: sender.tag)
-        
-        self.collectionView.reloadData()
         self.delegate?.updatePhotoArray(self.photoArray)
-        
+        self.delegate?.appendDeletedPhotoArray(self.photoArray[sender.tag])
+        self.photoArray.remove(at: sender.tag)
+        self.collectionView.reloadData()
     }
     
     
@@ -107,6 +105,7 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return self.photoArray.count
         return self.photoArray.count
     }
     
@@ -116,8 +115,9 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WritingEditPhotoCollectionViewCell", for: indexPath) as? WritingEditPhotoCollectionViewCell else { return UICollectionViewCell() }
+        
         cell.deleteButton.tag = indexPath.row
-        cell.photoCell.image = self.photoArray[indexPath.row].image
+        cell.photoCell.image = photoArray[indexPath.row].image
         cell.photoCell.layer.masksToBounds = true
         return cell
     }

@@ -53,4 +53,5 @@ struct ImageData {
     var image: UIImage
     var isAdded: Bool = false
     var isDeleted: Bool = false
+    var imageUrl: String?
 }

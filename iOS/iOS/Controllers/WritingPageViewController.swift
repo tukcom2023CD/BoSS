@@ -252,7 +252,7 @@ class WritingPageViewController: UIViewController {
                 queue.async {
                     if let data = try? Data(contentsOf: url) {
                         if let image = UIImage(data: data) {
-                            images.append(ImageData(image: image))
+                            images.append(ImageData(image: image, imageUrl: photo.imageUrl))
                         }
                     }
                     group.leave()
