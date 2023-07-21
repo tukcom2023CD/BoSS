@@ -21,17 +21,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         }
     }
     
-    // Container View segue가 실행될 때 호출되는 함수
-    //       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //           if segue.identifier == "WritingEditPageVC" {
-    //               // Container View 안의 ViewController를 가져옴
-    //               let childViewController = segue.destination as! WriteEditPhotoViewController
-    //
-    //               // 데이터 전달
-    //               childViewController.photoArray = self.photoArray
-    //           }
-    //       }
-    
+ 
     func updatePhotoArray(_ photoArray: [UIImage]) {
         self.photoArray = photoArray
         print("받는쪽 사진 배열은 \(photoArray.count) items")
@@ -53,15 +43,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     var photoArray : [UIImage] = []
     let textViewPlaceHolder = "텍스트를 입력하세요"
     let textViewPlaceHolderColor = UIColor.lightGray
-    
     var writeEditPhotoViewController: WriteEditPhotoViewController?
     @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
-
-    
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
-   // @IBOutlet weak var uiView: UIView!
-    
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
     @IBOutlet weak var outView: UIView!
@@ -72,7 +57,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     
    
     //WritingPage로 넘길 데이터
-    
     let camera = UIImagePickerController() // 카메라 변수
     var totalPrice : Int = 0
     
@@ -111,16 +95,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                 contents.textColor = textViewPlaceHolderColor
             }
             else {
-                
                 contents.text = place.diary
                 contents.textColor = .black
-                
-                
             }
 
-//        textViewHeightConstraint.constant = contents.intrinsicContentSize.height
-//
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -186,17 +164,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         camera.delegate = self
     }
     
-    // MARK: - uiViewSetting
-//    func uiViewSetting(){
-//        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-//
-//        self.uiView.layer.borderWidth = 0.3
-//        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
-//        self.uiView.layer.cornerRadius = 10
-//    }
-    
-    
-    
+
     
     // MARK: - changeTitleMode
     func changeTitleMode(){
@@ -422,16 +390,7 @@ extension WritingEditPageViewController: UITextViewDelegate {
         let estimatedSize = textView.sizeThatFits(size)
         
         textView.constraints.forEach { (constraint) in
-            
-//            /// 50 이하일때는 더 이상 줄어들지 않게하기
-//            if estimatedSize.height <= 50 {
-//
-//            }
-//            else {
-//                if constraint.firstAttribute == .height {
-//                    constraint.constant = estimatedSize.height
-//                }
-//            }
+
         }
         textViewHeightConstraint.constant = textView.intrinsicContentSize.height
     }

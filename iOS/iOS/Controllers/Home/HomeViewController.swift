@@ -7,6 +7,7 @@
 
 import UIKit
 import CalendarDateRangePicker
+import SnapKit
 //import CollectionViewPagingLayout
 
 
@@ -253,7 +254,7 @@ extension HomeViewController:UICollectionViewDelegate,UICollectionViewDataSource
     
 }
 
-extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -309,16 +310,15 @@ extension HomeViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //let interval:CGFloat = 3
-        //let width: CGFloat = ( UIScreen.main.bounds.width - interval * 3 ) / 2
-        
+        let tableViewWidth = tableView.bounds.width
+   
         switch indexPath.row {
         case 0:
-            return 200
+            return CGFloat(tableViewWidth * 0.6)
         case 1:
-            return 400
+            return CGFloat(tableViewWidth * 1.1)
         case 2:
-            return 400
+            return CGFloat(tableViewWidth )
             
         default:
             return 0

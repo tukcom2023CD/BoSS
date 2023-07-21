@@ -47,7 +47,7 @@ class CalendarTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setupCalendar() {
+    private func setupCalendar() {
         calendar.delegate = self
         calendar.dataSource = self
         
@@ -81,23 +81,7 @@ class CalendarTableViewCell: UITableViewCell {
 
 //MARK: - CalendarDelegate, DataSource, DelegateAppearance
 extension CalendarTableViewCell: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
-    
-    // 날짜 선택 시
-//    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-//        //print(eventDates)
-//
-//        let day = dateFormatter.string(from: date)// 선택한 날짜
-//
-//
-//        // 캘린더의 표시된 날짜가 이벤트 날짜에 포함되지 않은 경우
-//        if !eventDates.contains(day) { return  }
-//        else {
-//            //이곳에 해당 day를 가진 여행 schedules정보 바
-//            print(day)
-//
-//        }
-//
-//    }
+
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let selectedDate = dateFormatter.string(from: date)
         

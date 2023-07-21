@@ -70,8 +70,7 @@ class ReceiptViewController: UIViewController {
             if textInput1.text != "" && textInput3.text != ""{
                 
                 let txtString = Spending(name: txt1, quantity: Int(txt2), price: Int(txt3),pid: self.place.pid!)
-              
-                //self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price), pid: self.place.pid!), at: 0)
+  
                 //새로 생긴 행의 새 수량*가격
                 newTotalPrice = (txtString.quantity ?? 1) * txtString.price!
                 totalPrice += newTotalPrice

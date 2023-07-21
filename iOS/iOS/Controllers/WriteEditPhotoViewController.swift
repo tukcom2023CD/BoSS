@@ -9,19 +9,12 @@ import UIKit
 import Photos
 import BSImagePicker
 
-
-
-
 class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     
     
     var photoArray = [UIImage]()
     var pickerController: UIImagePickerController?
-    
     weak var delegate: PhotoArrayProtocol?
-    
-    
-    
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -29,14 +22,12 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        print("받는쪽 사진 배열2은 \(photoArray.count)")//testing
     }
     
     
     @IBAction func deleteImageTapped(_ sender: UIButton) {
         
         self.photoArray.remove(at: sender.tag)
-        
         self.collectionView.reloadData()
         self.delegate?.updatePhotoArray(self.photoArray)
         
