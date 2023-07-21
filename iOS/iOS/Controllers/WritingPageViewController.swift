@@ -21,7 +21,7 @@ class WritingPageViewController: UIViewController {
     
     
     @IBOutlet weak var labelView: UIView!
-    var photoArray: [UIImage] = []
+    var photoArray: [ImageData] = []
     
     @IBOutlet weak var indexBackView: UIView!
     
@@ -241,7 +241,7 @@ class WritingPageViewController: UIViewController {
     // 여행지 사진 네트워킹 완전히 출력이후에 pageControl사용
     func uploadImageCard(completion: @escaping () -> Void) {
         PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
-            var images = [UIImage]()
+            var images = [ImageData]()
             let group = DispatchGroup()
             let queue = DispatchQueue(label: "com.myApp.photoQueue")
             
@@ -252,7 +252,7 @@ class WritingPageViewController: UIViewController {
                 queue.async {
                     if let data = try? Data(contentsOf: url) {
                         if let image = UIImage(data: data) {
-                            images.append(image)
+                            images.append(ImageData(image: image, imageUrl: photo.imageUrl))
                         }
                     }
                     group.leave()
@@ -394,8 +394,7 @@ extension WritingPageViewController: UICollectionViewDelegate, UICollectionViewD
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WritingEditPhotosCollectionViewCell", for: indexPath) as? WritingEditPhotosCollectionViewCell else { return UICollectionViewCell() }
-        cell.photos.image =
-        self.photoArray[indexPath.row]
+        cell.photos.image = self.photoArray[indexPath.row].image
         return cell
         
     }

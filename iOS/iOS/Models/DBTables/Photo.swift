@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 struct PhotoData: Codable {
@@ -46,4 +47,11 @@ struct PhotoWithCategory: Codable {
         case phid, uid, category_name
         case imageUrl = "url"
     }
+}
+
+struct ImageData {
+    var image: UIImage
+    var isAdded: Bool = false
+    var isDeleted: Bool = false
+    var imageUrl: String?
 }

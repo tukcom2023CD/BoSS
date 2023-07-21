@@ -15,7 +15,7 @@ import BSImagePicker
 class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout{
     
     
-    var photoArray = [UIImage]()
+    var photoArray = [ImageData]()
     var pickerController: UIImagePickerController?
     
     weak var delegate: PhotoArrayProtocol?
@@ -34,12 +34,10 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
     
     
     @IBAction func deleteImageTapped(_ sender: UIButton) {
-        
-        self.photoArray.remove(at: sender.tag)
-        
-        self.collectionView.reloadData()
         self.delegate?.updatePhotoArray(self.photoArray)
-        
+        self.delegate?.appendDeletedPhotoArray(self.photoArray[sender.tag])
+        self.photoArray.remove(at: sender.tag)
+        self.collectionView.reloadData()
     }
     
     
@@ -64,9 +62,9 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
         } deselect: { asset in
         } cancel: { assets in
         }
-    finish: { assets in
-        self.convertAssetsToImages(from: assets)
-    }
+        finish: { assets in
+            self.convertAssetsToImages(from: assets)
+        }
     }
     
     
@@ -86,7 +84,7 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
             
         }
         if assets.count != 0 {
-            var convertedImages = [UIImage]()
+            var convertedImages = [ImageData]()
             for i in 0..<assets.count {
                 let manager = PHImageManager.default()
                 let option = PHImageRequestOptions()
@@ -97,8 +95,8 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
                     thumbnail = result!
                 })
                 let data = thumbnail.jpegData(compressionQuality: 0.7)
-                let newImage = UIImage(data: data!)
-                convertedImages.append(newImage! as UIImage)
+                let newImage = UIImage(data: data!)!
+                convertedImages.append(ImageData(image: newImage, isAdded: true))
             }
             self.photoArray.append(contentsOf: convertedImages)
             self.collectionView.reloadData()
@@ -107,6 +105,7 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return self.photoArray.count
         return self.photoArray.count
     }
     
@@ -116,8 +115,9 @@ class WriteEditPhotoViewController: UIViewController ,  UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WritingEditPhotoCollectionViewCell", for: indexPath) as? WritingEditPhotoCollectionViewCell else { return UICollectionViewCell() }
+        
         cell.deleteButton.tag = indexPath.row
-        cell.photoCell.image = self.photoArray[indexPath.row]
+        cell.photoCell.image = photoArray[indexPath.row].image
         cell.photoCell.layer.masksToBounds = true
         return cell
     }
