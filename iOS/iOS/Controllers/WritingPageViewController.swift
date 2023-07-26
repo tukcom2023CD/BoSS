@@ -68,7 +68,7 @@ class WritingPageViewController: UIViewController {
             }
             // costLabel.text = String(totalPrice)
             place.totalSpending! += totalPrice
-            costLabel.text = self.numberFormatter(number:totalPrice)//"\(totalPrice)"
+            costLabel.text = NumberFormatter.numberFormatter(number:totalPrice)//"\(totalPrice)"
         }
         collectionView.reloadData()
         self.collectionView.dataSource = self
@@ -212,10 +212,7 @@ class WritingPageViewController: UIViewController {
         
         func showTableView() {
             self.tableView.isHidden = false
-            // receiptBackImg.isHidden = false            // receiptBackImg를 서서히 나타나게 함
-            //self.receiptBackImg.alpha = 0.0
             UIView.animate(withDuration: 0.8, animations: {
-                // self.receiptBackImg.alpha = 0.23
             })
             // 첫번째 row
             var delayCounter = 0.1
@@ -230,13 +227,7 @@ class WritingPageViewController: UIViewController {
             }
         }
     }
-    // 금액에 콤마를 포함하여 표기 함수
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
-    
+
     // MARK: - uploadImageCard
     // 여행지 사진 네트워킹 완전히 출력이후에 pageControl사용
     func uploadImageCard(completion: @escaping () -> Void) {
@@ -264,28 +255,7 @@ class WritingPageViewController: UIViewController {
             }
         }
     }
-    //    func uploadImageCard() {
-//
-//
-//
-//                PhotoNetManager.shared.read(uid: place.uid!, pid: place.pid!) { photos in
-//
-//                    // 여행지에 추가한 여러 사진들을 적용
-//                    for photo in photos {
-//                        guard let url = URL(string: photo.imageUrl) else { return }
-//                        guard let data = try? Data(contentsOf: url) else { return }
-//
-//                        DispatchQueue.main.async {
-//                            // 이후에 이미지 슬라이드를 통해 여러 사진 적용할 수 있도록 수정
-//                            if let image = UIImage(data: data) {
-//                                                           self.photoArray.append(image)
-//                   }
-//
-//                        }
-//                    }
-//                }
-//    }
-    
+
     
     // MARK: - labelViewSetting() :UI세팅
     func labelViewSetting(){
@@ -437,14 +407,6 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GetpriceTableViewCell", for: indexPath) as? GetpriceTableViewCell else { return UITableViewCell() }
         
-        // 셀의 그림자 설정
-        //           cell.layer.cornerRadius = 8
-        //           cell.layer.shadowColor = UIColor.gray.cgColor
-        //           cell.layer.shadowOffset = CGSize(width: 2, height: 2)
-        //           cell.layer.shadowOpacity = 0.8
-        //           cell.layer.shadowRadius = 4
-        //           cell.layer.masksToBounds = true
-        
         
         if indexPath.row == 0 {
             // 라벨 폰트와 색상 변경
@@ -479,7 +441,7 @@ extension WritingPageViewController : UITableViewDelegate, UITableViewDataSource
             let spending = spendings[indexPath.row-1] // 지출 내역은 첫 번째 row를 제외한 인덱스에 저장
             cell.itemLabel.text = spending.name
             cell.amountLabel.text = "\(spending.quantity ?? 1)"
-            cell.priceLabel.text = self.numberFormatter(number:spending.price!)//"\(spending.price ?? 0)"
+            cell.priceLabel.text = NumberFormatter.numberFormatter(number:spending.price!)//"\(spending.price ?? 0)"
         }
         
         return cell

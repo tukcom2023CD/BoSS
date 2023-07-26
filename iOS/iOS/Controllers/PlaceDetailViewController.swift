@@ -7,7 +7,7 @@
 
 import UIKit
 import GooglePlaces
-
+import SnapKit
 class PlaceDetailViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -18,14 +18,14 @@ class PlaceDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableView()
-        // Do any additional setup after loading the view.
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(barButtonTapped))
+        setNavi()
         
     }
-    func setupTableView() {
+    private func setNavi(){
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(barButtonTapped))
+    }
+    private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -74,7 +74,7 @@ extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate 
             if let url = place.iconImageURL {
                 cell.icon.load(url: url)
                 cell.icon.backgroundColor = place.iconBackgroundColor
-                print(cell.icon.image)
+               
             }
             
             return cell
@@ -98,11 +98,12 @@ extension PlaceDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 100
+            return tableView.bounds.width * 0.25
         case 1:
-            return 300
+            return tableView.bounds.width * 0.8
+            
         case 2:
-            return 300
+            return tableView.bounds.width * 0.8
         default:
             return 0
         }

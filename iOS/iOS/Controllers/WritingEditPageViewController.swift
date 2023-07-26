@@ -135,12 +135,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
         }
     }
-    // MARK: - 금액 3자리수 마다 , 붙이기
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
+
     // MARK: - total_subPriceCal : 총가격과 행마다의 가격계산함수
     func total_subPriceCal(){
         totalPrice = 0
@@ -150,7 +145,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                 totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
                 subTotalData.insert((spendings[i].quantity ?? 1) * (spendings[i].price ?? 0), at: 0)
             }
-            totalPriceLabel.text = numberFormatter(number: totalPrice)//String(totalPrice)
+            totalPriceLabel.text = NumberFormatter.numberFormatter(number: totalPrice)//String(totalPrice)
         }
     }
     
@@ -295,10 +290,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                         self.navigationController?.viewControllers else { return }
                 for vc in vcStack {
                     if let view = vc as? WritingPageViewController {
-                        // view.imageCardData = self.imageCard.image
                         view.spendings = self.spendings
                         view.place = self.place
-                        //view.imageCard.image = self.imageCard.image
                         view.photoArray = self.photoArray
                         self.navigationController?.popToViewController(view, animated: true)
                     }

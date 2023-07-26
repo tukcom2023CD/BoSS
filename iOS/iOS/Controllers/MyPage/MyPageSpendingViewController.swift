@@ -131,12 +131,7 @@ class MyPageSpendingViewController: UIViewController {
         cell.layer.shadowRadius = 5 // 그림자 반경
     }
 
-    // 금액 콤마 표기 함수
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
+  
     
     // 스케줄 상태에 따른 색 구분
     func discriminationScheduleData(schedule: Schedule) -> UIColor {
@@ -187,7 +182,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
             ])
             cell.layer.cornerRadius = screenWidthSize * 0.055 // 모서리 설정
             setShadow(cell : cell) // 그림자 설정
-            cell.userTotalSpendingLabel.text = numberFormatter(number: self.userTotalSpending) // 총지출
+            cell.userTotalSpendingLabel.text = NumberFormatter.numberFormatter(number: self.userTotalSpending) // 총지출
             
             return cell
         }
@@ -246,7 +241,7 @@ extension MyPageSpendingViewController : UICollectionViewDelegate, UICollectionV
                 cell.scheduleStatusLabel.backgroundColor = color // 일정 상태에 대한 색
             }
             if let spending = self.spendingOfEachScheduleDict[sid]?.spending {
-                cell.spendingOfScheduleLabel.text = numberFormatter(number : spending) // 지출 금액
+                cell.spendingOfScheduleLabel.text = NumberFormatter.numberFormatter(number : spending) // 지출 금액
             }
             cell.contentView.alpha = 0.8
             cell.scheduleStatusLabel.layer.masksToBounds = true // 상태 표시 라벨 설정
@@ -413,13 +408,7 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
         cell.layer.shadowRadius = 3 // 그림자 반경
     }
 
-    // 금액 콤마 표기 함수
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
-    
+
     // 셀 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return spendingCount
@@ -477,7 +466,7 @@ class scheduleSpendingCell : UICollectionViewCell, UICollectionViewDelegate, UIC
         }
         // 지출 내역 금액 설정
         if let spending = self.spendingDict[spid]?.spending {
-            cell.spendingLabel.text = numberFormatter(number : spending)
+            cell.spendingLabel.text = NumberFormatter.numberFormatter(number : spending)
         }
         // 지출 날짜 설정
         if let date = self.spendingDict[spid]?.date {

@@ -182,7 +182,8 @@ extension MapViewController: GMSMapViewDelegate {
         
         infoWindow.name.text = place.name
         infoWindow.date.text = place.visitDate
-        infoWindow.spending.text = "\(numberFormatter(number:place.totalSpending!)) 원"
+        infoWindow.spending.text = "\(NumberFormatter.numberFormatter(number:place.totalSpending!)) 원"
+
         infoWindow.name.layoutIfNeeded() // 추가: name 레이블의 레이아웃 업데이트
         
         // 라벨의 너비 자동 조정
@@ -202,12 +203,7 @@ extension MapViewController: GMSMapViewDelegate {
         
         return infoWindow
     }
-    // MARK: - 금액 3자리수 마다 , 붙이기
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
+
 }
 
 // MARK: - CalendarDateRangePickerVCDelegate

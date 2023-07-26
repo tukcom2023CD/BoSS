@@ -58,13 +58,7 @@ class SecondTableViewCell: UITableViewCell {
 
        
     }
-  
-// MARK: - 금액 3자리수 마다 , 붙이기
-func numberFormatter(number: Int) -> String {
-    let numberFormatter = NumberFormatter()
-    numberFormatter.numberStyle = .decimal
-    return numberFormatter.string(from: NSNumber(value: number))!
-}
+
     // 일정에 대한 사진 불러오는 함수
     func requestScheduleIamge() {
         self.scheduleImageDict = [:] // Dict 초기화
@@ -135,7 +129,7 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
                    PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
                        let totalSpending = places.reduce(0) { $0 + ($1.totalSpending ?? 0) }
                        DispatchQueue.main.async {
-                           cell.tripCost.text = "\(self.numberFormatter(number: totalSpending)) 원"
+                           cell.tripCost.text = "\(NumberFormatter.numberFormatter(number: totalSpending)) 원"
                            
                            if let imageUrl = self.scheduleImageDict[schedule.sid!]?.first {
                                DispatchQueue.global().async {

@@ -163,12 +163,7 @@ class MyPageScheduleViewController: UIViewController {
         }
     }
     
-    // 금액에 콤마를 포함하여 표기 함수
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
+
     
     // 총 지출 내역 불러오기
     func requestSpendingData(sid : Int, spendingLabel : UILabel) {
@@ -186,7 +181,7 @@ class MyPageScheduleViewController: UIViewController {
                 }
             }
             group.notify(queue: .main) {
-                spendingLabel.text = self.numberFormatter(number: userTotalSpending)
+                spendingLabel.text = NumberFormatter.numberFormatter(number: userTotalSpending)
             }
         }
     }

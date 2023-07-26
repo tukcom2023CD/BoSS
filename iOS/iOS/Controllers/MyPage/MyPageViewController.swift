@@ -297,12 +297,7 @@ class MyPageViewController: UIViewController {
         view.layer.shadowOpacity = 0.3 // alpha 값
     }
     
-    // 금액에 콤마를 포함하여 표기 함수
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
+   
 
     // 여행 일정 수 불러오기
     func requestScheduleData() {
@@ -335,7 +330,7 @@ class MyPageViewController: UIViewController {
                 }
             }
             group.notify(queue: .main) {
-                self.userSpendingLabel.text = self.numberFormatter(number: userTotalSpending)
+                self.userSpendingLabel.text = NumberFormatter.numberFormatter(number: userTotalSpending)
             }
         }
     }
