@@ -79,7 +79,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         super.viewDidLoad()
         
  
-        
+        setKeyboard()
         setupCamera()
         contentsSetting()
         
@@ -98,9 +98,34 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                 contents.text = place.diary
                 contents.textColor = .black
             }
+        
 
     }
-    
+    private func setKeyboard(){
+        // 키보드 이벤트 옵저버
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+           // 키보드 내리기
+           let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+           view.addGestureRecognizer(tapGesture)
+    }
+    @objc func keyboardWillShow(_ notification: Notification) {
+        // 키보드가 나타날 때 컨텐츠를 키보드 위로
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            scrollView.contentInset.bottom = keyboardHeight
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        // 키보드가 사라질 때 컨텐츠를 원래 위치로
+        scrollView.contentInset = .zero
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // 스크롤 뷰 컨텐츠 크기 재설정
