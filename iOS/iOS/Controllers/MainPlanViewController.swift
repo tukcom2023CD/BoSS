@@ -15,14 +15,10 @@ struct Section {
 class MainPlanViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
     @IBOutlet weak var upperView: UIView!
     @IBOutlet weak var tripTitle: UILabel!
-    
     @IBOutlet weak var period: UILabel!
-
     @IBOutlet weak var outView: UIView!
-    
     @IBOutlet weak var tableTopConstraints: NSLayoutConstraint!
     
     var schedule: Schedule!
@@ -33,27 +29,23 @@ class MainPlanViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        setupInitNav()
         setupTopView()
         setupTableView()
         setupNavigationBar()
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.largeTitleDisplayMode = .never
-        NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleData), name: NSNotification.Name("ScheduleUpdated"), object: nil)
-        tableView.showsVerticalScrollIndicator = false
-              tableView.showsHorizontalScrollIndicator = false
+
       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         requestPlaceData()
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.largeTitleDisplayMode = .never
+        setupInitNav()
     }
     
     
-    func setupTopView() {
+    private func setupTopView() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateScheduleData), name: NSNotification.Name("ScheduleUpdated"), object: nil)
+        
         period.text = "\(schedule.start!) ~ \(schedule.stop!)"
         tripTitle.attributedText = NSAttributedString(
             string: schedule.title!,
@@ -64,8 +56,12 @@ class MainPlanViewController: UIViewController {
             ]
         )
     }
-    
-    func setupNavigationBar() {
+    private func setupInitNav(){
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
+      
+    }
+    private func setupNavigationBar() {
         // "Edit" 버튼을 "수정"으로 변경
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "수정", style: .plain, target: self, action: #selector(barButtonTapped))
         
@@ -107,21 +103,22 @@ class MainPlanViewController: UIViewController {
        
     }
     
-    func setupTableView() {
+    private func setupTableView() {
 
         tableView.delegate = self
         tableView.dataSource = self
         tableView.dragInteractionEnabled = true
         tableView.dragDelegate = self
         tableView.dropDelegate = self
-        
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
         tableView.register(UINib(nibName: "MainPlanHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "MainPlanHeaderView")
         tableView.register(UINib(nibName: "MainPlanTableViewCell", bundle: nil), forCellReuseIdentifier: "MainPlanTableViewCell")
         tableView.register(UINib(nibName: "MainPlanFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: "MainPlanFooterView")
     }
     
     // MARK: -  여행지 데이터 호출
-    func requestPlaceData() {
+    private func requestPlaceData() {
         PlaceNetManager.shared.read(sid: schedule.sid!) { places in
             self.places = places
             
@@ -135,7 +132,7 @@ class MainPlanViewController: UIViewController {
     
     // MARK: -  여행 날짜 추출
     /// - parameter schedules : 모든 일정 데이터
-    func extractScheduleDate(schedules: [Schedule]) {
+    private func extractScheduleDate(schedules: [Schedule]) {
         sections.removeAll()
         for schedule in schedules {
             let start = CustomDateFormatter.format.date(from: schedule.start!)!

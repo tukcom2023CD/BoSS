@@ -22,18 +22,8 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         }
     }
     
-    // Container View segue가 실행될 때 호출되는 함수
-    //       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //           if segue.identifier == "WritingEditPageVC" {
-    //               // Container View 안의 ViewController를 가져옴
-    //               let childViewController = segue.destination as! WriteEditPhotoViewController
-    //
-    //               // 데이터 전달
-    //               childViewController.photoArray = self.photoArray
-    //           }
-    //       }
-    
-    func updatePhotoArray(_ photoArray: [ImageData]) {
+ 
+    func updatePhotoArray(_ photoArray: [UIImage]) {
         self.photoArray = photoArray
         print("받는쪽 사진 배열은 \(photoArray.count) items")
     }
@@ -59,15 +49,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     var deletedPhotos: [ImageData] = []
     let textViewPlaceHolder = "텍스트를 입력하세요"
     let textViewPlaceHolderColor = UIColor.lightGray
-    
     var writeEditPhotoViewController: WriteEditPhotoViewController?
     @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
-
-    
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
-   // @IBOutlet weak var uiView: UIView!
-    
     @IBOutlet weak var contents: UITextView!
     @IBOutlet weak var receiptView: UIView!
     @IBOutlet weak var outView: UIView!
@@ -78,7 +63,6 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     
    
     //WritingPage로 넘길 데이터
-    
     let camera = UIImagePickerController() // 카메라 변수
     var totalPrice : Int = 0
     
@@ -101,7 +85,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         super.viewDidLoad()
         
  
-        
+        setKeyboard()
         setupCamera()
         contentsSetting()
         
@@ -117,18 +101,37 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                 contents.textColor = textViewPlaceHolderColor
             }
             else {
-                
                 contents.text = place.diary
                 contents.textColor = .black
-                
-                
             }
-
-//        textViewHeightConstraint.constant = contents.intrinsicContentSize.height
-//
         
+
     }
-    
+    private func setKeyboard(){
+        // 키보드 이벤트 옵저버
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+           // 키보드 내리기
+           let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+           view.addGestureRecognizer(tapGesture)
+    }
+    @objc func keyboardWillShow(_ notification: Notification) {
+        // 키보드가 나타날 때 컨텐츠를 키보드 위로
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            scrollView.contentInset.bottom = keyboardHeight
+        }
+    }
+
+    @objc func keyboardWillHide(_ notification: Notification) {
+        // 키보드가 사라질 때 컨텐츠를 원래 위치로
+        scrollView.contentInset = .zero
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // 스크롤 뷰 컨텐츠 크기 재설정
@@ -138,12 +141,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
             scrollView.contentSize = CGSize(width: scrollView.frame.width, height: contentHeight)
         }
     }
-    // MARK: - 금액 3자리수 마다 , 붙이기
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
+
     // MARK: - total_subPriceCal : 총가격과 행마다의 가격계산함수
     func total_subPriceCal(){
         totalPrice = 0
@@ -153,7 +151,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                 totalPrice += (spendings[i].quantity ?? 1) * (spendings[i].price ?? 0)
                 subTotalData.insert((spendings[i].quantity ?? 1) * (spendings[i].price ?? 0), at: 0)
             }
-            totalPriceLabel.text = numberFormatter(number: totalPrice)//String(totalPrice)
+            totalPriceLabel.text = NumberFormatter.numberFormatter(number: totalPrice)//String(totalPrice)
         }
     }
     
@@ -192,17 +190,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         camera.delegate = self
     }
     
-    // MARK: - uiViewSetting
-//    func uiViewSetting(){
-//        uiView.dropShadow(color: UIColor.lightGray, offSet:CGSize(width: 0, height: 6), opacity: 0.5, radius:5)
-//
-//        self.uiView.layer.borderWidth = 0.3
-//        self.uiView.layer.borderColor = UIColor.lightGray.cgColor
-//        self.uiView.layer.cornerRadius = 10
-//    }
-    
-    
-    
+
     
     // MARK: - changeTitleMode
     func changeTitleMode(){
@@ -320,17 +308,10 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
                         self.navigationController?.viewControllers else { return }
                 for vc in vcStack {
                     if let view = vc as? WritingPageViewController {
-                        // view.imageCardData = self.imageCard.image
                         view.spendings = self.spendings
                         view.place = self.place
-                        //view.imageCard.image = self.imageCard.image
-                        //view.photoArray = self.photoArray.filter({ !$0.isDeleted }).map({ ImageData(image: $0.image, isAdded: false, imageUrl: $0.imageUrl) })
-                        view.uploadImageCard {
-                            DispatchQueue.main.async {
-                                self.navigationController?.popToViewController(view, animated: true)
-                            }
-                        }
-                        
+                        view.photoArray = self.photoArray
+                        self.navigationController?.popToViewController(view, animated: true)
                     }
                 }
             }
@@ -455,16 +436,7 @@ extension WritingEditPageViewController: UITextViewDelegate {
         let estimatedSize = textView.sizeThatFits(size)
         
         textView.constraints.forEach { (constraint) in
-            
-//            /// 50 이하일때는 더 이상 줄어들지 않게하기
-//            if estimatedSize.height <= 50 {
-//
-//            }
-//            else {
-//                if constraint.firstAttribute == .height {
-//                    constraint.constant = estimatedSize.height
-//                }
-//            }
+
         }
         textViewHeightConstraint.constant = textView.intrinsicContentSize.height
     }

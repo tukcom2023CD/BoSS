@@ -11,7 +11,6 @@ class ExtensionHomeTravelCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var uiView: UIView!
     @IBOutlet weak var labelText: UILabel!
-    
     @IBOutlet weak var images: UIImageView!
     
     override func awakeFromNib() {

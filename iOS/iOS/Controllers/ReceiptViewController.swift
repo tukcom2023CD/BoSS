@@ -70,12 +70,11 @@ class ReceiptViewController: UIViewController {
             if textInput1.text != "" && textInput3.text != ""{
                 
                 let txtString = Spending(name: txt1, quantity: Int(txt2), price: Int(txt3),pid: self.place.pid!)
-              
-                //self.spendings.insert(Spending(name: name, quantity: Int(count), price: Int(price), pid: self.place.pid!), at: 0)
+  
                 //새로 생긴 행의 새 수량*가격
                 newTotalPrice = (txtString.quantity ?? 1) * txtString.price!
                 totalPrice += newTotalPrice
-                totalPriceLabel.text = numberFormatter(number: totalPrice)//"\(totalPrice!)"
+                totalPriceLabel.text = NumberFormatter.numberFormatter(number: totalPrice)//"\(totalPrice!)"
                 
                 
                 self.spendings.insert(txtString, at: 0)
@@ -103,18 +102,12 @@ class ReceiptViewController: UIViewController {
         
         spendings.remove(at: indexpath.row)
         subPriceData.remove(at: indexpath.row)
-        totalPriceLabel.text = numberFormatter(number:totalPrice)
+        totalPriceLabel.text = NumberFormatter.numberFormatter(number:totalPrice)
         tableView.beginUpdates()
         tableView.deleteRows(at: [IndexPath(row: indexpath.row, section: 0)], with: .left)
         tableView.endUpdates()
         
         
-    }
-    // MARK: - 금액 3자리수 마다 , 붙이기
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
     }
     
 }
@@ -134,7 +127,7 @@ extension ReceiptViewController: UITableViewDelegate, UITableViewDataSource{
         cell.itemLabel.text = spendings[indexPath.row].name!//stringArr[indexPath.row].itemData
         
         cell.amountLabel.text = "\(spendings[indexPath.row].quantity ?? 1)"
-        cell.priceLabel.text = numberFormatter(number:spendings[indexPath.row].price ?? 0)//"\(String(describing: spendings[indexPath.row].price!))"
+        cell.priceLabel.text = NumberFormatter.numberFormatter(number:spendings[indexPath.row].price ?? 0)//"\(String(describing: spendings[indexPath.row].price!))"
         return cell
     }
 }

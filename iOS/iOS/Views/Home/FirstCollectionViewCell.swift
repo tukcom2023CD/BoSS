@@ -18,6 +18,9 @@ class FirstCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var outView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        setupUI()
+    }
+    private func setupUI() {
         outermostView.layer.cornerRadius = 5
         outView.layer.cornerRadius = 5
         // 글꼴 변경
@@ -30,7 +33,6 @@ class FirstCollectionViewCell: UICollectionViewCell {
         tripImage.layer.borderWidth = 2
         tripImage.layer.borderColor = UIColor(red: 0.0, green: 0.5, blue: 0.8, alpha: 0.5).cgColor
     }
- 
    
 }
 

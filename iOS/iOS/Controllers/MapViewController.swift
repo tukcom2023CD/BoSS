@@ -33,8 +33,8 @@ class MapViewController: UIViewController {
         loadMapView()
         requestPlaceData()
         setupTopView()
-                applySUITEBoldFont()
-
+        applySUITEBoldFont()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,14 +46,14 @@ class MapViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = false
-       
+        
     }
     func applySUITEBoldFontToButtons() {
         for subview in self.view.subviews {
             applySUITEBoldFontToSubviews(subview)
         }
     }
-
+    
     func applySUITEBoldFontToSubviews(_ view: UIView) {
         for subview in view.subviews {
             if let button = subview as? UIButton {
@@ -63,7 +63,7 @@ class MapViewController: UIViewController {
             }
         }
     }
-
+    
     
     func setupTopView() {
         topView.layer.cornerRadius = 10
@@ -112,7 +112,7 @@ class MapViewController: UIViewController {
                     
                     marker.iconView = animationView
                     
-                   
+                    
                     animationView.play()
                     
                     marker.userData = place
@@ -125,9 +125,9 @@ class MapViewController: UIViewController {
     // 기간 설정 버튼 클릭
     @IBAction func calendarButtonTapped(_ sender: UIButton) {
         print(#function)
-    
+        
         dateRangePickerVC.delegate = self
-    
+        
         dateRangePickerVC.minimumDate = CustomDateFormatter.format.date(from: minimumDate!)
         dateRangePickerVC.maximumDate = Calendar.current.date(byAdding: .year, value: 2, to: Date())
         
@@ -148,7 +148,7 @@ class MapViewController: UIViewController {
         requestPlaceData()
     }
     
-
+    
 }
 
 // MARK: - GMSMapViewDelegate
@@ -156,9 +156,7 @@ extension MapViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "WritingPageViewController") as! WritingPageViewController
-        
-       
-    
+
         let place = marker.userData as! Place
         vc.place = place
         vc.navigationItem.title = place.name
@@ -168,7 +166,7 @@ extension MapViewController: GMSMapViewDelegate {
             vc.spendings = spendings
             DispatchQueue.main.async {
                 self.navigationController?.pushViewController(vc, animated: true)
-              
+                
             }
         }
         
@@ -176,26 +174,27 @@ extension MapViewController: GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-
+        
         let infoWindow = Bundle.main.loadNibNamed("MarkerInfoWindowView", owner: self, options: nil)![0] as! MarkerInfoWindowView
         
-      
+        
         let place = marker.userData as! Place
         
         infoWindow.name.text = place.name
         infoWindow.date.text = place.visitDate
-        infoWindow.spending.text = "\(numberFormatter(number:place.totalSpending!)) 원"
-        infoWindow.name.layoutIfNeeded() // 추가: name 레이블의 레이아웃 업데이트
+        infoWindow.spending.text = "\(NumberFormatter.numberFormatter(number:place.totalSpending!)) 원"
 
+        infoWindow.name.layoutIfNeeded() // 추가: name 레이블의 레이아웃 업데이트
+        
         // 라벨의 너비 자동 조정
         infoWindow.name.sizeToFit()
-
+        
         // 최소 너비를 160으로 유지하고 너비 조정
         let infowindowWidth = max(160, infoWindow.name.frame.width + 30) // name 레이블에 맞게 설정
         let infowindowSize = CGSize(width: infowindowWidth, height: 120) // name 레이블에 맞게 설정
         infoWindow.frame = CGRect(origin: infoWindow.frame.origin, size: infowindowSize)
-
-
+        
+        
         infoWindow.infoView.layer.cornerRadius = 15
         infoWindow.infoView.layer.borderColor = CGColor(red: 0.23, green: 0.5, blue: 0.8, alpha: 0.8)
         infoWindow.infoView.layer.borderWidth = 3
@@ -204,12 +203,7 @@ extension MapViewController: GMSMapViewDelegate {
         
         return infoWindow
     }
-    // MARK: - 금액 3자리수 마다 , 붙이기
-    func numberFormatter(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: number))!
-    }
+
 }
 
 // MARK: - CalendarDateRangePickerVCDelegate
@@ -220,8 +214,6 @@ extension MapViewController: CalendarDateRangePickerViewControllerDelegate {
     }
     
     func didPickDateRange(startDate: Date!, endDate: Date!) {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy.MM.dd"
         self.startDate = CustomDateFormatter.format.string(from: startDate)
         self.endDate = CustomDateFormatter.format.string(from: endDate)
         

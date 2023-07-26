@@ -37,10 +37,6 @@ class SecondCollectionViewCell: UICollectionViewCell {
         tripImage.layer.borderWidth = 3
         tripImage.layer.borderColor = UIColor(red: 0.0, green: 0.5, blue: 0.8, alpha: 0.5).cgColor
 
-
-        //이미지랑 여행지이름만 넣음
-       
-       
     }
 
 }

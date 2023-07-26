@@ -12,7 +12,6 @@ class FirstTableViewCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var planView: UIView!
     @IBOutlet weak var indexLabel: UILabel!
-    
     @IBOutlet weak var label: UILabel!
     var didSelectItem: ((_ schedule: Schedule)->())? = nil
     
@@ -24,12 +23,15 @@ class FirstTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
+        setupUI()
+        requestScheduleIamge()
+     
+    }
+    private func setupUI() {
         label.font = UIFont.fontSUITEBold(ofSize: 20)
         indexLabel.font = UIFont.fontSUITEBold(ofSize: 12)
-        // 사진 불러오기
-        requestScheduleIamge()
+
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         //collectionCell register
@@ -48,17 +50,11 @@ class FirstTableViewCell: UITableViewCell {
         
         // 애니메이션 뷰를 planView의 서브뷰로 추가
         planView.addSubview(animationView)
-        collectionView.reloadData()
     }
-    
-    
-    
-    
+ 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
+            }
     // 일정에 대한 사진 불러오는 함수
     func requestScheduleIamge() {
         self.scheduleImageDict = [:] // Dict 초기화
@@ -188,7 +184,7 @@ extension FirstTableViewCell: UICollectionViewDataSource, UICollectionViewDelega
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width , height: 120)
+        return CGSize(width: collectionView.frame.width , height: collectionView.frame.width * 0.4)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0

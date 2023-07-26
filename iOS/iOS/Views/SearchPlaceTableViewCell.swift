@@ -13,7 +13,6 @@ class SearchPlaceTableViewCell: UITableViewCell {
 
     @IBOutlet weak var tripImg: UIImageView!
     @IBOutlet weak var title: UILabel!
-    
     @IBOutlet weak var subtitle: UILabel!
     var placeData: Region!
     

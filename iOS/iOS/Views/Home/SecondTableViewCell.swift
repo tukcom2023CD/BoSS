@@ -24,20 +24,18 @@ class SecondTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+      
+        // 사진 불러오기
+        requestScheduleIamge()
+        setupCollection()
+        setupUI()
+        
+    }
+    private func setupUI(){
         label.font = UIFont.fontSUITEBold(ofSize: 20)
         indexLabel.font = UIFont.fontSUITEBold(ofSize: 12)
         
-        // 사진 불러오기
-        requestScheduleIamge()
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        
-        collectionView.register(UINib(nibName:"SecondCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "SecondCollectionViewCell")
-        collectionView.register(UINib(nibName: "BlankCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BlankCollectionViewCell")
-        
         let animationView = LottieAnimationView(name: "record")
-        
-        
         animationView.frame = CGRect(x: 0, y: 0, width: 60, height: 60) // 원하는 크기로 설정
         animationView.center = recordView.center
         animationView.loopMode = .loop
@@ -47,19 +45,20 @@ class SecondTableViewCell: UITableViewCell {
         // 애니메이션 뷰를 planView의 서브뷰로 추가
         recordView.addSubview(animationView)
     }
+    private func setupCollection(){
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        
+        collectionView.register(UINib(nibName:"SecondCollectionViewCell", bundle: nil), forCellWithReuseIdentifier : "SecondCollectionViewCell")
+        collectionView.register(UINib(nibName: "BlankCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "BlankCollectionViewCell")
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
        
     }
-  
-// MARK: - 금액 3자리수 마다 , 붙이기
-func numberFormatter(number: Int) -> String {
-    let numberFormatter = NumberFormatter()
-    numberFormatter.numberStyle = .decimal
-    return numberFormatter.string(from: NSNumber(value: number))!
-}
+
     // 일정에 대한 사진 불러오는 함수
     func requestScheduleIamge() {
         self.scheduleImageDict = [:] // Dict 초기화
@@ -130,7 +129,7 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
                    PlaceNetManager.shared.read(sid: schedule.sid ?? 0) { places in
                        let totalSpending = places.reduce(0) { $0 + ($1.totalSpending ?? 0) }
                        DispatchQueue.main.async {
-                           cell.tripCost.text = "\(self.numberFormatter(number: totalSpending)) 원"
+                           cell.tripCost.text = "\(NumberFormatter.numberFormatter(number: totalSpending)) 원"
                            
                            if let imageUrl = self.scheduleImageDict[schedule.sid!]?.first {
                                DispatchQueue.global().async {
@@ -162,9 +161,9 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if schedules?.isEmpty == true {
-            return CGSize(width: collectionView.frame.width , height: 200)
+            return CGSize(width: collectionView.frame.width , height: collectionView.frame.width*0.6)
         }
-        return CGSize(width: collectionView.frame.width/2-6 , height: 250)
+        return CGSize(width: collectionView.frame.width/2-6 , height: collectionView.frame.width*0.63)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -185,7 +184,7 @@ extension SecondTableViewCell: UICollectionViewDataSource, UICollectionViewDeleg
                // BlankCollectionViewCell을 정 가운데
                let collectionViewWidth = collectionView.bounds.width
                let collectionViewHeight = collectionView.bounds.height
-               let blankCellSize = CGSize(width: collectionViewWidth, height: 200)
+               let blankCellSize = CGSize(width: collectionViewWidth, height: collectionViewWidth * 0.6)
                
                let topInset = (collectionViewHeight - blankCellSize.height) / 2
                let bottomInset = topInset
