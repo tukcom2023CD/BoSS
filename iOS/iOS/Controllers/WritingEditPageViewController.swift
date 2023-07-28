@@ -15,6 +15,11 @@ protocol PhotoArrayProtocol: AnyObject {
 }
 
 class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayProtocol{
+    func updatePhotoArray(_ photoArray: [ImageData]) {
+        self.photoArray = photoArray
+        print("받는쪽 사진 배열은 \(photoArray.count) items")
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let sendingVC = segue.destination as? WriteEditPhotoViewController {
             sendingVC.delegate = self
@@ -22,11 +27,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
         }
     }
     
- 
-    func updatePhotoArray(_ photoArray: [UIImage]) {
-        self.photoArray = photoArray
-        print("받는쪽 사진 배열은 \(photoArray.count) items")
-    }
+
     
     func appendDeletedPhotoArray(_ deletedPhotos: ImageData) {
         self.deletedPhotos.append(deletedPhotos)
