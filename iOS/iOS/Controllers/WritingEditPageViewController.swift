@@ -352,6 +352,10 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                 
                 guard let image = image as? UIImage else { return }
                 
+                let alert = UIAlertController(title: "처리 중...", message: "잠시만 기다려주세요.", preferredStyle: .alert)
+
+                self.present(alert, animated: true)
+                
                 if self.imagePickerStatus { // 영수증 OCR
                     OCRNetManager.shared.requestReceiptData(image: image) { [self] receiptData in
                         if receiptData.subResults.isEmpty {     // 총 비용만 존재할 때
@@ -371,6 +375,8 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
                                 total_subPriceCal()
                             }
                         }
+                        
+                        alert.dismiss(animated: true)
                     }
                 }
                 
