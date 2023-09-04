@@ -170,7 +170,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     func setupImagePicker() {
             // 기본설정 셋팅
             var configuration = PHPickerConfiguration()
-            configuration.selectionLimit = 0
+            configuration.selectionLimit = 1
             configuration.filter = .images
             
             // 기본설정을 가지고, 피커뷰컨트롤러 생성
@@ -264,6 +264,11 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
     // MARK: - saveButtonTapped
     //저장하기
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: "처리 중...", message: "잠시만 기다려주세요.", preferredStyle: .alert)
+
+        present(alert, animated: true)
+        
         if contents.text == "텍스트를 입력하세요" {
             place.diary = ""
         } else {
@@ -304,6 +309,7 @@ class WritingEditPageViewController: UIViewController, SendProtocol,PhotoArrayPr
             
             
             dispatchGroup.notify(queue: .main) {
+                alert.dismiss(animated: true)
                 self.deletedPhotos.removeAll()
                 guard let vcStack =
                         self.navigationController?.viewControllers else { return }
@@ -372,6 +378,8 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
         } else {
             print("이미지 못 불러옴")
         }
+        
+        
     }
     // WriteEditPhotoViewController 인스턴스 생성 및 photoArray 접근
     func addImage() {
@@ -385,12 +393,15 @@ extension WritingEditPageViewController: PHPickerViewControllerDelegate {
 extension WritingEditPageViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print(#function)
+        
+        picker.dismiss(animated: true)
+        
         guard let image = info[.originalImage] as? UIImage else { return }
         
+        
         // 인공지능 네트워킹 처리
-        
         let alert = UIAlertController(title: "처리 중...", message: "잠시만 기다려주세요.", preferredStyle: .alert)
-        
+
         present(alert, animated: true)
         //picker.present(alert, animated: true) {
         OCRNetManager.shared.requestReceiptData(image: image) { receiptData in
@@ -412,12 +423,10 @@ extension WritingEditPageViewController: UIImagePickerControllerDelegate {
                     
                 }
             }
+            self.total_subPriceCal()
             alert.dismiss(animated: true)
-            //picker.dismiss(animated: true)
+            
         }
-        //}
-        
-        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
