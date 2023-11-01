@@ -41,7 +41,6 @@
 		37B7BE88298564F900786A1F /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B7BE87298564F900786A1F /* SlideView.swift */; };
 		37B7E32129E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B7E32029E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift */; };
 		37CBE79729EBC8D100BA93A9 /* NavitaionBar+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37CBE79629EBC8D100BA93A9 /* NavitaionBar+Ext.swift */; };
-		37E055FC2A457CEF00A08CC9 /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37E055FB2A457CEF00A08CC9 /* SecretKey.plist */; };
 		37E385E42A6A9975004BD17A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37E385E32A6A9975004BD17A /* SnapKit */; };
 		37ECD62029865D64005E21D4 /* MainPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */; };
 		37ECD62229866358005E21D4 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ECD62129866358005E21D4 /* Region.swift */; };
@@ -112,6 +111,7 @@
 		57EAE56C2A4574DD001F4FF3 /* paperplane.json in Resources */ = {isa = PBXBuildFile; fileRef = 57EAE5642A4574DD001F4FF3 /* paperplane.json */; };
 		57EAE56D2A4574DD001F4FF3 /* right-arrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 57EAE5652A4574DD001F4FF3 /* right-arrow.json */; };
 		57F9FFEF298E74CA0045E7D0 /* MarkerInfoWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */; };
+		7433A2D02AD737DA00FD851A /* SecretKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7433A2CF2AD737DA00FD851A /* SecretKey.plist */; };
 		BF0CCB2429DF128300720875 /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0CCB2329DF128300720875 /* ProfileEditViewController.swift */; };
 		BF64B761299A1921009C5937 /* AlbumImagePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF64B760299A1921009C5937 /* AlbumImagePopUpController.swift */; };
 		BF678DBA29E5A75900AB9597 /* SelectRegionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF678DB929E5A75900AB9597 /* SelectRegionViewController.swift */; };
@@ -191,7 +191,6 @@
 		37B7BE87298564F900786A1F /* SlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
 		37B7E32029E801EF00F1BDEB /* WritingEditPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingEditPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		37CBE79629EBC8D100BA93A9 /* NavitaionBar+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavitaionBar+Ext.swift"; sourceTree = "<group>"; };
-		37E055FB2A457CEF00A08CC9 /* SecretKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		37ECD61F29865D64005E21D4 /* MainPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPlanViewController.swift; sourceTree = "<group>"; };
 		37ECD62129866358005E21D4 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Region.swift; path = Models/Region.swift; sourceTree = "<group>"; };
 		37ECD6232986649D005E21D4 /* RegionDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegionDataManager.swift; path = Models/RegionDataManager.swift; sourceTree = "<group>"; };
@@ -265,6 +264,7 @@
 		57EAE5652A4574DD001F4FF3 /* right-arrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "right-arrow.json"; sourceTree = "<group>"; };
 		57F9FFEE298E74CA0045E7D0 /* MarkerInfoWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoWindowView.swift; sourceTree = "<group>"; };
 		64D24A0EE6A955DADD4FDED7 /* Pods-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.debug.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7433A2CF2AD737DA00FD851A /* SecretKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SecretKey.plist; sourceTree = "<group>"; };
 		8E1B9D2FA7E640881D20000C /* Pods_iOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		94ED1AFAEE2DE97D1C4EE0C7 /* Pods_iOS_iOSUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_iOSUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DEE07AD348DC3004CFABF4 /* Pods-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSTests.release.xcconfig"; path = "Target Support Files/Pods-iOSTests/Pods-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -524,7 +524,7 @@
 				57808756296BEB5600D2BAF8 /* LaunchScreen.storyboard */,
 				57808759296BEB5600D2BAF8 /* Info.plist */,
 				57A1205E297128A7008F5572 /* GoogleService-Info.plist */,
-				37E055FB2A457CEF00A08CC9 /* SecretKey.plist */,
+				7433A2CF2AD737DA00FD851A /* SecretKey.plist */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -758,6 +758,7 @@
 				57808758296BEB5600D2BAF8 /* LaunchScreen.storyboard in Resources */,
 				57EAE5672A4574DD001F4FF3 /* airplane.json in Resources */,
 				57EAE56B2A4574DD001F4FF3 /* calendar.json in Resources */,
+				7433A2D02AD737DA00FD851A /* SecretKey.plist in Resources */,
 				57D5F3C72A484533007CA2F8 /* SUITE-Medium.ttf in Resources */,
 				570AAB7429917850006CB64C /* PlacePhotosTableViewCell.xib in Resources */,
 				57EAE5692A4574DD001F4FF3 /* mapmaker.json in Resources */,
@@ -774,7 +775,6 @@
 				57EAE5662A4574DD001F4FF3 /* record.json in Resources */,
 				3764F658297B974400014FFE /* FirstCollectionViewCell.xib in Resources */,
 				57EAE56D2A4574DD001F4FF3 /* right-arrow.json in Resources */,
-				37E055FC2A457CEF00A08CC9 /* SecretKey.plist in Resources */,
 				57D5F3C82A484533007CA2F8 /* SUITE-ExtraBold.ttf in Resources */,
 				57A1205F297128A7008F5572 /* GoogleService-Info.plist in Resources */,
 				570AAB6C29916044006CB64C /* PlaceInfoTableViewCell.xib in Resources */,
@@ -1202,7 +1202,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
@@ -1240,7 +1240,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FQ9852Z3LX;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";

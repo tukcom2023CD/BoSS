@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>SUITE-SemiBold.ttf</string>
-		<string>SUITE-Bold.ttf</string>
-		<string>SUITE-Medium.ttf</string>
-	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -18,6 +12,12 @@
 				<string>com.googleusercontent.apps.591860460659-hnv69g8p7vkn978d43n6lgi6d75jcmep</string>
 			</array>
 		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SUITE-SemiBold.ttf</string>
+		<string>SUITE-Bold.ttf</string>
+		<string>SUITE-Medium.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
